@@ -1,0 +1,22 @@
+.default, .negative {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	max-width: 150px;
+	height: 43px;
+	padding: 10px;
+	border-radius: 45px;
+	font-family: var(--font01);
+	font-size: 16px;
+	border: solid 1px var(--color04);
+	transition: background-color .15s, color .15s;
+}
+.default, .negative:hover {
+	background-color: var(--color04);
+	color: var(--color01);
+}
+.default:hover, .negative {
+	background-color: transparent;
+	color: var(--color05);
+}
