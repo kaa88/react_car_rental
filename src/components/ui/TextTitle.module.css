@@ -1,0 +1,6 @@
+.default {
+	font-family: var(--font01);
+	font-size: 36px;
+	text-align: center;
+	color: var(--color05);
+}

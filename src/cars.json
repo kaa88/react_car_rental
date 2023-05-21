@@ -1,0 +1,42 @@
+[
+	{
+		"id": 1,
+		"name": "Rental Car One",
+		"engine": "2.0",
+		"transmission": "manual",
+		"passengers": 5,
+		"bags": 4,
+		"doors": 4,
+		"price": 39
+	},
+	{
+		"id": 2,
+		"name": "Rental Car Two",
+		"engine": "1.8",
+		"transmission": "manual",
+		"passengers": 5,
+		"bags": 4,
+		"doors": 4,
+		"price": 35
+	},
+	{
+		"id": 3,
+		"name": "Rental Car Three",
+		"engine": "1.8",
+		"transmission": "automatic",
+		"passengers": 5,
+		"bags": 4,
+		"doors": 4,
+		"price": 42
+	},
+	{
+		"id": 4,
+		"name": "Rental Car Four",
+		"engine": "1.8",
+		"transmission": "manual",
+		"passengers": 5,
+		"bags": 4,
+		"doors": 4,
+		"price": 38
+	}
+]

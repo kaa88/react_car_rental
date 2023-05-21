@@ -4,7 +4,7 @@
 	border-radius: 50%;
 	border: 1px solid var(--color04);
 	background-color: transparent;
-	transition: background-color .15s;
+	transition: background-color var(--timer-hover);
 }
 .negative {
 	transform: rotate(180deg);
@@ -12,3 +12,4 @@
 .default:hover, .negative:hover {
 	background-color: var(--color04);
 }
+.noborder { }

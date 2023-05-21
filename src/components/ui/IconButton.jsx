@@ -2,10 +2,16 @@ import React from 'react';
 import classes from './IconButton.module.css';
 
 
-function IconButton({type = 'default', ...props}) {
-
+function IconButton({
+	modif = 'default',
+	...props
+}) {
+	
 	return (
-		<button className={classes[type]} {...props}>
+		<button
+			className={classes[modif]}
+			{...props}
+		>
 			{props.children || '<'}
 		</button>
 	)

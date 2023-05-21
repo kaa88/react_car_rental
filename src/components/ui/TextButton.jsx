@@ -2,10 +2,16 @@ import React from 'react';
 import classes from './TextButton.module.css';
 
 
-function TextButton({type = 'default', ...props}) {
-
+function TextButton({
+	modif = 'default',
+	...props
+}) {
+	
 	return (
-		<button className={classes[type]} {...props}>
+		<button
+			className={classes[modif]}
+			{...props}
+		>
 			{props.children || 'TextButton'}
 		</button>
 	)

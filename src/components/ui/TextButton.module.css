@@ -9,8 +9,9 @@
 	border-radius: 45px;
 	font-family: var(--font01);
 	font-size: 16px;
+	white-space: nowrap;
 	border: solid 1px var(--color04);
-	transition: background-color .15s, color .15s;
+	transition: background-color var(--timer-hover), color var(--timer-hover);
 }
 .default, .negative:hover {
 	background-color: var(--color04);

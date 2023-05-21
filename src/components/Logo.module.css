@@ -1,0 +1,25 @@
+.logo {
+	font-size: 16px;
+	/* background-color: lime; */
+}
+.logo span {
+	line-height: 1.8em;
+	font-size: 1.5em;
+	font-weight: 500;
+	color: var(--color05);
+	/* background-color: yellow; */
+}
+.link {
+	display: inline-block;
+	height: 2em;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.icon {
+	fill: var(--color04);
+	width: 1.5em;
+	height: 1.5em;
+	position: relative;
+	bottom: 0.2em;
+	transform: rotate(24deg);
+}

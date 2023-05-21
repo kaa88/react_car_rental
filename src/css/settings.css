@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Roboto:wght@400;500&display=swap');
+
+body {
+
+	/* Fonts */
+	--font01: 'Roboto', sans-serif;
+	--font02: 'Inter', 'Roboto', sans-serif;
+	font-family: var(--font01);
+	font-size: 16px;
+
+	/* Colors */
+	--color00: #000000;
+	--color01: #ffffff;
+	--color02: #bbddee;
+	--color03: #333333;
+	--color03t: #33333366;
+	--color04: #FE0000;
+	--color05: #290202;
+
+	/* Transitions */
+	--timer-hover: .15s;
+	
+}
