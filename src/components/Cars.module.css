@@ -1,0 +1,26 @@
+.cars {
+	padding: 40px 0 50px;
+}
+.reqsTitle {
+	margin-top: 60px;
+}
+.reqs {
+	margin-top: 30px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-column-gap: 30px;
+	min-height: 179px;
+}
+.reqsItem {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	padding: 10px;
+	font-size: 20px;
+	line-height: 23px;
+	background-color: var(--color01);
+	border: 1px solid var(--color02);
+	border-top-width: 3px;
+	border-radius: 16px;
+}

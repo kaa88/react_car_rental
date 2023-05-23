@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Roboto:wght@400;500&display=swap');
+
+body {
+
+	/* Fonts */
+	--font01: 'Roboto', sans-serif; /* Main */
+	--font02: 'Inter', 'Roboto', sans-serif; /* Accent */
+
+	/* Colors */
+	--color01: #ffffff; /* primary */
+	--color02: #290202; /* secondary */
+	--color03: #FE0000; /* accent */
+	--color04: #E0CC19; /* additional */
+
+	/* Transitions */
+	--timer-hover: .15s;
+
+}
+
+/* Global */
+.fontMain {
+	font-family: var(--font01);
+}
+.fontAccent {
+	font-family: var(--font02);
+}
+.bold {
+	font-weight: 500;
+}
+.fz16 {
+	font-size: 16px;
+}
+.fz20 {
+	font-size: 20px;
+}
+.fz36 {
+	font-size: 36px;
+}
+.color01 {
+	color: var(--color01);
+	fill: var(--color01);
+}
+.color02 {
+	color: var(--color02);
+	fill: var(--color02);
+}
+.color03 {
+	color: var(--color03);
+	fill: var(--color03);
+}
+.color04 {
+	color: var(--color04);
+	fill: var(--color04);
+}
+.tac {
+	text-align: center;
+}
+.opacity05 {
+	opacity: 0.5;
+}

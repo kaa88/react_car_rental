@@ -1,9 +1,10 @@
 import React from 'react';
 import classes from './Divider.module.css';
 
-function Divider(props) {
+function Divider({className = '', ...props}) {
+
 	return (
-		<span className={classes.divider} {...props}></span>
+		<span className={`${className} ${classes.divider}`} {...props}></span>
 	)
 }
 

@@ -1,5 +1,5 @@
 .default, .negative {
-	display: flex;
+	display: inline-flex;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
@@ -10,14 +10,17 @@
 	font-family: var(--font01);
 	font-size: 16px;
 	white-space: nowrap;
-	border: solid 1px var(--color04);
-	transition: background-color var(--timer-hover), color var(--timer-hover);
+	border: solid 1px var(--color03);
+	user-select: none;
+	transition: background-color var(--timer-hover), color var(--timer-hover), fill var(--timer-hover);
 }
 .default, .negative:hover {
-	background-color: var(--color04);
+	background-color: var(--color03);
 	color: var(--color01);
+	fill: var(--color01);
 }
 .default:hover, .negative {
 	background-color: transparent;
-	color: var(--color05);
+	color: var(--color02);
+	fill: var(--color02);
 }
