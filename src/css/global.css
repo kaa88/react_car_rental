@@ -11,6 +11,7 @@ body {
 	--color02: #290202; /* secondary */
 	--color03: #FE0000; /* accent */
 	--color04: #E0CC19; /* additional */
+	--color05: #ddd; /* ui elements (scrollbar, etc.) */
 
 	/* Transitions */
 	--timer-hover: .15s;

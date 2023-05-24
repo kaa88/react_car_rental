@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Header.module.css';
 import Container from './Container';
 import Link from './ui/Link';
-import TextButton from './ui/Button';
+import Button from './ui/Button';
 import Divider from './ui/Divider';
 import Logo from './Logo';
 
@@ -30,12 +30,7 @@ function Header() {
 						<Divider style={{backgroundColor: 'rgba(50,2,2,0.5)'}} />
 						<p>EUR</p>
 						<p>EN</p>
-						<TextButton
-							modif='negative'
-							style={{minWidth: '112px'}}
-						>
-							Sing in
-						</TextButton>
+						<Button className={classes.button} modif='negative'>Sing in</Button>
 					</div>
 				</div>
 			</Container>

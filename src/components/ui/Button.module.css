@@ -3,7 +3,7 @@
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	max-width: 150px;
+	max-width: 200px;
 	height: 43px;
 	padding: 10px;
 	border-radius: 45px;
@@ -20,7 +20,7 @@
 	fill: var(--color01);
 }
 .default:hover, .negative {
-	background-color: transparent;
+	background-color: var(--color01);
 	color: var(--color02);
 	fill: var(--color02);
 }

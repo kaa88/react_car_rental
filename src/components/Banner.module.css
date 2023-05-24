@@ -40,6 +40,12 @@
 .formCheckboxes > * {
 	margin-right: 20px;
 }
+.submitBtn {
+	width: 221px;
+	height: 80px;
+	border-radius: 70px;
+	font-size: 24px;
+}
 .features {
 	margin-top: 149px;
 	display: grid;

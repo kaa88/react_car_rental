@@ -1,11 +1,14 @@
-.logo {
+.default, .negative {
 	font-size: 16px;
 }
-.logo span {
+.default span, .negative span {
 	line-height: 1.8em;
 	font-size: 1.5em;
 	font-weight: 500;
-	color: var(--color05);
+	color: var(--color02);
+}
+.negative span {
+	color: var(--color01);
 }
 .link {
 	display: inline-block;

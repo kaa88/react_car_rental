@@ -1,9 +1,13 @@
 import React from 'react';
 import classes from './Logo.module.css';
 
-function Logo({href = '/', ...props}) {
+function Logo({
+	href = '/',
+	modif = 'default',
+	...props
+}) {
 	return (
-		<div className={classes.logo} {...props}>
+		<div className={classes[modif]} {...props}>
 			<a className={classes.link} href={href}>
 				<span>RENT</span>
 				<svg className={classes.icon}>

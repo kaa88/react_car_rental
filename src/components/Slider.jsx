@@ -13,16 +13,18 @@ function Slider({className = '', children, swiperParams, ...props}) {
 	})
 
 	return (
-		<swiper-container ref={swiperEl} class={className} init='false'>
-			{children}
-			<div className="swiper-pagination"></div>
-			<Button className="swiper-button-prev" modif='negative'>
+		<div className={className}>
+			<swiper-container ref={swiperEl} init='false'>
+				{children}
+			</swiper-container>
+			<div className={`swiper-pagination ${swiperParams.pagination.el.substring(1)}`}></div>
+			<Button className={`swiper-button-prev ${swiperParams.navigation.prevEl.substring(1)}`} modif='negative'>
 				<Icon name='icon-arrow-short' size='28px' style={{marginLeft: '2px'}} />
 			</Button>
-			<Button className="swiper-button-next" modif='negative'>
+			<Button className={`swiper-button-next ${swiperParams.navigation.nextEl.substring(1)}`} modif='negative'>
 				<Icon name='icon-arrow-short' size='28px' style={{marginLeft: '2px'}} />
 			</Button>
-		</swiper-container>
+		</div>
 	)
 }
 

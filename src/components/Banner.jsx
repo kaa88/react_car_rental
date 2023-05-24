@@ -36,7 +36,7 @@ function Banner() {
 						<InputText />
 					</div>
 					<Divider />
-					<Button type='submit'>Reserve</Button>
+					<Button className={classes.submitBtn} type='submit'>Reserve</Button>
 					<div className={classes.formCheckboxes}>
 						<InputCheckbox>Driver's age 21+</InputCheckbox>
 						<InputCheckbox>Return to different location</InputCheckbox>

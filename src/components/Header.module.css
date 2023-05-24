@@ -22,3 +22,8 @@
 .account > * {
 	margin-left: 28px;
 }
+.button {
+	width: 112px;
+	height: 39px;
+	border-radius: 28px;
+}

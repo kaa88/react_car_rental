@@ -4,6 +4,7 @@ import Banner from './components/Banner';
 import Cars from './components/Cars';
 import Faq from './components/Faq';
 import Feedback from './components/Feedback';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
 			<Cars />
 			<Faq />
 			<Feedback />
+			<Footer />
 		</>
 	);
 }

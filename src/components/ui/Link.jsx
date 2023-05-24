@@ -4,12 +4,13 @@ import classes from './Link.module.css';
 
 function Link({
 	modif = 'default',
+	className = '',
 	...props
 }) {
 	
 	return (
 		<a
-			className={classes[modif]}
+			className={`${className} ${classes[modif]}`}
 			href='#'
 			{...props}
 		>

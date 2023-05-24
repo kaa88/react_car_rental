@@ -4,7 +4,7 @@
 	padding: 0 10px;
 	max-width: 1310px;
 	height: 100%;
-	background-color: #00000033;
+	/* background-color: #00000033; */
 }
 .flex {
 	display: flex;

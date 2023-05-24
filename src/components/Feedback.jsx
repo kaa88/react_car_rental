@@ -3,49 +3,49 @@ import classes from './Feedback.module.css';
 import Container from './Container';
 import Image from './ui/Image';
 import Icon from './ui/Icon';
+import Button from './ui/Button';
 import Slider from './Slider';
-import feedbackData from '../feedback.json';
+import feedbackData from '../data/feedback.json';
 
 
 function Feedback() {
 
-	function fillRating(rating) {
-		return new Array(Number(rating)).map((c, i) =>
-			<Icon key={i} className='color04' name='icon-star' size='32px' />
-		)
-	}
-
 	let swiperParams = {
 		slidesPerView: 1,
-		speed: 600,
 		loop: true,
+		effect: 'fade',
 		navigation: {
-			prevEl: '.swiper-button-prev',
-			nextEl: '.swiper-button-next',
+			prevEl: '.' + classes.buttonPrev,
+			nextEl: '.' + classes.buttonNext
 		},
 		pagination: {
-			el: '.swiper-pagination',
+			el: '.' + classes.pagination,
 			type: 'bullets',
 			clickable: true
 		},
-		slideClass: 'swiper-slide'
 	}
 
+	function fillRating(rating) {
+		rating = Number(rating);
+		if (isNaN(rating)) return console.warn('WARN! Feedback rating is NaN. Expected "Number".')
+		return new Array(rating).fill(true).map((c,i) => <Icon key={i} name='icon-star' />);
+	}
 	let imageDir = 'img/';
-
 	let slides = feedbackData.map((item, index) =>
 		<swiper-slide key={index}>
-			<div className="swiper-slide__content">
-				<div className="swiper-slide__image">
+			<div className={classes.slide}>
+				<div className={classes.image}>
 					<Image src={`${imageDir}${item.img}`} />
 				</div>
-				<div className="swiper-slide__rating">
+				<div className={classes.rating}>
 					{fillRating(item.rating)}
 				</div>
-				<p className="swiper-slide__text">
-					{item.text}
-				</p>
-				<p className="swiper-slide__name">
+				<div className={classes.textBox}>
+					<p className={classes.text}>
+						{item.text}
+					</p>
+				</div>
+				<p className={classes.name}>
 					{item.name}
 				</p>
 			</div>
@@ -55,10 +55,10 @@ function Feedback() {
 	return (
 		<section className={classes.feedback}>
 			<Container>
-				<h3 className='fz36 color02'>Feedback</h3>
-				<Slider className='feedbackSlider' swiperParams={swiperParams}>{slides}</Slider>
+				<h3 className='fz36 color02 tac'>Feedback</h3>
+				<Slider className={classes.slider} swiperParams={swiperParams}>{slides}</Slider>
 
-				<div className="addFeedback"></div>
+				<Button className={classes.addBtn} modif='negative'>Leave a feedback</Button>
 
 			</Container>
 		</section>

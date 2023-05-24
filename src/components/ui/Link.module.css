@@ -1,4 +1,4 @@
-.default, .underlined {
+.default, .underlined, .nohover {
 	position: relative;
 	display: flex;
 	align-items: center;
