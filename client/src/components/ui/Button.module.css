@@ -1,0 +1,26 @@
+.default, .negative {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	max-width: 200px;
+	height: 43px;
+	padding: 10px;
+	border-radius: 45px;
+	font-family: var(--font01);
+	font-size: 16px;
+	white-space: nowrap;
+	border: solid 1px var(--color03);
+	user-select: none;
+	transition: background-color var(--timer-hover), color var(--timer-hover), fill var(--timer-hover);
+}
+.default, .negative:hover {
+	background-color: var(--color03);
+	color: var(--color01);
+	fill: var(--color01);
+}
+.default:hover, .negative {
+	background-color: var(--color01);
+	color: var(--color02);
+	fill: var(--color02);
+}

@@ -1,0 +1,54 @@
+{
+	"parameters": [
+		{
+			"name": "Engine displacement",
+			"icon": "icon-engine"
+		},
+		{
+			"name": "Transmission",
+			"icon": "icon-transmission"
+		},
+		{
+			"name": "Passengers",
+			"icon": "icon-passenger"
+		},
+		{
+			"name": "Large bags",
+			"icon": "icon-bag"
+		},
+		{
+			"name": "Doors",
+			"icon": "icon-door"
+		}
+	],
+	"cars": [
+		{
+			"id": "car2",
+			"name": "Car Number One",
+			"price": 85,
+			"params": ["2.4", "manual", 5, 2, 4],
+			"info": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam quibusdam cum nostrum repellat sapiente repudiandae fugiat minus cupiditate labore iste aut saepe aliquam quasi, sit soluta reiciendis nobis libero optio illum necessitatibus modi voluptate fuga? Accusantium incidunt exercitationem, quos fuga enim nisi ratione sunt mollitia laboriosam, voluptate aliquam consequuntur unde."
+		},
+		{
+			"id": "car1",
+			"name": "Car Number Two",
+			"price": 54,
+			"params": ["2.0", "manual", 2, 1, 2],
+			"info": "Magnam, excepturi! Consequuntur fuga cum amet eaque earum nam, odit perspiciatis iure quae repellat aliquam adipisci nulla vel, placeat doloribus temporibus. Velit omnis dolorem similique nemo mollitia soluta beatae? Iure, reprehenderit! Reprehenderit sit rem alias mollitia voluptates accusamus ipsam illo aliquam, quos assumenda! Iure beatae nisi corrupti ipsa reprehenderit adipisci iusto fugit ea, sapiente repellat sint excepturi amet eveniet dolorem at modi!"
+		},
+		{
+			"id": "car3",
+			"name": "Car Number Three",
+			"price": 32,
+			"params": ["1.2", "manual", 5, 4, 4],
+			"info": "Tenetur rerum earum soluta praesentium dicta asperiores! Facere doloremque at ratione dolor voluptas porro, sit aperiam inventore earum similique culpa quod labore est iusto unde totam."
+		},
+		{
+			"id": "car4",
+			"name": "Car Number Four",
+			"price": 35,
+			"params": ["1.3", "manual", 5, 4, 4],
+			"info": "Optio earum voluptatum quibusdam minima, nemo assumenda aut nobis reprehenderit omnis tenetur iusto dolorem? Reprehenderit nesciunt exercitationem illo molestiae neque blanditiis inventore. Nobis illo molestias ipsumt quaerat laboriosam, deserunt unde dolor animi maiores. Optio doloremque ad totam aperiam exercitationem!"
+		}
+	]
+}

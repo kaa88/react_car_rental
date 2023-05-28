@@ -1,0 +1,14 @@
+{
+	"usd": {
+		"rate": 1,
+		"icon": "icon-usd"
+	},
+	"eur": {
+		"rate": 0.92598,
+		"icon": "icon-eur"
+	},
+	"rub": {
+		"rate": 78.95,
+		"icon": "icon-rub"
+	}
+}

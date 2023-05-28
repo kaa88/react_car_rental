@@ -1,0 +1,76 @@
+.banner {
+	position: relative;
+	height: 800px;
+	padding: 80px 0 90px;
+}
+.bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+}
+.reserveForm {
+	margin-top: 57px;
+	padding: 50px 24px 30px;
+	display: grid;
+	/* grid-template-columns: repeat(6, auto); */
+	grid-template-columns: auto 1px auto auto 1px auto;
+	grid-column-gap: 8px;
+}
+.formItem {
+	position: relative;
+	display: flex;
+
+}
+.formItem > *:not(:last-child) {
+	margin-right: 8px;
+}
+.formItemTitle {
+	position: absolute;
+	left: 0;
+	top: -23px;
+	user-select: none;
+}
+.formCheckboxes {
+	grid-column: 1/-1;
+	margin-top: 14px;
+}
+.formCheckboxes > * {
+	margin-right: 20px;
+}
+.submitBtn {
+	width: 221px;
+	height: 80px;
+	border-radius: 70px;
+	font-size: 24px;
+}
+.features {
+	margin-top: 149px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-column-gap: 30px;
+	min-height: 187px;
+}
+.featuresItem {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+}
+.icon {
+	/* width: 42px;
+	height: 42px; */
+	margin-bottom: 27px;
+}
+.item > *:last-child {
+	margin-top: 8px;
+}
+.blur {
+	background-color: rgba(255, 255, 255, 0.2);
+	border-top: 3px solid rgba(255, 255, 255, 0.2);
+	border-radius: 16px;
+	backdrop-filter: blur(4.5px);
+}
