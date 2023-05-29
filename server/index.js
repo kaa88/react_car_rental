@@ -22,7 +22,7 @@ async function start() {
 			console.log(`Server has been started on port ${PORT}...`)
 		})
 		await sequelize.authenticate()
-			.then(console.log('Database authentication is OK'))
+			.then(console.log('MySQL authentication is OK'))
 		await sequelize.sync()
 	} catch (err) {
 		console.log(err)

@@ -1,7 +1,6 @@
 # TO DO:
 
-- routes
+- minify controllers' code
 - adaptive
-- db
 - account
 - minify
