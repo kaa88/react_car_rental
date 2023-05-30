@@ -8,6 +8,9 @@ import Button from './ui/Button';
 import carData from '../data/cars.json';
 import currencyData from '../data/currencies.json';
 
+import __ from './script/translate'
+
+__('car')
 
 function Cars() {
 

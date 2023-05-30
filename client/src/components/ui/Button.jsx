@@ -9,7 +9,7 @@ function Button({
 	...props
 }) {
 
-	console.log(className);
+	// console.log(className);
 
 	return (
 		<button className={`${className} ${classes[modif]}`} {...props}>

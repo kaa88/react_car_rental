@@ -1,5 +1,6 @@
 # TO DO:
 
+- server
 - adaptive
-- account
+- account page
 - minify
