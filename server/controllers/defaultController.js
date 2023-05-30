@@ -1,7 +1,8 @@
+import ApiError from '../error.js'
 import models from '../models/models.js'
 
-const defaultController = {
-	async add(req, res, model) {
+export const defaultController = {
+	async add(req, res, next, model) {
 		let {createdAt, updatedAt, id, ...attributes} = model.getAttributes()
 		let fields = {}, errors = [];
 
@@ -11,14 +12,14 @@ const defaultController = {
 			else fields[value.fieldName] = req.body[value.fieldName]
 		})
 
-		if (errors.length) return res.json('ERR! "add" function missing attributes: ' + errors.toString())
+		if (errors.length) return next(ApiError.badRequest(`'add' function missing attributes: ${errors.toString()}`))
 		else {
 			let response = await model.create(fields)
 			return response
 		}
 	},
 
-	async edit(req, res, model) {
+	async edit(req, res, next, model) {
 		let {id, ...attributes} = req.body
 		if (!id) return res.json('ERR! Missing id')
 		else {
@@ -26,20 +27,20 @@ const defaultController = {
 				attributes,
 				{where: {id}}
 			)
-			return {message: 'Updated ' + response[0] + ' entries'}
+			return {message: `Updated ${response[0]} entries`}
 		}
 	},
 
-	async delete(req, res, model) {
+	async delete(req, res, next, model) {
 		let {id} = req.body
 		if (!id) return res.json('ERR! Missing id')
 		else {
 			let response = await model.destroy({where: {id}})
-			return {message: 'Deleted ' + response[0] + ' entries'}
+			return {message: `Deleted ${response[0]} entries`}
 		}
 	},
 
-	async get(req, res, model, filter, count) {
+	async get(req, res, next, model, filter, count) {
 		let filterObj = {}, response = null, errors = [];
 		if (filter) {
 			filterObj.where = {}
@@ -49,7 +50,7 @@ const defaultController = {
 				else filterObj.where[item] = req.body[item]
 			})
 		}
-		if (errors.length == filter.length) return res.json('ERR! "get" function missing attributes: ' + errors.toString())
+		if (errors.length == filter.length) return next(ApiError.badRequest(`'get' function missing attributes: ${errors.toString()}`))
 
 		if (count === 'one') response = await model.findOne(filterObj)
 		else response = await model.findAll(filterObj)
@@ -57,25 +58,25 @@ const defaultController = {
 	}
 }
 
-export default function(names = []) {
+export function getDefaultControllers (names = []) {
 	let controllers = {}
 	if (Array.isArray(names) && names.length > 0) {
 		names.map((item) => {
 			controllers[item] = {
-				async add(req, res) {
-					let response = await defaultController.add( req, res, models[item] )
+				async add(req, res, next) {
+					let response = await defaultController.add( req, res, next, models[item] )
 					return res.json(response)
 				},
-				async edit(req, res) {
-					let response = await defaultController.edit( req, res, models[item] )
+				async edit(req, res, next) {
+					let response = await defaultController.edit( req, res, next, models[item] )
 					return res.json(response)
 				},
-				async delete(req, res) {
-					let response = await defaultController.delete( req, res, models[item] )
+				async delete(req, res, next) {
+					let response = await defaultController.delete( req, res, next, models[item] )
 					return res.json(response)
 				},
-				async get(req, res) {
-					let response = await defaultController.get( req, res, models[item] )
+				async get(req, res, next) {
+					let response = await defaultController.get( req, res, next, models[item] )
 					return res.json(response)
 				}
 			}

@@ -8,6 +8,7 @@ const defaults = [
 	'currency',
 	'feedback',
 	'language',
+	'regexp',
 	'reservation'
 ]
 const defaultRouters = getDefaultRouters(defaults)

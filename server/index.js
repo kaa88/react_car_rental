@@ -3,7 +3,6 @@ import express from 'express'
 import sequelize from './db.js'
 // import cors from 'cors'
 import router from './routes/index.js'
-import models from './models/models.js'
 import errorHandler from './middleware/errorHandler.js'
 
 
@@ -14,7 +13,7 @@ app.use(express.json())
 // app.use(cors())
 app.use('/api', router)
 
-// app.use(errorHandler)
+app.use(errorHandler)
 
 async function start() {
 	try {

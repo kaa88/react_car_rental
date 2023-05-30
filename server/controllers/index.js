@@ -1,4 +1,4 @@
-import getDefaultControllers from './defaultController.js'
+import {getDefaultControllers} from './defaultController.js'
 import user from './userController.js'
 
 const defaults = [
@@ -7,6 +7,7 @@ const defaults = [
 	'currency',
 	'feedback',
 	'language',
+	'regexp',
 	'reservation'
 ]
 const defaultControllers = getDefaultControllers(defaults)
