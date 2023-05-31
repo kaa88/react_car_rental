@@ -17,9 +17,10 @@ export default {
 		let {text, currentLang, translateTo} = req.body
 
 		console.log(req.body);
-		console.log(lang[currentLang]);
+		// console.log(lang[currentLang]);
 
 		let string = await lang[currentLang].findOne({where: {text}})
+		if (!string) return res.json(null)
 		let id = string.id
 		let translate = await lang[translateTo].findOne({where: {id}})
 		return res.json(translate.text)

@@ -7,12 +7,16 @@ import Icon from './ui/Icon';
 import Button from './ui/Button';
 import carData from '../data/cars.json';
 import currencyData from '../data/currencies.json';
+import $ from './Translate';
+import TranslationProvider from './TranslationProvider';
 
-import __ from './script/translate'
-
-__('car')
+import lang_en from '../data/lang_en.json';
+import lang_ru from '../data/lang_ru.json';
 
 function Cars() {
+
+	// let tr = <$>hello</$>
+	// console.log(tr);
 
 	let swiperParams = {
 		slidesPerView: 1,
@@ -83,22 +87,43 @@ function Cars() {
 		</swiper-slide>
 	)
 
+	// let ldkjfalksd = 
+	// 	<div className={classes.reqs} title='_$hello'>
+	// 		<p className={classes.reqsItem}>_$You must be 21+ years old</p>
+	// 		<p className={classes.reqsItem}>_$Personal driver licence</p>
+	// 		<p className={classes.reqsItem}>_$Valid credit card and 300 euro deposit</p>
+	// 		<p className={classes.reqsItem}>_$Official document (driver licence or passport) for another driver</p>
+	// 	</div>
+	// console.log(ldkjfalksd);
+
+	function __(str){
+		let dataItem = lang_en.find(item => item.text == str)
+		if (dataItem) {
+			let translate = lang_ru.find(item => item.id == dataItem.id)
+			return translate ? translate.text : str
+		}
+		return str
+	}
+	
 	return (
-		<section className={classes.cars}>
-			<Container>
-				<h3 className='fz36 tac color02'>Our cars</h3>
-				<Slider className={classes.slider} swiperParams={swiperParams}>{slides}</Slider>
+		// <TranslationProvider>
+			<section className={classes.cars}>
+				<Container>
+					<h3 className='fz36 tac color02'>Our cars</h3>
+					<Slider className={classes.slider} swiperParams={swiperParams}>{slides}</Slider>
 
-				<h3 className={classes.reqsTitle}>Reqierments</h3>
-				<div className={classes.reqs}>
-					<p className={classes.reqsItem}>You must be 21+ years old</p>
-					<p className={classes.reqsItem}>Personal driver licence</p>
-					<p className={classes.reqsItem}>Valid credit card and 300 euro deposit</p>
-					<p className={classes.reqsItem}>Official document (driver licence or passport) for another driver</p>
-				</div>
+					<h3 className={classes.reqsTitle}>Reqierments</h3>
+					<div className={classes.reqs} title={__('buy')}>
+						<p className={classes.reqsItem}>{__('ell')}</p>
+						<p className={classes.reqsItem}>_$You must be 21+ years old</p>
+						<p className={classes.reqsItem}>_$Personal driver licence</p>
+						<p className={classes.reqsItem}>_$Valid credit card and 300 euro deposit</p>
+						<p className={classes.reqsItem}>_$Official document (driver licence or passport) for another driver</p>
+					</div>
 
-			</Container>
-		</section>
+				</Container>
+			</section>
+		// </TranslationProvider>
 	)
 }
 

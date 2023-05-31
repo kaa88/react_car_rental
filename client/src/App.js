@@ -6,7 +6,6 @@ import Faq from './components/Faq';
 import Feedback from './components/Feedback';
 import Footer from './components/Footer';
 
-
 function App() {
 
 	return (
