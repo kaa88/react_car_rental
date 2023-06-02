@@ -1,0 +1,67 @@
+/* select {display: none;} */
+.select {
+	position: relative;
+	width: 182px;
+	height: 32px;
+	cursor: pointer;
+	transition: all var(--timer-select);
+}
+.header {
+	height: 100%;
+	padding: 0 10px;
+	display: flex;
+	align-items: center;
+	background-color: orange;
+	border: solid 2px #555;
+	overflow: hidden;
+	user-select: none;
+}
+.headerText {
+	flex: 1 1 auto;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.headerIcon {
+	margin-left: 10px;
+	flex: 0 0 auto;
+	width: 8px;
+	height: 8px;
+	display: flex;
+	align-items: center;
+	transform: rotate(90deg);
+}
+.header:hover, .select.active .header {
+	border-color: yellow;
+}
+/* select.formError ~ .header {
+	border-color: red;
+} */
+.listWrapper {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	z-index: 2;
+	height: 0;
+	overflow: hidden;
+	border: solid 2px yellow;
+	transition: all var(--timer-select);
+	visibility: hidden;
+}
+.listWrapper.active {
+	visibility: visible;
+}
+.list {}
+.option {
+	display: flex;
+	align-items: center;
+	background-color: #fff;
+	height: 28px;
+	padding: 0 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	transition: all var(--timer-hover);
+}
+.option.selected, .option:hover {
+	background-color: #ddd;
+}

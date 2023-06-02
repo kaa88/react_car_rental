@@ -40,20 +40,26 @@ export const defaultController = {
 		}
 	},
 
-	async get(req, res, next, model, filter, count) {
+	async get(req, res, next, model, filter, one) {
 		let filterObj = {}, response = null, errors = [];
 		if (filter) {
-			filterObj.where = {}
-			if (typeof filter == 'string') filter = [filter]
-			filter.map((item) => {
-				if (!req.body[item]) errors.push(item)
-				else filterObj.where[item] = req.body[item]
-			})
+			// filterObj.where = {}
+			// if (typeof filter == 'string') filter = [filter]
+			// filter.map((item) => {
+			// 	if (!req.body[item]) errors.push(item)
+			// 	else filterObj.where[item] = req.body[item]
+			// })
+			filterObj.where = filter
 		}
 		if (errors.length == filter.length) return next(ApiError.badRequest(`'get' function missing attributes: ${errors.toString()}`))
 
-		if (count === 'one') response = await model.findOne(filterObj)
-		else response = await model.findAll(filterObj)
+		try {
+			if (one) response = await model.findOne(filterObj)
+			else response = await model.findAll(filterObj)
+		}
+		catch(err) {
+			console.error(err.message);
+		}
 		return response
 	}
 }
@@ -76,7 +82,9 @@ export function getDefaultControllers (names = []) {
 					return res.json(response)
 				},
 				async get(req, res, next) {
-					let response = await defaultController.get( req, res, next, models[item] )
+					let {one, ...filter} = req.query
+					console.log(filter);
+					let response = await defaultController.get( req, res, next, models[item], filter, one )
 					return res.json(response)
 				}
 			}

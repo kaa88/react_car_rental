@@ -6,17 +6,11 @@ import Image from './ui/Image';
 import Icon from './ui/Icon';
 import Button from './ui/Button';
 import carData from '../data/cars.json';
-import currencyData from '../data/currencies.json';
-import $ from './Translate';
-import TranslationProvider from './TranslationProvider';
+import { Currency } from './script/currency.js';
+import __ from './script/translate';
 
-import lang_en from '../data/lang_en.json';
-import lang_ru from '../data/lang_ru.json';
 
 function Cars() {
-
-	// let tr = <$>hello</$>
-	// console.log(tr);
 
 	let swiperParams = {
 		slidesPerView: 1,
@@ -34,7 +28,7 @@ function Cars() {
 	}
 
 	let carParams = carData.parameters;
-	let [currency, setCurrency] = useState(currencyData.rub);
+	let [currency, setCurrency] = useState(Currency.current);
 	let imageDir = 'img/';
 
 	let slides = carData.cars.map((car, index) =>
@@ -59,7 +53,7 @@ function Cars() {
 										: ''
 									}`}
 								/>
-								<p>{param.name}: <span className='bold'>{car.params[i]}</span></p>
+								<p>{param.name}: <span className='bold'>{__(car.params[i])}</span></p>
 							</div>
 						)
 					}
@@ -68,18 +62,16 @@ function Cars() {
 				<div className={classes.action}>
 					<div className={classes.price}>
 						<span className='bold'>
-							{Math.floor(car.price * currency.rate)}
+							{Math.floor(car.price * Currency.rates[currency])}
 						</span>
 						<span>
-							<Icon className={classes.priceCurrency} name={currency.icon} />
+							<Icon className={classes.priceCurrency} name={`icon-${currency}`} />
 						</span>
-						<span>
-							/per day
-						</span>
+						<span>/{__('per day')}</span>
 					</div>
 					<div className={classes.actionButtons}>
-						<Button className={classes.actionBtn}>Book now</Button>
-						<Button className={classes.infoBtn} modif='negative'>View details</Button>
+						<Button className={classes.actionBtn}>{__('Book now')}</Button>
+						<Button className={classes.infoBtn} modif='negative'>{__('View details')}</Button>
 					</div>
 				</div>
 			</div>
@@ -87,43 +79,23 @@ function Cars() {
 		</swiper-slide>
 	)
 
-	// let ldkjfalksd = 
-	// 	<div className={classes.reqs} title='_$hello'>
-	// 		<p className={classes.reqsItem}>_$You must be 21+ years old</p>
-	// 		<p className={classes.reqsItem}>_$Personal driver licence</p>
-	// 		<p className={classes.reqsItem}>_$Valid credit card and 300 euro deposit</p>
-	// 		<p className={classes.reqsItem}>_$Official document (driver licence or passport) for another driver</p>
-	// 	</div>
-	// console.log(ldkjfalksd);
-
-	function __(str){
-		let dataItem = lang_en.find(item => item.text == str)
-		if (dataItem) {
-			let translate = lang_ru.find(item => item.id == dataItem.id)
-			return translate ? translate.text : str
-		}
-		return str
-	}
-	
 	return (
-		// <TranslationProvider>
-			<section className={classes.cars}>
-				<Container>
-					<h3 className='fz36 tac color02'>Our cars</h3>
-					<Slider className={classes.slider} swiperParams={swiperParams}>{slides}</Slider>
+		<section className={classes.cars}>
+			<Container>
 
-					<h3 className={classes.reqsTitle}>Reqierments</h3>
-					<div className={classes.reqs} title={__('buy')}>
-						<p className={classes.reqsItem}>{__('ell')}</p>
-						<p className={classes.reqsItem}>_$You must be 21+ years old</p>
-						<p className={classes.reqsItem}>_$Personal driver licence</p>
-						<p className={classes.reqsItem}>_$Valid credit card and 300 euro deposit</p>
-						<p className={classes.reqsItem}>_$Official document (driver licence or passport) for another driver</p>
-					</div>
+				<h3 className='fz36 tac color02'>{__('Our cars')}</h3>
+				<Slider className={classes.slider} swiperParams={swiperParams}>{slides}</Slider>
 
-				</Container>
-			</section>
-		// </TranslationProvider>
+				<h3 className={classes.reqsTitle}>{__('Reqierments')}</h3>
+				<div className={classes.reqs}>
+					<p className={classes.reqsItem}>{__('You must be 21+ years old')}</p>
+					<p className={classes.reqsItem}>{__('Personal driver licence')}</p>
+					<p className={classes.reqsItem}>{__('Valid credit card and 300 euro deposit')}</p>
+					<p className={classes.reqsItem}>{__('Official document (driver licence or passport) for another driver')}</p>
+				</div>
+
+			</Container>
+		</section>
 	)
 }
 

@@ -5,6 +5,7 @@ import Link from './ui/Link';
 import Button from './ui/Button';
 import Divider from './ui/Divider';
 import Logo from './Logo';
+import Select from './ui/Select';
 
 function Header() {
 	return (
@@ -28,8 +29,8 @@ function Header() {
 					</nav>
 					<div className={classes.account}>
 						<Divider style={{backgroundColor: 'rgba(50,2,2,0.5)'}} />
-						<p>EUR</p>
-						<p>EN</p>
+						<Select type='currency' icon='icon-arrow-short'></Select>
+						<Select type='language' icon='icon-arrow-short'></Select>
 						<Button className={classes.button} modif='negative'>Sing in</Button>
 					</div>
 				</div>

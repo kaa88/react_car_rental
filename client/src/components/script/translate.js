@@ -1,57 +1,50 @@
-async function getTranslation(str) {
-	if (str === '' || typeof str != 'string') return str
+import lang_en from '../../data/language/en.json'
+import lang_ru from '../../data/language/ru.json'
+import lang_de from '../../data/language/de.json'
+import { getCookie, setCookie } from './cookie.js'
 
-	const PATH = 'http://localhost:5000/api/language'
-	const headers = {
-		'Content-Type': 'application/json;charset=utf-8'
-	}
-	const body = {
-		text: str,
-		currentLang: "lang_en",
-		translateTo: "lang_ru"
-	}
-	let result = str
-
-	const controller = new AbortController()
-	let abortTimeout = setTimeout(() => {
-		controller.abort()
-		console.error('Fetch aborted due to timeout')
-		return result
-	}, 2000)
-
-	await fetch( PATH, {
-		method: 'POST',
-		headers: headers,
-		body: JSON.stringify(body),
-		signal: controller.signal
-	})
-	.then(response => {
-		clearTimeout(abortTimeout)
-		if (response.ok) return response.json()
-	})
-	.then(data => {
-		if (data) result = data
-	})
-	.catch(error => {
-		console.error(error)
-	})
-	return result
+function getCurrentLanguage() {
+	let currentLang = getCookie()[Language.name]
+	if (!currentLang) currentLang = Language.default
+	return currentLang
 }
 
-const recentServerRequests = {}
+export const Language = {
+	name: 'language',
+	list: [ 'en', 'ru', 'de' ],
+	default: 'en',
+	current: '',
+	set(lang) {
+		if (lang) {
+			this.current = lang
+			setCookie({
+				name: this.name,
+				value: lang.toLowerCase(),
+				expires: 30,
+			}, true )
+		}
+	}
+}
+Language.current = getCurrentLanguage()
 
-export default async function(processInfo, req) {
-	// This func blocks recurring server requests e.g. when React trying to rerender many times.
-	let caller, process, delay = 1000;
-	caller = recentServerRequests[processInfo[0]]
-	if (caller) process = caller[processInfo[1]]
+export default function (str){
+	if (str === '' || typeof str !== 'string') return str
+	if (Language.current === Language.default) return str
 
-	let time = Date.now() - process
-	if (time < delay) return null
+	const deps = {
+		en: lang_en,
+		ru: lang_ru,
+		de: lang_de
+	}
 
-	recentServerRequests[processInfo[0]] = {}
-	recentServerRequests[processInfo[0]][processInfo[1]] = Date.now()
+	let match = deps[Language.default].find(item => item.text.toLocaleLowerCase() == str.toLocaleLowerCase())
+	if (match) {
+		let translate = deps[Language.current].find(item => item.id == match.id)
+		if (translate) return translate.text
+	}
 
-	let fetchedData = await getTranslation(req)
-	return fetchedData
+	let shortStr, shortStrLength = 30;
+	if (str.length > shortStrLength) shortStr = str.substring(0, shortStrLength) + '...'
+	console.warn(`Missing "${Language.current}" translate for "${shortStr ? shortStr : str}"`)
+	return str
 }
