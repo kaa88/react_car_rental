@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import {useDispatch, useSelector} from 'react-redux'
+import {changeCurrency} from '../../store/reducers/currencyReducer'
 import classes from './Select.module.css';
 import Icon from './Icon';
 import activeState from '../script/activeState';
 import { useCustomElement } from '../../hooks/useCustomElement';
 import { Language } from '../script/translate';
-import { Currency } from '../script/currency';
 
 function Select({
 	modif = 'select',
 	type,
 	className = '',
-	icon = '',
 	children,
 	...props
 }) {
+	const Currency = useSelector(state => state.currency)
+	const dispatch = useDispatch()
+
 	
 	const dataTypes = {
 		language: Language,
@@ -26,9 +29,14 @@ function Select({
 	const select = useCustomElement(`${className} ${classes[modif]}`)
 	const header = useCustomElement(classes.header)
 	const headerText = useCustomElement(classes.headerText, Data.current.toUpperCase())
-	const headerIcon = useCustomElement(classes.headerIcon)
+	const headerTypeIcon = useCustomElement(classes.headerTypeIcon)
+	const headerExpandIcon = useCustomElement(classes.headerExpandIcon)
 	const listWrapper = useCustomElement(classes.listWrapper)
 	const list = useCustomElement(classes.list, getCustomOptionList())
+
+	const typeIcon = type === 'currency'
+		? `icon-${headerText.children.toLowerCase()}`
+		: 'icon-globe'
 
 	function getCustomOptionList() {
 		return Data.list.map((item, index) => {
@@ -61,16 +69,22 @@ function Select({
 			listWrapper.el.style.height = ''
 		}
 		e.stopPropagation()
+
+		if (e.currentTarget.parentElement !== select.el) console.log('ksdjfa'); //close() // не работает это
 		if (e.currentTarget === window) return close()
 
 		if (activeState.check(listWrapper, classes.active)) close()
 		else open()
+
 	}
 
+	// сделать список без повторов, т.е. перемещать пункт из листа в хедер (см. макет)
+
 	function selectItem(e) {
-		if (Data.current === e.target.innerHTML.toLowerCase()) return console.log('hahaha');;
+		if (Data.current === e.target.innerHTML.toLowerCase()) return;
 		Data.set(e.target.innerHTML)
 		if (type === 'language') setReloadLanguage(true)
+		if (type === 'currency') dispatch(changeCurrency(e.target.innerHTML.toLowerCase()))
 
 		let newList = list.children.map(item => {
 			let className = (item.props.children === e.target.innerHTML)
@@ -83,11 +97,14 @@ function Select({
 	}
 
 	return (
-		<div className={select.className}>
+		<div className={select.className} ref={select.ref}>
 			<div className={header.className} ref={header.ref} onClick={toggleList}>
+				<span className={headerTypeIcon.className} ref={headerTypeIcon.ref}>
+					<Icon name={typeIcon} />
+				</span>
 				<span className={headerText.className} ref={headerText.ref}>{headerText.children}</span>
-				<span className={headerIcon.className} ref={headerIcon.ref}>
-					<Icon name={icon} />
+				<span className={headerExpandIcon.className} ref={headerExpandIcon.ref}>
+					<Icon name='icon-arrow-short' />
 				</span>
 			</div>
 			<div className={listWrapper.className} ref={listWrapper.ref} onClick={toggleList}>

@@ -7,9 +7,9 @@ export default function(routeNames = []) {
 		routeNames.map((item) => {
 			let router = express.Router()
 
-			router.post('/add', controllers[item].add)
-			router.post('/edit', controllers[item].edit)
-			router.delete('/delete', controllers[item].delete)
+			router.post('/', controllers[item].add)
+			router.put('/', controllers[item].edit)
+			router.delete('/', controllers[item].delete)
 			router.get('/', controllers[item].get)
 
 			routers[item] = router

@@ -3,29 +3,26 @@ import lang_ru from '../../data/language/ru.json'
 import lang_de from '../../data/language/de.json'
 import { getCookie, setCookie } from './cookie.js'
 
-function getCurrentLanguage() {
-	let currentLang = getCookie()[Language.name]
-	if (!currentLang) currentLang = Language.default
-	return currentLang
+function setLang(lang) {
+	if (lang) {
+		this.current = lang
+		setCookie({
+			name: this.name,
+			value: lang.toLowerCase(),
+			expires: 30,
+		}, true )
+	}
 }
 
 export const Language = {
 	name: 'language',
-	list: [ 'en', 'ru', 'de' ],
 	default: 'en',
-	current: '',
-	set(lang) {
-		if (lang) {
-			this.current = lang
-			setCookie({
-				name: this.name,
-				value: lang.toLowerCase(),
-				expires: 30,
-			}, true )
-		}
-	}
+	current: 'en',
+	list: [ 'en', 'ru', 'de' ],
+	set: setLang
 }
-Language.current = getCurrentLanguage()
+let currentLang = getCookie()[Language.name]
+if (currentLang) Language.current = currentLang
 
 export default function (str){
 	if (str === '' || typeof str !== 'string') return str

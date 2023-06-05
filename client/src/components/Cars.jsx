@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import store from '../store/index'
+import __ from './script/translate';
 import classes from './Cars.module.css';
 import Container from './Container';
 import Slider from './Slider';
@@ -6,8 +8,6 @@ import Image from './ui/Image';
 import Icon from './ui/Icon';
 import Button from './ui/Button';
 import carData from '../data/cars.json';
-import { Currency } from './script/currency.js';
-import __ from './script/translate';
 
 
 function Cars() {
@@ -27,8 +27,17 @@ function Cars() {
 		},
 	}
 
+	function getCurrency(){
+		const storeData = store.getState().currency
+		return {
+			name: storeData.current,
+			rate: storeData.rates[storeData.current]
+		}
+	}
+	let [currency, setCurrency] = useState(getCurrency())
+	store.subscribe(() => setCurrency(getCurrency()))
+
 	let carParams = carData.parameters;
-	let [currency, setCurrency] = useState(Currency.current);
 	let imageDir = 'img/';
 
 	let slides = carData.cars.map((car, index) =>
@@ -62,10 +71,10 @@ function Cars() {
 				<div className={classes.action}>
 					<div className={classes.price}>
 						<span className='bold'>
-							{Math.floor(car.price * Currency.rates[currency])}
+							{Math.floor(car.price * currency.rate)}
 						</span>
 						<span>
-							<Icon className={classes.priceCurrency} name={`icon-${currency}`} />
+							<Icon className={classes.priceCurrency} name={`icon-${currency.name}`} />
 						</span>
 						<span>/{__('per day')}</span>
 					</div>

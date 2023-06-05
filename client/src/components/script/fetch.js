@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 async function fetchData(request) {
 	if (!request || typeof request !== 'object') return null
 	const {path, method, body} = request
@@ -15,7 +17,7 @@ async function fetchData(request) {
 	const controller = new AbortController()
 	let abortTimeout = setTimeout(() => {
 		controller.abort()
-		console.error(`Fetch "${path}" aborted due to timeout`)
+		console.error(`"${path}" fetch has been aborted due to timeout`)
 		return result
 	}, 2000)
 
@@ -46,6 +48,7 @@ async function fetchData(request) {
 const recentServerRequests = {}
 
 export default async function({processInfo, request}) {
+	console.log('fetch');
 	// This func blocks recurring server requests e.g. when React trying to rerender many times.
 	// let caller, process, delay = 1000;
 	// caller = recentServerRequests[processInfo[0]]
