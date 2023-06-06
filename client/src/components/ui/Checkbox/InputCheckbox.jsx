@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './InputCheckbox.module.css';
-import Icon from './Icon';
+import Icon from '../Icon/Icon';
 
 
 function InputCheckbox({

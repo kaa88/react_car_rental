@@ -1,11 +1,11 @@
 import React from 'react';
 import classes from './Feedback.module.css';
-import Container from './Container';
-import Image from './ui/Image';
-import Icon from './ui/Icon';
-import Button from './ui/Button';
-import Slider from './Slider';
-import feedbackData from '../data/feedback.json';
+import Container from '../../ui/Container/Container';
+import Image from '../../ui/Image/Image';
+import Icon from '../../ui/Icon/Icon';
+import Button from '../../ui/Button/Button';
+import Slider from '../Slider/Slider';
+import feedbackData from './Feedback.data.json';
 
 
 function Feedback() {

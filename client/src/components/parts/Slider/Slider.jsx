@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import './Slider.css';
-import Icon from './ui/Icon';
-import Button from './ui/Button';
+import Icon from '../../ui/Icon/Icon';
+import Button from '../../ui/Button/Button';
 
 
 function Slider({className = '', children, swiperParams, ...props}) {

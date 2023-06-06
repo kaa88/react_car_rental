@@ -1,32 +1,42 @@
 .select {
 	position: relative;
+	display: flex;
+	align-items: center;
+	/* width: 87px; */
+	/* padding-left: 45px; */
 	height: 27px;
-	cursor: pointer;
 	transition: all var(--timer-select);
 	font-size: 16px;
-	color: var(--color01);
 }
 .header {
 	position: relative;
+	z-index: 3;
 	height: 100%;
 	padding: 0 4px;
 	display: flex;
 	align-items: center;
-	background-color: var(--color02);
+	/* background-color: var(--color02); */
 	user-select: none;
 	border-radius: 8px;
+	cursor: pointer;
+	transition: color var(--timer-select), fill var(--timer-select);
 }
 .headerText {
 	flex: 1 1 auto;
 	white-space: nowrap;
 	overflow: hidden;
 }
-.headerTypeIcon {
-	position: absolute;
-	left: -25px;
+.header.active {
+	color: var(--color01);
+	fill: var(--color01);
+}
+.typeIcon {
+	margin-right: 6px;
+	/* position: absolute;
+	left: -25px; */
 	cursor: default;
 }
-.headerTypeIcon svg {
+.typeIcon svg {
 	width: 16px;
 	height: 16px;
 	fill: var(--color02);
@@ -39,7 +49,6 @@
 	display: flex;
 	align-items: center;
 	transform: rotate(90deg);
-	fill: var(--color01);
 }
 .headerExpandIcon svg {
 	width: 8px;
@@ -50,22 +59,28 @@
 /* } */
 .listWrapper {
 	position: absolute;
-	top: calc(100% - 10px);
-	left: 0;
-	width: 100%;
+	top: 0;
+	/* top: calc(100% - 7px); */
+	right: 0;
+	width: calc(100% - 22px);
+	/* left: 0; */
+	/* width: 100%; */
 	z-index: 2;
-	height: 0;
+	height: 27px;
 	overflow: hidden;
 	transition: all var(--timer-select);
 	visibility: hidden;
 	background-color: var(--color02);
-	border-radius: 0 0 8px 8px;
+	border-radius: 8px;
+	color: var(--color01);
+	opacity: 0;
 }
 .listWrapper.active {
 	visibility: visible;
+	opacity: 1;
 }
 .list {
-	padding-top: 7px;
+	padding-top: 27px; /* 7 */
 }
 .option {
 	display: flex;
@@ -77,6 +92,7 @@
 	transition: all var(--timer-hover);
 	user-select: none;
 	opacity: 0.5;
+	cursor: pointer;
 }
 .option.selected, .option:hover {
 	opacity: 1;

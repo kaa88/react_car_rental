@@ -1,12 +1,12 @@
 import React from 'react';
 import classes from './Footer.module.css';
-import Container from './Container';
-import Image from './ui/Image';
-import Icon from './ui/Icon';
-import Button from './ui/Button';
-import InputText from './ui/InputText';
-import Link from './ui/Link';
-import Logo from './Logo';
+import Container from '../../ui/Container/Container';
+import Image from '../../ui/Image/Image';
+import Icon from '../../ui/Icon/Icon';
+import Button from '../../ui/Button/Button';
+import InputText from '../../ui/InputText/InputText';
+import Link from '../../ui/Link/Link';
+import Logo from '../../ui/Logo/Logo';
 
 
 function Footer() {

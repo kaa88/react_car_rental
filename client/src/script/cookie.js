@@ -15,7 +15,7 @@ export function setCookie(params = {}, log) {
 	if (!params.name || !params.value) return console.log('Error: Required cookie "name" or "value" is missing.');
 
 	let cookieArr = [];
-	cookieArr.push(encodeURIComponent(params.name) + '=' +  encodeURIComponent(params.value));
+	cookieArr.push(encodeURIComponent(params.name) + '=' + encodeURIComponent(params.value));
 	cookieArr.push('path=' + (params.path ? params.path : '/'));
 
 	if (params.expires) {

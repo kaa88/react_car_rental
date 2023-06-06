@@ -1,28 +1,30 @@
-import lang_en from '../../data/language/en.json'
-import lang_ru from '../../data/language/ru.json'
-import lang_de from '../../data/language/de.json'
-import { getCookie, setCookie } from './cookie.js'
+import { getCookie, setCookie } from './cookie'
+import lang_en from '../language/en.json'
+import lang_ru from '../language/ru.json'
+import lang_de from '../language/de.json'
 
-function setLang(lang) {
-	if (lang) {
-		this.current = lang
-		setCookie({
-			name: this.name,
-			value: lang.toLowerCase(),
-			expires: 30,
-		}, true )
-	}
-}
+
+const cookieExpireDays = 30
+const isCookieLog = true
 
 export const Language = {
 	name: 'language',
 	default: 'en',
 	current: 'en',
 	list: [ 'en', 'ru', 'de' ],
-	set: setLang
+	setCookie(value) {
+		if (value) {
+			setCookie({
+				name: this.name,
+				value: value.toLowerCase(),
+				expires: cookieExpireDays,
+			}, isCookieLog )
+		}
+	}
 }
 let currentLang = getCookie()[Language.name]
 if (currentLang) Language.current = currentLang
+
 
 export default function (str){
 	if (str === '' || typeof str !== 'string') return str

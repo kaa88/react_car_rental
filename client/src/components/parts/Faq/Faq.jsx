@@ -1,10 +1,9 @@
 import React from 'react';
 import classes from './Faq.module.css';
-import Container from './Container';
-import Image from './ui/Image';
-
-import faqData from '../data/faq.json';
-import Divider from './ui/Divider';
+import Container from '../../ui/Container/Container';
+import Image from '../../ui/Image/Image';
+import faqData from './Faq.data.json';
+import Divider from '../../ui/Divider/Divider';
 
 // console.log(classes.divider);
 

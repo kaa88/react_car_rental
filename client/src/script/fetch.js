@@ -1,8 +1,10 @@
-import axios from 'axios'
+// import axios from 'axios'
+
+// add fake data
 
 async function fetchData(request) {
 	if (!request || typeof request !== 'object') return null
-	const {path, method, body} = request
+	const { path, method, body={} } = request
 	if (!path || !method || !body) return null
 	const entry = 'http://localhost:5000/api/'
 	const reqQuery = method === 'GET'
@@ -47,7 +49,7 @@ async function fetchData(request) {
 
 const recentServerRequests = {}
 
-export default async function({processInfo, request}) {
+export default async function(request, processInfo) {
 	console.log('fetch');
 	// This func blocks recurring server requests e.g. when React trying to rerender many times.
 	// let caller, process, delay = 1000;

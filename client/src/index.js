@@ -1,15 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './css/reset.css';
-import './css/global.css';
-import App from './App';
-
-// import and register Swiper custom elements
-import { register } from 'swiper/element/bundle';
-register();
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
+import store from './store/index'
+import App from './App'
 
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-	<App />
-);
+	<Provider store={store}>
+		<App />
+	</Provider>
+)

@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import store from '../store/index'
-import __ from './script/translate';
+import store from '../../../store/index'
+import __ from '../../../script/translate';
 import classes from './Cars.module.css';
-import Container from './Container';
-import Slider from './Slider';
-import Image from './ui/Image';
-import Icon from './ui/Icon';
-import Button from './ui/Button';
-import carData from '../data/cars.json';
+import Container from '../../ui/Container/Container';
+import Slider from '../Slider/Slider';
+import Image from '../../ui/Image/Image';
+import Icon from '../../ui/Icon/Icon';
+import Button from '../../ui/Button/Button';
+import carData from './Cars.data.json';
 
 
 function Cars() {
+	console.log('render cars');
 
 	let swiperParams = {
 		slidesPerView: 1,

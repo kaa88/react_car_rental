@@ -1,25 +1,36 @@
+import { useSelector } from 'react-redux'
+import './css/reset.css';
+import './css/global.css';
 import './css/App.css';
-import { Provider } from 'react-redux'
-import store from './store/index'
-import Header from './components/Header';
-import Banner from './components/Banner';
-import Cars from './components/Cars';
-import Faq from './components/Faq';
-import Feedback from './components/Feedback';
-import Footer from './components/Footer';
+import Header from './components/parts/Header/Header';
+import Banner from './components/parts/Banner/Banner';
+import Cars from './components/parts/Cars/Cars';
+import Faq from './components/parts/Faq/Faq';
+import Feedback from './components/parts/Feedback/Feedback';
+import Footer from './components/parts/Footer/Footer';
+
+import { register } from 'swiper/element/bundle'
+register() // register Swiper custom elements
+
 
 function App() {
 
+	const language = useSelector(state => state.language.current)
+
+	// рендер происходит, но не обновляет язык
+
 	return (
-		<Provider store={store}>
+		<>
 			<Header />
-			<Banner />
-			<Cars />
-			<Faq />
-			<Feedback />
+			<main className={`main lang-${language}`}>
+				<Banner />
+				<Cars />
+				<Faq />
+				<Feedback />
+			</main>
 			<Footer />
-		</Provider>
-	);
+		</>
+	)
 }
 
 export default App

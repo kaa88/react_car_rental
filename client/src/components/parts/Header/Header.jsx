@@ -1,11 +1,11 @@
 import React from 'react';
 import classes from './Header.module.css';
-import Container from './Container';
-import Link from './ui/Link';
-import Button from './ui/Button';
-import Divider from './ui/Divider';
-import Logo from './Logo';
-import Select from './ui/Select';
+import Container from '../../ui/Container/Container';
+import Link from '../../ui/Link/Link';
+import Button from '../../ui/Button/Button';
+import Divider from '../../ui/Divider/Divider';
+import Logo from '../../ui/Logo/Logo';
+import Select from '../../ui/Select/Select';
 
 function Header() {
 	return (
@@ -29,8 +29,8 @@ function Header() {
 					</nav>
 					<div className={classes.account}>
 						<Divider style={{backgroundColor: 'rgba(50,2,2,0.5)'}} />
-						<Select type='currency'></Select>
-						<Select type='language'></Select>
+						<Select type='CURRENCY'></Select>
+						<Select type='LANGUAGE'></Select>
 						<Button className={classes.button} modif='negative'>Sing in</Button>
 					</div>
 				</div>

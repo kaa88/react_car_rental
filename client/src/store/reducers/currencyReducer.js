@@ -1,4 +1,4 @@
-import { Currency } from '../../components/script/currency';
+import { Currency } from '../../script/currency';
 
 const defaultState = Currency
 

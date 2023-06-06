@@ -25,7 +25,7 @@ body {
 
 	/* Transitions */
 	--timer-hover: .15s;
-	--timer-select: .15s;
+	--timer-select: .3s;
 
 }
 

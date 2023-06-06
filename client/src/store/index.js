@@ -1,5 +1,8 @@
-import { createStore, applyMiddleware } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
 import { rootReducer } from './reducers/index'
 
 
-export default createStore(rootReducer)
+export default configureStore({
+	reducer: rootReducer,
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
+})

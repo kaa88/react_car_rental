@@ -1,12 +1,12 @@
 import React from 'react';
 import classes from './Banner.module.css';
-import Container from './Container';
-import Icon from './ui/Icon';
-import Button from './ui/Button';
-import Divider from './ui/Divider';
-import Image from './ui/Image';
-import InputText from './ui/InputText';
-import InputCheckbox from './ui/InputCheckbox';
+import Container from '../../ui/Container/Container';
+import Icon from '../../ui/Icon/Icon';
+import Button from '../../ui/Button/Button';
+import Divider from '../../ui/Divider/Divider';
+import Image from '../../ui/Image/Image';
+import InputText from '../../ui/InputText/InputText';
+import InputCheckbox from '../../ui/Checkbox/InputCheckbox';
 
 function Banner() {
 	return (
