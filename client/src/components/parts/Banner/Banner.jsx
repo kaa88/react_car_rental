@@ -7,21 +7,23 @@ import Divider from '../../ui/Divider/Divider';
 import Image from '../../ui/Image/Image';
 import InputText from '../../ui/InputText/InputText';
 import InputCheckbox from '../../ui/Checkbox/InputCheckbox';
+import Translate from '../../../script/translate';
 
 function Banner() {
 	return (
+		<Translate>
 		<section className={classes.banner}>
 			<div className={classes.bg}>
 				<Image src='img/bg.jpg' />
 			</div>
 			<Container>
 				<h3 className='color01 fz36 tac'>
-					Rent a car
+					?_Rent a car
 				</h3>
 
 				<form className={`${classes.reserveForm} ${classes.blur}`} action="#">
 					<div className={classes.formItem}>
-						<p className={`${classes.formItemTitle} color01`}>Location</p>
+						<p className={`${classes.formItemTitle} color01`}>?_Location</p>
 						<InputText />
 					</div>
 					<Divider />
@@ -63,6 +65,7 @@ function Banner() {
 
 			</Container>
 		</section>
+		</Translate>
 	)
 }
 

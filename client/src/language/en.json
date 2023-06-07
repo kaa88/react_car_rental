@@ -1,10 +1,102 @@
 [
 	{
 		"id": 1,
-		"text": "hello"
+		"text": "Cars"
 	},
 	{
 		"id": 2,
-		"text": "buy"
+		"text": "Feedback"
+	},
+	{
+		"id": 3,
+		"text": "F.A.Q"
+	},
+	{
+		"id": 4,
+		"text": "How to rent"
+	},
+	{
+		"id": 5,
+		"text": "Sign in"
+	},
+	{
+		"id": 6,
+		"text": "Rent a car"
+	},
+	{
+		"id": 7,
+		"text": "Location"
+	},
+	{
+		"id": 8,
+		"text": "Pick up"
+	},
+	{
+		"id": 9,
+		"text": "Return"
+	},
+	{
+		"id": 10,
+		"text": "Reserve"
+	},
+	{
+		"id": 11,
+		"text": "Driver's age"
+	},
+	{
+		"id": 12,
+		"text": "Return to different location"
+	},
+	{
+		"id": 13,
+		"text": "Delivery to other town is possible"
+	},
+	{
+		"id": 14,
+		"text": "Rent no matter where you are"
+	},
+	{
+		"id": 15,
+		"text": "Fine cars"
+	},
+	{
+		"id": 16,
+		"text": "All cars in perfect condition"
+	},
+	{
+		"id": 17,
+		"text": "Best price"
+	},
+	{
+		"id": 18,
+		"text": "Don't even try to find better"
+	},
+	{
+		"id": 19,
+		"text": "Our cars"
+	},
+	{
+		"id": 20,
+		"text": "Engine displacement"
+	},
+	{
+		"id": 21,
+		"text": "Transmission"
+	},
+	{
+		"id": 22,
+		"text": "Passengers"
+	},
+	{
+		"id": 23,
+		"text": "Large bags"
+	},
+	{
+		"id": 24,
+		"text": "Doors"
+	},
+	{
+		"id": 25,
+		"text": ""
 	}
 ]

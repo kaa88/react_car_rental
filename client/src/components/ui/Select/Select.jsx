@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useCustomElement } from '../../../hooks/useCustomElement';
 import { changeCurrency } from '../../../store/reducers/currencyReducer'
@@ -8,13 +8,12 @@ import classes from './Select.module.css';
 import Icon from '../Icon/Icon';
 
 function Select({type, className = '', children, ...props}) {
-	type = type.toLowerCase()
 
 	const dispatch = useDispatch()
 	const Language = useSelector(state => state.language)
 	const Currency = useSelector(state => state.currency)
 
-	const dataTypes = {
+	const dataTypes = useMemo(function() {return {
 		language: {
 			data: Language,
 			action: changeLanguage
@@ -23,13 +22,13 @@ function Select({type, className = '', children, ...props}) {
 			data: Currency,
 			action: changeCurrency
 		},
-	}
-	const Data = dataTypes[type].data
+	}}, [Language, Currency])
 
-	// let [reloadLanguage, setReloadLanguage] = useState(false)
-	let [reloadList, setReloadList] = useState(false)
+	const Data = useMemo(() => dataTypes[type].data, [dataTypes, type])
 
-	const elems = {
+	let [reloadLanguage, setReloadLanguage] = useState(false)
+
+	const elems = { // always render, dont add it to dependencies
 		select: useCustomElement(`${className} ${classes.select}`),
 		header: useCustomElement(classes.header),
 		headerText: useCustomElement(classes.headerText, Data.current.toUpperCase()),
@@ -41,48 +40,45 @@ function Select({type, className = '', children, ...props}) {
 	elems.typeIcon.iconName = type === 'currency'
 		? `icon-${Data.current}`
 		: 'icon-globe'
+	
+	let [reloadList, setReloadList] = useState(true)
 
-
-	const setWindowEvents = useCallback((event) => script.setWindowEvents(event, elems, classes))
-	const toggleList = useCallback((event) => script.toggleList(event, elems, classes))
+	function toggleList(e) {
+		script.toggleList(e, elems, classes)
+	}
 	const selectItem = useCallback((event) => {
 		let value = script.selectItem(event, elems, Data)
 		dispatch(dataTypes[type].action(value))
 		setReloadList(true) // change list by useEffect with delay
-	})
-	setWindowEvents()
+		if (type === 'language') setReloadLanguage(true)
+	}, [Data, dataTypes, type, dispatch])
 
-	// в юзКолбэках разобраться с депенденсами
-	// исправить ошибки линтера
-	
-	const getCustomOptionList = useCallback(() => {
-		return Data.list.map((item, index) => {
-			if (item !== Data.current) return (
-				<li className={classes.option} onClick={selectItem} key={index}>
-					{item.toUpperCase()}
-				</li>
-			)
-			else return null
-		})
-	}, [Data, classes, selectItem])
+	let customOptionList = useMemo(() => Data.list.map((item, index) => {
+		if (item !== Data.current) return (
+			<li className={classes.option} onClick={selectItem} key={index}>
+				{item.toUpperCase()}
+			</li>
+		)
+		else return null
+	}), [Data, selectItem])
 
 	useEffect(() => { //once
-		elems.list.setChildren(getCustomOptionList())
+		script.setupWindowEvents(elems, classes)
 	}, [])
 
 	useEffect(() => {
 		const transitionDelay = 300 // todo: use css variable
 		setTimeout(() => {
-			// if (reloadLanguage) window.location.reload()
+			if (reloadLanguage) window.location.reload()
 			if (reloadList) {
 				setReloadList(false)
-				elems.list.setChildren(getCustomOptionList())
+				elems.list.setChildren(customOptionList)
 			}
 		}, transitionDelay)
 	})
 
 
-	console.log('render');
+	console.log('render Select');
 	return (
 		<div className={elems.select.className} ref={elems.select.ref} {...props}>
 			<span className={elems.typeIcon.className} ref={elems.typeIcon.ref}>

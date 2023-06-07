@@ -1,9 +1,9 @@
 import activeState from '../../../script/activeState';
 
-export default {
-	setWindowEvents() {
-		window.addEventListener('click', this.toggleList)
-		window.addEventListener('resize', this.toggleList)
+const selectScript = {
+	setupWindowEvents(elems, classes) {
+		window.addEventListener('click', function(e) {this.toggleList(e, elems, classes)}.bind(this))
+		window.addEventListener('resize', function(e) {this.toggleList(e, elems, classes)}.bind(this))
 	},
 
 	toggleList (e, {header, listWrapper, list}, {active}) {
@@ -35,3 +35,5 @@ export default {
 		return value
 	}
 }
+
+export default selectScript

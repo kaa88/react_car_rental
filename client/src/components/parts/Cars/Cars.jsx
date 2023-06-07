@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import store from '../../../store/index'
-import __ from '../../../script/translate';
+// import __ from '../../../script/translate';
 import classes from './Cars.module.css';
 import Container from '../../ui/Container/Container';
 import Slider from '../Slider/Slider';
@@ -9,9 +9,10 @@ import Icon from '../../ui/Icon/Icon';
 import Button from '../../ui/Button/Button';
 import carData from './Cars.data.json';
 
+function __() {}//temp
 
 function Cars() {
-	console.log('render cars');
+	// console.log('render cars');
 
 	let swiperParams = {
 		slidesPerView: 1,

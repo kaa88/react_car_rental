@@ -29,8 +29,8 @@ function Header() {
 					</nav>
 					<div className={classes.account}>
 						<Divider style={{backgroundColor: 'rgba(50,2,2,0.5)'}} />
-						<Select type='CURRENCY'></Select>
-						<Select type='LANGUAGE'></Select>
+						<Select type='currency'></Select>
+						<Select type='language'></Select>
 						<Button className={classes.button} modif='negative'>Sing in</Button>
 					</div>
 				</div>
