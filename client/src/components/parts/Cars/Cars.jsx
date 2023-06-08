@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import store from '../../../store/index'
-// import __ from '../../../script/translate';
-import classes from './Cars.module.css';
+import classes from './Cars.module.scss';
 import Container from '../../ui/Container/Container';
 import Slider from '../Slider/Slider';
 import Image from '../../ui/Image/Image';
 import Icon from '../../ui/Icon/Icon';
 import Button from '../../ui/Button/Button';
 import carData from './Cars.data.json';
+import {Translate} from '../../../script/translate';
 
-function __() {}//temp
 
 function Cars() {
 	// console.log('render cars');
@@ -64,7 +63,7 @@ function Cars() {
 										: ''
 									}`}
 								/>
-								<p>{param.name}: <span className='bold'>{__(car.params[i])}</span></p>
+								<p>{`?_${param.name}`}: <span className='bold'>{`?_${car.params[i]}`}</span></p>
 							</div>
 						)
 					}
@@ -78,11 +77,12 @@ function Cars() {
 						<span>
 							<Icon className={classes.priceCurrency} name={`icon-${currency.name}`} />
 						</span>
-						<span>/{__('per day')}</span>
+						<span>/</span>
+						<span>?_per day</span>
 					</div>
 					<div className={classes.actionButtons}>
-						<Button className={classes.actionBtn}>{__('Book now')}</Button>
-						<Button className={classes.infoBtn} modif='negative'>{__('View details')}</Button>
+						<Button className={classes.actionBtn}>?_Book now</Button>
+						<Button className={classes.infoBtn} modif='negative'>?_View details</Button>
 					</div>
 				</div>
 			</div>
@@ -91,22 +91,24 @@ function Cars() {
 	)
 
 	return (
-		<section className={classes.cars}>
-			<Container>
+		<Translate>
+			<section className={classes.cars}>
+				<Container>
 
-				<h3 className='fz36 tac color02'>{__('Our cars')}</h3>
-				<Slider className={classes.slider} swiperParams={swiperParams}>{slides}</Slider>
+					<h3 className='fz36 tac color02'>?_Our cars</h3>
+					<Slider className={classes.slider} swiperParams={swiperParams}>{slides}</Slider>
 
-				<h3 className={classes.reqsTitle}>{__('Reqierments')}</h3>
-				<div className={classes.reqs}>
-					<p className={classes.reqsItem}>{__('You must be 21+ years old')}</p>
-					<p className={classes.reqsItem}>{__('Personal driver licence')}</p>
-					<p className={classes.reqsItem}>{__('Valid credit card and 300 euro deposit')}</p>
-					<p className={classes.reqsItem}>{__('Official document (driver licence or passport) for another driver')}</p>
-				</div>
+					<h3 className={classes.reqsTitle}>?_Requirements</h3>
+					<div className={classes.reqs}>
+						<p className={classes.reqsItem}>?_You must be 21+ years old</p>
+						<p className={classes.reqsItem}>?_Personal driver licence</p>
+						<p className={classes.reqsItem}>?_Valid credit card and 300 euro deposit</p>
+						<p className={classes.reqsItem}>?_Official document (driver licence or passport) for another driver</p>
+					</div>
 
-			</Container>
-		</section>
+				</Container>
+			</section>
+		</Translate>
 	)
 }
 

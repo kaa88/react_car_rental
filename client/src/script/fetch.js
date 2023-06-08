@@ -47,9 +47,9 @@ async function fetchData(request) {
 	return result
 }
 
-const recentServerRequests = {}
+// const recentServerRequests = {}
 
-export default async function(request, processInfo) {
+async function prepareToFetch(request, processInfo) {
 	console.log('fetch');
 	// This func blocks recurring server requests e.g. when React trying to rerender many times.
 	// let caller, process, delay = 1000;
@@ -65,3 +65,4 @@ export default async function(request, processInfo) {
 	let data = await fetchData(request)
 	return data
 }
+export default prepareToFetch

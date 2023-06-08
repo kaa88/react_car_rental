@@ -1,6 +1,218 @@
 [
 	{
 		"id": 1,
-		"text": "Das auto"
+		"text": "Autos"
+	},
+	{
+		"id": 2,
+		"text": "Rückmeldung"
+	},
+	{
+		"id": 3,
+		"text": "F.A.Q"
+	},
+	{
+		"id": 4,
+		"text": "So mieten Sie"
+	},
+	{
+		"id": 5,
+		"text": "Eintreten"
+	},
+	{
+		"id": 6,
+		"text": "Autovermietungen"
+	},
+	{
+		"id": 7,
+		"text": "Standort"
+	},
+	{
+		"id": 8,
+		"text": "Abholen"
+	},
+	{
+		"id": 9,
+		"text": "Zurückkehren"
+	},
+	{
+		"id": 10,
+		"text": "Reservieren"
+	},
+	{
+		"id": 11,
+		"text": "Alter des Fahrers 21+"
+	},
+	{
+		"id": 12,
+		"text": "Kehren Sie an einen anderen Ort zurück"
+	},
+	{
+		"id": 13,
+		"text": "Eine Lieferung in eine andere Stadt ist möglich"
+	},
+	{
+		"id": 14,
+		"text": "Mieten Sie, egal wo Sie sind"
+	},
+	{
+		"id": 15,
+		"text": "Feine Autos"
+	},
+	{
+		"id": 16,
+		"text": "Alle Autos in einwandfreiem Zustand"
+	},
+	{
+		"id": 17,
+		"text": "Bestpreis"
+	},
+	{
+		"id": 18,
+		"text": "Versuchen Sie nicht einmal, etwas Besseres zu finden"
+	},
+	{
+		"id": 19,
+		"text": "Unsere Autos"
+	},
+	{
+		"id": 20,
+		"text": "Hubraum"
+	},
+	{
+		"id": 21,
+		"text": "Transmission"
+	},
+	{
+		"id": 22,
+		"text": "Passagiere"
+	},
+	{
+		"id": 23,
+		"text": "Große Taschen"
+	},
+	{
+		"id": 24,
+		"text": "Türen"
+	},
+	{
+		"id": 25,
+		"text": "pro tag"
+	},
+	{
+		"id": 26,
+		"text": "Buchen Sie jetzt"
+	},
+	{
+		"id": 27,
+		"text": "Details anzeigen"
+	},
+	{
+		"id": 28,
+		"text": "Anforderungen"
+	},
+	{
+		"id": 29,
+		"text": "Sie müssen mindestens 21 Jahre alt sein"
+	},
+	{
+		"id": 30,
+		"text": "Persönlicher Führerschein"
+	},
+	{
+		"id": 31,
+		"text": "Gültige Kreditkarte und 300 Euro Kaution"
+	},
+	{
+		"id": 32,
+		"text": "Offizielles Dokument (Führerschein oder Reisepass) für einen anderen Fahrer"
+	},
+	{
+		"id": 33,
+		"text": "F.A.Q"
+	},
+	{
+		"id": 34,
+		"text": "Welche Dokumente werden für die Autovermietung benötigt?"
+	},
+	{
+		"id": 35,
+		"text": "Reisepass oder Führerschein"
+	},
+	{
+		"id": 36,
+		"text": "Was tun bei einem Unfall?"
+	},
+	{
+		"id": 37,
+		"text": "Rufen Sie im Falle eines Unfalls die im Vertrag angegebene Nummer an"
+	},
+	{
+		"id": 38,
+		"text": "Ist es möglich, das Auto in eine andere Stadt zu liefern?"
+	},
+	{
+		"id": 39,
+		"text": "Die Lieferung des Autos ist im Umkreis von 20 km um das Büro möglich"
+	},
+	{
+		"id": 40,
+		"text": "Ist eine Weitergabe des Fahrzeugs an Dritte möglich?"
+	},
+	{
+		"id": 41,
+		"text": "Zulässig, wenn sie im Vertrag festgehalten sind"
+	},
+	{
+		"id": 42,
+		"text": "Was ist nicht im Mietpreis enthalten?"
+	},
+	{
+		"id": 43,
+		"text": "Der Preis beinhaltet keinen Treibstoff"
+	},
+	{
+		"id": 44,
+		"text": "Gibt es Kilometerbeschränkungen?"
+	},
+	{
+		"id": 45,
+		"text": "250 km pro Tag, alles darüber kostet 0,20 Cent pro Kilometer"
+	},
+	{
+		"id": 46,
+		"text": "Rückmeldung"
+	},
+	{
+		"id": 47,
+		"text": "Hinterlassen Sie ein Feedback"
+	},
+	{
+		"id": 48,
+		"text": "Telefon"
+	},
+	{
+		"id": 49,
+		"text": "Ruf mich zurück"
+	},
+	{
+		"id": 50,
+		"text": "handbuch"
+	},
+	{
+		"id": 51,
+		"text": "automat"
+	},
+	{
+		"id": 52,
+		"text": "Alle Rechte vorbehalten."
+	},
+	{
+		"id": 53,
+		"text": "Nutzungsbedingungen"
+	},
+	{
+		"id": 54,
+		"text": "Datenschutz-Bestimmungen"
 	}
 ]

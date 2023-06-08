@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './Divider.module.css';
+import classes from './Divider.module.scss';
 
 function Divider({className = '', ...props}) {
 

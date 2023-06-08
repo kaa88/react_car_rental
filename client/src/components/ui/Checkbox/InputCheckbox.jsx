@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './InputCheckbox.module.css';
+import classes from './InputCheckbox.module.scss';
 import Icon from '../Icon/Icon';
 
 

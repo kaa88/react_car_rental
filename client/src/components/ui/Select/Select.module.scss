@@ -20,16 +20,20 @@
 	border-radius: 8px;
 	cursor: pointer;
 	transition: color var(--timer-select), fill var(--timer-select);
+	&.active {
+		color: var(--color01);
+		fill: var(--color01);
+	}
 }
 .headerText {
 	flex: 1 1 auto;
 	white-space: nowrap;
 	overflow: hidden;
 }
-.header.active {
-	color: var(--color01);
-	fill: var(--color01);
-}
+// .header.active {
+// 	color: var(--color01);
+// 	fill: var(--color01);
+// }
 .typeIcon {
 	margin-right: 6px;
 	/* position: absolute;

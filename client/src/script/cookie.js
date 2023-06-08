@@ -26,7 +26,7 @@ export function setCookie(params = {}, log) {
 
 	let entries = Object.entries(params);
 	for (let i = 0; i < entries.length; i++) {
-		if (entries[i][0] == 'name' || entries[i][0] == 'value' || entries[i][0] == 'path' || entries[i][0] == 'expires') continue;
+		if (entries[i][0] === 'name' || entries[i][0] === 'value' || entries[i][0] === 'path' || entries[i][0] === 'expires') continue;
 		cookieArr.push(entries[i][0] + (entries[i][1] ? ('=' + entries[i][1]) : ''));
 	}
 

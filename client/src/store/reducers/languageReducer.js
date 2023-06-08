@@ -7,7 +7,6 @@ const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE'
 export default function languageReducer(state = defaultState, action) {
 	switch(action.type) {
 		case CHANGE_LANGUAGE:
-			// Language.set(action.payload)
 			return {...state, current: action.payload}
 		default:
 			return state

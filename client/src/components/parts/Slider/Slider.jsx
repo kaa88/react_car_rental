@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import './Slider.css';
+import './Slider.scss';
 import Icon from '../../ui/Icon/Icon';
 import Button from '../../ui/Button/Button';
 

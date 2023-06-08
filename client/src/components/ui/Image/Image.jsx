@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './Image.module.css';
+import classes from './Image.module.scss';
 
 
 function Image({className, ...props}) {

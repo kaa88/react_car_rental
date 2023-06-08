@@ -5,7 +5,7 @@ import store from './store/index'
 import App from './App'
 
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
+const root = ReactDOM.createRoot(document.getElementById('app'))
 root.render(
 	<Provider store={store}>
 		<App />

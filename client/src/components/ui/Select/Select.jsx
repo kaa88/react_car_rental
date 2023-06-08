@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useMemo, useState, memo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useCustomElement } from '../../../hooks/useCustomElement';
 import { changeCurrency } from '../../../store/reducers/currencyReducer'
 import { changeLanguage } from '../../../store/reducers/languageReducer'
 import script from './Select.script'
-import classes from './Select.module.css';
+import classes from './Select.module.scss';
 import Icon from '../Icon/Icon';
 
 function Select({type, className = '', children, ...props}) {

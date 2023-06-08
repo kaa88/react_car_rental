@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './InputText.module.css';
+import classes from './InputText.module.scss';
 
 
 function InputText({

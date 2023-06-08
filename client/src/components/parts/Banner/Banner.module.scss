@@ -1,3 +1,6 @@
+@import "../../../styles/variables.scss";
+
+
 .banner {
 	position: relative;
 	height: 800px;
@@ -59,6 +62,9 @@
 	justify-content: center;
 	align-items: center;
 	padding: 10px;
+	p {
+		@include text-nowrap()
+	}
 }
 .icon {
 	/* width: 42px;

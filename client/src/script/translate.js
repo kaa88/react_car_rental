@@ -1,4 +1,4 @@
-import { cloneElement, Children } from 'react'
+import { cloneElement, isValidElement } from 'react'
 import { getCookie, setCookie } from './cookie'
 import lang_en from '../language/en.json'
 import lang_ru from '../language/ru.json'
@@ -42,40 +42,42 @@ let currentLang = getCookie()[Language.name]
 if (currentLang) Language.current = currentLang
 
 
-export default function ({children}){
+export function Translate({children}){
 	const regexp = /^\?_/
 
-	function clone(children) {
-		return Children.map(children, (child) => {
-			let newChildren;
-			if (child.props.children && typeof child.props.children === 'object') newChildren = clone(child.props.children)
-			let newParams = getNewParams(child)
-			let newProps = Object.keys(newParams.props).length ? newParams.props : null
-			if (newParams.children) newChildren = newParams.children
-			return cloneElement( child, newProps, newChildren )
-		})
-	}
+	function scan(elem, index = 0) {
+		if (Array.isArray(elem)) {
+			return elem.map((item, i) => scan(item, i))
+		}
 
-	function getNewParams(elem) {
-		let props = {}
-		let children = null
-		Object.entries(elem.props).forEach((prop) => {
-			if (typeof prop[1] === 'string') {
-				if (prop[0] === 'children') children = translate(prop[1])
-				else props[prop[0]] = translate(prop[1])
-			}
-		})
-		return {props, children}
+		else if (typeof elem === 'object') {
+			if (!isValidElement(elem) || !elem.props) return elem
+			let newProps = {key: index}
+			Object.entries(elem.props).forEach((item) => {
+				if (typeof item[1] === 'object') newProps[item[0]] = scan(item[1])
+				else if (typeof item[1] === 'string') newProps[item[0]] = translate(item[1])
+				else newProps[item[0]] = item[1]
+			})
+			let {children, ...props} = newProps
+			return cloneElement(elem, props, children)
+		}
+
+		else if (typeof elem === 'string') {
+			return translate(elem)
+		}
+
+		else return elem
 	}
 
 	function translate(str) {
-		if (str === '' || typeof str !== 'string' || !regexp.test(str)) return str
+		if (!str || typeof str !== 'string' || !regexp.test(str)) return str
 		str = str.replace(regexp, '')
 		if (Language.current === Language.default) return str
+		if (!isNaN(Number(str))) return str
 		
-		let match = deps[Language.default].find(item => item.text.toLocaleLowerCase() == str.toLocaleLowerCase())
+		let match = deps[Language.default].find(item => item.text.toLocaleLowerCase() === str.toLocaleLowerCase())
 		if (match) {
-			let translate = deps[Language.current].find(item => item.id == match.id)
+			let translate = deps[Language.current].find(item => item.id === match.id)
 			if (translate) return translate.text
 		}
 	
@@ -85,5 +87,5 @@ export default function ({children}){
 		return str
 	}
 
-	return clone(children)
+	return scan(children)
 }

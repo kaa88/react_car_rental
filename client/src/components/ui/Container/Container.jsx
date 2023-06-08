@@ -1,10 +1,10 @@
 import React from 'react';
-import classes from './Container.module.css';
+import classes from './Container.module.scss';
 
-function Container({modif = 'default', ...props}) {
+function Container({modif = 'default', children, ...props}) {
 	return (
 		<div className={classes[modif]} {...props}>
-			{props.children}
+			{children}
 		</div>
 	)
 }

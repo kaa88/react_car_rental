@@ -41,7 +41,7 @@
 	},
 	{
 		"id": 11,
-		"text": "Driver's age"
+		"text": "Driver's age 21+"
 	},
 	{
 		"id": 12,
@@ -97,6 +97,122 @@
 	},
 	{
 		"id": 25,
-		"text": ""
+		"text": "per day"
+	},
+	{
+		"id": 26,
+		"text": "Book now"
+	},
+	{
+		"id": 27,
+		"text": "View details"
+	},
+	{
+		"id": 28,
+		"text": "Requirements"
+	},
+	{
+		"id": 29,
+		"text": "You must be 21+ years old"
+	},
+	{
+		"id": 30,
+		"text": "Personal driver licence"
+	},
+	{
+		"id": 31,
+		"text": "Valid credit card and 300 euro deposit"
+	},
+	{
+		"id": 32,
+		"text": "Official document (driver licence or passport) for another driver"
+	},
+	{
+		"id": 33,
+		"text": "F.A.Q"
+	},
+	{
+		"id": 34,
+		"text": "What documents are needed for car rental?"
+	},
+	{
+		"id": 35,
+		"text": "Passport or driver licence"
+	},
+	{
+		"id": 36,
+		"text": "What to do in case of an accident?"
+	},
+	{
+		"id": 37,
+		"text": "In the event of an accident, call the number specified in the contract"
+	},
+	{
+		"id": 38,
+		"text": "Is it possible to deliver the car to another city?"
+	},
+	{
+		"id": 39,
+		"text": "Delivery of the car is possible within a radius of 20 km from the office"
+	},
+	{
+		"id": 40,
+		"text": "Is it possible to transfer the vehicle to third parties?"
+	},
+	{
+		"id": 41,
+		"text": "Allowed if they are written in the contract"
+	},
+	{
+		"id": 42,
+		"text": "What is not included in the rental price?"
+	},
+	{
+		"id": 43,
+		"text": "The price does not include fuel"
+	},
+	{
+		"id": 44,
+		"text": "Are there mileage restrictions?"
+	},
+	{
+		"id": 45,
+		"text": "250 km per day, anything above costs 0.20 cents per kilometer"
+	},
+	{
+		"id": 46,
+		"text": "Feedback"
+	},
+	{
+		"id": 47,
+		"text": "Leave a feedback"
+	},
+	{
+		"id": 48,
+		"text": "Phone"
+	},
+	{
+		"id": 49,
+		"text": "Call me back"
+	},
+	{
+		"id": 50,
+		"text": "manual"
+	},
+	{
+		"id": 51,
+		"text": "automat"
+	},
+	{
+		"id": 52,
+		"text": "All rights reserved."
+	},
+	{
+		"id": 53,
+		"text": "Terms of Use"
+	},
+	{
+		"id": 54,
+		"text": "Privacy Policy"
 	}
 ]

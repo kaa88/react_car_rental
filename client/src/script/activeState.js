@@ -1,4 +1,4 @@
-export default {
+const avtiveState = {
 	_getClasses(data) {
 		let className = typeof data === 'object' ? data.className : data
 		return className.split(' ')
@@ -27,3 +27,4 @@ export default {
 		return newClassName
 	}
 }
+export default avtiveState

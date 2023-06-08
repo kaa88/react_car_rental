@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './Link.module.css';
+import classes from './Link.module.scss';
 
 
 function Link({

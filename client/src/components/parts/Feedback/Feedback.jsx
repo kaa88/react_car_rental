@@ -1,11 +1,12 @@
 import React from 'react';
-import classes from './Feedback.module.css';
+import classes from './Feedback.module.scss';
 import Container from '../../ui/Container/Container';
 import Image from '../../ui/Image/Image';
 import Icon from '../../ui/Icon/Icon';
 import Button from '../../ui/Button/Button';
 import Slider from '../Slider/Slider';
 import feedbackData from './Feedback.data.json';
+import {Translate} from '../../../script/translate';
 
 
 function Feedback() {
@@ -53,15 +54,17 @@ function Feedback() {
 	)
 
 	return (
-		<section className={classes.feedback}>
-			<Container>
-				<h3 className='fz36 color02 tac'>Feedback</h3>
-				<Slider className={classes.slider} swiperParams={swiperParams}>{slides}</Slider>
+		<Translate>
+			<section className={classes.feedback}>
+				<Container>
+					<h3 className='fz36 color02 tac'>?_Feedback</h3>
+					<Slider className={classes.slider} swiperParams={swiperParams}>{slides}</Slider>
 
-				<Button className={classes.addBtn} modif='negative'>Leave a feedback</Button>
+					<Button className={classes.addBtn} modif='negative'>?_Leave a feedback</Button>
 
-			</Container>
-		</section>
+				</Container>
+			</section>
+		</Translate>
 	)
 }
 

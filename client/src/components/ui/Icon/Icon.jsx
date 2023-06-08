@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './Icon.module.css';
+import classes from './Icon.module.scss';
 
 
 function Icon({
