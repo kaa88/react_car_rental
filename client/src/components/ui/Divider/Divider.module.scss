@@ -1,6 +1,12 @@
-.divider {
+.light, .dark {
 	display: inline-block;
 	width: 1px;
 	height: 40px;
+}
+.light {
 	background-color: var(--color01);
+}
+.dark {
+	background-color: var(--color02);
+	opacity: 0.5;
 }

@@ -1,3 +1,5 @@
+@import "../../../styles/variables.scss";
+
 .default, .negative {
 	display: inline-flex;
 	justify-content: center;
@@ -12,7 +14,7 @@
 	white-space: nowrap;
 	border: solid 1px var(--color03);
 	user-select: none;
-	transition: background-color var(--timer-hover), color var(--timer-hover), fill var(--timer-hover);
+	transition: background-color $timer-hover, color $timer-hover, fill $timer-hover;
 }
 .default, .negative:hover {
 	background-color: var(--color03);

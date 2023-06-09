@@ -1,7 +1,8 @@
-# Gulp:
 node_modules
+.env
 
-# Project:
+
+# Gulp Project:
 *[а-яА-ЯёЁ]*
 ?temp
 ?design

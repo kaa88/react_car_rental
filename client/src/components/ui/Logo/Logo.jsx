@@ -2,12 +2,14 @@ import React from 'react';
 import classes from './Logo.module.scss';
 
 function Logo({
-	href = '/',
+	href = process.env.REACT_APP_HOST || '/',
 	modif = 'default',
+	className,
 	...props
 }) {
+
 	return (
-		<div className={classes[modif]} {...props}>
+		<div className={`${className} ${classes[modif]}`} {...props}>
 			<a className={classes.link} href={href}>
 				<span>RENT</span>
 				<svg className={classes.icon}>

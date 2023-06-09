@@ -1,4 +1,4 @@
-/* Example: 
+/* Example:
 	setCookie(
 		{
 			name: '_cookies', // required
@@ -12,7 +12,7 @@
 */
 
 export function setCookie(params = {}, log) {
-	if (!params.name || !params.value) return console.log('Error: Required cookie "name" or "value" is missing.');
+	if (!params.name || !params.value) return console.error('Required cookie "name" or "value" is missing.');
 
 	let cookieArr = [];
 	cookieArr.push(encodeURIComponent(params.name) + '=' + encodeURIComponent(params.value));
@@ -24,11 +24,10 @@ export function setCookie(params = {}, log) {
 		cookieArr.push('expires=' + d.toUTCString());
 	}
 
-	let entries = Object.entries(params);
-	for (let i = 0; i < entries.length; i++) {
-		if (entries[i][0] === 'name' || entries[i][0] === 'value' || entries[i][0] === 'path' || entries[i][0] === 'expires') continue;
-		cookieArr.push(entries[i][0] + (entries[i][1] ? ('=' + entries[i][1]) : ''));
-	}
+	Object.entries(params).forEach(([key, value]) => {
+		if (!/name|value|path|expires/.test(key))
+			cookieArr.push(key + (value ? ('=' + value) : ''))
+	})
 
 	let cookieStr = cookieArr.join('; ');
 	document.cookie = cookieStr;
@@ -36,11 +35,6 @@ export function setCookie(params = {}, log) {
 }
 
 export function getCookie() {
-	let cookiesArr = decodeURIComponent(document.cookie).split('; '),
-		cookiesObj = {};
-	for (let i = 0; i < cookiesArr.length; i++) {
-		let split = cookiesArr[i].split('=');
-		cookiesObj[split[0]] = split[1];
-	}
-	return cookiesObj;
+	const cookiesArr = decodeURIComponent(document.cookie).split('; ')
+	return Object.fromEntries(cookiesArr.map((item) => item.split('=')))
 }

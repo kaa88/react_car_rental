@@ -24,7 +24,7 @@ export const Currency = {
 
 const process = ['currency', 'fetch'] // ?
 const request = {
-	path: 'currency',
+	path: '/currency',
 	method: 'GET',
 	body: {}
 }

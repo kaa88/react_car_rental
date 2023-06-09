@@ -1,15 +1,14 @@
+import { Utils } from "./Utils";
 // import axios from 'axios'
 
 // add fake data
 
 async function fetchData(request) {
 	if (!request || typeof request !== 'object') return null
-	const { path, method, body={} } = request
-	if (!path || !method || !body) return null
-	const entry = 'http://localhost:5000/api/'
-	const reqQuery = method === 'GET'
-		? `?${new URLSearchParams(body).toString()}`
-		: ''
+	const { path='', method='GET', body={} } = request
+	const entry = process.env.REACT_APP_API_URL
+	let reqQuery = ''
+	if (method === 'GET' && body && !Utils.object.isEmpty(body)) reqQuery = `?${new URLSearchParams(body).toString()}`
 	const fullPath = entry + path + reqQuery
 	
 	const headers = {

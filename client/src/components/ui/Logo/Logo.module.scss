@@ -1,11 +1,11 @@
 .default, .negative {
 	font-size: 16px;
-}
-.default span, .negative span {
-	line-height: 1.8em;
-	font-size: 1.5em;
-	font-weight: 500;
-	color: var(--color02);
+	span {
+		line-height: 1.8em;
+		font-size: 1.5em;
+		font-weight: 500;
+		color: var(--color02);
+	}
 }
 .negative span {
 	color: var(--color01);

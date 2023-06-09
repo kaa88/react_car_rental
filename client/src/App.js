@@ -7,7 +7,6 @@ import Footer from './components/parts/Footer/Footer';
 import { register } from 'swiper/element/bundle'
 register() // register Swiper custom elements
 
-
 function App() {
 
 	return (

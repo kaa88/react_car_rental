@@ -9,15 +9,15 @@ const deps = {
 	ru: lang_ru,
 	de: lang_de
 }
-Object.entries(deps).forEach((lang) => {
+Object.entries(deps).forEach(([key, value]) => {
 	let checkId = []
 	let duplicates = {}
-	lang[1].forEach((item) => {
+	value.forEach((item) => {
 		if (checkId[item.id]) duplicates[item.id] = true
 		else checkId[item.id] = true
 	})
 	let keys = Object.keys(duplicates)
-	if (keys.length) console.warn(`Duplicates of "id" [${keys}] have been found in "${lang[0]}" language package. It may cause errors with translation.`)
+	if (keys.length) console.warn(`Duplicates of "id" [${keys}] have been found in "${key}" language package. It may cause errors with translation.`)
 })
 
 const cookieExpireDays = 30
@@ -53,10 +53,10 @@ export function Translate({children}){
 		else if (typeof elem === 'object') {
 			if (!isValidElement(elem) || !elem.props) return elem
 			let newProps = {key: index}
-			Object.entries(elem.props).forEach((item) => {
-				if (typeof item[1] === 'object') newProps[item[0]] = scan(item[1])
-				else if (typeof item[1] === 'string') newProps[item[0]] = translate(item[1])
-				else newProps[item[0]] = item[1]
+			Object.entries(elem.props).forEach(([key, value]) => {
+				if (typeof value === 'object') newProps[key] = scan(value)
+				else if (typeof value === 'string') newProps[key] = translate(value)
+				else newProps[key] = value
 			})
 			let {children, ...props} = newProps
 			return cloneElement(elem, props, children)

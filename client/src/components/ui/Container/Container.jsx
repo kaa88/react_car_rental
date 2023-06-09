@@ -1,9 +1,14 @@
 import React from 'react';
 import classes from './Container.module.scss';
 
-function Container({modif = 'default', children, ...props}) {
+function Container({
+	modif = 'default',
+	className = '',
+	children,
+	...props
+}) {
 	return (
-		<div className={classes[modif]} {...props}>
+		<div className={`${className} ${classes[modif]}`} {...props}>
 			{children}
 		</div>
 	)

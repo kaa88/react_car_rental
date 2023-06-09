@@ -1,29 +1,254 @@
+@import "../../../styles/variables.scss";
+
 .header {
-	height: 120px;
+	top: var(--header-position); //REQ!
+	left: 0; //REQ!
+	z-index: 51; //REQ!
+	width: 100%; //REQ!
+	max-width: $page-max-width+px; //REQ! set it same as body max-width
+	// font-size: 0; // prevent random margins... careful with 'em'
+
+	// Set 'position' inside these subclasses because it depends on script options. But it is unlikely to change default 'positions' values. Try to work with it first.
+	&_static {
+		position: absolute; //REQ! one
+	}
+	&_fixed {
+		position: fixed; //REQ! one
+	}
+	&_active {}
+	// classes for 'sharing mode', e.g. if 'modal' calls header and uses its close button
+	&_shared {}
+	&_shared-z {
+		z-index: 501;
+	}
+	&_compact {
+		padding-top: 8px;
+	}
+	// &_compact .logo__link { // compact mode test
+	// 	@media (min-width: $media-ml+1+px) {font-size: 20px;}
+	// }
 }
-.menu {
+
+.menuTurnoffArea {
+	position: fixed; //REQ!
+	top: 0; //REQ!
+	left: 0; //REQ!
+	z-index: -10; //REQ!
+	width: 100vw; //REQ!
+	height: 100vh; //REQ!
+	background-color: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(2px);
+	cursor: pointer; // for customer test
+	opacity: 0; //REQ!
+	visibility: hidden; //REQ!
+	transition: opacity $timer-menu, visibility $timer-menu;
+	.header_active & {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+.level {
+	position: relative; //REQ! for submenu positioning
+	padding: 36px 0 16px 0;
+	background-color: var(--color05);
+}
+.container {
+	background-color: var(--color01);
+}
+
+.logo {
+	font-size: 20px;
+}
+.buttonBox {
+	position: relative; //REQ!
+	width: 50px;
+	height: 50px;
+	@media (min-width: $media-ts+1+px) {
+		display: none; //REQ!
+	}
+}
+.account {
 	margin-top: 12px;
 	display: flex;
 	align-items: center;
+	& > * {
+		margin-left: 28px;
+		@media (max-width: $media-tl+px) {
+			margin-left: resize-multiplier(28, $media-tl, 1.8);
+		}
+	}
 }
-.pages {
-	display: flex;
-}
-.item {
-	margin-left: 48px;
-	height: 30px;
-	display: flex;
-	align-items: center;
-}
-.account {
-	display: flex;
-	align-items: center;
-}
-.account > * {
-	margin-left: 28px;
-}
-.button {
+.accountButton {
 	width: 112px;
 	height: 39px;
 	border-radius: 28px;
+}
+.printAddress, .printAddressQr {display: none;} //REQ!
+
+
+.menuOpenBtn,
+.menuCloseBtn {
+	position: absolute; //REQ!
+	top: 0; //REQ!
+	left: 0; //REQ!
+	width: 100%; //REQ! if in button-box
+	height: 100%; //REQ! if in button-box
+	display: flex; //REQ!
+	justify-content: center; //REQ!
+	align-items: center; //REQ!
+	cursor: pointer; // for customer test
+	user-select: none; //REQ!
+	transition: opacity $timer-menu, visibility $timer-menu;
+	fill: #333;
+	svg {
+		width: 70%;
+		height: 70%;
+	}
+	@media (min-width: $media-ts+1+px) {
+		display: none; //REQ!
+	}
+}
+.menuOpenBtn {
+	background-color: limegreen;
+	visibility: visible;
+	opacity: 1;
+	.header_active & {
+		// visibility: hidden;
+		// opacity: 0;
+	}
+}
+.menuCloseBtn {
+	background-color: crimson;
+	visibility: hidden;
+	opacity: 0;
+	.header_active &, .header_shared & {
+		visibility: visible;
+		opacity: 1;
+	}
+}
+
+.menuHideWrapper {
+	flex-grow: 1;
+	display: flex;
+	justify-content: flex-end;
+	// align-items: center;
+	position: relative;
+	background-color: var(--color01);
+	@media (max-width: $media-ts+px) {
+		position: fixed; //REQ!
+		top: calc(var(--header-height) + var(--header-offset)); //REQ! if below header
+		// display: flex; //REQ! for mobile menu stretch
+	}
+	@media (max-width: $media-ts+px) {
+		left: 0;
+		width: 100%;
+		border-radius: 0px 0px 16px 16px;
+		justify-content: center;
+		transition: top $timer-menu;
+		.header_active & {
+			top: calc(var(--header-height) + var(--header-offset) + 100px);
+		}
+	}
+	@media (max-width: $media-ml+px) {
+		left: -283px; // width + 1px
+		width: 282px;
+		height: calc(var(--window-height) - var(--header-position) - var(--header-height) - 17px); //REQ! for mobile browsers with floating panels
+		transition: left $timer-menu;
+		border-radius: 0px 16px 16px 0px;
+		flex-direction: column;
+		justify-content: flex-start;
+		overflow-x: hidden;
+		overflow-y: auto;
+		scrollbar-width: thin;
+		scrollbar-color: var(--color05) transparent;
+		&::-webkit-scrollbar {
+			width: 3px;
+		}
+		&::-webkit-scrollbar-thumb {
+			background: var(--color05);
+		}
+		&::-webkit-scrollbar-track {
+			background: transparent;
+		}
+		.header_active & {
+			top: 0;
+			left: 0;
+		}
+	}
+	// next two are REQ! for 'hidingHeader' js
+	&.hide-on-switch-to-desktop {
+		@media (min-width: $media-ml+1+px) {
+			display: none;
+		}
+	}
+	&.hide-on-switch-to-mobile {
+		@media (max-width: $media-ml+px) {
+			display: none;
+		}
+	}
+	//
+}
+
+.menu {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	background-color: var(--color01);
+	@media (min-width: $media-ts+1+px) {
+		margin-top: 12px;
+	}
+	@media (max-width: $media-ml+px) {
+		height: 100%; //REQ! for mobile menu stretch
+		max-height: 260px;
+		padding: 10px;
+		// Mobile landscape screen apadtive
+		@media (max-height: $media-m+px) {
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+	}
+}
+.menuItems {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	@media (max-width: $media-ml+px) {
+		height: 100%; //REQ! for mobile menu stretch
+		flex-direction: column;
+	}
+}
+.menuItem {
+	margin-left: 30px;
+	// height: 30px;
+	display: flex;
+	align-items: center;
+	@media (max-width: $media-tl+px) and (min-width: $media-ts+1+px) {
+		margin-left: resize-multiplier(30, $media-tl, 1.8);
+	}
+	@media (min-width: $media-ml+1+px) {
+		position: relative;
+	}
+}
+.menuLink {
+	position: relative;
+	z-index: 2;
+	display: inline-block; //REQ!
+	height: 39px;
+	line-height: 39px;
+	padding: 0 9px;
+	font-size: 16px;
+	white-space: nowrap;
+	transition: all $timer-hover;
+	background-color: yellowgreen;
+	&:hover, .header_active & {
+		color: var(--color03);
+	}
+	@media (min-width: $media-ml+1+px) {
+	}
+}
+
+.thisPage {
+	pointer-events: none;
+	background-color: peachpuff;
 }

@@ -6,10 +6,11 @@ body {
 	--header-height: 0px; //REQ!
 	--window-height: 100vh; //REQ!
 	--marker-position: 0px; //REQ!
-	--media-mobile: #{$media-ml}; //REQ!
+	--media-mobile: #{$media-ts}; //REQ!
 	--timer-menu: #{$timer-menu}; //REQ!
 	--timer-modal: #{$timer-modal}; //REQ!
 
+	position: relative;
 	display: grid; //REQ!
 	grid-template-columns: 100%;
 	grid-template-rows: 1fr auto; //REQ! if footer at the bottom
@@ -23,7 +24,11 @@ body {
 	color: var(--color02);
 	background-color: var(--color01);
 	&.scroll-is-locked, &.loadscreen--locked {overflow: hidden;} //REQ!
+	// @media (min-width: $media-d+1+px) {
+	// 	font-size: 0.8333vw; // experiment
+	// }
 }
+
 // Window scrollbar
 // html { // Firefox scrollbar is setting up in 'html'
 // 	scrollbar-width: thin; // = 8px
