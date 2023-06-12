@@ -1,5 +1,7 @@
-import React from 'react';
-// import script from './Header.script';
+import React, { useState, memo, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import script from './Header.script';
+import { headerMetrics, menuWidth } from './HeaderMetrics';
 import classes from './Header.module.scss';
 import {Translate} from '../../../script/translate';
 import Container from '../../ui/Container/Container';
@@ -13,7 +15,7 @@ import { useCustomElement } from '../../../hooks/useCustomElement';
 import activeState from '../../../script/activeState';
 
 
-function Header({
+const Header = memo(function({
 	modif = 'static',
 	className = '',
 	...props
@@ -21,63 +23,67 @@ function Header({
 	modif = 'header_' + modif
 
 	const menuLinks = [
-		{ name: 'Cars', href: '#' },
-		{ name: 'Feedback', href: '#' },
-		{ name: 'F.A.Q', href: '#' },
-		{ name: 'How to rent', href: '#' },
+		{ name: 'Cars',				href: '#' },
+		{ name: 'Feedback',			href: '#' },
+		{ name: 'F.A.Q',				href: '#' },
+		{ name: 'How to rent',		href: '#' },
 	]
 
-	const elems = { // always render, dont add it to dependencies
-		header: useCustomElement(`${classes.header} ${classes[modif]}`),
-		// menuTurnoffArea: useCustomElement(classes.menuTurnoffArea),
-		// level: useCustomElement(classes.level),
-		// container: useCustomElement(classes.container),
-		// menuOpenBtn: useCustomElement(classes.menuOpenBtn),
-		// menuCloseBtn: useCustomElement(classes.menuCloseBtn),
-		// menuHideWrapper: useCustomElement(classes.menuHideWrapper),
-		// menu: useCustomElement(classes.menu),
-		// menuItem: useCustomElement(classes.menuItem),
-		// menuLink: useCustomElement(classes.menuLink),
-		// accountButton: useCustomElement(classes.accountButton),
+	const dispatch = useDispatch()
+	const metricsStore = useSelector(state => state.headerMetrics)
+
+	const header = useCustomElement(`${classes.header} ${classes[modif]}`)
+	let [headerStyle, setHeaderStyle] = useState({})
+	// menuTurnoffArea: useCustomElement(classes.menuTurnoffArea),
+	// level: useCustomElement(classes.level),
+	// container: useCustomElement(classes.container),
+	// menuOpenBtn: useCustomElement(classes.menuOpenBtn),
+	// menuCloseBtn: useCustomElement(classes.menuCloseBtn),
+	const menuHideWrapper = useCustomElement(classes.menuHideWrapper)
+	const menu = useCustomElement(classes.menu)
+	// let [menuWidthClass, setMenuWidthClass] = useState('')
+	// menuItem: useCustomElement(classes.menuItem),
+	// menuLink: useCustomElement(classes.menuLink),
+	// accountButton: useCustomElement(classes.accountButton),
+
+
+	// Metrics
+	// const metricsDefaultValue = [0, 0]
+	// const metricsHeaderHeightState = useState(metricsDefaultValue)
+	// const metricsHeaderPositiontState = useState(metricsDefaultValue)
+	// const metricsWindowHeightState = useState(metricsDefaultValue)
+	// metrics.init([
+	// 	metricsHeaderHeightState,
+	// 	metricsHeaderPositiontState,
+	// 	metricsWindowHeightState,
+	// ], header.el)
+	// console.log(metrics);
+
+	useEffect(() => {
+		headerMetrics.init(header, metricsStore, dispatch, setHeaderStyle)
+		menuWidth.init(menuHideWrapper, menu, classes)
+	}, [])
+
+	// useEffect(() => {
+	// 	metrics.calcHeaderHeight(metricsStore)
+	// })
+
+	function toggleMenu(e) {
+		script.toggleMenu(e, {header}, classes)
 	}
 
-
-	function setupEvents() {
-
-	}
-	function toggleMenu() {
-		// header, turnoff, wrapper, menu, menuLink
-		if (activeState.check(elems.header, classes.header_active)) close()
-		else open()
-
-		function open() {
-			activeState.add(elems.header, classes.header_active)
-		}
-		function close() {
-			activeState.remove(elems.header, classes.header_active)
-		}
-	}
-
+	console.log('render Header')
 	return (
 		<Translate>
-			<header className={elems.header.className} ref={elems.header.ref}>
+			<header className={header.className} ref={header.ref} style={headerStyle}>
 				<div className={classes.menuTurnoffArea} onClick={toggleMenu}></div>
 
-				<div className={`${classes.level} scroll-lock-item-p`}>
+				<div className={`${classes.level} scroll-lock-item-p`}> {/* scroll??? */}
 					<Container className={classes.container} modif='flex'>
 						<Logo className={classes.logo} />
 
-						<div className={classes.buttonBox}>
-							<div className={classes.menuOpenBtn} onClick={toggleMenu}>
-								<Icon name='icon-menu' />
-							</div>
-							<div className={classes.menuCloseBtn} onClick={toggleMenu}>
-								<Icon name='icon-cross' />
-							</div>
-						</div>
-
-						<div className={classes.menuHideWrapper}>
-							<nav className={classes.menu}>
+						<div className={classes.menuHideWrapper} ref={menuHideWrapper.ref}>
+							<nav className={`${menu.className} scroll-lock-item-pm`} ref={menu.ref}>
 								<ul className={classes.menuItems}>
 									{menuLinks.map((item, index) =>
 										<li className={classes.menuItem} key={index}>
@@ -89,7 +95,15 @@ function Header({
 						</div>
 
 						<div className={classes.account}>
-							<Divider modif='dark' />
+							<div className={classes.buttonBox}>
+								<div className={classes.menuOpenBtn} onClick={toggleMenu}>
+									<Icon name='icon-menu' />
+								</div>
+								<div className={classes.menuCloseBtn} onClick={toggleMenu}>
+									<Icon name='icon-cross' />
+								</div>
+							</div>
+							<Divider modif='dark' className={classes.divider} />
 							<Select type='currency'></Select>
 							<Select type='language'></Select>
 							<Button className={classes.accountButton} modif='negative'>?_Sign in</Button>
@@ -105,7 +119,7 @@ function Header({
 			</header>
 		</Translate>
 	)
-}
+})
 
 export default Header
 

@@ -1,7 +1,7 @@
-import React from 'react';
+import { memo } from 'react';
 import classes from './Logo.module.scss';
 
-function Logo({
+const Logo = memo(function({
 	href = process.env.REACT_APP_HOST || '/',
 	modif = 'default',
 	className,
@@ -19,6 +19,6 @@ function Logo({
 			</a>
 		</div>
 	)
-}
+})
 
 export default Logo

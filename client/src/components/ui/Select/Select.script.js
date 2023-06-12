@@ -20,7 +20,6 @@ const selectScript = {
 		}
 		e.stopPropagation()
 
-		// if (e.currentTarget.parentElement !== select.el) console.log('ksdjfa'); //close() // doesnt work
 		if (e.currentTarget === window) return close()
 
 		if (activeState.check(listWrapper, active)) close()

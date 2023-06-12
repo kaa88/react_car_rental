@@ -1,6 +1,11 @@
 @import "../../../styles/variables.scss";
 
 .header {
+	--header-position: 0px; //REQ!
+	--header-offset: 0px; //REQ!
+	--header-height: 0px; //REQ!
+	--window-height: 100vh; //REQ!
+	
 	top: var(--header-position); //REQ!
 	left: 0; //REQ!
 	z-index: 51; //REQ!
@@ -25,7 +30,7 @@
 		padding-top: 8px;
 	}
 	// &_compact .logo__link { // compact mode test
-	// 	@media (min-width: $media-ml+1+px) {font-size: 20px;}
+	// 	@media (min-width: $media-mxl+1+px) {font-size: 20px;}
 	// }
 }
 
@@ -51,21 +56,35 @@
 .level {
 	position: relative; //REQ! for submenu positioning
 	padding: 36px 0 16px 0;
-	background-color: var(--color05);
+	background-color: var(--color01);
+	@media (max-width: $media-ts+px) {
+		padding: 14px 0 10px 0;
+	}
+	@media (max-width: $media-ml+px) {
+		padding: 2px 0 6px 0;
+	}
 }
 .container {
 	background-color: var(--color01);
+	@media (max-width: $media-ml+px) {
+		flex-wrap: wrap;
+	}
 }
 
 .logo {
 	font-size: 20px;
+	@media (max-width: $media-ml+px) {
+		flex: 1 1 100%;
+		text-align: center;
+	}
 }
-.buttonBox {
-	position: relative; //REQ!
-	width: 50px;
-	height: 50px;
-	@media (min-width: $media-ts+1+px) {
-		display: none; //REQ!
+.header .divider {
+	margin-left: 19px;
+	@media (max-width: $media-ts+px) {
+		margin-left: 10px;
+	}
+	@media (max-width: $media-ml+px) {
+		display: none;
 	}
 }
 .account {
@@ -74,23 +93,48 @@
 	align-items: center;
 	& > * {
 		margin-left: 28px;
-		@media (max-width: $media-tl+px) {
-			margin-left: resize-multiplier(28, $media-tl, 1.8);
+		@media (max-width: $media-ts+px) {
+			margin-left: resize-multiplier(28, $media-ts, 1.2);
+		}
+		@media (max-width: $media-ml+px) {
+			margin-left: 0;
 		}
 	}
+	@media (max-width: $media-ml+px) {
+		margin-top: 0;
+		flex-grow: 1;
+		justify-content: space-between;
 }
-.accountButton {
+}
+.header .accountButton {
 	width: 112px;
 	height: 39px;
 	border-radius: 28px;
+	@media (max-width: $media-ml+px) {
+		width: 85px;
+		height: 35px;
+	}
 }
 .printAddress, .printAddressQr {display: none;} //REQ!
 
-
+.buttonBox {
+	flex-shrink: 0;
+	position: relative; //REQ!
+	width: 60px;
+	height: 40px;
+	@media (min-width: $media-ts+1+px) {
+		display: none; //REQ!
+	}
+	@media (max-width: $media-ml+px) {
+		width: 34px;
+		height: 34px;
+		margin-right: 5px;
+	}
+}
 .menuOpenBtn,
 .menuCloseBtn {
 	position: absolute; //REQ!
-	top: 0; //REQ!
+	top:0; //REQ!
 	left: 0; //REQ!
 	width: 100%; //REQ! if in button-box
 	height: 100%; //REQ! if in button-box
@@ -102,17 +146,24 @@
 	transition: opacity $timer-menu, visibility $timer-menu;
 	fill: #333;
 	svg {
-		width: 70%;
-		height: 70%;
+		width: 24px;
+		height: 24px;
 	}
 	@media (min-width: $media-ts+1+px) {
 		display: none; //REQ!
+	}
+	@media (max-width: $media-ml+px) {
+		top: -5px;
+		left: -10px;
+		width: calc(100% + 10px);
+		height: calc(100% + 10px);
 	}
 }
 .menuOpenBtn {
 	background-color: limegreen;
 	visibility: visible;
 	opacity: 1;
+	stroke: var(--color02);
 	.header_active & {
 		// visibility: hidden;
 		// opacity: 0;
@@ -137,23 +188,26 @@
 	background-color: var(--color01);
 	@media (max-width: $media-ts+px) {
 		position: fixed; //REQ!
-		top: calc(var(--header-height) + var(--header-offset)); //REQ! if below header
+		z-index: -1;
+		height: 50px;
+		top: calc(var(--header-height) + var(--header-offset) - 53px); //REQ! if below header
 		// display: flex; //REQ! for mobile menu stretch
 	}
 	@media (max-width: $media-ts+px) {
 		left: 0;
 		width: 100%;
-		border-radius: 0px 0px 16px 16px;
 		justify-content: center;
 		transition: top $timer-menu;
 		.header_active & {
-			top: calc(var(--header-height) + var(--header-offset) + 100px);
+			top: calc(var(--header-height) + var(--header-offset));
 		}
 	}
-	@media (max-width: $media-ml+px) {
+	@media (max-width: $media-mxl+px) {
+		top: calc(var(--header-height) + var(--header-offset)); //REQ! if below header
 		left: -283px; // width + 1px
 		width: 282px;
-		height: calc(var(--window-height) - var(--header-position) - var(--header-height) - 17px); //REQ! for mobile browsers with floating panels
+		height: calc(var(--window-height) - var(--header-position) - var(--header-height) - 17px);
+		max-height: 482px;
 		transition: left $timer-menu;
 		border-radius: 0px 16px 16px 0px;
 		flex-direction: column;
@@ -163,27 +217,29 @@
 		scrollbar-width: thin;
 		scrollbar-color: var(--color05) transparent;
 		&::-webkit-scrollbar {
-			width: 3px;
+			width: 0px;
 		}
-		&::-webkit-scrollbar-thumb {
-			background: var(--color05);
-		}
-		&::-webkit-scrollbar-track {
-			background: transparent;
-		}
+		// &::-webkit-scrollbar-thumb {
+		// 	background: var(--color05);
+		// }
+		// &::-webkit-scrollbar-track {
+		// 	background: transparent;
+		// }
 		.header_active & {
-			top: 0;
 			left: 0;
+		}
+		@media (max-height: $media-m+px) {
+			height: calc(var(--window-height) - var(--header-position) - var(--header-height));
 		}
 	}
 	// next two are REQ! for 'hidingHeader' js
 	&.hide-on-switch-to-desktop {
-		@media (min-width: $media-ml+1+px) {
+		@media (min-width: $media-mxl+1+px) {
 			display: none;
 		}
 	}
 	&.hide-on-switch-to-mobile {
-		@media (max-width: $media-ml+px) {
+		@media (max-width: $media-mxl+px) {
 			display: none;
 		}
 	}
@@ -198,57 +254,88 @@
 	@media (min-width: $media-ts+1+px) {
 		margin-top: 12px;
 	}
-	@media (max-width: $media-ml+px) {
-		height: 100%; //REQ! for mobile menu stretch
+	@media (max-width: $media-mxl+px) {
+		height: fit-content; //REQ! for mobile menu stretch
 		max-height: 260px;
-		padding: 10px;
+		// padding: 10px;
 		// Mobile landscape screen apadtive
 		@media (max-height: $media-m+px) {
 			padding-top: 0;
 			padding-bottom: 0;
 		}
 	}
+	&_shrink {
+		@media (max-width: $media-tl+px) and ((min-width: $media-ts+1+px)) {
+			width: 100%;
+			justify-content: center;
+			background-color: yellow;
+		}
+	}
 }
 .menuItems {
 	display: flex;
-	justify-content: space-between;
+	// justify-content: space-between;
 	align-items: center;
-	@media (max-width: $media-ml+px) {
-		height: 100%; //REQ! for mobile menu stretch
+	@media (max-width: $media-mxl+px) {
+		// height: 100%; //REQ! for mobile menu stretch
 		flex-direction: column;
+		width: 100%;
+		align-items: flex-start;
 	}
 }
 .menuItem {
+	flex-shrink: 1;
 	margin-left: 30px;
 	// height: 30px;
 	display: flex;
 	align-items: center;
 	@media (max-width: $media-tl+px) and (min-width: $media-ts+1+px) {
-		margin-left: resize-multiplier(30, $media-tl, 1.8);
+		margin-left: resize-multiplier(30, $media-tl, 4);
 	}
-	@media (min-width: $media-ml+1+px) {
+	@media (min-width: $media-mxl+1+px) {
 		position: relative;
+	}
+	@media (max-width: $media-mxl+px) {
+		margin-left: 0;
+		width: 100%;
+		border-bottom: solid 1px var(--color05);
 	}
 }
 .menuLink {
+	@include text-max-lines(2);
+	flex-shrink: 1;
 	position: relative;
 	z-index: 2;
-	display: inline-block; //REQ!
+	display: inline-flex; //REQ!
+	justify-content: center;
+	align-items: center;
 	height: 39px;
-	line-height: 39px;
+	// line-height: 39px;
 	padding: 0 9px;
 	font-size: 16px;
-	white-space: nowrap;
+	// white-space: nowrap;
+	text-align: center;
 	transition: all $timer-hover;
-	background-color: yellowgreen;
-	&:hover, .header_active & {
+	// background-color: yellowgreen;
+	&:hover {
 		color: var(--color03);
 	}
-	@media (min-width: $media-ml+1+px) {
+	.menu_shrink & {
+		@media (max-width: $media-tl+px) and ((min-width: $media-ts+1+px)) {
+			width: min-content;
+		}
+	}
+	@media (max-width: $media-mxl+px) {
+		width: 100%;
+		height: 51px;
+		justify-content: flex-start;
+		// line-height: 51px;
+			// margin-left: 20px;
+		padding: 0 20px;
 	}
 }
 
-.thisPage {
-	pointer-events: none;
-	background-color: peachpuff;
-}
+// .thisPage {
+// 	pointer-events: none;
+// 	background-color: peachpuff;
+// }
