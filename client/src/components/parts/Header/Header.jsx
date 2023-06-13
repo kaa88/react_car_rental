@@ -1,18 +1,17 @@
 import React, { useState, memo, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
+import { useCustomElement } from '../../../hooks/useCustomElement';
 import script from './Header.script';
-import { headerMetrics, menuWidth } from './HeaderMetrics';
 import classes from './Header.module.scss';
-import {Translate} from '../../../script/translate';
+import { Translate } from '../../../script/translate';
 import Container from '../../ui/Container/Container';
 import Button from '../../ui/Button/Button';
 import Divider from '../../ui/Divider/Divider';
 import Logo from '../../ui/Logo/Logo';
 import Select from '../../ui/Select/Select';
 import Icon from '../../ui/Icon/Icon';
+import { jsMediaQueries } from '../../../script/jsMediaQueries'
 
-import { useCustomElement } from '../../../hooks/useCustomElement';
-import activeState from '../../../script/activeState';
 
 
 const Header = memo(function({
@@ -31,6 +30,7 @@ const Header = memo(function({
 
 	const dispatch = useDispatch()
 	const metricsStore = useSelector(state => state.headerMetrics)
+	const breakpointStore = useSelector(state => state.mobileBreakpoint)
 
 	const header = useCustomElement(`${classes.header} ${classes[modif]}`)
 	let [headerStyle, setHeaderStyle] = useState({})
@@ -45,7 +45,8 @@ const Header = memo(function({
 	// menuItem: useCustomElement(classes.menuItem),
 	// menuLink: useCustomElement(classes.menuLink),
 	// accountButton: useCustomElement(classes.accountButton),
-
+	// console.log(header);
+	// console.log(menu);
 
 	// Metrics
 	// const metricsDefaultValue = [0, 0]
@@ -59,20 +60,38 @@ const Header = memo(function({
 	// ], header.el)
 	// console.log(metrics);
 
+	const headerParams = {
+		menu: true, // - add menu part (default = false)
+		menuTimeout: 500,
+		headerPositionFixed: true, // - choose if header is 'static' (false) or 'fixed' (true) on window, it controls CSS 'position' prop (default = false)
+		hidingHeader: true, // - add hidingHeader part (default = false) (works if headerPositionFixed: true)
+		hidingHeaderView: 'both', // - choose in what viewports 'hidingHeader' will work: 'mobile', 'desktop' or 'both' (default = 'both') (works if hidingHeader: true)
+		hiddenPositionOffset: 0, // - for 'hidingHeader', set up this if you want to move header by value (in px) that differs it's height (default = 0)
+		hidingHeaderCompactMode: true, // - adds 'compact' class to the header when you scroll page for some distance (default = false) (works if headerPositionFixed: true)
+		compactModeThreshold: 100, // - for 'hidingHeaderCompactMode', set the distance (in px) when 'compact mode' triggers (default = 100)
+		hideOnViewChangе: true, // - by default menu disappears when window switches between mobile and desktop view, it prevents css transition blinking; if you want to turn it off in some reasons, set 'false' (default = true)
+		// onMenuOpen, onMenuClose, // - event function(timeout){}
+	}
+
 	useEffect(() => {
-		headerMetrics.init(header, metricsStore, dispatch, setHeaderStyle)
-		menuWidth.init(menuHideWrapper, menu, classes)
+		// console.log(header.classList.remove('wow')); 
+		// console.log(classNameChanger.contains('wow','wo hello world'));
+		
+		script.init({headerParams, classes, header, menuHideWrapper, menu, metricsStore, breakpointStore, dispatch, setHeaderStyle})
+
+		// headerMetrics.init(header, setHeaderStyle)
+		// menuWidth.init(menuHideWrapper, menu, classes)
 	}, [])
 
 	// useEffect(() => {
-	// 	metrics.calcHeaderHeight(metricsStore)
+	// 	console.log('registerAction');
 	// })
 
 	function toggleMenu(e) {
-		script.toggleMenu(e, {header}, classes)
+		script.menu.toggleMenu(e, header)
 	}
 
-	console.log('render Header')
+	// console.log('render Header')
 	return (
 		<Translate>
 			<header className={header.className} ref={header.ref} style={headerStyle}>
@@ -83,7 +102,7 @@ const Header = memo(function({
 						<Logo className={classes.logo} />
 
 						<div className={classes.menuHideWrapper} ref={menuHideWrapper.ref}>
-							<nav className={`${menu.className} scroll-lock-item-pm`} ref={menu.ref}>
+							<nav className={`${menu.className} scroll-lock-item-p`} ref={menu.ref}>
 								<ul className={classes.menuItems}>
 									{menuLinks.map((item, index) =>
 										<li className={classes.menuItem} key={index}>

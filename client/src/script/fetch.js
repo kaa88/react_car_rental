@@ -1,4 +1,4 @@
-import { Utils } from "./Utils";
+import Utils from "./utilities";
 // import axios from 'axios'
 
 // add fake data

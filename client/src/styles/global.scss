@@ -2,7 +2,8 @@
 body {
 	// Variables for JS manipulations:
 	--marker-position: 0px; //REQ!
-	--media-mobile: #{$media-ts}; //REQ!
+	--media-mobile: #{$media-ml}; //REQ!
+	--media-tablet: #{$media-ts}; //REQ!
 	--timer-menu: #{$timer-menu}; //REQ!
 	--timer-modal: #{$timer-modal}; //REQ!
 	--scrollbar-width: 0;

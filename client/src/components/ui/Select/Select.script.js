@@ -1,5 +1,3 @@
-import activeState from '../../../script/activeState';
-
 const selectScript = {
 	setupWindowEvents(elems, classes) {
 		window.addEventListener('click', function(e) {this.toggleList(e, elems, classes)}.bind(this))
@@ -9,20 +7,20 @@ const selectScript = {
 	toggleList (e, {header, listWrapper, list}, {active}) {
 		if (list.children.length === 1) return;
 		function open() {
-			activeState.add(header, active)
-			activeState.add(listWrapper, active)
+			header.classList.add(active)
+			listWrapper.classList.add(active)
 			listWrapper.el.style.height = listWrapper.el.children[0].offsetHeight + 'px'
 		}
 		function close() {
-			activeState.remove(header, active)
-			activeState.remove(listWrapper, active)
+			header.classList.remove(active)
+			listWrapper.classList.remove(active)
 			listWrapper.el.style.height = ''
 		}
 		e.stopPropagation()
 
 		if (e.currentTarget === window) return close()
 
-		if (activeState.check(listWrapper, active)) close()
+		if (listWrapper.classList.contains(active)) close()
 		else open()
 	},
 

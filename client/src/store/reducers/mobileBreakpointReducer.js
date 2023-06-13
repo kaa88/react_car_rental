@@ -1,4 +1,7 @@
-const defaultState = 0
+const defaultState = {
+	tablet: 0,
+	mobile: 0
+}
 
 const CHANGE_MOBILE_BREAKPOINT = 'CHANGE_MOBILE_BREAKPOINT'
 

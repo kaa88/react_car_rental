@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux'
-import { initScripts } from './script/index'
+import { initOnloadScripts, initInstantScripts } from './script/index'
 import './styles/index.scss';
 import Header from './components/parts/Header/Header';
 import Main from './components/parts/Main/Main';
@@ -10,7 +10,8 @@ import Footer from './components/parts/Footer/Footer';
 
 function App() {
 	const dispatch = useDispatch()
-	useEffect(() => { initScripts(dispatch) }, [])
+	initInstantScripts(dispatch)
+	useEffect(() => { initOnloadScripts(dispatch) }, [])
 
 	return (
 		<>

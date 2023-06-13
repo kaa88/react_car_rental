@@ -8,7 +8,7 @@ const CHANGE_WINDOW_HEIGHT = 'CHANGE_WINDOW_HEIGHT'
 const CHANGE_HEADER_HEIGHT = 'CHANGE_HEADER_HEIGHT'
 const CHANGE_HEADER_POSITION = 'CHANGE_HEADER_POSITION'
 
-export default function headerMetricsReducer(state = defaultState, action) {
+export default function headerReducer(state = defaultState, action) {
 	switch(action.type) {
 		case CHANGE_WINDOW_HEIGHT:
 			return {...state, windowHeight: action.payload}

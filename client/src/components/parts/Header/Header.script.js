@@ -1,69 +1,23 @@
-/* 
-	Header contains 2 parts: 'header' and 'headerMetrics'.
-	'headerMetrics' runs right after <header> tag to prevent content jumps after metrics setup. It is an important part of 'header' module, so I typed hardcode links to it. 'headerMetrics' has no meaning without main 'header' module, but they have to run separately.
-	'headerMetrics' contains 'headerMenuOptions handler' to prevent menu jumping as well when sorting menu items.
-	
-	Init params {obj}:
-	- menu - add menu part (default = false)
-	- submenu - add submenu part (default = false)
-	- headerPositionFixed - choose if header is 'static' (false) or 'fixed' (true) on window, it controls CSS 'position' prop (default = false)
-	- hidingHeader - add hidingHeader part (default = false) (works if headerPositionFixed: true)
-	- hidingHeaderView - choose in what viewports 'hidingHeader' will work: 'mobile', 'desktop' or 'both' (default = 'both') (works if hidingHeader: true)
-	- hiddenPositionOffset - for 'hidingHeader', set up this if you want to move header by value (in px) that differs it's height (default = 0)
-	- hidingHeaderCompactMode - adds 'compact' class to the header when you scroll page for some distance (default = false) (works if headerPositionFixed: true)
-	- compactModeThreshold - for 'hidingHeaderCompactMode', set the distance (in px) when 'compact mode' triggers (default = 100)
-	- hideOnViewChangе - by default menu disappears when window switches between mobile and desktop view, it prevents css transition blinking; if you want to turn it off in some reasons, set 'false' (default = true)
-	- onMenuOpen, onMenuClose - event function(timeout){}
+import { jsMediaQueries } from '../../../script/jsMediaQueries'
+import Metrics from './metrics';
+import Menu from './menu';
 
-	Usable methods:
-	- header.menu.close(true) - params: bool 'skipLock' (default = false)
-	- header.shareHeader()
-	- header.unshareHeader()
-
-	headerMenuOptions script element:
-	- it is a code that sorts the list of menu links from header.html
-	- options are set in html <script> tag and they are individual for each page
-	- script reads 'links' array and creates new sorted list using data-attributes
-	- 'activeLink' adds class 'this-page'
-
-	SubMenu:
-	- submenu can be inside the 'menuItem' or outside
-	- it is important to set submenu in right place: 1) inside 'menuItem' (after the menu link) or 2) inside 'menuNav' (after the 'menuItems')
-	- it supports multilevel nesting, and any level can be inside or outside
-	- any links that toggle submenu must contain class 'submenu-link'
-	- if outside submenu, button hover effect will be locked until mouse leaves the closest 'menuNav'
-
-	Share header:
-	- this functionality allows other modules e.g. 'modal' call header into view and use its close button, etc.
-	- by default header buttons close other opened modules, so you just have to provide an access to the button
-	- it adds 2 css classes to header elem: 1) instant class, 2) delayed class (e.g. if you need to set z-index after a timeout)
-
-	Set transition timeout in CSS only. JS will read it.
-*/
-import activeState from '../../../script/activeState';
-import {scrollLock} from '../../../script/scrollLock';
-import {transitionLock} from '../../../script/transLock';
-
-const MENU_TIMEOUT = 500
 
 const header = {
-	toggleMenu(e, {header}, {header_active: active}) {
-		// header, turnoff, wrapper, menu, menuLink
-		if (activeState.check(header, active)) close()
-		else open()
+	init({headerParams, classes, header, menuHideWrapper, menu, metricsStore, breakpointStore, dispatch, setHeaderStyle}) {
+		Metrics.init({header, state: metricsStore, dispatch, setHeaderStyle})
+		this.metrics = Metrics
+		if (headerParams.menu) {
+			Menu.init({headerParams, header, menuHideWrapper, menu, classes, breakpointStore})
+			this.menu = Menu
+			jsMediaQueries.registerAction(breakpointStore.tablet, this.menu.hideMenuOnViewChange.bind(this.menu))
+			jsMediaQueries.registerAction(breakpointStore.mobile, this.menu.hideMenuOnViewChange.bind(this.menu))
+		}
 
-		function open() {
-			if (transitionLock.check(MENU_TIMEOUT)) return;
-			scrollLock.lock()
-			activeState.add(header, active)
-		}
-		function close() {
-			if (transitionLock.check(MENU_TIMEOUT)) return;
-			scrollLock.unlock(MENU_TIMEOUT)
-			activeState.remove(header, active)
-		}
-	}
+	},
 }
+export default header
+
 
 const header_old = {
 	selfName: 'header',
@@ -274,98 +228,5 @@ const header_old = {
 	},
 	// /Menu
 
-	// Hiding Header
-	// hidingHeader: {
-	// 	initiated: false,
-	// 	init: function(that) {
-	// 		this.root = that;
-			
-	// 		// hidingHeader settings
-	// 		if (this.root.params.hidingHeader)
-	// 			window.addEventListener('scroll', this.moveHeader.bind(this));
-	// 		this.firstMoveScroll = true;
-
-	// 		// hidingHeaderCompactMode settings
-	// 		if (this.root.params.hidingHeaderCompactMode)
-	// 			window.addEventListener('scroll', this.setCompactMode.bind(this));
-	// 			this.firstCompactScroll = true;
-	// 			this.status = this.prevStatus = false; // false = normal, true = compact
-
-	// 		this.initiated = true
-	// 	},
-	// 	returnHeader: function(instant) {
-	// 		if (!this.initiated || this.root.headerPosition == this.root.headerOffset) return;
-	// 		if (instant) {
-	// 			this.root.headerPosition = this.root.headerOffset
-	// 			this.root.setCssVar()
-	// 			return
-	// 		}
-	// 		let
-	// 			timeoutMultiplier = 0.7,
-	// 			timeInterval = 10,
-	// 			startTime = new Date().valueOf(),
-	// 			startValue = this.root.headerPosition,
-	// 			newValue,
-	// 			moveStep = (this.root.headerOffset - this.root.headerPosition) / (this.root.timeout * timeoutMultiplier) / timeInterval * 100;
-
-	// 		let timerid = setInterval(function(){
-	// 			newValue = startValue + (new Date().valueOf() - startTime) * moveStep / timeInterval;
-	// 			if (newValue >= this.root.headerOffset) this.root.headerPosition = this.root.headerOffset
-	// 			else this.root.headerPosition = newValue
-	// 			this.root.setCssVar()
-	// 		}.bind(this), timeInterval)
-
-	// 		setTimeout(function(){
-	// 			clearInterval(timerid);
-	// 			this.root.headerPosition = this.root.headerOffset
-	// 			this.root.setCssVar()
-	// 		}.bind(this), this.root.timeout * timeoutMultiplier)
-	// 	},
-	// 	moveHeader: function() {
-	// 		if (!this.initiated) return;
-	// 		if (this.root.params.hidingHeaderView == 'mobile' && window.innerWidth > this.root.away.getMobileBreakpoint()) return;
-	// 		if (this.root.params.hidingHeaderView == 'desktop' && window.innerWidth <= this.root.away.getMobileBreakpoint()) return;
-
-	// 		// this 'if' prevents header's jump after page reloading in the middle of the content
-	// 		if (this.firstMoveScroll) {
-	// 			this.Y = this.YPrev = scrollY;
-	// 			this.diff = 0;
-	// 			return this.firstMoveScroll = false
-	// 		}
-	// 		// lazyLoad check
-	// 		if ((scrollY < (this.Y + this.diff) && this.Y > this.YPrev) || (scrollY > (this.Y + this.diff) && this.Y < this.YPrev)) {
-	// 			this.diff = scrollY - this.Y;
-	// 		}
-	// 		// scroll-move
-	// 		let
-	// 			currentPos = this.root.headerPosition,
-	// 			visiblePos = this.root.headerOffset,
-	// 			hiddenPos = visiblePos - this.root.headerHeight - this.root.params.hiddenPositionOffset;
-	// 		this.YPrev = this.Y;
-	// 		this.Y = scrollY - this.diff;
-	// 		currentPos -= this.Y - this.YPrev;
-	// 		if (currentPos > visiblePos) currentPos = visiblePos;
-	// 		if (currentPos < hiddenPos) currentPos = hiddenPos;
-	// 		this.root.headerPosition = currentPos;
-	// 		this.root.setCssVar()
-	// 	},
-	// 	setCompactMode: function() {
-	// 		if (!this.initiated) return;
-	// 		if (this.firstCompactScroll) return this.firstCompactScroll = false
-	// 		this.status = window.scrollY > this.root.params.compactModeThreshold ? true : false;
-	// 		if (this.status != this.prevStatus) {
-	// 			if (this.status) this.root.headerElem.classList.add(this.root.names.stateCompact)
-	// 			else this.root.headerElem.classList.remove(this.root.names.stateCompact)
-	// 			this.prevStatus = this.status
-	// 		}
-	// 	},
-	// 	removeCompactMode: function() {
-	// 		if (!this.initiated) return;
-	// 		this.root.headerElem.classList.remove(this.root.names.stateCompact)
-	// 		this.prevStatus = this.status = false
-	// 	}
-	// }
-	// /Hiding Header
 }
 
-export default header

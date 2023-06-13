@@ -1,4 +1,4 @@
-export const Utils = {
+const utilities = {
 	object: {
 		isEmpty(obj) {
 			for (let prop in obj) {
@@ -8,3 +8,4 @@ export const Utils = {
 		}
 	}
 }
+export default utilities

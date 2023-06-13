@@ -14,7 +14,7 @@ function Footer() {
 
 	return (
 		<Translate>
-			<footer className={classes.footer}>
+			<footer className={`${classes.footer} scroll-lock-item-p`}>
 
 				<div className={classes.top}>
 					<InputText className={classes.callInput} placeholder='?_Phone' />
