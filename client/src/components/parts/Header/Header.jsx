@@ -40,7 +40,7 @@ const Header = memo(function({
 	// menuOpenBtn: useCustomElement(classes.menuOpenBtn),
 	// menuCloseBtn: useCustomElement(classes.menuCloseBtn),
 	const menuHideWrapper = useCustomElement(classes.menuHideWrapper)
-	const menu = useCustomElement(classes.menu)
+	const menu = useCustomElement(`${classes.menu} ${classes.hideOnViewChangeStageS}`)
 	// let [menuWidthClass, setMenuWidthClass] = useState('')
 	// menuItem: useCustomElement(classes.menuItem),
 	// menuLink: useCustomElement(classes.menuLink),
@@ -62,7 +62,7 @@ const Header = memo(function({
 
 	const headerParams = {
 		menu: true, // - add menu part (default = false)
-		menuTimeout: 500,
+		menuTimeout: 1500,
 		headerPositionFixed: true, // - choose if header is 'static' (false) or 'fixed' (true) on window, it controls CSS 'position' prop (default = false)
 		hidingHeader: true, // - add hidingHeader part (default = false) (works if headerPositionFixed: true)
 		hidingHeaderView: 'both', // - choose in what viewports 'hidingHeader' will work: 'mobile', 'desktop' or 'both' (default = 'both') (works if hidingHeader: true)

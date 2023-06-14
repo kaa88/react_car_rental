@@ -1,6 +1,7 @@
 import { transitionLock } from '../../../script/transLock';
 import { scrollLock } from '../../../script/scrollLock';
 import Metrics from './metrics';
+import classNameChanger from '../../../script/classNameChanger'
 
 const lockScroll = scrollLock.lock
 const unlockScroll = scrollLock.unlock
@@ -60,7 +61,6 @@ const menu = {
 		}
 	},
 	hideMenuOnViewChange() {
-		console.log('change');
 		if (this.isHidingMenuOnViewChange) {
 			clearTimeout(this.hideMenuOnViewChangeTimeoutId)
 			this.hideMenuOnViewChangeTimeoutId = setTimeout(function(){
@@ -69,13 +69,16 @@ const menu = {
 				if (window.innerWidth <= this.breakpoints.mobile) viewKey = 'S'
 				else if (window.innerWidth > this.breakpoints.tablet) viewKey = 'L'
 				
-				Object.entries(this.classes.hideOnViewChange).forEach(([key, value]) => {
-					if (key === viewKey) this.menu.classList.add(value)
-					else this.menu.classList.remove(value)
-				})
 
+				let newClassName = this.menu.className
+				Object.entries(this.classes.hideOnViewChange).forEach(([key, value]) => {
+					if (key === viewKey) newClassName = classNameChanger.add(value, newClassName)
+					else newClassName = classNameChanger.remove(value, newClassName)
+				})
+				this.menu.setClassName(newClassName)
 				// могу несколько раз изменить строку, но применить изменения через setClassName только 1 раз за рендер
 				// поэтому ClassNameChanger надо упростить до обработки только строк
+
 
 				Metrics.calcHeaderHeight()
 			}.bind(this), this.timeout)
