@@ -10,11 +10,9 @@ import Divider from '../../ui/Divider/Divider';
 import Logo from '../../ui/Logo/Logo';
 import Select from '../../ui/Select/Select';
 import Icon from '../../ui/Icon/Icon';
-import { jsMediaQueries } from '../../../script/jsMediaQueries'
 
 
-
-const Header = memo(function({
+const Header = memo(function Header({
 	modif = 'static',
 	className = '',
 	...props
@@ -40,7 +38,7 @@ const Header = memo(function({
 	// menuOpenBtn: useCustomElement(classes.menuOpenBtn),
 	// menuCloseBtn: useCustomElement(classes.menuCloseBtn),
 	const menuHideWrapper = useCustomElement(classes.menuHideWrapper)
-	const menu = useCustomElement(`${classes.menu} ${classes.hideOnViewChangeStageS}`)
+	const menu = useCustomElement(`${classes.menu}`)
 	// let [menuWidthClass, setMenuWidthClass] = useState('')
 	// menuItem: useCustomElement(classes.menuItem),
 	// menuLink: useCustomElement(classes.menuLink),
@@ -62,7 +60,7 @@ const Header = memo(function({
 
 	const headerParams = {
 		menu: true, // - add menu part (default = false)
-		menuTimeout: 1500,
+		menuTimeout: 500,
 		headerPositionFixed: true, // - choose if header is 'static' (false) or 'fixed' (true) on window, it controls CSS 'position' prop (default = false)
 		hidingHeader: true, // - add hidingHeader part (default = false) (works if headerPositionFixed: true)
 		hidingHeaderView: 'both', // - choose in what viewports 'hidingHeader' will work: 'mobile', 'desktop' or 'both' (default = 'both') (works if hidingHeader: true)
@@ -73,11 +71,17 @@ const Header = memo(function({
 		// onMenuOpen, onMenuClose, // - event function(timeout){}
 	}
 
+	let lkdkfs = 33
+
+	const getActualElements = function() {
+		return {header, menuHideWrapper, menu, lkdkfs}
+	}
+
 	useEffect(() => {
 		// console.log(header.classList.remove('wow')); 
 		// console.log(classNameChanger.contains('wow','wo hello world'));
 		
-		script.init({headerParams, classes, header, menuHideWrapper, menu, metricsStore, breakpointStore, dispatch, setHeaderStyle})
+		script.init({headerParams, classes, header, menuHideWrapper, menu, metricsStore, breakpointStore, dispatch, setHeaderStyle, getActualElements})
 
 		// headerMetrics.init(header, setHeaderStyle)
 		// menuWidth.init(menuHideWrapper, menu, classes)
@@ -86,6 +90,7 @@ const Header = memo(function({
 	// useEffect(() => {
 	// 	console.log('registerAction');
 	// })
+
 
 	function toggleMenu(e) {
 		script.menu.toggleMenu(e, header)
@@ -101,7 +106,7 @@ const Header = memo(function({
 					<Container className={classes.container} modif='flex'>
 						<Logo className={classes.logo} />
 
-						<div className={classes.menuHideWrapper} ref={menuHideWrapper.ref}>
+						<div className={menuHideWrapper.className} ref={menuHideWrapper.ref}>
 							<nav className={`${menu.className} scroll-lock-item-p`} ref={menu.ref}>
 								<ul className={classes.menuItems}>
 									{menuLinks.map((item, index) =>

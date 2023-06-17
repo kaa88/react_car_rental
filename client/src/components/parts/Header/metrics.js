@@ -48,9 +48,6 @@ const metrics = {
 
 		// return [this.headerHeight, this.headerPosition]
 	},
-	windowBreakpoints() {
-
-	}
 }
 export default metrics
 

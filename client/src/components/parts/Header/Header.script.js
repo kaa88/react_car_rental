@@ -10,10 +10,16 @@ const header = {
 		if (headerParams.menu) {
 			Menu.init({headerParams, header, menuHideWrapper, menu, classes, breakpointStore})
 			this.menu = Menu
-			jsMediaQueries.registerAction(breakpointStore.tablet, this.menu.hideMenuOnViewChange.bind(this.menu))
-			jsMediaQueries.registerAction(breakpointStore.mobile, this.menu.hideMenuOnViewChange.bind(this.menu))
+			jsMediaQueries.registerAction(breakpointStore.tablet, this.checkViewportChange.bind(this))
+			jsMediaQueries.registerAction(breakpointStore.mobile, this.checkViewportChange.bind(this))
 		}
 
+	},
+	checkViewportChange() {
+		this.menu.closeMenu()
+		this.menu.hideMenuOnViewChange()
+		// this.hidingHeader.returnHeader(true)
+		// this.hidingHeader.removeCompactMode()
 	},
 }
 export default header

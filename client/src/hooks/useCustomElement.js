@@ -1,5 +1,5 @@
 import { useRef, useState } from "react"
-// import { getClassListForCustomElement } from '../script/classNameChanger'
+import classNameChanger from '../script/classNameChanger'
 
 export function useCustomElement(classNameAttr = '', childrenAttr = '', other) { // (str, any, obj)
 	if (typeof classNameAttr !== 'string') console.error('Hook "useCustomElement" 1st argument must be a "string"')
@@ -12,7 +12,9 @@ export function useCustomElement(classNameAttr = '', childrenAttr = '', other) {
 	return Object.assign({
 		className,
 		setClassName,
-		// classList: getClassListForCustomElement(className, setClassName),
+		hasClass: function(value) {return classNameChanger.check(this.className, value)},
+		addClass: function(value) {this.setClassName(classNameChanger.add(this.className, value))},
+		removeClass: function(value) {this.setClassName(classNameChanger.remove(this.className, value))},
 		children,
 		setChildren,
 		ref: useRef(),

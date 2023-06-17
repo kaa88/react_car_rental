@@ -7,7 +7,7 @@ import script from './Select.script'
 import classes from './Select.module.scss';
 import Icon from '../Icon/Icon';
 
-const Select = memo(({type, className = '', children, ...props}) => {
+const Select = memo(function Select({type, className = '', children, ...props}) {
 
 	const dispatch = useDispatch()
 	const Language = useSelector(state => state.language)

@@ -20,7 +20,7 @@ async function fetchData(request) {
 		controller.abort()
 		console.error(`"${path}" fetch has been aborted due to timeout`)
 		return result
-	}, 2000)
+	}, process.env.REACT_APP_FETCH_TIMEOUT)
 
 	const fetchParams = {
 		method,

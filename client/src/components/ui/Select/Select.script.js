@@ -7,20 +7,20 @@ const selectScript = {
 	toggleList (e, {header, listWrapper, list}, {active}) {
 		if (list.children.length === 1) return;
 		function open() {
-			header.classList.add(active)
-			listWrapper.classList.add(active)
+			header.addClass(active)
+			listWrapper.addClass(active)
 			listWrapper.el.style.height = listWrapper.el.children[0].offsetHeight + 'px'
 		}
 		function close() {
-			header.classList.remove(active)
-			listWrapper.classList.remove(active)
+			header.removeClass(active)
+			listWrapper.removeClass(active)
 			listWrapper.el.style.height = ''
 		}
 		e.stopPropagation()
 
 		if (e.currentTarget === window) return close()
 
-		if (listWrapper.classList.contains(active)) close()
+		if (listWrapper.hasClass(active)) close()
 		else open()
 	},
 

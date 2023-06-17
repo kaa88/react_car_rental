@@ -1,63 +1,54 @@
-const classNameChanger = {
-	_fixArgs(args = []) {
-		let fixed = Array.from(args).map(item => {
-			if (typeof item !== 'string') return ''
-			else return item.trim()
-		})
-		return fixed
-	},
-
-	_getClasses(classList) {
-		if (!classList) return []
-		let split = classList.split(' ')
-		let cleanedSplit = split.filter(item => item !== '')
-		return cleanedSplit
-	},
-
-	check() { // (classList, ...classNames)
-		let [classList, ...classNames] = this._fixArgs(arguments)
-		let classes = this._getClasses(classList)
-
-		// let x = classNames.reduce((reduced, current) => {console.log(reduced);if (!reduced.includes(current)) return reduced.push(current)}, [])
-		// console.log(x);
-		// let x = classNames.filter(name => {})
-		let filteredClassNames = []
-		for (let i = 0; i < classNames.length; i++) { // так работает... сделать функцию
-			if (!filteredClassNames.includes(classNames[i])) filteredClassNames.push(classNames[i])
+const stringifyArgs = function(args) {
+	return args.map(item => {
+		if (typeof item === 'string') return item.trim()
+		else {
+			console.warn(`Argument type must be a "string", but it is "${typeof item}"`)
+			return ''
 		}
-		//
+	})
+}
 
-		let matchedClasses = classes.filter(item => filteredClassNames.includes(item))
-		return matchedClasses.length === filteredClassNames.length ? true : false // переделать чтобы ставил true если 2 одинаковых класса
+const cleanClasses = function(classes) {
+	let set = new Set(classes) // filter duplicates
+	set.delete('')
+	return [...set]
+}
+
+const getClasses = function([...args]) {
+	if (args.length < 2) return null
+	let [classList, ...classNames] = stringifyArgs(args)
+	let currentClasses = cleanClasses(classList.split(' '))
+	let newClasses = cleanClasses(classNames)
+	if (!newClasses.length) return null
+	return [currentClasses, newClasses]
+}
+
+const classNameChanger = {
+	check(classList, ...classNames) {
+		let classes = getClasses(arguments)
+		if (!classes) return false
+		let [currentClasses, newClasses] = classes
+		let matchedClasses = currentClasses.filter(item => newClasses.includes(item))
+		return matchedClasses.length === newClasses.length ? true : false
 	},
 
-	add(currentClassList) { // todo: optimization (twice: _fixArgs, _getClasses)
-		let checkResponse = this.check(...arguments)
-		if (checkResponse) return currentClassList
-		let [classList, ...classNames] = this._fixArgs(arguments)
-		let classes = this._getClasses(classList)
-		classNames.forEach(name => classes.push(name))
-		return classes.join(' ')
+	add(classList, ...classNames) {
+		let classes = getClasses(arguments)
+		if (!classes) return classList
+		let [currentClasses, newClasses] = classes
+		let newClassList = [...new Set(currentClasses.concat(newClasses))]
+		return newClassList.join(' ')
 	},
 	
-	remove(currentClassList) { // (classList, ...classNames)
-		let [classList, ...classNames] = this._fixArgs(arguments)
-		if (!classList) return currentClassList
-		let classes = this._getClasses(classList)
-		if (!classes.length) return currentClassList
-		let newClassList = classes.filter(item => !classNames.includes(item))
+	remove(classList, ...classNames) {
+		let classes = getClasses(arguments)
+		if (!classes) return classList
+		let [currentClasses, newClasses] = classes
+		let newClassList = currentClasses.filter(item => !newClasses.includes(item))
 		return newClassList.join(' ')
 	}
 }
 export default classNameChanger
-
-console.log('check:', classNameChanger.check('a b  c', 'b', 'b', 'c', 'c')); 
-console.log('check:', classNameChanger.check('a b  c', 'b', 'b', 'c', 'c', 'd')); 
-// console.log('add:', classNameChanger.add(['a b  c'], 'b')); 
-// console.log('add:', classNameChanger.add('a b  c', ' d', 'e ')); 
-// console.log('remove:', classNameChanger.remove('a b  c', ' b')); 
-
-console.log(classNameChanger);
 
 // const classNameChanger = {
 // 	_getClasses(classList) {
@@ -67,14 +58,14 @@ console.log(classNameChanger);
 
 // 	check(className, classList) {
 // 		if (!className) return null
-// 		let classes = this._getClasses(classList)
+// 		let classes = getClasses(classList)
 // 		let isActive = classes.find(item => item === className)
 // 		return isActive ? true : false
 // 	},
 
 // 	add(className, classList) {
 // 		if (this.check(className, classList)) return className
-// 		let classes = this._getClasses(classList)
+// 		let classes = getClasses(classList)
 // 		classes.push(className)
 // 		let newClassList = classes.join(' ')
 // 		if (this.setClassName) this.setClassName(newClassList)
@@ -83,7 +74,7 @@ console.log(classNameChanger);
 // 	},
 	
 // 	remove(className, classList) {
-// 		let classes = this._getClasses(classList)
+// 		let classes = getClasses(classList)
 // 		if (!classes.length) return classList
 // 		let newClassList = classes.filter(item => item !== className).join(' ')
 // 		if (this.setClassName) this.setClassName(newClassList)

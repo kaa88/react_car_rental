@@ -5,26 +5,31 @@ import classNameChanger from '../../../script/classNameChanger'
 
 const lockScroll = scrollLock.lock
 const unlockScroll = scrollLock.unlock
+const DEFAULT_TIMEOUT = 0
+const HIDE_MENU_DEFAULT_TIMEOUT_ID = 321
+const WRAPPER_WIDTH_TRESHOLD = 2
+const VIEW_KEY_LARGE = 'L'
+const VIEW_KEY_MEDIUM = 'M'
+const VIEW_KEY_SMALL = 'S'
 
 const menu = {
 	init({headerParams, header, menuHideWrapper, menu, classes, breakpointStore}) {
 		this.header = header
 		this.wrapper = menuHideWrapper
 		this.menu = menu
-		this.timeout = headerParams.menuTimeout || 0
+		this.timeout = headerParams.menuTimeout || DEFAULT_TIMEOUT
 		this.classes = {
 			active: classes.header_active,
 			menuShrink: classes.menu_shrink,
-			hideOnViewChange: {
-				L: classes.hideOnViewChangeStageL,
-				M: classes.hideOnViewChangeStageM,
-				S: classes.hideOnViewChangeStageS,
-			}
+			hideOnViewChange: {}
 		}
+		this.classes.hideOnViewChange[VIEW_KEY_LARGE] = classes.hideOnViewChangeStageL
+		this.classes.hideOnViewChange[VIEW_KEY_MEDIUM] = classes.hideOnViewChangeStageM
+		this.classes.hideOnViewChange[VIEW_KEY_SMALL] = classes.hideOnViewChangeStageS
 		this.breakpoints = breakpointStore
-		this.isModifiedMenu = false
+		this.isShrinkedMenu = false
 		this.isHidingMenuOnViewChange = headerParams.hideMenuOnViewChange || true
-		this.hideMenuOnViewChangeTimeoutId = 321 // рандомный id чтобы вдруг не зацепить другие таймауты на старте
+		this.hideMenuOnViewChangeTimeoutId = HIDE_MENU_DEFAULT_TIMEOUT_ID // рандомный id чтобы вдруг не зацепить другие таймауты на старте
 		this.hideMenuOnViewChange()
 
 		window.addEventListener('resize', this.calcMenuWidth.bind(this))
@@ -32,57 +37,53 @@ const menu = {
 	},
 
 	toggleMenu(e, header) {
-		if (header.classList.contains(this.activeClass)) this.closeMenu(e, header)
-		else this.openMenu(e, header)
+		if (header.hasClass(this.classes.active)) this.closeMenu(e, header)
+		else if (e) this.openMenu(e, header)
 	},
 	openMenu(e, header) {
 		if (transitionLock.check(this.timeout)) return;
+		header.addClass(this.classes.active)
 		lockScroll()
-		header.classList.add(this.activeClass)
 	},
 	closeMenu(e, header) {
 		if (transitionLock.check(this.timeout)) return;
+		if (!header) header = this.header
+		header.removeClass(this.classes.active)
 		unlockScroll(this.timeout)
-		header.classList.remove(this.activeClass)
-	},
-	calcMenuWidth() {
-		let wrapperWidth = this.wrapper.el.offsetWidth
-		let menuWidth = this.menu.el.offsetWidth
-		let isModifiedMenu;
-		if (menuWidth >= wrapperWidth - 3) isModifiedMenu = true
-		else isModifiedMenu = false
-		if (isModifiedMenu !== this.isModifiedMenu) {
-			let newClassName = isModifiedMenu
-				? this.menu.classList.add(this.menuShrinkClass)
-				: this.menu.classList.remove(this.menuShrinkClass)
-			this.menu.setClassName(newClassName)
-			this.menu.className = newClassName
-			this.isModifiedMenu = isModifiedMenu
-		}
 	},
 	hideMenuOnViewChange() {
 		if (this.isHidingMenuOnViewChange) {
 			clearTimeout(this.hideMenuOnViewChangeTimeoutId)
 			this.hideMenuOnViewChangeTimeoutId = setTimeout(function(){
 
-				let viewKey = 'M'
-				if (window.innerWidth <= this.breakpoints.mobile) viewKey = 'S'
-				else if (window.innerWidth > this.breakpoints.tablet) viewKey = 'L'
-				
+				let viewKey = VIEW_KEY_MEDIUM
+				if (window.innerWidth <= this.breakpoints.mobile) viewKey = VIEW_KEY_SMALL
+				else if (window.innerWidth > this.breakpoints.tablet) viewKey = VIEW_KEY_LARGE
 
-				let newClassName = this.menu.className
+				let newClassName = this.wrapper.className
 				Object.entries(this.classes.hideOnViewChange).forEach(([key, value]) => {
-					if (key === viewKey) newClassName = classNameChanger.add(value, newClassName)
-					else newClassName = classNameChanger.remove(value, newClassName)
+					if (key === viewKey) newClassName = classNameChanger.add(newClassName, value)
+					else newClassName = classNameChanger.remove(newClassName, value)
 				})
-				this.menu.setClassName(newClassName)
-				// могу несколько раз изменить строку, но применить изменения через setClassName только 1 раз за рендер
-				// поэтому ClassNameChanger надо упростить до обработки только строк
-
+				this.wrapper.setClassName(newClassName)
 
 				Metrics.calcHeaderHeight()
 			}.bind(this), this.timeout)
 		}
-	}
+	},
+	calcMenuWidth() {
+		let isShrinkedMenu;
+		if (window.innerWidth <= this.breakpoints.tablet) isShrinkedMenu = false
+		else {
+			let wrapperWidth = this.wrapper.el.offsetWidth
+			let menuWidth = this.menu.el.offsetWidth
+			isShrinkedMenu = (menuWidth >= wrapperWidth - WRAPPER_WIDTH_TRESHOLD) ? true : false
+		}
+		if (isShrinkedMenu !== this.isShrinkedMenu) {
+			if (isShrinkedMenu) this.menu.addClass(this.classes.menuShrink)
+			else this.menu.removeClass(this.classes.menuShrink)
+			this.isShrinkedMenu = isShrinkedMenu
+		}
+	},
 }
 export default menu

@@ -20,7 +20,7 @@ function initBreakpoints(dispatch) {
 export function initInstantScripts(dispatch) {
 	initBreakpoints(dispatch)
 	jsMediaQueries.init({
-		testMode: true
+		// testMode: true
 	})
 }
 export function initOnloadScripts(dispatch) {
