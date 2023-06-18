@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import store from '../../../store/index'
 import classes from './Cars.module.scss';
 import Container from '../../ui/Container/Container';
@@ -10,7 +10,7 @@ import carData from './Cars.data.json';
 import {Translate} from '../../../script/translate';
 
 
-function Cars() {
+const Cars = memo(function Cars() {
 	// console.log('render cars');
 
 	let swiperParams = {
@@ -110,6 +110,6 @@ function Cars() {
 			</section>
 		</Translate>
 	)
-}
+})
 
 export default Cars

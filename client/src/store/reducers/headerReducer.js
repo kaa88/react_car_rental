@@ -1,41 +1,46 @@
 const defaultState = {
-	windowHeight: 0,
-	headerHeight: 0,
-	headerPosition: 0
+	headerEl: '',
+	headerParams: {}
 }
 
-const CHANGE_WINDOW_HEIGHT = 'CHANGE_WINDOW_HEIGHT'
-const CHANGE_HEADER_HEIGHT = 'CHANGE_HEADER_HEIGHT'
-const CHANGE_HEADER_POSITION = 'CHANGE_HEADER_POSITION'
+const CHANGE_HEADER = 'CHANGE_HEADER'
 
 export default function headerReducer(state = defaultState, action) {
 	switch(action.type) {
-		case CHANGE_WINDOW_HEIGHT:
-			return {...state, windowHeight: action.payload}
-		case CHANGE_HEADER_HEIGHT:
-			return {...state, headerHeight: action.payload}
-		case CHANGE_HEADER_POSITION:
-			return {...state, headerPosition: action.payload}
+		case CHANGE_HEADER:
+			return action.payload
 		default:
 			return state
 	}
 }
 
-export function changeWindowHeight(value) {
+export function changeHeaderMetricsData(value) {
 	return {
-		type: CHANGE_WINDOW_HEIGHT,
+		type: CHANGE_HEADER,
 		payload: value
 	}
 }
-export function changeHeaderHeight(value) {
-	return {
-		type: CHANGE_HEADER_HEIGHT,
-		payload: value
-	}
-}
-export function changeHeaderPosition(value) {
-	return {
-		type: CHANGE_HEADER_POSITION,
-		payload: value
-	}
-}
+// const defaultState = {
+// 	headerHeight: 0,
+// 	headerPosition: 0,
+// 	headerOffset: 0,
+// 	windowHeight: 0,
+// }
+
+// const CHANGE_METRICS = 'CHANGE_METRICS'
+
+// export default function headerReducer(state = defaultState, action) {
+// 	switch(action.type) {
+// 		case CHANGE_METRICS:
+// 			return action.payload
+// 		default:
+// 			return state
+// 	}
+// }
+
+// export function changeMetrics(value) {
+// 	return {
+// 		type: CHANGE_METRICS,
+// 		payload: value
+// 	}
+// }

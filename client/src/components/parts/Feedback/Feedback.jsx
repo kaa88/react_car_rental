@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import classes from './Feedback.module.scss';
 import Container from '../../ui/Container/Container';
 import Image from '../../ui/Image/Image';
@@ -9,7 +9,7 @@ import feedbackData from './Feedback.data.json';
 import {Translate} from '../../../script/translate';
 
 
-function Feedback() {
+const Feedback = memo(function Feedback() {
 
 	let swiperParams = {
 		slidesPerView: 1,
@@ -66,6 +66,6 @@ function Feedback() {
 			</section>
 		</Translate>
 	)
-}
+})
 
 export default Feedback

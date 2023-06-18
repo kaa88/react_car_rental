@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import classes from './Footer.module.scss';
 import Container from '../../ui/Container/Container';
 import Image from '../../ui/Image/Image';
@@ -10,7 +10,7 @@ import Logo from '../../ui/Logo/Logo';
 import {Translate} from '../../../script/translate';
 
 
-function Footer() {
+const Footer = memo(function Footer() {
 
 	return (
 		<Translate>
@@ -69,6 +69,6 @@ function Footer() {
 			</footer>
 		</Translate>
 	)
-}
+})
 
 export default Footer

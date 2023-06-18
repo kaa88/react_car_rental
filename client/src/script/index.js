@@ -1,6 +1,7 @@
 import { scrollLock } from './scrollLock'
 import { jsMediaQueries } from './jsMediaQueries'
 import { changeMobileBreakpoint } from '../store/reducers/mobileBreakpointReducer'
+// import headerMetrics from '../script/headerMetrics';
 
 import { register } from 'swiper/element/bundle'
 register() // register Swiper custom elements
@@ -17,12 +18,18 @@ function initBreakpoints(dispatch) {
 }
 
 
-export function initInstantScripts(dispatch) {
+export function initInstantScripts(dispatch, store) {
 	initBreakpoints(dispatch)
 	jsMediaQueries.init({
 		// testMode: true
 	})
 }
-export function initOnloadScripts(dispatch) {
+export function initOnloadScripts(dispatch, store) {
 	scrollLock.init()
+	// console.log(store);
+	// headerMetrics.init(store)
 }
+// export function initEventScripts(header, headerParams) {
+// 	console.log(header, headerParams);
+// 	headerMetrics.init(header, headerParams)
+// }

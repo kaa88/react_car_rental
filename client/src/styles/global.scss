@@ -1,14 +1,16 @@
 // Global elements //
 body {
 	// Variables for JS manipulations:
+	--header-position: 0px; //REQ!
+	--header-offset: 0px; //REQ!
+	--header-height: 0px; //REQ!
+	--window-height: 100vh; //REQ!
+	--scrollbar-width: 0px; //REQ!
 	--marker-position: 0px; //REQ!
 	--media-mobile: #{$media-mxl}; //REQ!
 	--media-tablet: #{$media-ts}; //REQ!
 	--timer-menu: #{$timer-menu}; //REQ!
 	--timer-modal: #{$timer-modal}; //REQ!
-	--scrollbar-width: 0;
-
-	// overflow: hidden; // temp
 
 	position: relative;
 	display: grid; //REQ!
@@ -17,7 +19,7 @@ body {
 	min-height: 100vh; //REQ! if footer at the bottom
 	max-width: $page-max-width+px;
 	margin: 0 auto; //REQ! if max-width
-	// padding-top: calc(var(--header-offset) + var(--header-height));
+	padding-top: calc(var(--header-offset) + var(--header-height));
 
 	font-family: var(--font01);
 	font-size: $font-size-default;

@@ -1,11 +1,6 @@
 @import "../../../styles/variables.scss";
 
 .header {
-	--header-position: 0px; //REQ!
-	--header-offset: 0px; //REQ!
-	--header-height: 0px; //REQ!
-	--window-height: 100vh; //REQ!
-	
 	top: var(--header-position); //REQ!
 	left: 0; //REQ!
 	z-index: 51; //REQ!
@@ -194,6 +189,7 @@
 		// display: flex; //REQ! for mobile menu stretch
 	}
 	@media (max-width: $media-ts+px) {
+		position: absolute;
 		left: 0;
 		width: 100%;
 		justify-content: center;
@@ -203,6 +199,7 @@
 		}
 	}
 	@media (max-width: $media-mxl+px) {
+		position: fixed;
 		top: calc(var(--header-height) + var(--header-offset)); //REQ! if below header
 		left: -283px; // width + 1px
 		width: 282px;

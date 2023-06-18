@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux'
-import { initOnloadScripts, initInstantScripts } from './script/index'
+import { useDispatch, useSelector } from 'react-redux'
+import { initOnloadScripts, initInstantScripts, initEventScripts } from './script/index'
 import './styles/index.scss';
 import Header from './components/parts/Header/Header';
 import Main from './components/parts/Main/Main';
@@ -10,8 +10,13 @@ import Footer from './components/parts/Footer/Footer';
 
 function App() {
 	const dispatch = useDispatch()
-	initInstantScripts(dispatch)
+	const headerMetrics = useSelector(state => state.headerMetrics)
+	initInstantScripts(dispatch, headerMetrics)
 	useEffect(() => { initOnloadScripts(dispatch) }, [])
+
+	function getHeader(header, headerParams) {
+		// initEventScripts(header, headerParams)
+	}
 
 	return (
 		<>

@@ -1,5 +1,6 @@
 import React, { useState, memo, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
+import { changeHeaderMetricsData } from '../../../store/reducers/headerReducer'
 import { useCustomElement } from '../../../hooks/useCustomElement';
 import script from './Header.script';
 import classes from './Header.module.scss';
@@ -11,14 +12,12 @@ import Logo from '../../ui/Logo/Logo';
 import Select from '../../ui/Select/Select';
 import Icon from '../../ui/Icon/Icon';
 
+export let actualElems = {}
 
 const Header = memo(function Header({
-	modif = 'static',
 	className = '',
 	...props
 }) {
-	modif = 'header_' + modif
-
 	const menuLinks = [
 		{ name: 'Cars',				href: '#' },
 		{ name: 'Feedback',			href: '#' },
@@ -27,11 +26,11 @@ const Header = memo(function Header({
 	]
 
 	const dispatch = useDispatch()
-	const metricsStore = useSelector(state => state.headerMetrics)
+	// const metricsStore = useSelector(state => state.headerMetrics)
 	const breakpointStore = useSelector(state => state.mobileBreakpoint)
 
-	const header = useCustomElement(`${classes.header} ${classes[modif]}`)
-	let [headerStyle, setHeaderStyle] = useState({})
+	const header = useCustomElement(`${classes.header} ${classes.header_static} ${className}`)
+	// let [headerStyle, setHeaderStyle] = useState({})
 	// menuTurnoffArea: useCustomElement(classes.menuTurnoffArea),
 	// level: useCustomElement(classes.level),
 	// container: useCustomElement(classes.container),
@@ -45,6 +44,11 @@ const Header = memo(function Header({
 	// accountButton: useCustomElement(classes.accountButton),
 	// console.log(header);
 	// console.log(menu);
+	actualElems = {
+		header,
+		menuHideWrapper,
+		menu,
+	}
 
 	// Metrics
 	// const metricsDefaultValue = [0, 0]
@@ -63,7 +67,7 @@ const Header = memo(function Header({
 		menuTimeout: 500,
 		headerPositionFixed: true, // - choose if header is 'static' (false) or 'fixed' (true) on window, it controls CSS 'position' prop (default = false)
 		hidingHeader: true, // - add hidingHeader part (default = false) (works if headerPositionFixed: true)
-		hidingHeaderView: 'both', // - choose in what viewports 'hidingHeader' will work: 'mobile', 'desktop' or 'both' (default = 'both') (works if hidingHeader: true)
+		hidingHeaderView: 'any', // - choose in what viewports 'hidingHeader' will work: 'mobile', 'desktop' or 'any' (default = 'any') (works if hidingHeader: true)
 		hiddenPositionOffset: 0, // - for 'hidingHeader', set up this if you want to move header by value (in px) that differs it's height (default = 0)
 		hidingHeaderCompactMode: true, // - adds 'compact' class to the header when you scroll page for some distance (default = false) (works if headerPositionFixed: true)
 		compactModeThreshold: 100, // - for 'hidingHeaderCompactMode', set the distance (in px) when 'compact mode' triggers (default = 100)
@@ -71,17 +75,13 @@ const Header = memo(function Header({
 		// onMenuOpen, onMenuClose, // - event function(timeout){}
 	}
 
-	let lkdkfs = 33
-
-	const getActualElements = function() {
-		return {header, menuHideWrapper, menu, lkdkfs}
-	}
 
 	useEffect(() => {
 		// console.log(header.classList.remove('wow')); 
 		// console.log(classNameChanger.contains('wow','wo hello world'));
-		
-		script.init({headerParams, classes, header, menuHideWrapper, menu, metricsStore, breakpointStore, dispatch, setHeaderStyle, getActualElements})
+		// dispatch(changeHeaderMetricsData({headerEl: header.el, headerParams}))
+		// onLoad(header.el, headerParams)
+		script.init({headerParams, classes, header, menuHideWrapper, menu, breakpointStore, dispatch})
 
 		// headerMetrics.init(header, setHeaderStyle)
 		// menuWidth.init(menuHideWrapper, menu, classes)
@@ -96,10 +96,10 @@ const Header = memo(function Header({
 		script.menu.toggleMenu(e, header)
 	}
 
-	// console.log('render Header')
+	console.log('render Header')
 	return (
 		<Translate>
-			<header className={header.className} ref={header.ref} style={headerStyle}>
+			<header className={header.className} ref={header.ref}>
 				<div className={classes.menuTurnoffArea} onClick={toggleMenu}></div>
 
 				<div className={`${classes.level} scroll-lock-item-p`}> {/* scroll??? */}

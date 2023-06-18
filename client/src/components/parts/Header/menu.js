@@ -2,6 +2,7 @@ import { transitionLock } from '../../../script/transLock';
 import { scrollLock } from '../../../script/scrollLock';
 import Metrics from './metrics';
 import classNameChanger from '../../../script/classNameChanger'
+import { actualElems } from './Header';
 
 const lockScroll = scrollLock.lock
 const unlockScroll = scrollLock.unlock
@@ -47,7 +48,7 @@ const menu = {
 	},
 	closeMenu(e, header) {
 		if (transitionLock.check(this.timeout)) return;
-		if (!header) header = this.header
+		if (!header) header = actualElems.header
 		header.removeClass(this.classes.active)
 		unlockScroll(this.timeout)
 	},

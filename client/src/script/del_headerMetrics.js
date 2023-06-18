@@ -1,7 +1,5 @@
-// import { changeMetrics } from '../../../store/reducers/headerReducer'
-
 const metricsHandler = {
-	init({header, headerParams, breakpointStore}) {
+	init(header, headerParams) {
 		this.metrics = {
 			headerHeight: 0,
 			headerPosition: 0,
@@ -9,9 +7,11 @@ const metricsHandler = {
 			windowHeight: 0
 		}
 
+		this.mobileBreakpoint = 960 // temp
+
 		cssVariables.init()
 		headerHeight.init(this, header)
-		hidingHeader.init(this, headerParams, breakpointStore.tablet, headerParams.timeout)
+		hidingHeader.init(this, headerParams, this.mobileBreakpoint, headerParams.timeout)
 		compactMode.init()
 	},
 	getMetrics() {
@@ -26,16 +26,14 @@ const metricsHandler = {
 			}
 		}
 		if (isChanged) {
-			cssVariables.set(this.metrics, newMetrics)
 			this.metrics = Object.assign({}, this.metrics, newMetrics)
+			cssVariables.set(this.metrics)
+			console.log(this.metrics.headerPosition);
 		}
 	},
 	calcHeaderHeight() {
 		headerHeight.calcHeight()
-	},
-	resetHeaderPosition(instant) {
-		hidingHeader.resetPosition(instant)
-	},
+	}
 }
 
 const cssVariables = {
@@ -49,14 +47,15 @@ const cssVariables = {
 		// this.setStyle = setStyle
 		// this.setState = (value) => dispatch(changeMetrics(value))
 	},
-	set(metrics, newMetrics) {
+	set(metrics) {
 		// let newStyle = {}
-		Object.entries(newMetrics).forEach(([key, value]) => {
-			if (value !== metrics[key]) {
+		Object.entries(metrics).forEach(([key, value]) => {
+			// if (value) {
 				value = Math.round(value * 10) / 10
 				// newStyle[this.vars[key]] = value + 'px'
+				console.log(this.vars[key], value + 'px');
 				document.body.style.setProperty(this.vars[key], value + 'px')
-			}
+			// }
 		})
 		// this.setStyle(newStyle)
 		// this.setState(metrics)
@@ -66,7 +65,7 @@ const cssVariables = {
 
 const headerHeight = {
 	init(metricsHandler, header) {
-		this.headerEl = header.el
+		this.headerEl = header
 		this.setMetrics = metricsHandler.setMetrics.bind(metricsHandler)
 		window.addEventListener('resize', this.calcHeight.bind(this))
 		this.calcHeight()
@@ -90,14 +89,19 @@ const hidingHeader = {
 		this.setMetrics = metricsHandler.setMetrics.bind(metricsHandler)
 		this.mobileBreakpoint = mobileBreakpoint
 		this.timeout = timeout
+
+		// this.metrics = metricsHandler.metrics
+		// this.headerHeight = metrics.headerHeight || 0
+		// this.headerOffset = metrics.headerOffset || 0
+		// this.headerPosition = metrics.headerPosition || 0
 		this.hiddenPositionOffset = headerParams.hiddenPositionOffset || 0
+
 		this.viewMobile = 'mobile'
 		this.viewDesktop = 'desktop'
 		this.viewAny = 'any'
 		this.hidingHeaderView = headerParams.hidingHeaderView
 		if (this.hidingHeaderView !== this.viewMobile && this.hidingHeaderView !== this.viewDesktop)
 			this.hidingHeaderView = this.viewAny
-		this.headerPositionFixed = headerParams.headerPositionFixed
 
 		window.addEventListener('scroll', this.moveHeader.bind(this))
 		this.firstMoveScroll = true
@@ -119,7 +123,7 @@ const hidingHeader = {
 			this.diff = window.scrollY - this.Y
 		}
 		// scroll-move
-		const metrics = this.getMetrics()
+		let metrics = this.getMetrics()
 		let currentPos = metrics.headerPosition
 		let visiblePos = metrics.headerOffset
 		let hiddenPos = visiblePos - metrics.headerHeight - this.hiddenPositionOffset
@@ -131,39 +135,33 @@ const hidingHeader = {
 
 		this.setMetrics({headerPosition: currentPos})
 	},
-	scrollIntoView() {
-		// scroll header (or window) down to prevent gap between header and menu (because menu doesn't know about header position)
-		if (this.headerPositionFixed) this.resetPosition()
-		else window.scroll({top: 0, behavior: 'smooth'})
-	},
 	resetPosition(instant) {
 		// This func has 2 ways to reset position (instant or not), that's why I use JS-animation instead of css-animation
-		const metrics = this.getMetrics()
-		if (metrics.headerPosition === metrics.headerOffset) return;
+		if (this.metrics.headerPosition === this.metrics.headerOffset) return;
 		if (instant) {
-			metrics.headerPosition = metrics.headerOffset
-			this.setMetrics({headerPosition: metrics.headerPosition})
+			this.metrics.headerPosition = this.metrics.headerOffset
+			this.setMetrics({headerPosition: this.metrics.headerPosition})
 			return
 		}
 		let
 			timeoutMultiplier = 0.7,
 			timeInterval = 10,
 			startTime = Date.now(),
-			startValue = metrics.headerPosition,
+			startValue = this.metrics.headerPosition,
 			newValue,
-			moveStep = (metrics.headerOffset - metrics.headerPosition) / (this.timeout * timeoutMultiplier) / timeInterval * 100;
+			moveStep = (this.metrics.headerOffset - this.metrics.headerPosition) / (this.timeout * timeoutMultiplier) / timeInterval * 100;
 
 		let timerid = setInterval(function(){
 			newValue = startValue + (Date.now() - startTime) * moveStep / timeInterval;
-			if (newValue >= metrics.headerOffset) metrics.headerPosition = metrics.headerOffset
-			else metrics.headerPosition = newValue
-			this.setMetrics({headerPosition: metrics.headerPosition})
+			if (newValue >= this.metrics.headerOffset) this.metrics.headerPosition = this.metrics.headerOffset
+			else this.metrics.headerPosition = newValue
+			this.setMetrics({headerPosition: this.metrics.headerPosition})
 		}.bind(this), timeInterval)
 
 		setTimeout(function(){
 			clearInterval(timerid)
-			metrics.headerPosition = metrics.headerOffset
-			this.setMetrics({headerPosition: metrics.headerPosition})
+			this.metrics.headerPosition = this.metrics.headerOffset
+			this.setMetrics({headerPosition: this.metrics.headerPosition})
 		}.bind(this), this.timeout * timeoutMultiplier)
 	}
 }
@@ -268,97 +266,3 @@ const compactMode = {
 }
 
 export default metricsHandler
-
-
-	// Hiding Header
-	// hidingHeader: {
-	// 	initiated: false,
-	// 	init: function(that) {
-	// 		this.root = that;
-			
-	// 		// hidingHeader settings
-	// 		if (this.root.params.hidingHeader)
-	// 			window.addEventListener('scroll', this.moveHeader.bind(this));
-	// 		this.firstMoveScroll = true;
-
-	// 		// hidingHeaderCompactMode settings
-	// 		if (this.root.params.hidingHeaderCompactMode)
-	// 			window.addEventListener('scroll', this.setCompactMode.bind(this));
-	// 			this.firstCompactScroll = true;
-	// 			this.isCompact = this.isCompactPrev = false; // false = normal, true = compact
-
-	// 		this.initiated = true
-	// 	},
-	// 	returnHeader: function(instant) {
-	// 		if (!this.initiated || this.root.headerPosition == this.root.headerOffset) return;
-	// 		if (instant) {
-	// 			this.root.headerPosition = this.root.headerOffset
-	// 			this.root.setCssVar()
-	// 			return
-	// 		}
-	// 		let
-	// 			timeoutMultiplier = 0.7,
-	// 			timeInterval = 10,
-	// 			startTime = new Date().valueOf(),
-	// 			startValue = this.root.headerPosition,
-	// 			newValue,
-	// 			moveStep = (this.root.headerOffset - this.root.headerPosition) / (this.root.timeout * timeoutMultiplier) / timeInterval * 100;
-
-	// 		let timerid = setInterval(function(){
-	// 			newValue = startValue + (new Date().valueOf() - startTime) * moveStep / timeInterval;
-	// 			if (newValue >= this.root.headerOffset) this.root.headerPosition = this.root.headerOffset
-	// 			else this.root.headerPosition = newValue
-	// 			this.root.setCssVar()
-	// 		}.bind(this), timeInterval)
-
-	// 		setTimeout(function(){
-	// 			clearInterval(timerid);
-	// 			this.root.headerPosition = this.root.headerOffset
-	// 			this.root.setCssVar()
-	// 		}.bind(this), this.root.timeout * timeoutMultiplier)
-	// 	},
-	// 	moveHeader: function() {
-	// 		if (!this.initiated) return;
-	// 		if (this.root.params.hidingHeaderView == 'mobile' && window.innerWidth > this.root.away.getMobileBreakpoint()) return;
-	// 		if (this.root.params.hidingHeaderView == 'desktop' && window.innerWidth <= this.root.away.getMobileBreakpoint()) return;
-
-	// 		// this 'if' prevents header's jump after page reloading in the middle of the content
-	// 		if (this.firstMoveScroll) {
-	// 			this.Y = this.YPrev = window.scrollY;
-	// 			this.diff = 0;
-	// 			return this.firstMoveScroll = false
-	// 		}
-	// 		// lazyLoad check
-	// 		if ((window.scrollY < (this.Y + this.diff) && this.Y > this.YPrev) || (window.scrollY > (this.Y + this.diff) && this.Y < this.YPrev)) {
-	// 			this.diff = window.scrollY - this.Y;
-	// 		}
-	// 		// scroll-move
-	// 		let
-	// 			currentPos = this.root.headerPosition,
-	// 			visiblePos = this.root.headerOffset,
-	// 			hiddenPos = visiblePos - this.root.headerHeight - this.root.params.hiddenPositionOffset;
-	// 		this.YPrev = this.Y;
-	// 		this.Y = window.scrollY - this.diff;
-	// 		currentPos -= this.Y - this.YPrev;
-	// 		if (currentPos > visiblePos) currentPos = visiblePos;
-	// 		if (currentPos < hiddenPos) currentPos = hiddenPos;
-	// 		this.root.headerPosition = currentPos;
-	// 		this.root.setCssVar()
-	// 	},
-	// 	setCompactMode: function() {
-	// 		if (!this.initiated) return;
-	// 		if (this.firstCompactScroll) return this.firstCompactScroll = false
-	// 		this.isCompact = window.window.scrollY > this.root.params.compactModeThreshold ? true : false;
-	// 		if (this.isCompact != this.isCompactPrev) {
-	// 			if (this.isCompact) this.root.header.classList.add(this.root.names.stateCompact)
-	// 			else this.root.header.classList.remove(this.root.names.stateCompact)
-	// 			this.isCompactPrev = this.isCompact
-	// 		}
-	// 	},
-	// 	removeCompactMode: function() {
-	// 		if (!this.initiated) return;
-	// 		this.root.header.classList.remove(this.root.names.stateCompact)
-	// 		this.isCompactPrev = this.isCompact = false
-	// 	}
-	// }
-	// /Hiding Header

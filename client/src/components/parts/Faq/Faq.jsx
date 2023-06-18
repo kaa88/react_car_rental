@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import classes from './Faq.module.scss';
 import Container from '../../ui/Container/Container';
 import Image from '../../ui/Image/Image';
@@ -7,7 +7,7 @@ import Divider from '../../ui/Divider/Divider';
 import {Translate} from '../../../script/translate';
 
 
-function Faq() {
+const Faq = memo(function Faq() {
 
 	return (
 		<Translate>
@@ -33,6 +33,6 @@ function Faq() {
 			</section>
 		</Translate>
 	)
-}
+})
 
 export default Faq

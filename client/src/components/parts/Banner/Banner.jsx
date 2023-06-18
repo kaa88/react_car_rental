@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import classes from './Banner.module.scss';
 import Container from '../../ui/Container/Container';
 import Icon from '../../ui/Icon/Icon';
@@ -9,7 +9,7 @@ import InputText from '../../ui/InputText/InputText';
 import InputCheckbox from '../../ui/Checkbox/InputCheckbox';
 import {Translate} from '../../../script/translate';
 
-function Banner() {
+const Banner = memo(function Banner() {
 	return (
 		<Translate>
 			<section className={classes.banner}>
@@ -67,6 +67,6 @@ function Banner() {
 			</section>
 		</Translate>
 	)
-}
+})
 
 export default Banner

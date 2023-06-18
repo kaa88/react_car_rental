@@ -1,12 +1,25 @@
 import { jsMediaQueries } from '../../../script/jsMediaQueries'
+import classNameChanger from '../../../script/classNameChanger'
 import Metrics from './metrics';
 import Menu from './menu';
 
 
 const header = {
-	init({headerParams, classes, header, menuHideWrapper, menu, metricsStore, breakpointStore, dispatch, setHeaderStyle}) {
-		Metrics.init({header, state: metricsStore, dispatch, setHeaderStyle})
+	init({headerParams, classes, header, menuHideWrapper, menu, breakpointStore}) {
+		console.log('init');
+		let headerPositonClassName = header.className
+		if (headerParams.headerPositionFixed) {
+			headerPositonClassName = classNameChanger.remove(headerPositonClassName, classes.header_static)
+			headerPositonClassName = classNameChanger.add(headerPositonClassName, classes.header_fixed)
+		} else {
+			headerPositonClassName = classNameChanger.remove(headerPositonClassName, classes.header_fixed)
+			headerPositonClassName = classNameChanger.add(headerPositonClassName, classes.header_static)
+		}
+		header.setClassName(headerPositonClassName)
+
+		Metrics.init({header, headerParams, breakpointStore})
 		this.metrics = Metrics
+		
 		if (headerParams.menu) {
 			Menu.init({headerParams, header, menuHideWrapper, menu, classes, breakpointStore})
 			this.menu = Menu
@@ -18,7 +31,7 @@ const header = {
 	checkViewportChange() {
 		this.menu.closeMenu()
 		this.menu.hideMenuOnViewChange()
-		// this.hidingHeader.returnHeader(true)
+		this.metrics.resetHeaderPosition(true)
 		// this.hidingHeader.removeCompactMode()
 	},
 }
