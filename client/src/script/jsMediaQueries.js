@@ -12,8 +12,6 @@
 	- testMode - set to 'true' to console.log the breakpoint state when it executes (default = false)
 */
 
-
-
 export const jsMediaQueries = {
 	selfName: 'jsMediaQueries',
 	initiated: false,
@@ -39,10 +37,17 @@ export const jsMediaQueries = {
 		this.keysReversed = keysReversed
 	},
 
-	registerAction(breakpoint, callback) {
-		if (!breakpoint || !callback) return console.error('jsMediaQuery could not register a new action because of missing arguments')
-		if (this.breakpoints[breakpoint]) this.breakpoints[breakpoint].push(callback)
-		else this.breakpoints[breakpoint] = [callback]
+	registerActions(breakpoint, callbacks) {
+		if (!breakpoint || !Array.isArray(callbacks))
+			return console.error(`${this.selfName} could not register a new action because of missing arguments`)
+	
+		if (!this.breakpoints[breakpoint]) this.breakpoints[breakpoint] = []
+		this.breakpoints[breakpoint] = this.breakpoints[breakpoint].concat(callbacks)
+
+		if (this.params.testMode) {
+			console.log(`[${this.selfName}] Registered new action at breakpoint "${breakpoint}". Total:`)
+			console.log(this.breakpoints)
+		}
 		this.generateKeys()
 	},
 

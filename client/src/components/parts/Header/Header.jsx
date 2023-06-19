@@ -1,6 +1,5 @@
 import React, { useState, memo, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { changeHeaderMetricsData } from '../../../store/reducers/headerReducer'
 import { useCustomElement } from '../../../hooks/useCustomElement';
 import script from './Header.script';
 import classes from './Header.module.scss';
@@ -12,97 +11,63 @@ import Logo from '../../ui/Logo/Logo';
 import Select from '../../ui/Select/Select';
 import Icon from '../../ui/Icon/Icon';
 
-export let actualElems = {}
+export let actualElems = {} // this var allows scripts to have updated CustomElements
 
 const Header = memo(function Header({
 	className = '',
 	...props
 }) {
-	const menuLinks = [
-		{ name: 'Cars',				href: '#' },
-		{ name: 'Feedback',			href: '#' },
-		{ name: 'F.A.Q',				href: '#' },
-		{ name: 'How to rent',		href: '#' },
-	]
-
-	const dispatch = useDispatch()
-	// const metricsStore = useSelector(state => state.headerMetrics)
-	const breakpointStore = useSelector(state => state.mobileBreakpoint)
-
+	const headerParams = {
+		menu: true, // - add menu part (default = false)
+		headerPositionFixed: true, // - choose if header is 'static' (false) or 'fixed' (true) on window, it controls CSS 'position' prop (default = false)
+		hidingHeader: true, // - add hidingHeader part (default = false) (works if headerPositionFixed: true)
+		hidingHeaderView: 'any', // - choose in what viewports 'hidingHeader' will work: 'mobile', 'desktop' or 'any' (default = 'any') (works if hidingHeader: true)
+		hiddenPositionOffset: 5, // - for 'hidingHeader', set up this if you want to move header by value (in px) that differs it's height (default = 0)
+		compactMode: true, // - adds 'compact' class to the header when you scroll page for some distance (default = false) (works if headerPositionFixed: true)
+		compactModeThreshold: 100, // - for 'hidingHeaderCompactMode', set the distance (in px) when 'compact mode' triggers (default = 100)
+		resetCompactMode: false, // reset on view change or page reload (default = true)
+		hideOnViewChangе: true, // - by default menu disappears when window switches between mobile and desktop view, it prevents css transition blinking; if you want to turn it off in some reasons, set 'false' (default = true)
+	}
 	const header = useCustomElement(`${classes.header} ${classes.header_static} ${className}`)
-	// let [headerStyle, setHeaderStyle] = useState({})
 	// menuTurnoffArea: useCustomElement(classes.menuTurnoffArea),
 	// level: useCustomElement(classes.level),
 	// container: useCustomElement(classes.container),
 	// menuOpenBtn: useCustomElement(classes.menuOpenBtn),
 	// menuCloseBtn: useCustomElement(classes.menuCloseBtn),
 	const menuHideWrapper = useCustomElement(classes.menuHideWrapper)
-	const menu = useCustomElement(`${classes.menu}`)
-	// let [menuWidthClass, setMenuWidthClass] = useState('')
+	const menu = useCustomElement(classes.menu)
 	// menuItem: useCustomElement(classes.menuItem),
 	// menuLink: useCustomElement(classes.menuLink),
 	// accountButton: useCustomElement(classes.accountButton),
-	// console.log(header);
-	// console.log(menu);
 	actualElems = {
 		header,
 		menuHideWrapper,
 		menu,
 	}
 
-	// Metrics
-	// const metricsDefaultValue = [0, 0]
-	// const metricsHeaderHeightState = useState(metricsDefaultValue)
-	// const metricsHeaderPositiontState = useState(metricsDefaultValue)
-	// const metricsWindowHeightState = useState(metricsDefaultValue)
-	// metrics.init([
-	// 	metricsHeaderHeightState,
-	// 	metricsHeaderPositiontState,
-	// 	metricsWindowHeightState,
-	// ], header.el)
-	// console.log(metrics);
-
-	const headerParams = {
-		menu: true, // - add menu part (default = false)
-		menuTimeout: 500,
-		headerPositionFixed: true, // - choose if header is 'static' (false) or 'fixed' (true) on window, it controls CSS 'position' prop (default = false)
-		hidingHeader: true, // - add hidingHeader part (default = false) (works if headerPositionFixed: true)
-		hidingHeaderView: 'any', // - choose in what viewports 'hidingHeader' will work: 'mobile', 'desktop' or 'any' (default = 'any') (works if hidingHeader: true)
-		hiddenPositionOffset: 0, // - for 'hidingHeader', set up this if you want to move header by value (in px) that differs it's height (default = 0)
-		hidingHeaderCompactMode: true, // - adds 'compact' class to the header when you scroll page for some distance (default = false) (works if headerPositionFixed: true)
-		compactModeThreshold: 100, // - for 'hidingHeaderCompactMode', set the distance (in px) when 'compact mode' triggers (default = 100)
-		hideOnViewChangе: true, // - by default menu disappears when window switches between mobile and desktop view, it prevents css transition blinking; if you want to turn it off in some reasons, set 'false' (default = true)
-		// onMenuOpen, onMenuClose, // - event function(timeout){}
-	}
-
+	const breakpointStore = useSelector(state => state.mobileBreakpoint)
 
 	useEffect(() => {
-		// console.log(header.classList.remove('wow')); 
-		// console.log(classNameChanger.contains('wow','wo hello world'));
-		// dispatch(changeHeaderMetricsData({headerEl: header.el, headerParams}))
-		// onLoad(header.el, headerParams)
-		script.init({headerParams, classes, header, menuHideWrapper, menu, breakpointStore, dispatch})
-
-		// headerMetrics.init(header, setHeaderStyle)
-		// menuWidth.init(menuHideWrapper, menu, classes)
+		script.init({headerParams, classes, header, breakpointStore})
 	}, [])
 
-	// useEffect(() => {
-	// 	console.log('registerAction');
-	// })
-
-
 	function toggleMenu(e) {
-		script.menu.toggleMenu(e, header)
+		script.menu.toggleMenu(e)
 	}
 
-	console.log('render Header')
+	const menuLinks = [
+		{ name: 'Cars',				href: '#' },
+		{ name: 'Feedback',			href: '#' },
+		{ name: 'F.A.Q',				href: '#' },
+		{ name: 'How to rent',		href: '#' },
+	]
+	// console.log('render Header')
 	return (
 		<Translate>
-			<header className={header.className} ref={header.ref}>
+			<header className={header.className} ref={header.ref} {...props}>
 				<div className={classes.menuTurnoffArea} onClick={toggleMenu}></div>
 
-				<div className={`${classes.level} scroll-lock-item-p`}> {/* scroll??? */}
+				<div className={`${classes.level} scroll-lock-item-p`}>
 					<Container className={classes.container} modif='flex'>
 						<Logo className={classes.logo} />
 

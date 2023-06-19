@@ -1,35 +1,32 @@
 import { scrollLock } from './scrollLock'
 import { jsMediaQueries } from './jsMediaQueries'
+import { componentScriptManager } from './componentScriptManager'
 import { changeMobileBreakpoint } from '../store/reducers/mobileBreakpointReducer'
-// import headerMetrics from '../script/headerMetrics';
 
 import { register } from 'swiper/element/bundle'
 register() // register Swiper custom elements
 
 
 function initBreakpoints(dispatch) {
-	const mobileBreakpointVariable = '--media-mobile'
-	const tabletBreakpointVariable = '--media-tablet'
-	let mobileBreakpoint = {
-		mobile: parseFloat(getComputedStyle(document.body).getPropertyValue(mobileBreakpointVariable)) || 0,
-		tablet: parseFloat(getComputedStyle(document.body).getPropertyValue(tabletBreakpointVariable)) || 0
+	const mobileBPVariable = '--media-mobile'
+	const tabletBPVariable = '--media-tablet'
+	const state = {
+		mobile: parseFloat(getComputedStyle(document.body).getPropertyValue(mobileBPVariable)) || 0,
+		tablet: parseFloat(getComputedStyle(document.body).getPropertyValue(tabletBPVariable)) || 0
 	}
-	dispatch(changeMobileBreakpoint(mobileBreakpoint))
+	dispatch(changeMobileBreakpoint(state))
 }
 
 
-export function initInstantScripts(dispatch, store) {
+export function initInstantScripts(dispatch) {
 	initBreakpoints(dispatch)
+	componentScriptManager.init({
+		// testMode: true
+	})
 	jsMediaQueries.init({
 		// testMode: true
 	})
 }
-export function initOnloadScripts(dispatch, store) {
+export function initOnloadScripts(dispatch) {
 	scrollLock.init()
-	// console.log(store);
-	// headerMetrics.init(store)
 }
-// export function initEventScripts(header, headerParams) {
-// 	console.log(header, headerParams);
-// 	headerMetrics.init(header, headerParams)
-// }

@@ -4,7 +4,8 @@
 .banner {
 	position: relative;
 	height: 800px;
-	padding: 80px 0 90px;
+	padding-top: calc(80px + var(--compact-mode-padding-reduced));
+	padding-bottom: 90px;
 }
 .bg {
 	position: absolute;

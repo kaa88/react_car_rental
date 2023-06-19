@@ -19,6 +19,7 @@ export const scrollLock = {
 	init() {
 		window.addEventListener('resize', this.calcScrollbarWidth.bind(this))
 		this.calcScrollbarWidth()
+		// this.lock() // prevant some 'scroll' events when page loads... Header will unlock it
 	},
 	calcScrollbarWidth() {
 		let scrollbarWidth = window.innerWidth - document.body.offsetWidth

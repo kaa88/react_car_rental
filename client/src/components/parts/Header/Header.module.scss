@@ -7,7 +7,6 @@
 	width: 100%; //REQ!
 	max-width: $page-max-width+px; //REQ! set it same as body max-width
 	// font-size: 0; // prevent random margins... careful with 'em'
-
 	// Set 'position' inside these subclasses because it depends on script options. But it is unlikely to change default 'positions' values. Try to work with it first.
 	&_static {
 		position: absolute; //REQ! one
@@ -21,8 +20,10 @@
 	&_shared-z {
 		z-index: 501;
 	}
+	box-shadow: 0 0 5px 0 transparent;
+	transition: box-shadow $timer-header-compact;
 	&_compact {
-		padding-top: 8px;
+		box-shadow: 0 0 5px 0 var(--color06);
 	}
 	// &_compact .logo__link { // compact mode test
 	// 	@media (min-width: $media-mxl+1+px) {font-size: 20px;}
@@ -52,6 +53,12 @@
 	position: relative; //REQ! for submenu positioning
 	padding: 36px 0 16px 0;
 	background-color: var(--color01);
+	@media (min-width: $media-ts+1+px) {
+		transition: padding-top $timer-header-compact;
+		.header_compact & {
+			padding-top: calc(36px - var(--compact-mode-padding-reduced));
+		}
+	}
 	@media (max-width: $media-ts+px) {
 		padding: 14px 0 10px 0;
 	}
@@ -83,7 +90,7 @@
 	}
 }
 .account {
-	margin-top: 12px;
+	margin-top: 5px;
 	display: flex;
 	align-items: center;
 	& > * {
@@ -139,7 +146,8 @@
 	cursor: pointer; // for customer test
 	user-select: none; //REQ!
 	transition: opacity $timer-menu, visibility $timer-menu;
-	fill: #333;
+	background-color: var(--color01);
+	fill: var(--color02);
 	svg {
 		width: 24px;
 		height: 24px;
@@ -155,17 +163,13 @@
 	}
 }
 .menuOpenBtn {
-	background-color: limegreen;
+	// background-color: limegreen;
 	visibility: visible;
 	opacity: 1;
 	stroke: var(--color02);
-	.header_active & {
-		// visibility: hidden;
-		// opacity: 0;
-	}
 }
 .menuCloseBtn {
-	background-color: crimson;
+	// background-color: crimson;
 	visibility: hidden;
 	opacity: 0;
 	.header_active &, .header_shared & {
@@ -211,8 +215,8 @@
 		justify-content: flex-start;
 		overflow-x: hidden;
 		overflow-y: auto;
-		scrollbar-width: thin;
-		scrollbar-color: var(--color05) transparent;
+		scrollbar-width: none;
+		// scrollbar-color: var(--color05) transparent;
 		&::-webkit-scrollbar {
 			width: 0px;
 		}
@@ -233,21 +237,18 @@
 	&.hideOnViewChangeStageL {
 		@media (max-width: $media-ts+px) {
 			// display: none !important;
-			// visibility: hidden;
 			opacity: 0;
 		}
 	}
 	&.hideOnViewChangeStageM {
 		@media (min-width: $media-ts+1+px), (max-width: $media-mxl+px) {
 			// display: none !important;
-			// visibility: hidden;
 			opacity: 0;
 		}
 	}
 	&.hideOnViewChangeStageS {
 		@media (min-width: $media-mxl+1+px) {
 			// display: none !important;
-			// visibility: hidden;
 			opacity: 0;
 		}
 	}
@@ -260,7 +261,7 @@
 	align-items: center;
 	background-color: var(--color01);
 	@media (min-width: $media-ts+1+px) {
-		margin-top: 12px;
+		margin-top: 5px;
 	}
 	@media (max-width: $media-mxl+px) {
 		height: fit-content; //REQ! for mobile menu stretch
@@ -276,7 +277,7 @@
 		@media (max-width: $media-tl+px) and ((min-width: $media-ts+1+px)) {
 			width: 100%;
 			justify-content: center;
-			background-color: yellow;
+			// background-color: yellow;
 		}
 	}
 }

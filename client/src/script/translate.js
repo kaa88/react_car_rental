@@ -1,3 +1,5 @@
+// Translate module scans closest children components. If it finds a strings with forwarding symbols '?_', it will translate.
+
 import { cloneElement, isValidElement } from 'react'
 import { getCookie, setCookie } from './cookie'
 import lang_en from '../language/en.json'
