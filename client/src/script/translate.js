@@ -33,7 +33,7 @@ export const Language = {
 	setCookie(value) {
 		if (value) {
 			setCookie({
-				name: this.name,
+				name: Language.name,
 				value: value.toLowerCase(),
 				expires: cookieExpireDays,
 			}, isCookieLog )

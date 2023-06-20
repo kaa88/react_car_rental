@@ -2,7 +2,7 @@ import { actualElems } from './Select';
 
 const SelectScript = {
 	initiated: false,
-	init({classes, onSelect}) {
+	init({dataTypes, type, classes, dispatch}) {
 		this.elems = {
 			get select() {return actualElems.select},
 			get header() {return actualElems.header},
@@ -10,8 +10,10 @@ const SelectScript = {
 			get listWrapper() {return actualElems.listWrapper},
 			get list() {return actualElems.list},
 		}
+		this.setCookie = dataTypes[type].data.setCookie
+		this.setState = (value) => dispatch(dataTypes[type].action(value))
+		this.finally = dataTypes[type].finally
 		this.activeClass = classes.active
-		this.onSelect = onSelect
 		this.initiated = true
 	},
 	setupEvents() {
@@ -53,6 +55,10 @@ const SelectScript = {
 		if (!this.initiated) return;
 		let value = e.target.textContent
 		this.elems.headerText.setChildren(value)
+		value = value.toLowerCase()
+		this.setCookie(value)
+		this.setState(value)
+		this.finally()
 	}
 }
 

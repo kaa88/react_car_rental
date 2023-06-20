@@ -8,8 +8,9 @@ import Container from '../../ui/Container/Container';
 import Button from '../../ui/Button/Button';
 import Divider from '../../ui/Divider/Divider';
 import Logo from '../../ui/Logo/Logo';
-import Select from '../../ui/Select/Select';
+// import Select from '../../ui/Select/Select';
 import Icon from '../../ui/Icon/Icon';
+import LanguageSelect from '../../ui/Select/LanguageSelect';
 
 export let actualElems = {} // this var allows scripts to have updated CustomElements
 
@@ -28,7 +29,7 @@ const Header = memo(function Header({
 		resetCompactMode: false, // reset on view change or page reload (default = true)
 		hideOnViewChangе: true, // - by default menu disappears when window switches between mobile and desktop view, it prevents css transition blinking; if you want to turn it off in some reasons, set 'false' (default = true)
 	}
-	const header = useCustomElement(`${classes.header} ${classes.header_static} ${className}`)
+	const header = useCustomElement(`${className} ${classes.header} ${classes.header_static}`)
 	// menuTurnoffArea: useCustomElement(classes.menuTurnoffArea),
 	// level: useCustomElement(classes.level),
 	// container: useCustomElement(classes.container),
@@ -51,8 +52,8 @@ const Header = memo(function Header({
 		script.init({headerParams, classes, header, breakpointStore})
 	}, [])
 
-	function toggleMenu(e) {
-		script.menu.toggleMenu(e)
+	function toggleMenu(event) {
+		script.menu.toggleMenu(event)
 	}
 
 	const menuLinks = [
@@ -93,8 +94,9 @@ const Header = memo(function Header({
 								</div>
 							</div>
 							<Divider modif='dark' className={classes.divider} />
-							<Select type='currency'></Select>
-							<Select type='language'></Select>
+							{/* <Select type='currency'></Select> */}
+							<LanguageSelect type='language' />
+							{/* <Select type='language'></Select> */}
 							<Button className={classes.accountButton} modif='negative'>?_Sign in</Button>
 						</div>
 

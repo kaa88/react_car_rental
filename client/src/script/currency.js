@@ -14,7 +14,7 @@ export const Currency = {
 	setCookie(value) {
 		if (value) {
 			setCookie({
-				name: this.name,
+				name: Currency.name,
 				value: value.toLowerCase(),
 				expires: cookieExpireDays,
 			}, isCookieLog )

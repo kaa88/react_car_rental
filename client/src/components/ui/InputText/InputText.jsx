@@ -4,17 +4,12 @@ import classes from './InputText.module.scss';
 
 function InputText({
 	modif = 'default',
-	placeholder = '',
+	className = '',
 	...props
 }) {
 	
 	return (
-		<input
-			type='text'
-			className={classes[modif]}
-			placeholder={placeholder}
-			{...props}
-		/>
+		<input type='text' className={`${className} ${classes[modif]}`} {...props} />
 	)
 }
 

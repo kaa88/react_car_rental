@@ -1,6 +1,5 @@
 @import "../../../styles/variables.scss";
 
-
 .banner {
 	position: relative;
 	height: 800px;
@@ -15,47 +14,17 @@
 	width: 100%;
 	height: 100%;
 }
-.reserveForm {
-	margin-top: 57px;
-	padding: 50px 24px 30px;
-	display: grid;
-	/* grid-template-columns: repeat(6, auto); */
-	grid-template-columns: auto 1px auto auto 1px auto;
-	grid-column-gap: 8px;
-}
-.formItem {
-	position: relative;
-	display: flex;
 
-}
-.formItem > *:not(:last-child) {
-	margin-right: 8px;
-}
-.formItemTitle {
-	position: absolute;
-	left: 0;
-	top: -23px;
-	user-select: none;
-}
-.formCheckboxes {
-	grid-column: 1/-1;
-	margin-top: 14px;
-}
-.formCheckboxes > * {
-	margin-right: 20px;
-}
-.submitBtn {
-	width: 221px;
-	height: 80px;
-	border-radius: 70px;
-	font-size: 24px;
-}
+
 .features {
 	margin-top: 149px;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	grid-column-gap: 30px;
 	min-height: 187px;
+	color: var(--color01);
+	fill: var(--color01);
+	text-align: center;
 }
 .featuresItem {
 	display: flex;
@@ -63,17 +32,18 @@
 	justify-content: center;
 	align-items: center;
 	padding: 10px;
-	p {
-		@include text-nowrap()
+	& > *:last-child {
+		margin-top: 8px;
 	}
 }
-.icon {
-	/* width: 42px;
-	height: 42px; */
-	margin-bottom: 27px;
+.featuresTitle, .featuresText {
+	@include text-nowrap();
 }
-.item > *:last-child {
-	margin-top: 8px;
+.featuresTitle {
+	font-size: 20px;
+}
+.featuresIcon {
+	margin-bottom: 27px;
 }
 .blur {
 	background-color: rgba(255, 255, 255, 0.2);

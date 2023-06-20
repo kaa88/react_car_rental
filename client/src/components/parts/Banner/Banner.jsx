@@ -1,15 +1,34 @@
 import { memo } from 'react';
 import classes from './Banner.module.scss';
-import Container from '../../ui/Container/Container';
-import Icon from '../../ui/Icon/Icon';
-import Button from '../../ui/Button/Button';
-import Divider from '../../ui/Divider/Divider';
-import Image from '../../ui/Image/Image';
-import InputText from '../../ui/InputText/InputText';
-import InputCheckbox from '../../ui/Checkbox/InputCheckbox';
 import {Translate} from '../../../script/translate';
+import Container from '../../ui/Container/Container';
+import ReservationForm from '../Form/ReservationForm';
+import Icon from '../../ui/Icon/Icon';
+import Image from '../../ui/Image/Image';
 
 const Banner = memo(function Banner() {
+
+	const features = [
+		{
+			icon: "icon-lorry",
+			iconSize: "47px",
+			title: "Delivery to other town is possible",
+			text: "Rent no matter where you are",
+		},
+		{
+			icon: "icon-apostile",
+			iconSize: "42px",
+			title: "Fine cars",
+			text: "All cars in perfect condition",
+		},
+		{
+			icon: "icon-medal",
+			iconSize: "42px",
+			title: "Best price",
+			text: "Don't even try to find better",
+		},
+	]
+
 	return (
 		<Translate>
 			<section className={classes.banner}>
@@ -21,46 +40,16 @@ const Banner = memo(function Banner() {
 						?_Rent a car
 					</h3>
 
-					<form className={`${classes.reserveForm} ${classes.blur}`} action="#">
-						<div className={classes.formItem}>
-							<p className={`${classes.formItemTitle} color01`}>?_Location</p>
-							<InputText />
-						</div>
-						<Divider />
-						<div className={classes.formItem}>
-							<p className={`${classes.formItemTitle} color01`}>?_Pick up</p>
-							<InputText />
-							<InputText />
-						</div>
-						<div className={classes.formItem}>
-							<p className={`${classes.formItemTitle} color01`}>?_Return</p>
-							<InputText />
-							<InputText />
-						</div>
-						<Divider />
-						<Button className={classes.submitBtn} type='submit'>?_Reserve</Button>
-						<div className={classes.formCheckboxes}>
-							<InputCheckbox>?_Driver's age 21+</InputCheckbox>
-							<InputCheckbox>?_Return to different location</InputCheckbox>
-						</div>
-					</form>
+					<ReservationForm className={classes.blur} />
 
-					<div className={`${classes.features} color01 tac`}>
-						<div className={`${classes.featuresItem} ${classes.blur}`}>
-							<Icon className={classes.icon} name='icon-lorry' size='47px' />
-							<p className='fz20'>?_Delivery to other town is possible</p>
-							<p>?_Rent no matter where you are</p>
-						</div>
-						<div className={`${classes.featuresItem} ${classes.blur}`}>
-							<Icon className={classes.icon} name='icon-apostile' size='42px' />
-							<p className='fz20'>?_Fine cars</p>
-							<p>?_All cars in perfect condition</p>
-						</div>
-						<div className={`${classes.featuresItem} ${classes.blur}`}>
-							<Icon className={classes.icon} name='icon-medal' size='42px' />
-							<p className='fz20'>?_Best price</p>
-							<p>?_Don't even try to find better</p>
-						</div>
+					<div className={classes.features}>
+						{features.map((item, index) =>
+							<div className={`${classes.featuresItem} ${classes.blur}`} key={index}>
+								<Icon className={classes.featuresIcon} name={item.icon} size={item.iconSize} />
+								<p className={classes.featuresTitle}>{`?_${item.title}`}</p>
+								<p className={classes.featuresText}>{`?_${item.text}`}</p>
+							</div>
+						)}
 					</div>
 
 				</Container>
