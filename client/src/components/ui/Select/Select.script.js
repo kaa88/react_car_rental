@@ -1,58 +1,64 @@
-import { actualElems } from './Select';
+const initiatedSelects = []
+// let isSetupEvents = false
 
-const SelectScript = {
+const SelectScript = { // todo: сделать класс, т.к. может понадобиться добавлять и удалять эвенты для конкретного селекта
 	initiated: false,
-	init({classes, onSelect}) {
-		this.elems = {
-			get select() {return actualElems.select},
-			get header() {return actualElems.header},
-			get headerText() {return actualElems.headerText},
-			get listWrapper() {return actualElems.listWrapper},
-			get list() {return actualElems.list},
-		}
+	init({elems, classes}) {
+		this.elems = elems
 		this.activeClass = classes.active
-		this.onSelect = onSelect
+		initiatedSelects.push(this.elems)
 		this.initiated = true
 	},
 	setupEvents() {
-		window.addEventListener('click', this.toggleList.bind(this))
-		window.addEventListener('resize', this.toggleList.bind(this))
+		// if (!isSetupEvents) {
+			window.addEventListener('click', this.toggleList.bind(this))
+			window.addEventListener('resize', this.toggleList.bind(this))
+		// 	isSetupEvents = true
+		// }
 	},
 	removeEvents() {
 		window.removeEventListener('click',this.toggleList.bind(this))
 		window.removeEventListener('resize', this.toggleList.bind(this))
 	},
 
-	toggleList (e) {
+	toggleList (e,
+		header = this.elems.header,
+		listWrapper = this.elems.listWrapper,
+		list = this.elems.list
+	) {
 		if (!this.initiated) return;
-		const header = this.elems.header
-		const listWrapper = this.elems.listWrapper
-		const list = this.elems.list
+		if (list.children.length === 1) return;
 		const active = this.activeClass
 
-		if (list.children.length === 1) return;
-
 		function open() {
+			closeOtherSelects()
 			header.addClass(active)
 			listWrapper.addClass(active)
 			listWrapper.el.style.height = listWrapper.el.children[0].offsetHeight + 'px'
 		}
-		function close() {
-			header.removeClass(active)
-			listWrapper.removeClass(active)
-			listWrapper.el.style.height = ''
+		function close(select) {
+			let closingHeader = select ? select.header : header
+			let closingWrapper = select ? select.listWrapper : listWrapper
+			closingHeader.removeClass(active)
+			closingWrapper.removeClass(active)
+			closingWrapper.el.style.height = ''
+		}
+		function closeOtherSelects(all) {
+			initiatedSelects.forEach(item => {
+				if (all || item.header.el !== header.el) close(item)
+			})
 		}
 		e.stopPropagation()
-		if (e.currentTarget === window) return close()
-
-		if (listWrapper.hasClass(active)) close()
+		if (e.currentTarget === window) closeOtherSelects(true)
+		else if (listWrapper.hasClass(active)) close()
 		else open()
 	},
 
-	selectItem(e) {
+	selectItem(e, headerText) {
 		if (!this.initiated) return;
 		let value = e.target.textContent
-		this.elems.headerText.setChildren(value)
+		headerText.setChildren(value)
+		return value
 	}
 }
 

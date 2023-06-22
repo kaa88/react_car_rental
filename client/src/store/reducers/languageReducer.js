@@ -1,4 +1,4 @@
-import { Language } from '../../script/translate'
+import { Language } from '../../components/ui/OptionsSelect/language'
 
 const defaultState = Language
 

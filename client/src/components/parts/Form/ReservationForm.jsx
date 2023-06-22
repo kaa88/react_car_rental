@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import classes from './ReservationForm.module.scss';
-import {Translate} from '../../../script/translate';
+import TranslateHandler from '../../TranslateHandler';
 import { useCustomElement } from '../../../hooks/useCustomElement';
 import Icon from '../../ui/Icon/Icon';
 import Button from '../../ui/Button/Button';
@@ -67,7 +67,7 @@ const ReservationForm = memo(function ReservationForm({className, ...props}) {
 
 
 	return (
-		<Translate>
+		<TranslateHandler>
 			<form className={`${classes.form} ${className}`} action="#" {...props}>
 				<div className={classes.section}>
 					<p className={classes.sectionTitle}>?_Location</p>
@@ -97,7 +97,7 @@ const ReservationForm = memo(function ReservationForm({className, ...props}) {
 					<InputCheckbox>?_Return to different location</InputCheckbox>
 				</div>
 			</form>
-		</Translate>
+		</TranslateHandler>
 	)
 })
 

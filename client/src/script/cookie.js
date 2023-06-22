@@ -38,3 +38,5 @@ export function getCookie() {
 	const cookiesArr = decodeURIComponent(document.cookie).split('; ')
 	return Object.fromEntries(cookiesArr.map((item) => item.split('=')))
 }
+
+export default {setCookie, getCookie}

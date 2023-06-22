@@ -1,7 +1,7 @@
-// Translate module scans closest children components. If it finds a strings with forwarding symbols '?_', it will translate.
+// TranslateHandler scans closest children components. If it finds strings with leading symbols '?_', it will translate them.
 
 import { cloneElement, isValidElement } from 'react'
-import { getCookie, setCookie } from './cookie'
+import { useSelector } from 'react-redux'
 import lang_en from '../language/en.json'
 import lang_ru from '../language/ru.json'
 import lang_de from '../language/de.json'
@@ -22,30 +22,10 @@ Object.entries(deps).forEach(([key, value]) => {
 	if (keys.length) console.warn(`Duplicates of "id" [${keys}] have been found in "${key}" language package. It may cause errors with translation.`)
 })
 
-const cookieExpireDays = 30
-const isCookieLog = true
 
-export const Language = {
-	name: 'language',
-	default: 'en',
-	current: 'en',
-	list: [ 'en', 'ru', 'de' ],
-	setCookie(value) {
-		if (value) {
-			setCookie({
-				name: Language.name,
-				value: value.toLowerCase(),
-				expires: cookieExpireDays,
-			}, isCookieLog )
-		}
-	}
-}
-let currentLang = getCookie()[Language.name]
-if (currentLang) Language.current = currentLang
-
-
-export function Translate({children}){
-	const regexp = /^\?_/
+function TranslateHandler({children}){
+	const Language = useSelector(state => state.language)
+	const matchingSymbols = /^\?_/
 
 	function scan(elem, index = 0) {
 		if (Array.isArray(elem)) {
@@ -72,8 +52,8 @@ export function Translate({children}){
 	}
 
 	function translate(str) {
-		if (!str || typeof str !== 'string' || !regexp.test(str)) return str
-		str = str.replace(regexp, '')
+		if (!str || typeof str !== 'string' || !matchingSymbols.test(str)) return str
+		str = str.replace(matchingSymbols, '')
 		if (Language.current === Language.default) return str
 		if (!isNaN(Number(str))) return str
 		
@@ -82,12 +62,14 @@ export function Translate({children}){
 			let translate = deps[Language.current].find(item => item.id === match.id)
 			if (translate) return translate.text
 		}
-	
+		// else
 		let shortStr, shortStrLength = 30;
 		if (str.length > shortStrLength) shortStr = str.substring(0, shortStrLength) + '...'
-		console.warn(`Missing "${Language.current}" translate for "${shortStr ? shortStr : str}"`)
+		console.info(`WARN! Missing "${Language.current}" translate for "${shortStr ? shortStr : str}"`)
 		return str
 	}
 
 	return scan(children)
 }
+
+export default TranslateHandler

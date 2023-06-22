@@ -32,21 +32,6 @@
 	white-space: nowrap;
 	overflow: hidden;
 }
-// .header.active {
-// 	color: var(--color01);
-// 	fill: var(--color01);
-// }
-.typeIcon {
-	margin-right: 6px;
-	/* position: absolute;
-	left: -25px; */
-	cursor: default;
-}
-.typeIcon svg {
-	width: 16px;
-	height: 16px;
-	fill: var(--color02);
-}
 .headerExpandIcon {
 	margin-left: 5px;
 	flex: 0 0 auto;
@@ -60,17 +45,14 @@
 	width: 8px;
 	height: 8px;
 }
-/* .header:hover, .select.active .header { */
-	/* border-color: yellow; */
-/* } */
 .listWrapper {
 	position: absolute;
 	top: 0;
-	/* top: calc(100% - 7px); */
+	// top: calc(100% - 7px);
 	right: 0;
-	width: calc(100% - 22px);
-	/* left: 0; */
-	/* width: 100%; */
+	// width: calc(100% - 22px);
+	// left: 0;
+	width: 100%;
 	z-index: 2;
 	height: 27px;
 	overflow: hidden;
@@ -80,13 +62,13 @@
 	border-radius: 8px;
 	color: var(--color01);
 	opacity: 0;
-}
-.listWrapper.active {
-	visibility: visible;
-	opacity: 1;
+	&.active {
+		visibility: visible;
+		opacity: 1;
+	}
 }
 .list {
-	padding-top: 27px; /* 7 */
+	padding-top: 27px; // 7
 }
 .option {
 	display: flex;
@@ -99,7 +81,7 @@
 	user-select: none;
 	opacity: 0.5;
 	cursor: pointer;
-}
-.option.selected, .option:hover {
-	opacity: 1;
+	&.selected, &:hover {
+		opacity: 1;
+	}
 }

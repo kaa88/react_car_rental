@@ -1,33 +1,20 @@
-import { getCookie, setCookie } from './cookie'
-import getData from './fetch'
-
-
-const cookieExpireDays = 30
-const isCookieLog = true
+import getData from '../../../script/fetch'
+import { getCookie } from '../../../script/cookie'
 
 export const Currency = {
 	name: 'currency',
 	default: 'usd',
 	current: 'usd',
 	list: ['usd'],
-	rates: {usd: 1},
-	setCookie(value) {
-		if (value) {
-			setCookie({
-				name: Currency.name,
-				value: value.toLowerCase(),
-				expires: cookieExpireDays,
-			}, isCookieLog )
-		}
-	}
+	rates: {usd: 1}
 }
 
-const process = ['currency', 'fetch'] // ?
 const request = {
 	path: '/currency',
 	method: 'GET',
 	body: {}
 }
+const process = ['currency', 'fetch'] // ?
 
 let data = await getData(request, process)
 if (data) {

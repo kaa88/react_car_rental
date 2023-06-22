@@ -4,13 +4,13 @@ import Container from '../../ui/Container/Container';
 import Image from '../../ui/Image/Image';
 import faqData from './Faq.data.json';
 import Divider from '../../ui/Divider/Divider';
-import {Translate} from '../../../script/translate';
+import TranslateHandler from '../../TranslateHandler';
 
 
 const Faq = memo(function Faq() {
 
 	return (
-		<Translate>
+		<TranslateHandler>
 			<section className={classes.faq}>
 				<div className={classes.bg}>
 					<Image src='img/bg2.jpg' />
@@ -31,7 +31,7 @@ const Faq = memo(function Faq() {
 
 				</Container>
 			</section>
-		</Translate>
+		</TranslateHandler>
 	)
 })
 

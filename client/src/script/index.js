@@ -1,6 +1,6 @@
 import { scrollLock } from './scrollLock'
 import { jsMediaQueries } from './jsMediaQueries'
-import { componentScriptManager } from './componentScriptManager'
+import { scriptManager } from './scriptManager'
 import { changeMobileBreakpoint } from '../store/reducers/mobileBreakpointReducer'
 
 import { register } from 'swiper/element/bundle'
@@ -20,8 +20,8 @@ function initBreakpoints(dispatch) {
 
 export function initInstantScripts(dispatch) {
 	initBreakpoints(dispatch)
-	componentScriptManager.init({
-		// testMode: true
+	scriptManager.init({
+		testMode: true
 	})
 	jsMediaQueries.init({
 		// testMode: true

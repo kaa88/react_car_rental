@@ -14,7 +14,7 @@ const VIEW_KEY_SMALL = 'S'
 
 const Menu = {
 	initiated: false,
-	init({headerScript, classes, breakpointStore}) {
+	init({headerScript, classes, breakpointStore, languageStore}) {
 		this.headerScript = headerScript
 		this.elems = {
 			get wrapper() {return actualElems.menuHideWrapper},
@@ -33,6 +33,8 @@ const Menu = {
 		this.classes.hideOnViewChange[VIEW_KEY_SMALL] = classes.hideOnViewChangeStageS
 		this.isHidingMenuOnViewChange = headerScript.params.hideOnViewChangе
 		this.hideMenuOnViewChangeTimeoutId = HIDE_MENU_DEFAULT_TIMEOUT_ID // рандомный id чтобы вдруг не зацепить другие таймауты на старте
+
+		this.language = languageStore.current
 
 		window.addEventListener('resize', this.calcMenuWidth.bind(this))
 		this.initiated = true
@@ -82,6 +84,22 @@ const Menu = {
 
 				Metrics.calcHeaderHeight()
 			}.bind(this), this.timeout)
+		}
+	},
+	checkLanguage(lang) {
+		console.log('checkLanguage'); // не работает
+		if (lang) {
+			if (lang === this.language) return this.calcMenuWidth()
+
+			if (this.isShrinkedMenu) {
+				this.isShrinkedMenu = false
+				this.elems.menu.removeClass(this.classes.menuShrink)
+			}
+			else {
+				this.isShrinkedMenu = true
+				this.elems.menu.addClass(this.classes.menuShrink)
+			}
+			this.language = lang
 		}
 	},
 	calcMenuWidth() {

@@ -6,7 +6,7 @@ import Icon from '../../ui/Icon/Icon';
 import Button from '../../ui/Button/Button';
 import Slider from '../Slider/Slider';
 import feedbackData from './Feedback.data.json';
-import {Translate} from '../../../script/translate';
+import TranslateHandler from '../../TranslateHandler';
 
 
 const Feedback = memo(function Feedback() {
@@ -54,7 +54,7 @@ const Feedback = memo(function Feedback() {
 	)
 
 	return (
-		<Translate>
+		<TranslateHandler>
 			<section className={classes.feedback}>
 				<Container>
 					<h3 className='fz36 color02 tac'>?_Feedback</h3>
@@ -64,7 +64,7 @@ const Feedback = memo(function Feedback() {
 
 				</Container>
 			</section>
-		</Translate>
+		</TranslateHandler>
 	)
 })
 

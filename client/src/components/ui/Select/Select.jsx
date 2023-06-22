@@ -1,103 +1,60 @@
 import { useCallback, useEffect, useMemo, useState, memo } from 'react';
-// import { useDispatch, useSelector } from 'react-redux'
 import { useCustomElement } from '../../../hooks/useCustomElement';
-// import { changeCurrency } from '../../../store/reducers/currencyReducer'
-// import { changeLanguage } from '../../../store/reducers/languageReducer'
 import script from './Select.script'
 import classes from './Select.module.scss';
 import Icon from '../Icon/Icon';
 
-export let actualElems = {}
 
 const Select = memo(function Select({className = '', children, data, onSelect, ...props}) {
-
-	console.log(data);
-
-	// const dispatch = useDispatch()
-	// const Language = useSelector(state => state.language)
-	// const Currency = useSelector(state => state.currency)
-	// let [reloadList, setReloadList] = useState(true)
-	// let [reloadLanguage, setReloadLanguage] = useState(false)
-
-	// const dataTypes = useMemo(function() {return {
-	// 	language: {
-	// 		data: Language,
-	// 		action: changeLanguage,
-	// 		finally() {
-	// 			setReloadList(true) // change list by useEffect with delay
-	// 			setReloadLanguage(true) // translate by page reload
-	// 		},
-	// 		get icon() {return 'icon-globe'}
-	// 	},
-	// 	currency: {
-	// 		data: Currency,
-	// 		action: changeCurrency,
-	// 		finally() {
-	// 			setReloadList(true)
-	// 		},
-	// 		get icon() {return `icon-${data.current}`}
-	// 	},
-	// 	month: {
-	// 		data: propData,
-	// 		action: changeCurrency,
-	// 		finally() {
-	// 			// setReloadList(true)
-	// 		},
-	// 		get icon() {return ''}
-	// 	},
-	// }}, [Language, Currency, data])
-
-	// data = useMemo(() => dataTypes[type].data, [dataTypes, type])
 
 	const defaultData = {
 		selected: '',
 		list: []
 	}
 	if (typeof data !== 'object' || Array.isArray(data)) data = defaultData
-	
-	const toggleList = function(event) {
-		script.toggleList(event)
-	}
-	const selectItem = useCallback((event) => {
-		script.selectItem(event)
-	}, [])
-
-	let customOptionList = useMemo(() => data.list.map((item, index) =>
-		<li className={classes.option} onClick={selectItem} key={index}>
-			{item}
-		</li>
-	), [data, selectItem])
+	let [prevDataList, setPrevDataList] = useState(data.list)
 
 	const select = useCustomElement(`${className} ${classes.select}`)
 	const header = useCustomElement(classes.header)
 	const headerText = useCustomElement(classes.headerText, data.selected)
 	const listWrapper = useCustomElement(classes.listWrapper)
-	const list = useCustomElement(classes.list, customOptionList)
+	const list = useCustomElement(classes.list)
 
-	actualElems = {
-		select,
-		header,
-		headerText,
-		listWrapper,
-		list,
+	const toggleList = function(event) {
+		script.toggleList(event, header, listWrapper, list)
+	}
+
+	const selectItem = useCallback((event) => {
+		let onSelectValue = script.selectItem(event, headerText)
+		onSelect(onSelectValue)
+	}, [headerText, onSelect])
+
+	let customOptionList = useMemo(() => data.list.map((item, index) =>
+		<li className={classes.option} onClick={selectItem} key={index}>
+			{item}
+		</li>
+	), [data.list, selectItem])
+
+	for (let i = 0; i < data.list.length; i++) {
+		if (list.children === '' || data.list[i] !== prevDataList[i]) {
+			list.setChildren(customOptionList)
+			setPrevDataList(data.list)
+			break
+		}
 	}
 
 	useEffect(() => { //once
-		script.init({classes, onSelect})
+		const elems = {
+			select,
+			header,
+			headerText,
+			listWrapper,
+			list,
+		}
+		script.init({elems, classes})
 		script.setupEvents()
 		return () => script.removeEvents()
 	}, [])
-
-	// useEffect(() => {
-	// 	const transitionDelay = parseFloat(getComputedStyle(document.body).getPropertyValue('--timer-select'))*1000 || 0;
-	// 	setTimeout(() => {
-	// 		if (reloadLanguage) window.location.reload()
-	// 		if (reloadList) {
-	// 			setReloadList(false)
-	// 			list.setChildren(customOptionList)
-	// 		}
-	// 	}, transitionDelay)
-	// })
 
 	// console.log('render Select')
 	return (

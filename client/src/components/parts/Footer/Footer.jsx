@@ -7,13 +7,13 @@ import Button from '../../ui/Button/Button';
 import InputText from '../../ui/InputText/InputText';
 import Link from '../../ui/Link/Link';
 import Logo from '../../ui/Logo/Logo';
-import {Translate} from '../../../script/translate';
+import TranslateHandler from '../../TranslateHandler';
 
 
 const Footer = memo(function Footer() {
 
 	return (
-		<Translate>
+		<TranslateHandler>
 			<footer className={`${classes.footer} scroll-lock-item-p`}>
 
 				<div className={classes.top}>
@@ -67,7 +67,7 @@ const Footer = memo(function Footer() {
 					</Container>
 				</div>
 			</footer>
-		</Translate>
+		</TranslateHandler>
 	)
 })
 

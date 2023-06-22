@@ -1,5 +1,5 @@
 import { jsMediaQueries } from '../../../script/jsMediaQueries'
-import { componentScriptManager } from '../../../script/componentScriptManager';
+import { scriptManager } from '../../../script/scriptManager';
 import classNameChanger from '../../../script/classNameChanger'
 import Metrics from './metrics';
 import Menu from './menu';
@@ -7,7 +7,7 @@ import Menu from './menu';
 
 const HeaderScript = {
 	initiated: false,
-	init({headerParams, classes, header, breakpointStore}) {
+	init({headerParams, classes, header, breakpointStore, languageStore}) {
 		this.params = this.getFixedParams(headerParams)
 
 		let headerPositonClassName = header.className
@@ -23,10 +23,13 @@ const HeaderScript = {
 		this.metrics = Metrics
 		
 		if (this.params.menu) {
-			Menu.init({headerScript: this, classes, breakpointStore})
+			Menu.init({headerScript: this, classes, breakpointStore, languageStore})
 			this.menu = Menu
 		}
-		componentScriptManager.registerFunctions('Header', {toggleMenu: this.menu.toggleMenu})
+		scriptManager.registerFunctions('Header', {
+			toggleMenu: this.menu.toggleMenu,
+			calcMenuWidth: this.menu.calcMenuWidth
+		})
 		jsMediaQueries.registerActions(breakpointStore.tablet, [this.checkViewportChange.bind(this)])
 		jsMediaQueries.registerActions(breakpointStore.mobile, [this.checkViewportChange.bind(this)])
 

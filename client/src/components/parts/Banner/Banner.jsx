@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import classes from './Banner.module.scss';
-import {Translate} from '../../../script/translate';
+import TranslateHandler from '../../TranslateHandler';
 import Container from '../../ui/Container/Container';
 import ReservationForm from '../Form/ReservationForm';
 import Icon from '../../ui/Icon/Icon';
@@ -30,7 +30,7 @@ const Banner = memo(function Banner() {
 	]
 
 	return (
-		<Translate>
+		<TranslateHandler>
 			<section className={classes.banner}>
 				<div className={classes.bg}>
 					<Image src='img/bg.jpg' />
@@ -54,7 +54,7 @@ const Banner = memo(function Banner() {
 
 				</Container>
 			</section>
-		</Translate>
+		</TranslateHandler>
 	)
 })
 

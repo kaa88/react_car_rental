@@ -1,5 +1,5 @@
-export const componentScriptManager = {
-	selfName: 'componentScriptManager',
+export const scriptManager = {
+	selfName: 'scriptManager',
 	initiated: false,
 
 	init(params) {

@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useCustomElement } from '../../../hooks/useCustomElement';
 import script from './Header.script';
 import classes from './Header.module.scss';
-import { Translate } from '../../../script/translate';
+import TranslateHandler from '../../TranslateHandler';
 import Container from '../../ui/Container/Container';
 import Button from '../../ui/Button/Button';
 import Divider from '../../ui/Divider/Divider';
 import Logo from '../../ui/Logo/Logo';
 // import Select from '../../ui/Select/Select';
 import Icon from '../../ui/Icon/Icon';
-import LanguageSelect from '../../ui/Select/LanguageSelect';
+import OptionsSelect from '../../ui/OptionsSelect/OptionsSelect';
 
 export let actualElems = {} // this var allows scripts to have updated CustomElements
 
@@ -47,10 +47,14 @@ const Header = memo(function Header({
 	}
 
 	const breakpointStore = useSelector(state => state.mobileBreakpoint)
+	const languageStore = useSelector(state => state.language)
 
 	useEffect(() => {
-		script.init({headerParams, classes, header, breakpointStore})
+		script.init({headerParams, classes, header, breakpointStore, languageStore})
 	}, [])
+	useEffect(() => {
+		script.menu.checkLanguage(languageStore.current)
+	})
 
 	function toggleMenu(event) {
 		script.menu.toggleMenu(event)
@@ -64,7 +68,7 @@ const Header = memo(function Header({
 	]
 	// console.log('render Header')
 	return (
-		<Translate>
+		<TranslateHandler>
 			<header className={header.className} ref={header.ref} {...props}>
 				<div className={classes.menuTurnoffArea} onClick={toggleMenu}></div>
 
@@ -95,7 +99,8 @@ const Header = memo(function Header({
 							</div>
 							<Divider modif='dark' className={classes.divider} />
 							{/* <Select type='currency'></Select> */}
-							<LanguageSelect type='language' />
+							<OptionsSelect type='currency' />
+							<OptionsSelect type='language' />
 							{/* <Select type='language'></Select> */}
 							<Button className={classes.accountButton} modif='negative'>?_Sign in</Button>
 						</div>
@@ -108,44 +113,8 @@ const Header = memo(function Header({
 				</div>
 
 			</header>
-		</Translate>
+		</TranslateHandler>
 	)
 })
 
 export default Header
-
-
-
-// function Header() {
-// 	return (
-// 		<Translate>
-// 			<header className={classes.header}>
-// 				<Container modif='flex'>
-// 					<Logo style={{fontSize: '20px'}}></Logo>
-// 					<div className={classes.menu}>
-// 						<nav className={classes.pages}>
-// 							<div className={classes.item}>
-// 								<Link>?_Cars</Link>
-// 							</div>
-// 							<div className={classes.item}>
-// 								<Link>?_Feedback</Link>
-// 							</div>
-// 							<div className={classes.item}>
-// 								<Link>?_F.A.Q</Link>
-// 							</div>
-// 							<div className={classes.item}>
-// 								<Link>?_How to rent</Link>
-// 							</div>
-// 						</nav>
-// 						<div className={classes.account}>
-// 							<Divider style={{backgroundColor: 'rgba(50,2,2,0.5)'}} />
-// 							<Select type='currency'></Select>
-// 							<Select type='language'></Select>
-// 							<Button className={classes.button} modif='negative'>?_Sign in</Button>
-// 						</div>
-// 					</div>
-// 				</Container>
-// 			</header>
-// 		</Translate>
-// 	)
-// }

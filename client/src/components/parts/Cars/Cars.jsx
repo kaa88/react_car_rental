@@ -7,7 +7,7 @@ import Image from '../../ui/Image/Image';
 import Icon from '../../ui/Icon/Icon';
 import Button from '../../ui/Button/Button';
 import carData from './Cars.data.json';
-import {Translate} from '../../../script/translate';
+import TranslateHandler from '../../TranslateHandler';
 
 
 const Cars = memo(function Cars() {
@@ -91,7 +91,7 @@ const Cars = memo(function Cars() {
 	)
 
 	return (
-		<Translate>
+		<TranslateHandler>
 			<section className={classes.cars}>
 				<Container>
 
@@ -108,7 +108,7 @@ const Cars = memo(function Cars() {
 
 				</Container>
 			</section>
-		</Translate>
+		</TranslateHandler>
 	)
 })
 

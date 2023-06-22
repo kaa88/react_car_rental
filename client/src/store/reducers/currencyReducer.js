@@ -1,4 +1,4 @@
-import { Currency } from '../../script/currency';
+import { Currency } from '../../components/ui/OptionsSelect/currency';
 
 const defaultState = Currency
 
