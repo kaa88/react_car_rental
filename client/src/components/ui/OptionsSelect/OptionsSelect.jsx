@@ -74,7 +74,7 @@ const OptionsSelect = memo(function OptionsSelect({type, className = '', childre
 			<span className={classes.icon}>
 				<Icon name={categories[type].icon} />
 			</span>
-			<Select data={selectData} onSelect={handleSelect} />
+			<Select modif='siteOptions' data={selectData} onSelect={handleSelect} />
 		</div>
 	)
 })

@@ -87,19 +87,23 @@ const Menu = {
 		}
 	},
 	checkLanguage(lang) {
-		console.log('checkLanguage'); // не работает
-		if (lang) {
-			if (lang === this.language) return this.calcMenuWidth()
+		if (!this.initiated || !lang) return;
+		const menu = this.elems.menu
+		const langChangeTimeout = 200
+		const hiddenProp = 'opacity'
+		const hiddenValue = '0'
+		const visibleValue = '1'
 
-			if (this.isShrinkedMenu) {
-				this.isShrinkedMenu = false
-				this.elems.menu.removeClass(this.classes.menuShrink)
-			}
-			else {
-				this.isShrinkedMenu = true
-				this.elems.menu.addClass(this.classes.menuShrink)
-			}
+		if (lang !== this.language) {
 			this.language = lang
+			this.isShrinkedMenu = false
+			menu.el.style[hiddenProp] = hiddenValue
+			menu.removeClass(this.classes.menuShrink)
+
+			setTimeout(function() {
+				this.calcMenuWidth()
+				menu.el.style[hiddenProp] = visibleValue
+			}.bind(this), langChangeTimeout)
 		}
 	},
 	calcMenuWidth() {

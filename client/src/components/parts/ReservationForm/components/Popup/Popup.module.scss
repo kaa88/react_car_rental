@@ -1,0 +1,12 @@
+@import "../../../../../styles/variables.scss";
+
+.default, .location, .date, .time {
+	position: absolute;
+	left: 0;
+	top: calc(100% + 6px);
+	display: flex;
+	background-color: var(--color01);
+	color: var(--color02);
+	border-radius: 16px;
+	// user-select: none;
+}

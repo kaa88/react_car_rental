@@ -2,7 +2,7 @@ import { memo } from 'react';
 import classes from './Banner.module.scss';
 import TranslateHandler from '../../TranslateHandler';
 import Container from '../../ui/Container/Container';
-import ReservationForm from '../Form/ReservationForm';
+import ReservationForm from '../ReservationForm/ReservationForm';
 import Icon from '../../ui/Icon/Icon';
 import Image from '../../ui/Image/Image';
 

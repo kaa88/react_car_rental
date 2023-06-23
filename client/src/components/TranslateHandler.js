@@ -1,5 +1,3 @@
-// TranslateHandler scans closest children components. If it finds strings with leading symbols '?_', it will translate them.
-
 import { cloneElement, isValidElement } from 'react'
 import { useSelector } from 'react-redux'
 import lang_en from '../language/en.json'
@@ -23,6 +21,7 @@ Object.entries(deps).forEach(([key, value]) => {
 })
 
 
+// TranslateHandler scans closest children components. If it finds strings with leading symbols '?_', it will translate them.
 function TranslateHandler({children}){
 	const Language = useSelector(state => state.language)
 	const matchingSymbols = /^\?_/

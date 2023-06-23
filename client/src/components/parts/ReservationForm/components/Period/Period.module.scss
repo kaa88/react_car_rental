@@ -1,20 +1,24 @@
-@import "../../../styles/variables.scss";
+@import "../../../../../styles/variables.scss";
 
-.form {
+.period {
 	position: relative;
-	z-index: 9;
-	margin-top: 57px;
-	padding: 50px 24px 30px;
-	display: grid;
-	/* grid-template-columns: repeat(6, auto); */
-	grid-template-columns: auto 1px auto auto 1px auto;
-	grid-column-gap: 8px;
-	align-items: center;
+	display: flex;
+	.dateInput, .timeInput {
+		height: 80px;
+		border-radius: 70px;
+		font-size: 20px;
+	}
+	.dateInput {
+		width: 153px;
+	}
+	.timeInput {
+		width: 137px;
+	}
 }
 .section {
 	position: relative;
 	display: flex;
-	& > *:not(:last-child) {
+	&:first-child, & > *:not(:last-child) {
 		margin-right: 8px;
 	}
 }
@@ -25,50 +29,21 @@
 	user-select: none;
 	color: var(--color01);
 }
-.form .input {
-	height: 80px;
-	border-radius: 70px;
-}
-.checkboxes {
-	grid-column: 1/-1;
-	margin-top: 14px;
-	& > * {
-		margin-right: 20px;
-	}
-}
-.submitBtn {
-	width: 221px;
-	height: 80px;
-	border-radius: 70px;
-	font-size: 24px;
-}
 
-.dateSelectPopup, .timeSelectPopup {
-	position: absolute;
-	left: 0;
-	top: calc(100% + 6px);
-	width: 500px;
-	height: 300px;
-	background-color: var(--color01);
-	border-radius: 16px;
-}
-.selectPopup {
-	position: relative;
-	display: flex;
-	background-color: var(--color01);
-	color: var(--color02);
-	border-radius: 16px;
+.popup {
+	height: 414px;
 	user-select: none;
 	.divider {
 		position: relative;
-		top: 13%;
-		height: 74%;
-		// margin-top: 15%;
+		top: 16%;
+		height: 75%;
 	}
 }
-
-.popupMonth {
+.popupMonthBox {
 	padding: 24px 8px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 .popupTitle {
 	font-size: 20px;
@@ -109,13 +84,4 @@
 	&.disabled {
 		pointer-events: none;
 	}
-}
-
-
-
-.dateSelectPopup {
-
-}
-.timeSelectPopup {
-
 }

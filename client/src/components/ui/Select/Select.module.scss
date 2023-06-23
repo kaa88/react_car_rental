@@ -1,14 +1,16 @@
 @import "../../../styles/variables.scss";
 
-.select {
+.default, .siteOptions, .reservation {
 	position: relative;
 	display: flex;
 	align-items: center;
-	/* width: 87px; */
-	/* padding-left: 45px; */
 	height: 27px;
 	transition: all $timer-select;
 	font-size: 16px;
+}
+.reservation {
+	width: 150px;
+	height: 30px;
 }
 .header {
 	position: relative;
@@ -17,12 +19,18 @@
 	padding: 0 4px;
 	display: flex;
 	align-items: center;
-	/* background-color: var(--color02); */
 	user-select: none;
 	border-radius: 8px;
 	cursor: pointer;
 	transition: color $timer-select, fill $timer-select;
-	&.active {
+	.reservation & {
+		justify-content: center;
+		width: 100%;
+		border-radius: 18px;
+		background-color: var(--color02);
+		font-size: 20px;
+	}
+	&.active, .reservation & {
 		color: var(--color01);
 		fill: var(--color01);
 	}
@@ -31,6 +39,9 @@
 	flex: 1 1 auto;
 	white-space: nowrap;
 	overflow: hidden;
+	.reservation & {
+		flex: 0 0 auto;
+	}
 }
 .headerExpandIcon {
 	margin-left: 5px;
@@ -40,10 +51,20 @@
 	display: flex;
 	align-items: center;
 	transform: rotate(90deg);
+	.reservation & {
+		width: 11px;
+		height: 11px;
+	}
 }
 .headerExpandIcon svg {
 	width: 8px;
 	height: 8px;
+	.reservation & {
+		margin-bottom: 5px;
+		margin-left: 4px;
+		width: 11px;
+		height: 11px;
+	}
 }
 .listWrapper {
 	position: absolute;
@@ -62,6 +83,9 @@
 	border-radius: 8px;
 	color: var(--color01);
 	opacity: 0;
+	.reservation & {
+		border-radius: 18px;
+	}
 	&.active {
 		visibility: visible;
 		opacity: 1;
@@ -81,6 +105,9 @@
 	user-select: none;
 	opacity: 0.5;
 	cursor: pointer;
+	.reservation & {
+		margin-left: 10px;
+	}
 	&.selected, &:hover {
 		opacity: 1;
 	}
