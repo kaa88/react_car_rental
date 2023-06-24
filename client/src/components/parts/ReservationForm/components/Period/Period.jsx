@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import script from './Period.script';
 import classes from './Period.module.scss';
 import TranslateHandler from '../../../../TranslateHandler';
@@ -9,74 +9,92 @@ import Select from '../../../../ui/Select/Select';
 import Popup from '../Popup/Popup';
 
 const Period = memo(function Period({className = '', ...props}) {
-	const now = new Date()
-	const currentYear = now.getFullYear()
-	const currentMonth = now.getMonth()
-	const currentDate = now.getDate()
-	const currentTime = now.getHours()
+	/*
+		Строю календарь:
+			- получаю дату
+				- текущую при загрузке
+				- установленную из ... стейта
+			- проставляю в инпуты
+		Кликаю в календаре, выбираю дату:
+			- получаю дату из dataset числа
+			- проставляю в инпуты
+	*/
+	const today = new Date()
+	const currentYear = today.getFullYear()
+	const currentMonth = today.getMonth()
+	const currentDate = today.getDate()
+	const currentTime = today.getHours()
 
+	const defaultReturnPeriod ={ date: 1, hour: 3 }
+	
 	const defaultReservationPeriod = {
-		pickup: new Date(currentYear, currentMonth, currentDate, currentTime + 3),
-		return: new Date(currentYear, currentMonth, currentDate + 1, currentTime + 3),
+		pickup: new Date(currentYear, currentMonth, currentDate, currentTime + defaultReturnPeriod.hour),
+		return: new Date(currentYear, currentMonth, currentDate + defaultReturnPeriod.date, currentTime + defaultReturnPeriod.hour),
 	}
-	console.log(defaultReservationPeriod);
 	let [reservationPeriod, setReservationPeriod] = useState(defaultReservationPeriod)
+	let [selectorCurrentMonth, setSelectorCurrentMonth] = useState(new Date(currentYear, currentMonth)) //currentMonth
 
-	let [monthId, setMonthId] = useState(currentMonth)
+	const monthSelectData = useMemo(() => script.getMonthSelectData(selectorCurrentMonth), [selectorCurrentMonth])
 
-	const monthSelectData = useMemo(() => script.getMonthSelectData(monthId), [monthId])
 
-	const createMonthElem = (monthId, isNextMonth) => {
-		const calendar = script.getCalendar(monthId)
-		const days = script.getDays()
+	const createMonthElem = (date, isNextMonth) => {
+		if (isNextMonth) date.setMonth(date.getMonth() + 1)
+		console.log(date);
+		const calendar = script.getCalendar(date)
+		const daysLettersCount = 2
+		const days = script.getDays(daysLettersCount)
 		return (
 			<div className={classes.popupMonthBox}>
-				{
-					!isNextMonth
-						? <Select modif='reservation' data={monthSelectData} onSelect={handleMonthSelect} />
-						: <div className={classes.popupTitle}>{`?_${calendar.monthName}`}</div>
+				{!isNextMonth
+					? <Select modif='reservation' data={monthSelectData} onSelect={handleMonthSelect} />
+					: <div className={classes.popupTitle}>{`?_${calendar.monthName}`}</div>
 				}
 				<div className={classes.popupDays}>
-					{days.map((item, index) =>
-						<div key={index}>{`?_${item}`}</div>
+					{days.map((day, i) =>
+						<div key={i}>{`?_${day}`}</div>
 					)}
 				</div>
 				<div className={classes.popupDates}>
-					{calendar.dateList.map((item, index) =>
-						<div className={`${classes.popupDateItem} ${item ? '' : classes.disabled}`} key={index}>
-							{item ? item : ''}
-						</div>
-					)}
+					{calendar.dateList.map((item, index) => {
+						let className = classes.popupDateItem
+						if (!item) {
+							className += ' ' + classes.disabled
+							return <div className={className} key={index}></div>
+						} else {
+							let itemDate = new Date(date.getTime())
+							itemDate.setDate(item)
+							let systemDateString = script.getStringifiedSystemDate(itemDate)
+							if (systemDateString === script.getStringifiedSystemDate(reservationPeriod.pickup))
+								className += ' ' + classes.active
+							if (systemDateString === script.getStringifiedSystemDate(reservationPeriod.return))
+								className += ' ' + classes.activeReturn
+							return (
+								<div className={className} data-date={systemDateString} onClick={handleDateSelect} key={index}>
+									{item}
+								</div>
+							)
+						}
+					})}
 				</div>
 			</div>
 		)}
 
 	const handleMonthSelect = function(value){
-		setMonthId(script.getMonthIndex(value))
+		// setSelectorCurrentMonth(new Date(script.getMonthIndex(value)))
+	}
+	const handleDateSelect = function(e){
+		console.log(e.target.dataset.date);
 	}
 
-	let inputValues = {
-		pickupDate: [
-			reservationPeriod.pickup.getDate(),
-			reservationPeriod.pickup.getMonth(),
-			reservationPeriod.pickup.getFullYear(),
-		].join('.'),
-		pickupTime: [
-			reservationPeriod.pickup.getHours(),
-			reservationPeriod.pickup.getMinutes(),
-		].join(':'),
-		returnDate: [
-			reservationPeriod.return.getDate(),
-			reservationPeriod.return.getMonth(),
-			reservationPeriod.return.getFullYear(),
-		].join('.'),
-		returnTime: [
-			reservationPeriod.return.getHours(),
-			reservationPeriod.return.getMinutes(),
-		].join(':'),
-	}
+	useEffect(() => {
+		handleMonthSelect()
+		script.init({setReservationPeriod})
+	}, [])
 
-	console.log('render period');
+
+	let inputValues = script.getInputValues(reservationPeriod)
+
+	console.log('render Period');
 	return (
 		<TranslateHandler>
 			<div className={`${classes.period} ${className}`} {...props}>
@@ -94,10 +112,28 @@ const Period = memo(function Period({className = '', ...props}) {
 				</div>
 
 				<Popup className={classes.popup}>
-					{createMonthElem(monthId)}
+					{createMonthElem(selectorCurrentMonth)}
 					<Divider className={classes.divider} modif='dark' />
-					{createMonthElem(monthId + 1, true)}
+					{createMonthElem(selectorCurrentMonth, true)}
 				</Popup>
+
+				{/* <Popup className={classes.popup}>
+					{createMonthElem(reservationPeriod.pickup)}
+					<Divider className={classes.divider} modif='dark' />
+					{createMonthElem(reservationPeriod.pickup, true)}
+				</Popup>
+
+				<Popup className={classes.popup}>
+					{createMonthElem(reservationPeriod.pickup)}
+					<Divider className={classes.divider} modif='dark' />
+					{createMonthElem(reservationPeriod.pickup, true)}
+				</Popup>
+
+				<Popup className={classes.popup}>
+					{createMonthElem(reservationPeriod.pickup)}
+					<Divider className={classes.divider} modif='dark' />
+					{createMonthElem(reservationPeriod.pickup, true)}
+				</Popup> */}
 
 			</div>
 		</TranslateHandler>

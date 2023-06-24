@@ -81,6 +81,10 @@
 		background-color: var(--color02);
 		color: var(--color01);
 	}
+	&.activeReturn {
+		background-color: var(--color03);
+		color: var(--color01);
+	}
 	&.disabled {
 		pointer-events: none;
 	}
