@@ -1,0 +1,59 @@
+@import "../../../../../styles/variables.scss";
+
+.popup {
+	height: 380px;
+	user-select: none;
+	.divider {
+		position: absolute;
+		left: 140px;
+		top: 14%;
+		height: 72%;
+	}
+}
+.wrapper {
+	margin-right: 10px;
+	padding: 16px 10px;
+	height: 100%;
+	overflow: auto;
+	&::-webkit-scrollbar {
+		width: 16px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: var(--color01);
+		border-radius: 10px;
+		border: solid 1px var(--color02);
+	}
+	&::-webkit-scrollbar-track {
+		background: var(--color02);
+		border-radius: 10px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	// - Firefox (для экранного скрола нужно ставить в html)
+	scrollbar-width: thin; // = 8px
+	scrollbar-color: var(--color01) var(--color02); // thumb track
+	overscroll-behavior: contain;
+}
+.list {
+	display: grid;
+	grid-template-columns: repeat(2, auto);
+	grid-column-gap: 20px;
+}
+.item {
+	width: 120px;
+	height: 50px;
+	border-radius: 33px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	transition: background-color $timer-hover, color $timer-hover;
+	&:hover, &.active {
+		background-color: var(--color02);
+		color: var(--color01);
+	}
+	&.disabled {
+		pointer-events: none;
+		opacity: 0.5;
+	}
+}

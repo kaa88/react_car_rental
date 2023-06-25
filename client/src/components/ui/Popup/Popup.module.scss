@@ -1,4 +1,4 @@
-@import "../../../../../styles/variables.scss";
+@import "../../../styles/variables.scss";
 
 .default, .location, .date, .time {
 	position: absolute;
@@ -9,4 +9,11 @@
 	color: var(--color02);
 	border-radius: 16px;
 	// user-select: none;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity $timer-popup, visibility $timer-popup;
+}
+.active {
+	opacity: 1;
+	visibility: visible;
 }

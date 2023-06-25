@@ -1,6 +1,3 @@
-import dateScript from './date.script'
-import timeScript from './time.script'
-
 const systemDateFormat = 'YYYY-MM-DD'
 const dateFormat = 'DD.MM.YYYY'
 const timeFormat = 'hh:mm'
@@ -11,6 +8,7 @@ const symbols = {
 	hour:'h',
 	minute:'m',
 	fill:'0',
+	dateTimeDivider: 'T'
 }
 const matchFilter = /Y+|M+|D+|h+|m+|[\s.:_\-/T]/g;
 // const dateSymbolsRegexp = /D+|M+|Y+/g;
@@ -48,12 +46,29 @@ const convertToDate = function(dateString) {
 }
 
 
-
 const Period = {
-	init({setReservationPeriod}) {
-
+	initiated: false,
+	init() {
+		if (this.initiated) return;
+		const closestAvailableTime = 60
+		const today = new Date()
+		today.setMinutes(today.getMinutes() + closestAvailableTime)
+		this.today = {
+			year: today.getFullYear(),
+			month: today.getMonth(),
+			date: today.getDate(),
+			hours: today.getHours(),
+			minutes: today.getMinutes()
+		}
+		this.initiated = true
 	},
-
+	getDefaultReservationPeriod() {
+		const defaultReturnPeriod = 1
+		return {
+			pickup: new Date(this.today.year, this.today.month, this.today.date, this.today.hours),
+			return: new Date(this.today.year, this.today.month, this.today.date + defaultReturnPeriod, this.today.hours),
+		}
+	},
 	getStringifiedDate(date) {
 		let dateFormatParts = dateFormat.match(matchFilter)
 		return convertToString(date, dateFormatParts)
@@ -66,19 +81,19 @@ const Period = {
 		let timeFormatParts = timeFormat.match(matchFilter)
 		return convertToString(date, timeFormatParts)
 	},
-	
-	getInputValues(period) {
-		return {
-			pickupDate: this.getStringifiedDate(period.pickup),
-			pickupTime: this.getStringifiedTime(period.pickup),
-			returnDate: this.getStringifiedDate(period.return),
-			returnTime: this.getStringifiedTime(period.return),
-		}
-	},
-	getCalendar: dateScript.getCalendar,
-	getDays: dateScript.getDays,
-	getMonthSelectData: dateScript.getMonthSelectData,
-	getMonthIndex: dateScript.getMonthIndex,
+	addTimeToDate(date, time) {
+		let newDate = date
+		if (date instanceof Date) newDate = this.getStringifiedSystemDate(date)
+		return newDate + symbols.dateTimeDivider + time
+	}
+	// getInputValues(period) {
+	// 	return {
+	// 		pickupDate: this.getStringifiedDate(period.pickup),
+	// 		pickupTime: this.getStringifiedTime(period.pickup),
+	// 		returnDate: this.getStringifiedDate(period.return),
+	// 		returnTime: this.getStringifiedTime(period.return),
+	// 	}
+	// },
 }
 
 export default Period

@@ -14,6 +14,7 @@ const Select = memo(function Select({
 	onSelect = function(){},
 	...props
 }) {
+	// console.log(data);
 
 	const defaultData = {
 		selected: '',

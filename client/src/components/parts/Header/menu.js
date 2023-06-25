@@ -7,7 +7,7 @@ import { actualElems } from './Header';
 const lockScroll = scrollLock.lock
 const unlockScroll = scrollLock.unlock
 const HIDE_MENU_DEFAULT_TIMEOUT_ID = 321
-const WRAPPER_WIDTH_TRESHOLD = 2
+const WRAPPER_WIDTH_THRESHOLD = 2
 const VIEW_KEY_LARGE = 'L'
 const VIEW_KEY_MEDIUM = 'M'
 const VIEW_KEY_SMALL = 'S'
@@ -115,7 +115,7 @@ const Menu = {
 		else {
 			let wrapperWidth = wrapper.el.offsetWidth
 			let menuWidth = menu.el.offsetWidth
-			isShrinkedMenu = (menuWidth >= wrapperWidth - WRAPPER_WIDTH_TRESHOLD) ? true : false
+			isShrinkedMenu = (menuWidth >= wrapperWidth - WRAPPER_WIDTH_THRESHOLD) ? true : false
 		}
 		if (isShrinkedMenu !== this.isShrinkedMenu) {
 			if (isShrinkedMenu) menu.addClass(this.classes.menuShrink)

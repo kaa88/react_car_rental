@@ -1,14 +1,18 @@
 import { memo, useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActivePopup } from '../../../../../store/reducers/popupReducer';
 import script from './Period.script';
 import classes from './Period.module.scss';
 import TranslateHandler from '../../../../TranslateHandler';
 import { useCustomElement } from '../../../../../hooks/useCustomElement';
-import Divider from '../../../../ui/Divider/Divider';
 import InputText from '../../../../ui/InputText/InputText';
-import Select from '../../../../ui/Select/Select';
-import Popup from '../Popup/Popup';
+import DateSelect from '../DateSelect/DateSelect';
+import TimeSelect from '../TimeSelect/TimeSelect';
 
 const Period = memo(function Period({className = '', ...props}) {
+
+	const dispatch = useDispatch()
+	// const popupStore = useSelector(state => state.activePopup)
 	/*
 		Строю календарь:
 			- получаю дату
@@ -18,122 +22,114 @@ const Period = memo(function Period({className = '', ...props}) {
 		Кликаю в календаре, выбираю дату:
 			- получаю дату из dataset числа
 			- проставляю в инпуты
+
+		ДОБАВИТЬ: обновление текущего времени периодически
+		НАСТРОИТЬ closestAvailableTime, т.к. он расчитывается приблизительно
 	*/
-	const today = new Date()
-	const currentYear = today.getFullYear()
-	const currentMonth = today.getMonth()
-	const currentDate = today.getDate()
-	const currentTime = today.getHours()
-
-	const defaultReturnPeriod ={ date: 1, hour: 3 }
+	script.init()
+	// const today = script.today
+	// console.log(script.getDefaultReservationPeriod());
+	let [reservationPeriod, setReservationPeriod] = useState(script.getDefaultReservationPeriod())
 	
-	const defaultReservationPeriod = {
-		pickup: new Date(currentYear, currentMonth, currentDate, currentTime + defaultReturnPeriod.hour),
-		return: new Date(currentYear, currentMonth, currentDate + defaultReturnPeriod.date, currentTime + defaultReturnPeriod.hour),
+	const handleDateSelect = function(date){
+		setReservationPeriod({...reservationPeriod, pickup: date})
+		dispatch(setActivePopup('timePopup'))
 	}
-	let [reservationPeriod, setReservationPeriod] = useState(defaultReservationPeriod)
-	let [selectorCurrentMonth, setSelectorCurrentMonth] = useState(new Date(currentYear, currentMonth)) //currentMonth
-
-	const monthSelectData = useMemo(() => script.getMonthSelectData(selectorCurrentMonth), [selectorCurrentMonth])
-
-
-	const createMonthElem = (date, isNextMonth) => {
-		if (isNextMonth) date.setMonth(date.getMonth() + 1)
-		console.log(date);
-		const calendar = script.getCalendar(date)
-		const daysLettersCount = 2
-		const days = script.getDays(daysLettersCount)
-		return (
-			<div className={classes.popupMonthBox}>
-				{!isNextMonth
-					? <Select modif='reservation' data={monthSelectData} onSelect={handleMonthSelect} />
-					: <div className={classes.popupTitle}>{`?_${calendar.monthName}`}</div>
-				}
-				<div className={classes.popupDays}>
-					{days.map((day, i) =>
-						<div key={i}>{`?_${day}`}</div>
-					)}
-				</div>
-				<div className={classes.popupDates}>
-					{calendar.dateList.map((item, index) => {
-						let className = classes.popupDateItem
-						if (!item) {
-							className += ' ' + classes.disabled
-							return <div className={className} key={index}></div>
-						} else {
-							let itemDate = new Date(date.getTime())
-							itemDate.setDate(item)
-							let systemDateString = script.getStringifiedSystemDate(itemDate)
-							if (systemDateString === script.getStringifiedSystemDate(reservationPeriod.pickup))
-								className += ' ' + classes.active
-							if (systemDateString === script.getStringifiedSystemDate(reservationPeriod.return))
-								className += ' ' + classes.activeReturn
-							return (
-								<div className={className} data-date={systemDateString} onClick={handleDateSelect} key={index}>
-									{item}
-								</div>
-							)
-						}
-					})}
-				</div>
-			</div>
-		)}
-
-	const handleMonthSelect = function(value){
-		// setSelectorCurrentMonth(new Date(script.getMonthIndex(value)))
+	const handleTimeSelect = function(time){
+		let systemFormatDate = script.addTimeToDate(reservationPeriod.pickup, time)
+		setReservationPeriod({...reservationPeriod, pickup: new Date(systemFormatDate)})
+		// dispatch(setActivePopup('timePopup'))
 	}
-	const handleDateSelect = function(e){
-		console.log(e.target.dataset.date);
+
+	/*
+		click pickupdate input
+			open datepopup
+			highlight pickupdate input
+		click pickupdate input first time
+			clean period.return
+		click pickuptime
+			open timepopup
+			highlight pickupdate input
+		click pickuptime input first time
+			clean period.return
+
+		choose something
+			update period
+			close prev popup
+			open next popup
+	*/
+	const handleInputClick = function(e){
+		let activePopup = ''
+		if (e.target.name.match(/Date/)) activePopup = 'datePopup'
+		if (e.target.name.match(/Time/)) activePopup = 'timePopup'
+		dispatch(setActivePopup(activePopup))
+		setActiveInput(e.target.name)
+		// open e.target popup
+		// check if first time
+		// clean period.return
+	}
+	const handleInputChange = function(e){
 	}
 
 	useEffect(() => {
-		handleMonthSelect()
-		script.init({setReservationPeriod})
+		// script.init({setReservationPeriod})
 	}, [])
 
 
-	let inputValues = script.getInputValues(reservationPeriod)
+	const inputs = {
+		pickupDate: {
+			className: classes.dateInput,
+			value: script.getStringifiedDate(reservationPeriod.pickup),
+		},
+		pickupTime: {
+			className: classes.timeInput,
+			value: script.getStringifiedTime(reservationPeriod.pickup),
+		},
+		returnDate: {
+			className: classes.dateInput,
+			value: script.getStringifiedDate(reservationPeriod.return),
+		},
+		returnTime: {
+			className: classes.timeInput,
+			value: script.getStringifiedTime(reservationPeriod.return),
+		},
+	}
+	let [activeInput, setActiveInput] = useState('')
+	// console.log(activeInput);
 
-	console.log('render Period');
+	const createInputElem = (name) => {
+		return (
+			<InputText
+				modif='textCenter'
+				className={`${inputs[name].className} ${name === activeInput ? classes.active : ''}`}
+				name={name}
+				value={inputs[name].value}
+				onClick={handleInputClick}
+				onChange={handleInputChange}
+			/>
+		)
+	}
+	// let inputValues = script.getInputValues(reservationPeriod)
+
+	// console.log('render Period');
 	return (
 		<TranslateHandler>
 			<div className={`${classes.period} ${className}`} {...props}>
 
 				<div className={classes.section}>
 					<p className={classes.sectionTitle}>?_Pick up</p>
-					<InputText className={classes.dateInput} modif='textCenter' value={inputValues.pickupDate} />
-					<InputText className={classes.timeInput} modif='textCenter' value={inputValues.pickupTime} />
+					{createInputElem('pickupDate')}
+					{createInputElem('pickupTime')}
 				</div>
 
 				<div className={classes.section}>
 					<p className={classes.sectionTitle}>?_Return</p>
-					<InputText className={classes.dateInput} modif='textCenter' value={inputValues.returnDate} />
-					<InputText className={classes.timeInput} modif='textCenter' value={inputValues.returnTime} />
+					{createInputElem('returnDate')}
+					{createInputElem('returnTime')}
 				</div>
 
-				<Popup className={classes.popup}>
-					{createMonthElem(selectorCurrentMonth)}
-					<Divider className={classes.divider} modif='dark' />
-					{createMonthElem(selectorCurrentMonth, true)}
-				</Popup>
-
-				{/* <Popup className={classes.popup}>
-					{createMonthElem(reservationPeriod.pickup)}
-					<Divider className={classes.divider} modif='dark' />
-					{createMonthElem(reservationPeriod.pickup, true)}
-				</Popup>
-
-				<Popup className={classes.popup}>
-					{createMonthElem(reservationPeriod.pickup)}
-					<Divider className={classes.divider} modif='dark' />
-					{createMonthElem(reservationPeriod.pickup, true)}
-				</Popup>
-
-				<Popup className={classes.popup}>
-					{createMonthElem(reservationPeriod.pickup)}
-					<Divider className={classes.divider} modif='dark' />
-					{createMonthElem(reservationPeriod.pickup, true)}
-				</Popup> */}
+				<DateSelect onDateSelect={handleDateSelect} dates={reservationPeriod} />
+				<TimeSelect onTimeSelect={handleTimeSelect} dates={reservationPeriod} />
 
 			</div>
 		</TranslateHandler>
