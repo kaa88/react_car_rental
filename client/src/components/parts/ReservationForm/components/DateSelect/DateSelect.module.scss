@@ -47,13 +47,24 @@
 	border-radius: 50%;
 	cursor: pointer;
 	transition: background-color $timer-hover, color $timer-hover;
-	&:hover, &.active {
-		background-color: var(--color02);
+	&:hover, &.active, &.otherPeriodActive {
 		color: var(--color01);
 	}
-	&.activeReturn {
-		background-color: var(--color03);
-		color: var(--color01);
+	.pickup_date & {
+		&:hover, &.active {
+			background-color: var(--color02) !important;
+		}
+		&.otherPeriodActive {
+			background-color: var(--color03);
+		}
+	}
+	.return_date & {
+		&:hover, &.active {
+			background-color: var(--color03) !important;
+		}
+		&.otherPeriodActive {
+			background-color: var(--color02);
+		}
 	}
 	&.disabled {
 		pointer-events: none;

@@ -8,17 +8,21 @@
 		border-radius: 70px;
 		font-size: 20px;
 		border: solid 4px transparent;
-		transition: border-color $timer-hover;
+		transition: border-color $timer-hover, color $timer-hover;
 		&.active {
 			border-color: var(--color03);
+			color: var(--color02) !important;
+		}
+		// these styles for input as <div>
+		background-color: var(--color01);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+		&:hover {
+			color: var(--color03);
 		}
 	}
-	// .pickupDate, .returnDate {
-	// 	width: 153px;
-	// }
-	// .pickupTime, .returnTime {
-	// 	width: 137px;
-	// }
 	.dateInput {
 		width: 153px;
 	}

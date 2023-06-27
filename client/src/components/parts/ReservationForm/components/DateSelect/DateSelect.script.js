@@ -16,17 +16,18 @@ const fillDateList = function(date) {
 
 const dateScript = {
 	initiated: false,
-	init(parentTodayObj) {
+	init(parentScript) {
 		if (this.initiated) return;
-		if (parentTodayObj) this.today = parentTodayObj
-		else {
-			const today = new Date()
-			this.today = {
-				year: today.getFullYear(),
-				month: today.getMonth(),
-				date: today.getDate(),
-			}
-		}
+		this.PICKUP = parentScript.PICKUP
+		this.RETURN = parentScript.RETURN
+		this.DATE = parentScript.DATE
+		this.TIME = parentScript.TIME
+		this.PICKUP_DATE = parentScript.PICKUP_DATE
+		this.PICKUP_TIME = parentScript.PICKUP_TIME
+		this.RETURN_DATE = parentScript.RETURN_DATE
+		this.RETURN_TIME = parentScript.RETURN_TIME
+		this.today = parentScript.today
+		this.getStringifiedSystemDate = parentScript.getStringifiedSystemDate
 		this.initiated = true
 	},
 
@@ -56,6 +57,32 @@ const dateScript = {
 		let monthIndex = monthNames.indexOf(value)
 		if (monthIndex < this.today.month) monthIndex += 12
 		return monthIndex
+	},
+
+	getDateElemPropsData(classes, period, dataType, itemValue, currentMonthDate) {
+		let className = classes.dateItem
+		if (!itemValue) return [`${className} ${classes.disabled}`, '']
+
+		let itemDate = new Date(currentMonthDate.getTime())
+		itemDate.setDate(itemValue)
+		let itemSystemDateString = this.getStringifiedSystemDate(itemDate)
+
+		let comparingPeriod = dataType === this.RETURN_DATE
+			? new Date(period.pickup.getFullYear(), period.pickup.getMonth(), period.pickup.getDate())
+			: new Date(this.today.year, this.today.month, this.today.date)
+		if (itemDate.getTime() < comparingPeriod.getTime())
+			className += ' ' + classes.disabled
+
+		let periodPartType = this.PICKUP
+		let otherPeriodPartType = this.RETURN
+		if (dataType.match(new RegExp(this.RETURN))) [periodPartType, otherPeriodPartType] = [otherPeriodPartType, periodPartType]
+
+		if (itemSystemDateString === this.getStringifiedSystemDate(period[periodPartType]))
+			className += ' ' + classes.active
+		if (itemSystemDateString === this.getStringifiedSystemDate(period[otherPeriodPartType]))
+			className += ' ' + classes.otherPeriodActive
+
+		return [className, itemSystemDateString]
 	}
 }
 

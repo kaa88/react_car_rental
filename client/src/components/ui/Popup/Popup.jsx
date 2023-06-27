@@ -1,6 +1,6 @@
 import { memo, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActivePopup } from '../../../store/reducers/popupReducer';
+// import { setActivePopup } from '../../../store/reducers/formPopupReducer';
 // import script from './Popup.script';
 import classes from './Popup.module.scss';
 import TranslateHandler from '../../TranslateHandler';
@@ -11,8 +11,14 @@ import TranslateHandler from '../../TranslateHandler';
 const Popup = memo(function Popup({modif = 'default', className = '', name = '', children, ...props}) {
 
 	// const dispatch = useDispatch()
-	const activePopup = useSelector(state => state.activePopup)
+	const activePopup = useSelector(state => state.formPopup.activePopup)
+	// console.log(activePopup, name);
 	let activeClass = activePopup === name ? classes.active : ''
+
+	const rejectWindowClosePopupEvent = function(e) {
+		e.stopPropagation()
+	}
+
 
 	// const showPopup = function() {}
 
@@ -37,7 +43,7 @@ const Popup = memo(function Popup({modif = 'default', className = '', name = '',
 
 	return (
 		<TranslateHandler>
-			<div className={`${className} ${classes[modif]} ${activeClass}`} {...props}>
+			<div className={`${className} ${classes[modif]} ${activeClass}`} onClick={rejectWindowClosePopupEvent} {...props}>
 				{children}
 			</div>
 		</TranslateHandler>

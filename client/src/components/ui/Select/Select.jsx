@@ -25,7 +25,7 @@ const Select = memo(function Select({
 
 	const select = useCustomElement(`${className} ${classes[modif]}`)
 	const header = useCustomElement(classes.header)
-	const headerText = useCustomElement(classes.headerText, data.selected)
+	// const headerText = useCustomElement(classes.headerText, data.selected)
 	const listWrapper = useCustomElement(classes.listWrapper)
 	const list = useCustomElement(classes.list)
 
@@ -34,13 +34,13 @@ const Select = memo(function Select({
 	}
 
 	const selectItem = useCallback((event) => {
-		let onSelectValue = script.selectItem(event, headerText)
+		let onSelectValue = script.selectItem(event)//, headerText)
 
 		// list.setChildren(customOptionList)
 		// data = {...data, selected: onSelectValue}
 		// setPrevData(data)
 		onSelect(onSelectValue)
-	}, [headerText, onSelect])
+	}, [onSelect])
 
 	let customOptionList = useMemo(() => data.list.map((item, index) => {
 		let className = classes.option
@@ -71,7 +71,7 @@ const Select = memo(function Select({
 		const elems = {
 			select,
 			header,
-			headerText,
+			// headerText,
 			listWrapper,
 			list,
 		}
@@ -85,7 +85,8 @@ const Select = memo(function Select({
 		<TranslateHandler>
 			<div className={select.className} ref={select.ref} {...props}>
 				<div className={header.className} ref={header.ref} onClick={toggleList}>
-					<span className={headerText.className} ref={headerText.ref}>{headerText.children}</span>
+					<span className={classes.headerText}>{data.selected}</span>
+					{/* <span className={headerText.className} ref={headerText.ref}>{headerText.children}</span> */}
 					<span className={classes.headerExpandIcon}>
 						<Icon name='icon-arrow-short' />
 					</span>

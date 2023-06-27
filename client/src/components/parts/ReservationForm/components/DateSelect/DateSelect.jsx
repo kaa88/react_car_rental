@@ -1,39 +1,41 @@
 import { memo, useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectorCurrentMonth } from '../../../../../store/reducers/formPopupReducer';
 import classes from './DateSelect.module.scss';
 import script from './DateSelect.script';
 import parentScript from '../Period/Period.script';
 import TranslateHandler from '../../../../TranslateHandler';
-import { useCustomElement } from '../../../../../hooks/useCustomElement';
 import Popup from '../../../../ui/Popup/Popup';
 import Divider from '../../../../ui/Divider/Divider';
 import Select from '../../../../ui/Select/Select';
 
 const DateSelect = memo(function DateSelect({
 	className = '',
-	dates,
-	onDateSelect = function(){},
+	dataType,
+	period,
+	onSelect = function(){},
 	...props
 }) {
-	script.init(parentScript.today)
+	script.init(parentScript)
 	const today = script.today
-	const getDateString = parentScript.getStringifiedSystemDate
 
-	let [selectorCurrentMonth, setSelectorCurrentMonth] = useState(new Date(today.year, today.month))
+	let dispatch = useDispatch()
+	let selectorCurrentMonth = useSelector(state => state.formPopup.selectorCurrentMonth)
+	// let [selectorCurrentMonth, setSelectorCurrentMonth] = useState(new Date(today.year, today.month))
 
 	const monthSelectData = useMemo(() => script.getMonthSelectData(selectorCurrentMonth), [selectorCurrentMonth])
 
 	const handleMonthSelect = function(value){
-		setSelectorCurrentMonth(new Date(today.year, script.getMonthIndex(value)))
+		dispatch(setSelectorCurrentMonth(new Date(today.year, script.getMonthIndex(value))))
 	}
 	const handleDateSelect = function(e){
-		// console.log(e.target.dataset.date);
-		onDateSelect(new Date(e.target.dataset.date))
+		onSelect(e.target.dataset.date, dataType)
 	}
 
 	const createMonthElem = (selectorDate, isNextMonth) => {
-		let date = new Date(selectorDate.getTime())
-		if (isNextMonth) date.setMonth(date.getMonth() + 1)
-		const calendar = script.getCalendar(date)
+		let currentMonthDate = new Date(selectorDate.getTime())
+		if (isNextMonth) currentMonthDate.setMonth(currentMonthDate.getMonth() + 1)
+		const calendar = script.getCalendar(currentMonthDate)
 		const daysLettersCount = 2
 		const days = script.getDays(daysLettersCount)
 		return (
@@ -47,39 +49,28 @@ const DateSelect = memo(function DateSelect({
 						<div key={i}>{`?_${day}`}</div>
 					)}
 				</div>
-				<div className={classes.dates}>
+				<div className={`${classes.dates} ${classes[dataType]}`}>
 					{calendar.dateList.map((item, index) => {
-						let className = classes.dateItem
-						if (!item) {
-							className += ' ' + classes.disabled
-							return <div className={className} key={index}></div>
-						} else {
-							let itemDate = new Date(date.getTime())
-							itemDate.setDate(item)
-							let systemDateString = getDateString(itemDate)
-							if (systemDateString === getDateString(dates.pickup))
-								className += ' ' + classes.active
-							if (systemDateString === getDateString(dates.return))
-								className += ' ' + classes.activeReturn
-							if (itemDate.getTime() < new Date(today.year, today.month, today.date).getTime())
-								className += ' ' + classes.disabled
-							return (
-								<div className={className} data-date={systemDateString} onClick={handleDateSelect} key={index}>
-									{item}
-								</div>
-							)
-						}
+						let [className, systemDateString] = script.getDateElemPropsData(classes, period, dataType, item, currentMonthDate)
+						return (
+							<div className={className}
+								data-date={systemDateString}
+								onClick={handleDateSelect}
+								key={index}
+							>
+								{item}
+							</div>
+						)
 					})}
 				</div>
 			</div>
 		)
 	}
 
-	const popupName = 'datePopup'
 	// console.log('render DateSelect');
 	return (
 		<TranslateHandler>
-			<Popup className={classes.popup} name={popupName}>
+			<Popup className={classes.popup} name={dataType} {...props}>
 				{createMonthElem(selectorCurrentMonth)}
 				<Divider className={classes.divider} modif='dark' />
 				{createMonthElem(selectorCurrentMonth, true)}

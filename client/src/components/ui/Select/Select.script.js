@@ -57,7 +57,7 @@ const SelectScript = { // todo: сделать класс, т.к. может п�
 	selectItem(e, headerText) {
 		if (!this.initiated) return;
 		let value = e.target.textContent
-		headerText.setChildren(value)
+		// headerText.setChildren(value)
 		return value
 	}
 }

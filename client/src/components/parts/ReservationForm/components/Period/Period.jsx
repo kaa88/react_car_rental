@@ -1,115 +1,81 @@
 import { memo, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActivePopup } from '../../../../../store/reducers/popupReducer';
+import { setActivePopup } from '../../../../../store/reducers/formPopupReducer';
 import script from './Period.script';
 import classes from './Period.module.scss';
 import TranslateHandler from '../../../../TranslateHandler';
-import { useCustomElement } from '../../../../../hooks/useCustomElement';
 import InputText from '../../../../ui/InputText/InputText';
 import DateSelect from '../DateSelect/DateSelect';
 import TimeSelect from '../TimeSelect/TimeSelect';
 
 const Period = memo(function Period({className = '', ...props}) {
-
-	const dispatch = useDispatch()
-	// const popupStore = useSelector(state => state.activePopup)
-	/*
-		Строю календарь:
-			- получаю дату
-				- текущую при загрузке
-				- установленную из ... стейта
-			- проставляю в инпуты
-		Кликаю в календаре, выбираю дату:
-			- получаю дату из dataset числа
-			- проставляю в инпуты
-
-		ДОБАВИТЬ: обновление текущего времени периодически
-		НАСТРОИТЬ closestAvailableTime, т.к. он расчитывается приблизительно
+	/* TODO:
+		- translate
 	*/
 	script.init()
-	// const today = script.today
-	// console.log(script.getDefaultReservationPeriod());
+	const dispatch = useDispatch()
+
 	let [reservationPeriod, setReservationPeriod] = useState(script.getDefaultReservationPeriod())
-	
-	const handleDateSelect = function(date){
-		setReservationPeriod({...reservationPeriod, pickup: date})
-		dispatch(setActivePopup('timePopup'))
-	}
-	const handleTimeSelect = function(time){
-		let systemFormatDate = script.addTimeToDate(reservationPeriod.pickup, time)
-		setReservationPeriod({...reservationPeriod, pickup: new Date(systemFormatDate)})
-		// dispatch(setActivePopup('timePopup'))
-	}
 
-	/*
-		click pickupdate input
-			open datepopup
-			highlight pickupdate input
-		click pickupdate input first time
-			clean period.return
-		click pickuptime
-			open timepopup
-			highlight pickupdate input
-		click pickuptime input first time
-			clean period.return
-
-		choose something
-			update period
-			close prev popup
-			open next popup
-	*/
-	const handleInputClick = function(e){
-		let activePopup = ''
-		if (e.target.name.match(/Date/)) activePopup = 'datePopup'
-		if (e.target.name.match(/Time/)) activePopup = 'timePopup'
-		dispatch(setActivePopup(activePopup))
-		setActiveInput(e.target.name)
-		// open e.target popup
-		// check if first time
-		// clean period.return
+	const toggleActiveDataType = function(e) {
+		e.stopPropagation()
+		let active = e.currentTarget === window ? '' : e.target.dataset.name
+		dispatch(setActivePopup(active))
+		setActiveInput(active)
 	}
-	const handleInputChange = function(e){
-	}
-
 	useEffect(() => {
-		// script.init({setReservationPeriod})
+		window.addEventListener('click', toggleActiveDataType)
+		return () => window.removeEventListener('click', toggleActiveDataType)
 	}, [])
 
-
-	const inputs = {
-		pickupDate: {
-			className: classes.dateInput,
-			value: script.getStringifiedDate(reservationPeriod.pickup),
-		},
-		pickupTime: {
-			className: classes.timeInput,
-			value: script.getStringifiedTime(reservationPeriod.pickup),
-		},
-		returnDate: {
-			className: classes.dateInput,
-			value: script.getStringifiedDate(reservationPeriod.return),
-		},
-		returnTime: {
-			className: classes.timeInput,
-			value: script.getStringifiedTime(reservationPeriod.return),
-		},
+	// INPUTS
+	const inputs = {}
+	inputs[script.PICKUP_DATE] = {
+		className: classes.dateInput,
+		value: script.getStringifiedDate(reservationPeriod.pickup),
+	}
+	inputs[script.PICKUP_TIME] = {
+		className: classes.timeInput,
+		value: script.getStringifiedTime(reservationPeriod.pickup),
+	}
+	inputs[script.RETURN_DATE] = {
+		className: classes.dateInput,
+		value: script.getStringifiedDate(reservationPeriod.return),
+	}
+	inputs[script.RETURN_TIME] = {
+		className: classes.timeInput,
+		value: script.getStringifiedTime(reservationPeriod.return),
 	}
 	let [activeInput, setActiveInput] = useState('')
-	// console.log(activeInput);
+	const inputQueue = [script.PICKUP_DATE, script.PICKUP_TIME, script.RETURN_DATE, script.RETURN_TIME]
 
-	const createInputElem = (name) => {
-		return (
-			<InputText
-				modif='textCenter'
-				className={`${inputs[name].className} ${name === activeInput ? classes.active : ''}`}
-				name={name}
-				value={inputs[name].value}
-				onClick={handleInputClick}
-				onChange={handleInputChange}
-			/>
-		)
+	const goToNextInput = function(inputName){
+		let nextInput = inputQueue[inputQueue.indexOf(inputName) + 1] || ''
+		dispatch(setActivePopup(nextInput))
+		setActiveInput(nextInput)
 	}
-	// let inputValues = script.getInputValues(reservationPeriod)
+	const handleInputClick = function(e){
+		toggleActiveDataType(e)
+	}
+	const handleInputChange = function(){}
+	const createInputElem = (name) => { return (
+		<div
+			className={`${inputs[name].className} ${name === activeInput ? classes.active : ''}`}
+			data-name={name}
+			value={inputs[name].value}
+			onClick={handleInputClick}
+			onChange={handleInputChange}
+		>{inputs[name].value}</div>
+	)}
+	// end INPUTS
+
+	// POPUPS
+	const handleSelect = function(selectedItemValue, dataType){
+		let newPeriod = script.getNewReservationPeriod(selectedItemValue, dataType, reservationPeriod)
+		setReservationPeriod(newPeriod)
+		goToNextInput(dataType)
+	}
+	// end POPUPS
 
 	// console.log('render Period');
 	return (
@@ -118,18 +84,20 @@ const Period = memo(function Period({className = '', ...props}) {
 
 				<div className={classes.section}>
 					<p className={classes.sectionTitle}>?_Pick up</p>
-					{createInputElem('pickupDate')}
-					{createInputElem('pickupTime')}
+					{createInputElem(script.PICKUP_DATE)}
+					{createInputElem(script.PICKUP_TIME)}
 				</div>
 
 				<div className={classes.section}>
 					<p className={classes.sectionTitle}>?_Return</p>
-					{createInputElem('returnDate')}
-					{createInputElem('returnTime')}
+					{createInputElem(script.RETURN_DATE)}
+					{createInputElem(script.RETURN_TIME)}
 				</div>
 
-				<DateSelect onDateSelect={handleDateSelect} dates={reservationPeriod} />
-				<TimeSelect onTimeSelect={handleTimeSelect} dates={reservationPeriod} />
+				<DateSelect onSelect={handleSelect} dataType={script.PICKUP_DATE} period={reservationPeriod} />
+				<TimeSelect onSelect={handleSelect} dataType={script.PICKUP_TIME} period={reservationPeriod.pickup} />
+				<DateSelect onSelect={handleSelect} dataType={script.RETURN_DATE} period={reservationPeriod} />
+				<TimeSelect onSelect={handleSelect} dataType={script.RETURN_TIME} period={reservationPeriod.return} />
 
 			</div>
 		</TranslateHandler>
