@@ -1,7 +1,67 @@
 @import "../../../../../styles/variables.scss";
 
-.location {
-	width: 100px;
-	height: 20px;
-	background-color: #fff;
+.wrapper {
+	position: relative;
+	width: 377px;
+	height: 80px;
+}
+.input {
+	padding: 0 50px 0 16px;
+	width: 100%;
+	height: 100%;
+	font-size: 20px;
+	border-radius: 70px;
+	background-color: var(--color01);
+	box-shadow: inset 0 1000px 0 0 var(--color01);
+	-webkit-text-fill-color: var(--color02);
+}
+.iconBox {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: calc(16px + 24px);
+	height: 100%;
+	display: flex;
+	align-items: center;
+	user-select: none;
+}
+
+.searchList {
+	margin-right: 6px;
+	padding: 16px 10px;
+	width: calc(377px - 6px); // 377
+	max-height: 380px;
+	overflow: auto;
+	&::-webkit-scrollbar {
+		width: 16px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: var(--color01);
+		border-radius: 10px;
+		border: solid 1px var(--color02);
+	}
+	&::-webkit-scrollbar-track {
+		background: var(--color02);
+		border-radius: 10px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	scrollbar-width: thin; // = 8px
+	scrollbar-color: var(--color01) var(--color02); // thumb track
+	overscroll-behavior: contain;
+}
+.searchListItem {
+	@include text-nowrap();
+	padding: 0 16px;
+	display: flex;
+	align-items: center;
+	height: 50px;
+	font-size: 18px;
+	border-radius: 33px;
+	cursor: pointer;
+	transition: background-color $timer-hover, color $timer-hover;
+	&:hover {
+		background-color: var(--color02);
+		color: var(--color01);
+	}
 }

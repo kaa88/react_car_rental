@@ -1,7 +1,7 @@
 import { actualElems } from './Header';
 
 const MetricsHandler = {
-	initiated: false,
+	initialized: false,
 	init({headerScript, header, classes, breakpointStore}) {
 		this.metrics = {
 			headerHeight: 0,
@@ -12,7 +12,7 @@ const MetricsHandler = {
 		headerHeight.init(this, header)
 		if (headerScript.params.hidingHeader) hidingHeader.init(this, headerScript.params, breakpointStore.tablet)
 		if (headerScript.params.compactMode) compactMode.init(headerScript.params, classes)
-		this.initiated = true
+		this.initialized = true
 	},
 	getMetrics() {
 		return this.metrics
@@ -27,15 +27,15 @@ const MetricsHandler = {
 		})
 	},
 	calcHeaderHeight() {
-		if (!headerHeight.initiated) return;
+		if (!headerHeight.initialized) return;
 		headerHeight.calcHeight()
 	},
 	resetHeaderPosition(instant) {
-		if (!hidingHeader.initiated) return;
+		if (!hidingHeader.initialized) return;
 		hidingHeader.resetPosition(instant)
 	},
 	resetCompactMode() {
-		if (!compactMode.initiated) return;
+		if (!compactMode.initialized) return;
 		compactMode.resetCompactMode()
 	}
 }
@@ -53,13 +53,13 @@ const cssVariables = {
 }
 
 const headerHeight = {
-	initiated: false,
+	initialized: false,
 	init(metricsHandler, header) {
 		this.headerEl = header.el
 		this.setMetrics = metricsHandler.setMetrics.bind(metricsHandler)
 		window.addEventListener('resize', this.calcHeight.bind(this))
 		this.calcHeight()
-		this.initiated = true
+		this.initialized = true
 	},
 	calcHeight() {
 		const heights = {
@@ -72,7 +72,7 @@ const headerHeight = {
 }
 
 const hidingHeader = {
-	initiated: false,
+	initialized: false,
 	init(metricsHandler, headerParams, mobileBreakpoint) {
 		this.getMetrics = metricsHandler.getMetrics.bind(metricsHandler)
 		this.setMetrics = metricsHandler.setMetrics.bind(metricsHandler)
@@ -89,7 +89,7 @@ const hidingHeader = {
 
 		window.addEventListener('scroll', this.moveHeader.bind(this))
 		this.firstMoveScroll = true
-		this.initiated = true
+		this.initialized = true
 	},
 	moveHeader() {
 		if (this.hidingHeaderView === this.viewMobile && window.innerWidth > this.mobileBreakpoint) return;
@@ -154,7 +154,7 @@ const hidingHeader = {
 }
 
 const compactMode = {
-	initiated: false,
+	initialized: false,
 	init(headerParams, classes) {
 		this.elems = {
 			get header() {return actualElems.header}
@@ -166,7 +166,7 @@ const compactMode = {
 		this.resetMode = headerParams.resetCompactMode
 
 		window.addEventListener('scroll', this.setCompactMode.bind(this))
-		this.initiated = true
+		this.initialized = true
 	},
 	setCompactMode() {
 		const header = this.elems.header

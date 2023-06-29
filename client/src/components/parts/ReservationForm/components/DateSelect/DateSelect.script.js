@@ -1,52 +1,34 @@
-const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December']
-const dayNames = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
-
-const fillDateList = function(date) {
-	let start = new Date(date.getFullYear(), date.getMonth())
-	let end = new Date(date.getFullYear(), date.getMonth() + 1, 0)
-	let numberOfDays = end.getDate() - start.getDate() + 1
-	let startDay = start.getDay() ? start.getDay() : 7
-	let startIndex = startDay - 2
-	let dateList = new Array(7).fill(null)
-	for (let i = 1; i <= numberOfDays; i++) {
-		dateList[i + startIndex] = i
-	}
-	return dateList
-}
+const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December']
+const DAY_NAMES = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 
 const dateScript = {
-	initiated: false,
+	initialized: false,
 	init(parentScript) {
-		if (this.initiated) return;
+		if (this.initialized) return;
 		this.PICKUP = parentScript.PICKUP
 		this.RETURN = parentScript.RETURN
-		this.DATE = parentScript.DATE
-		this.TIME = parentScript.TIME
-		this.PICKUP_DATE = parentScript.PICKUP_DATE
-		this.PICKUP_TIME = parentScript.PICKUP_TIME
 		this.RETURN_DATE = parentScript.RETURN_DATE
-		this.RETURN_TIME = parentScript.RETURN_TIME
 		this.today = parentScript.today
 		this.getStringifiedSystemDate = parentScript.getStringifiedSystemDate
-		this.initiated = true
+		this.initialized = true
 	},
 
 	getCalendar(date) {
 		if (typeof date === 'number') date = new Date(date)
 		let monthIndex = date.getMonth()
 		return {
-			monthName: monthNames[monthIndex] ? monthNames[monthIndex] : monthNames[monthIndex - 12],
+			monthName: MONTH_NAMES[monthIndex] ? MONTH_NAMES[monthIndex] : MONTH_NAMES[monthIndex - 12],
 			dateList: fillDateList(date)
 		}
 	},
 
 	getDays(numberOfLetters) {
-		return dayNames.map(item => item.substring(0, numberOfLetters))
+		return DAY_NAMES.map(item => item.substring(0, numberOfLetters))
 	},
 
 	getMonthSelectData(date) {
-		let selected = monthNames[date.getMonth()]
-		let months = [...monthNames]
+		let selected = MONTH_NAMES[date.getMonth()]
+		let months = [...MONTH_NAMES]
 		let cut = months.splice(0, this.today.month)
 		let list = months.concat(cut)
 		return {selected, list}
@@ -54,7 +36,7 @@ const dateScript = {
 
 	getMonthIndex(value) {
 		if (!value) return this.today.month
-		let monthIndex = monthNames.indexOf(value)
+		let monthIndex = MONTH_NAMES.indexOf(value)
 		if (monthIndex < this.today.month) monthIndex += 12
 		return monthIndex
 	},
@@ -85,5 +67,19 @@ const dateScript = {
 		return [className, itemSystemDateString]
 	}
 }
+
+function fillDateList(date) {
+	let start = new Date(date.getFullYear(), date.getMonth())
+	let end = new Date(date.getFullYear(), date.getMonth() + 1, 0)
+	let numberOfDays = end.getDate() - start.getDate() + 1
+	let startDay = start.getDay() ? start.getDay() : 7
+	let startIndex = startDay - 2
+	let dateList = new Array(7).fill(null)
+	for (let i = 1; i <= numberOfDays; i++) {
+		dateList[i + startIndex] = i
+	}
+	return dateList
+}
+
 
 export default dateScript

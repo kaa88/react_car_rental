@@ -1,19 +1,11 @@
 const timeScript = {
-	initiated: false,
+	initialized: false,
 	init(parentScript) {
-		if (this.initiated) return;
-		this.PICKUP = parentScript.PICKUP
-		this.RETURN = parentScript.RETURN
-		this.DATE = parentScript.DATE
-		this.TIME = parentScript.TIME
-		this.PICKUP_DATE = parentScript.PICKUP_DATE
-		this.PICKUP_TIME = parentScript.PICKUP_TIME
-		this.RETURN_DATE = parentScript.RETURN_DATE
-		this.RETURN_TIME = parentScript.RETURN_TIME
+		if (this.initialized) return;
 		this.today = parentScript.today
 		this.timeIntervalStep = parentScript.timeIntervalStep
 		this.getStringifiedTime = parentScript.getStringifiedTime
-		this.initiated = true
+		this.initialized = true
 	},
 	getTimeList() {
 		const hoursPerDay = 24

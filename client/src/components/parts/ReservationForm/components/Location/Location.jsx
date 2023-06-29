@@ -1,58 +1,71 @@
-import { memo, useMemo, useState } from 'react';
-// import script from './Location.script';
+import { memo, useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setActivePopup } from '../../../../../store/reducers/formPopupReducer';
+import script from './Location.script';
 import classes from './Location.module.scss';
+import Popup from '../../../../ui/Popup/Popup';
+import Icon from '../../../../ui/Icon/Icon';
 // import TranslateHandler from '../../../../TranslateHandler';
 // import { useCustomElement } from '../../../hooks/useCustomElement';
-// import Button from '../../ui/Button/Button';
-// import Divider from '../../ui/Divider/Divider';
 // import InputText from '../../ui/InputText/InputText';
-// import InputCheckbox from '../../ui/Checkbox/InputCheckbox';
-// import Select from '../../ui/Select/Select';
 
 const Location = memo(function Location({className, ...props}) {
+	// script.init()
+	const dataType = 'location'
+
+	const dispatch = useDispatch()
+	useEffect(() => {
+		window.addEventListener('click', toggleActiveDataType)
+		return () => window.removeEventListener('click', toggleActiveDataType)
+	}, [])
+
+	const toggleActiveDataType = function(e) {
+		e.stopPropagation()
+		let active = e.currentTarget === window ? '' : e.target.dataset.name
+		dispatch(setActivePopup(dataType))
+	}
 
 
-	// console.log('render form');
+	const handleInputClick = function(e){
+		console.log('input click');
+		toggleActiveDataType(e)
+	}
+
+	const handleInputChange = function(e){
+		console.log('input change');
+		
+	}
+
+	const handleSearchSelect = function(e){
+		console.log('search select');
+		
+	}
+
+
+	let searchList = script.getSearchList()
+	console.log(searchList);
+
+	const getSearchListItems = function() {
+		return ( searchList.map((item, index) =>
+			<div className={classes.searchListItem} onClick={handleSearchSelect} key={index}>
+				{item}
+			</div>
+		))
+	}
+
+	// console.log('render Location');
 	return (
-		<div className={classes.location}></div>
-		// <TranslateHandler>
-		// 	<form className={`${classes.form} ${className}`} action="#" {...props}>
-
-		// 		<div className={classes.section}>
-		// 			<p className={classes.sectionTitle}>?_Location</p>
-		// 			<InputText className={classes.input} />
-		// 		</div>
-		// 		<Divider />
-
-		// 		<div className={classes.section}>
-		// 			<p className={classes.sectionTitle}>?_Pick up</p>
-		// 			<InputText className={classes.input} modif='textCenter' />
-		// 			<InputText className={classes.input} modif='textCenter' />
-
-		// 			<div className={classes.selectPopup}>
-		// 				{createMonthElem(monthId)}
-		// 				<Divider className={classes.divider} modif='dark' />
-		// 				{createMonthElem(monthId + 1, true)}
-		// 			</div>
-
-		// 			{/* <div className={classes.selectPopup}>{timeSelectPopup}</div> */}
-		// 		</div>
-
-		// 		<div className={classes.section}>
-		// 			<p className={classes.sectionTitle}>?_Return</p>
-		// 			<InputText className={classes.input} modif='textCenter' />
-		// 			<InputText className={classes.input} modif='textCenter' />
-		// 		</div>
-
-		// 		<Divider />
-		// 		<Button className={classes.submitBtn} type='submit'>?_Reserve</Button>
-
-		// 		<div className={classes.checkboxes}>
-		// 			<InputCheckbox>?_Driver's age 21+</InputCheckbox>
-		// 			<InputCheckbox>?_Return to different location</InputCheckbox>
-		// 		</div>
-		// 	</form>
-		// </TranslateHandler>
+		<div className={classes.wrapper}>
+			<input className={classes.input} type="text" onClick={handleInputClick} onChange={handleInputChange} />
+			<div className={classes.iconBox}>
+				<Icon name='icon-search' size={24} />
+			</div>
+			<Popup name={dataType}>
+				<div className={classes.searchList}>
+					{getSearchListItems()}
+				</div>
+			</Popup>
+		</div>
 	)
 })
 

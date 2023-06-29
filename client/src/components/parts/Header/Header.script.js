@@ -6,7 +6,7 @@ import Menu from './menu';
 
 
 const HeaderScript = {
-	initiated: false,
+	initialized: false,
 	init({headerParams, classes, header, breakpointStore, languageStore}) {
 		this.params = this.getFixedParams(headerParams)
 
@@ -33,7 +33,7 @@ const HeaderScript = {
 		jsMediaQueries.registerActions(breakpointStore.tablet, [this.checkViewportChange.bind(this)])
 		jsMediaQueries.registerActions(breakpointStore.mobile, [this.checkViewportChange.bind(this)])
 
-		this.initiated = true
+		this.initialized = true
 	},
 
 	getFixedParams({...params}) {
@@ -76,13 +76,13 @@ const HeaderScript = {
 
 	},
 	// shareHeader: function() {
-	// 	if (!this.initiated) return;
+	// 	if (!this.initialized) return;
 	// 	this.headerElem.classList.add(this.names.stateShared)
 	// 	this.headerElem.classList.add(this.names.stateSharedDelayed)
 	// 	this.scrollIntoView()
 	// },
 	// unshareHeader: function(timeout) {
-	// 	if (!this.initiated) return;
+	// 	if (!this.initialized) return;
 	// 	this.headerElem.classList.remove(this.names.stateShared)
 	// 	setTimeout(function() {
 	// 		this.headerElem.classList.remove(this.names.stateSharedDelayed)

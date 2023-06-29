@@ -13,7 +13,7 @@ const VIEW_KEY_MEDIUM = 'M'
 const VIEW_KEY_SMALL = 'S'
 
 const Menu = {
-	initiated: false,
+	initialized: false,
 	init({headerScript, classes, breakpointStore, languageStore}) {
 		this.headerScript = headerScript
 		this.elems = {
@@ -37,13 +37,13 @@ const Menu = {
 		this.language = languageStore.current
 
 		window.addEventListener('resize', this.calcMenuWidth.bind(this))
-		this.initiated = true
+		this.initialized = true
 		this.calcMenuWidth()
 		this.hideMenuOnViewChange()
 	},
 
 	toggleMenu(e) {
-		if (!this.initiated) return;
+		if (!this.initialized) return;
 		const header = actualElems.header
 		if (header.hasClass(this.classes.active)) this.closeMenu(e, header)
 		else if (e) this.openMenu(e, header)
@@ -65,7 +65,7 @@ const Menu = {
 		// this.onMenuClose()
 	},
 	hideMenuOnViewChange() {
-		if (!this.initiated) return;
+		if (!this.initialized) return;
 		if (this.isHidingMenuOnViewChange) {
 			clearTimeout(this.hideMenuOnViewChangeTimeoutId)
 			this.hideMenuOnViewChangeTimeoutId = setTimeout(function(){
@@ -87,7 +87,7 @@ const Menu = {
 		}
 	},
 	checkLanguage(lang) {
-		if (!this.initiated || !lang) return;
+		if (!this.initialized || !lang) return;
 		const menu = this.elems.menu
 		const langChangeTimeout = 200
 		const hiddenProp = 'opacity'
@@ -107,7 +107,7 @@ const Menu = {
 		}
 	},
 	calcMenuWidth() {
-		if (!this.initiated) return;
+		if (!this.initialized) return;
 		const wrapper = this.elems.wrapper
 		const menu = this.elems.menu
 		let isShrinkedMenu;

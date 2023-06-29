@@ -10,7 +10,6 @@ import TimeSelect from '../TimeSelect/TimeSelect';
 
 const Period = memo(function Period({className = '', ...props}) {
 	/* TODO:
-		- translate
 	*/
 	script.init()
 	const dispatch = useDispatch()

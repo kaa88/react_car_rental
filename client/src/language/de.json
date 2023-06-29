@@ -214,5 +214,112 @@
 	{
 		"id": 54,
 		"text": "Datenschutz-Bestimmungen"
+	},
+
+
+
+	{
+		"id": 101,
+		"text": "Januar"
+	},
+	{
+		"id": 102,
+		"text": "Februar"
+	},
+	{
+		"id": 103,
+		"text": "März"
+	},
+	{
+		"id": 104,
+		"text": "April"
+	},
+	{
+		"id": 105,
+		"text": "Mai"
+	},
+	{
+		"id": 106,
+		"text": "Juni"
+	},
+	{
+		"id": 107,
+		"text": "Juli"
+	},
+	{
+		"id": 108,
+		"text": "August"
+	},
+	{
+		"id": 109,
+		"text": "September"
+	},
+	{
+		"id": 110,
+		"text": "Oktober"
+	},
+	{
+		"id": 111,
+		"text": "November"
+	},
+	{
+		"id": 112,
+		"text": "Dezember"
+	},
+	{
+		"id": 113,
+		"text": "Montag"
+	},
+	{
+		"id": 114,
+		"text": "Dienstag"
+	},
+	{
+		"id": 115,
+		"text": "Mittwoch"
+	},
+	{
+		"id": 116,
+		"text": "Donnerstag"
+	},
+	{
+		"id": 117,
+		"text": "Freitag"
+	},
+	{
+		"id": 118,
+		"text": "Samstag"
+	},
+	{
+		"id": 119,
+		"text": "Sonntag"
+	},
+	{
+		"id": 120,
+		"text": "Mo"
+	},
+	{
+		"id": 121,
+		"text": "Di"
+	},
+	{
+		"id": 122,
+		"text": "Mi"
+	},
+	{
+		"id": 123,
+		"text": "Do"
+	},
+	{
+		"id": 124,
+		"text": "Fr"
+	},
+	{
+		"id": 125,
+		"text": "Sa"
+	},
+	{
+		"id": 126,
+		"text": "So"
 	}
 ]

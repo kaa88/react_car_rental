@@ -214,5 +214,112 @@
 	{
 		"id": 54,
 		"text": "Privacy Policy"
+	},
+
+
+
+	{
+		"id": 101,
+		"text": "January"
+	},
+	{
+		"id": 102,
+		"text": "February"
+	},
+	{
+		"id": 103,
+		"text": "March"
+	},
+	{
+		"id": 104,
+		"text": "April"
+	},
+	{
+		"id": 105,
+		"text": "May"
+	},
+	{
+		"id": 106,
+		"text": "June"
+	},
+	{
+		"id": 107,
+		"text": "July"
+	},
+	{
+		"id": 108,
+		"text": "August"
+	},
+	{
+		"id": 109,
+		"text": "September"
+	},
+	{
+		"id": 110,
+		"text": "October"
+	},
+	{
+		"id": 111,
+		"text": "November"
+	},
+	{
+		"id": 112,
+		"text": "December"
+	},
+	{
+		"id": 113,
+		"text": "Monday"
+	},
+	{
+		"id": 114,
+		"text": "Tuesday"
+	},
+	{
+		"id": 115,
+		"text": "Wednesday"
+	},
+	{
+		"id": 116,
+		"text": "Thursday"
+	},
+	{
+		"id": 117,
+		"text": "Friday"
+	},
+	{
+		"id": 118,
+		"text": "Saturday"
+	},
+	{
+		"id": 119,
+		"text": "Sunday"
+	},
+	{
+		"id": 120,
+		"text": "Mo"
+	},
+	{
+		"id": 121,
+		"text": "Tu"
+	},
+	{
+		"id": 122,
+		"text": "We"
+	},
+	{
+		"id": 123,
+		"text": "Th"
+	},
+	{
+		"id": 124,
+		"text": "Fr"
+	},
+	{
+		"id": 125,
+		"text": "Sa"
+	},
+	{
+		"id": 126,
+		"text": "Su"
 	}
 ]

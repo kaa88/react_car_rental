@@ -41,7 +41,7 @@ const DateSelect = memo(function DateSelect({
 		return (
 			<div className={classes.month}>
 				{!isNextMonth
-					? <Select modif='reservation' data={monthSelectData} onSelect={handleMonthSelect} />
+					? <Select modif='reservation' data={monthSelectData} onSelect={handleMonthSelect} applyTranslator={true} />
 					: <div className={classes.title}>{`?_${calendar.monthName}`}</div>
 				}
 				<div className={classes.days}>

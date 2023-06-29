@@ -29,7 +29,6 @@
 		margin-top: 20px;
 		margin-bottom: 20px;
 	}
-	// - Firefox (для экранного скрола нужно ставить в html)
 	scrollbar-width: thin; // = 8px
 	scrollbar-color: var(--color01) var(--color02); // thumb track
 	overscroll-behavior: contain;

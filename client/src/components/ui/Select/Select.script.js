@@ -2,12 +2,12 @@ const initiatedSelects = []
 // let isSetupEvents = false
 
 const SelectScript = { // todo: сделать класс, т.к. может понадобиться добавлять и удалять эвенты для конкретного селекта
-	initiated: false,
+	initialized: false,
 	init({elems, classes}) {
 		this.elems = elems
 		this.activeClass = classes.active
 		initiatedSelects.push(this.elems)
-		this.initiated = true
+		this.initialized = true
 	},
 	setupEvents() {
 		// if (!isSetupEvents) {
@@ -26,7 +26,7 @@ const SelectScript = { // todo: сделать класс, т.к. может п�
 		listWrapper = this.elems.listWrapper,
 		list = this.elems.list
 	) {
-		if (!this.initiated) return;
+		if (!this.initialized) return;
 		if (list.children.length === 1) return;
 		const active = this.activeClass
 
@@ -55,8 +55,8 @@ const SelectScript = { // todo: сделать класс, т.к. может п�
 	},
 
 	selectItem(e, headerText) {
-		if (!this.initiated) return;
-		let value = e.target.textContent
+		if (!this.initialized) return;
+		let value = e.target.dataset.value
 		// headerText.setChildren(value)
 		return value
 	}
