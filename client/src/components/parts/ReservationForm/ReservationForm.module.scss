@@ -10,18 +10,37 @@
 	grid-template-columns: auto 1px auto 1px auto;
 	grid-column-gap: 8px;
 	align-items: center;
+	@media (max-width: $media-m+px) {
+		grid-template-columns: auto;
+	}
 }
-.checkboxes {
+.options {
 	grid-column: 1/-1;
 	margin-top: 14px;
-	& > * {
-		margin-right: 20px;
-	}
 }
 .submitBtn {
 	width: 221px;
 	height: 80px;
 	border-radius: 70px;
 	font-size: 24px;
+	@media (max-width: $media-m+px) {
+		grid-row: 6;
+		margin: 0 auto;
+		height: 50px;
+		font-size: 16px;
+	}
 }
-
+.divider {
+	@media (max-width: $media-m+px) {
+		display: none;
+	}
+	&.mobileHorizontal {
+		@media (max-width: $media-m+px) {
+			display: block;
+			width: 70%;
+			height: 1px;
+			margin: 12px auto 0;
+			opacity: 0.5;
+		}
+	}
+}

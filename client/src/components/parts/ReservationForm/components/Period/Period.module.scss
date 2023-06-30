@@ -3,6 +3,9 @@
 .period {
 	position: relative;
 	display: flex;
+	@media (max-width: $media-m+px) {
+		flex-direction: column;
+	}
 	.dateInput, .timeInput {
 		height: 80px;
 		border-radius: 70px;
@@ -19,15 +22,26 @@
 		justify-content: center;
 		align-items: center;
 		cursor: pointer;
+		//
 		&:hover {
 			color: var(--color03);
+		}
+		@media (max-width: $media-m+px) {
+			height: 50px;
+			font-size: 16px;
 		}
 	}
 	.dateInput {
 		width: 153px;
+		@media (max-width: $media-m+px) {
+			width: 100%;
+		}
 	}
 	.timeInput {
 		width: 137px;
+		@media (max-width: $media-m+px) {
+			width: 100%;
+		}
 	}
 }
 .section {
@@ -35,6 +49,9 @@
 	display: flex;
 	&:first-child, & > *:not(:last-child) {
 		margin-right: 8px;
+		@media (max-width: $media-m+px) {
+			margin-right: 0;
+		}
 	}
 }
 .sectionTitle {

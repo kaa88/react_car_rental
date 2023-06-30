@@ -5,8 +5,15 @@
 	width: 377px;
 	height: 80px;
 }
+.title {
+	position: absolute;
+	left: 0;
+	top: -23px;
+	user-select: none;
+	color: var(--color01);
+}
 .input {
-	padding: 0 50px 0 16px;
+	padding: 0 50px 0 21px;
 	width: 100%;
 	height: 100%;
 	font-size: 20px;
@@ -14,12 +21,17 @@
 	background-color: var(--color01);
 	box-shadow: inset 0 1000px 0 0 var(--color01);
 	-webkit-text-fill-color: var(--color02);
+	border: solid 4px transparent;
+	transition: border-color $timer-hover;
+	&.active {
+		border-color: var(--color03);
+	}
 }
 .iconBox {
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: calc(16px + 24px);
+	width: calc(21px + 24px);
 	height: 100%;
 	display: flex;
 	align-items: center;
@@ -30,6 +42,7 @@
 	margin-right: 6px;
 	padding: 16px 10px;
 	width: calc(377px - 6px); // 377
+	min-height: 82px;
 	max-height: 380px;
 	overflow: auto;
 	&::-webkit-scrollbar {

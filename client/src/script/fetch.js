@@ -8,7 +8,7 @@ async function fetchData(request) {
 	const { path='', method='GET', body={} } = request
 	const entry = process.env.REACT_APP_API_URL
 	let reqQuery = ''
-	if (method === 'GET' && body && !Utils.object.isEmpty(body)) reqQuery = `?${new URLSearchParams(body).toString()}`
+	if (method === 'GET' && body && !Utils.objectIsEmpty(body)) reqQuery = `?${new URLSearchParams(body).toString()}`
 	const fullPath = entry + path + reqQuery
 	
 	const headers = {

@@ -1,8 +1,8 @@
 .wrapper {
 	display: inline-flex;
-}
-.wrapper input {
-	display: none;
+	input {
+		display: none;
+	}
 }
 .box {
 	display: flex;
@@ -17,6 +17,8 @@
 	transition: background-color var(--timer-hover);
 }
 .boxIcon {
+	width: 7.4px;
+	height: 5.7px;
 	fill: var(--color02);
 	opacity: 0;
 	transition: opacity var(--timer-hover);

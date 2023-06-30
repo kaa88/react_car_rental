@@ -1,49 +1,63 @@
-import { memo, useEffect, useMemo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setActivePopup } from '../../../../../store/reducers/formPopupReducer';
+import { setLocation } from '../../../../../store/reducers/formDataReducer';
+import Utils from '../../../../../script/utilities';
 import script from './Location.script';
 import classes from './Location.module.scss';
+import TranslateHandler from '../../../../TranslateHandler';
 import Popup from '../../../../ui/Popup/Popup';
 import Icon from '../../../../ui/Icon/Icon';
-// import TranslateHandler from '../../../../TranslateHandler';
-// import { useCustomElement } from '../../../hooks/useCustomElement';
-// import InputText from '../../ui/InputText/InputText';
 
-const Location = memo(function Location({className, ...props}) {
-	// script.init()
-	const dataType = 'location'
+/* TODO:
+	translate
+*/
+
+const Location = memo(function Location({
+	className = '',
+	activeDataType = '',
+	setActiveDataType = function(event, value){},
+	...props
+}) {
 
 	const dispatch = useDispatch()
+	function setFormData(value) {
+		dispatch(setLocation(value))
+	}
+
+	const dataType = 'location'
+
 	useEffect(() => {
-		window.addEventListener('click', toggleActiveDataType)
-		return () => window.removeEventListener('click', toggleActiveDataType)
+		script.init({setInputValue})
+		setFormData(defaultInputValue)
 	}, [])
 
-	const toggleActiveDataType = function(e) {
-		e.stopPropagation()
-		let active = e.currentTarget === window ? '' : e.target.dataset.name
-		dispatch(setActivePopup(dataType))
-	}
+	const defaultInputValue = script.getSearchList()[0]
+	let [inputValue, setInputValue] = useState(defaultInputValue)
+	let [searchList, setSearchList] = useState(script.getSearchList())
 
 
 	const handleInputClick = function(e){
-		console.log('input click');
-		toggleActiveDataType(e)
+		setActiveDataType(e, dataType)
 	}
 
 	const handleInputChange = function(e){
-		console.log('input change');
-		
+		if (!activeDataType) setActiveDataType(e, dataType)
+		setInputValue(e.target.value)
+		setSearchList(script.filterSearchList(e.target.value))
+		setFormData('')
 	}
 
 	const handleSearchSelect = function(e){
-		console.log('search select');
-		
+		let value = e.target.textContent
+		setInputValue(value)
+		setFormData(value)
+		setActiveDataType(e, '')
+
+		const transitionDelay = Utils.getCssVariable('timer-popup')*1000
+		setTimeout(() => {
+			setSearchList(script.getSearchList())
+		}, transitionDelay);
 	}
-
-
-	let searchList = script.getSearchList()
-	console.log(searchList);
 
 	const getSearchListItems = function() {
 		return ( searchList.map((item, index) =>
@@ -55,17 +69,25 @@ const Location = memo(function Location({className, ...props}) {
 
 	// console.log('render Location');
 	return (
-		<div className={classes.wrapper}>
-			<input className={classes.input} type="text" onClick={handleInputClick} onChange={handleInputChange} />
-			<div className={classes.iconBox}>
-				<Icon name='icon-search' size={24} />
-			</div>
-			<Popup name={dataType}>
-				<div className={classes.searchList}>
-					{getSearchListItems()}
+		<TranslateHandler>
+			<div className={classes.wrapper}>
+				<p className={classes.title}>?_Location</p>
+				<input
+					className={`${classes.input} ${dataType === activeDataType ? classes.active : ''}`}
+					type="text"
+					value={inputValue}
+					onClick={handleInputClick}
+					onChange={handleInputChange} />
+				<div className={classes.iconBox}>
+					<Icon name='icon-search' size={24} />
 				</div>
-			</Popup>
-		</div>
+				<Popup name={dataType}>
+					<div className={classes.searchList}>
+						{getSearchListItems()}
+					</div>
+				</Popup>
+			</div>
+		</TranslateHandler>
 	)
 })
 

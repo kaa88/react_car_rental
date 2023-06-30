@@ -1,5 +1,5 @@
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { memo, useEffect, useMemo, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import classes from './TimeSelect.module.scss';
 import script from './TimeSelect.script';
 import parentScript from '../Period/Period.script';
@@ -54,9 +54,6 @@ const TimeSelect = memo(function TimeSelect({
 			</div>
 		</div>;
 
-	// useEffect(() => {
-	// 	scrollTimeList()
-	// }, [])
 	const timeList = useMemo(() => script.getTimeList(), [])
 
 	// console.log('render TimeSelect');

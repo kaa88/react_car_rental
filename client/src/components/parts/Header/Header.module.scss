@@ -2,7 +2,7 @@
 
 .header {
 	top: var(--header-position); //REQ!
-	left: 0; //REQ!
+	// left: 0; //REQ!
 	z-index: 51; //REQ!
 	width: 100%; //REQ!
 	max-width: $page-max-width+px; //REQ! set it same as body max-width

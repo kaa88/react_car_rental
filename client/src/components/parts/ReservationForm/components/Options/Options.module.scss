@@ -1,0 +1,12 @@
+@import "../../../../../styles/variables.scss";
+
+.options {
+	position: relative;
+	& > * {
+		margin-right: 20px;
+	}
+	@media (max-width: $media-m+px) {
+		display: flex;
+		flex-direction: column;
+	}
+}

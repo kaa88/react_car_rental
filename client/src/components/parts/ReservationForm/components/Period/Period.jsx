@@ -1,31 +1,38 @@
-import { memo, useEffect, useMemo, useState } from 'react';
+import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActivePopup } from '../../../../../store/reducers/formPopupReducer';
+import { setPeriod } from '../../../../../store/reducers/formDataReducer';
 import script from './Period.script';
 import classes from './Period.module.scss';
 import TranslateHandler from '../../../../TranslateHandler';
-import InputText from '../../../../ui/InputText/InputText';
 import DateSelect from '../DateSelect/DateSelect';
 import TimeSelect from '../TimeSelect/TimeSelect';
 
-const Period = memo(function Period({className = '', ...props}) {
-	/* TODO:
-	*/
+/* TODO:
+*/
+
+const Period = memo(function Period({
+	className = '',
+	activeDataType = '',
+	setActiveDataType = function(event, value){},
+	...props
+}) {
 	script.init()
 	const dispatch = useDispatch()
+	const formData = useSelector(state => state.formData)
 
-	let [reservationPeriod, setReservationPeriod] = useState(script.getDefaultReservationPeriod())
-
-	const toggleActiveDataType = function(e) {
-		e.stopPropagation()
-		let active = e.currentTarget === window ? '' : e.target.dataset.name
-		dispatch(setActivePopup(active))
-		setActiveInput(active)
+	let reservationPeriod = {
+		pickup: formData.pickup,
+		return: formData.return
 	}
-	useEffect(() => {
-		window.addEventListener('click', toggleActiveDataType)
-		return () => window.removeEventListener('click', toggleActiveDataType)
-	}, [])
+	function setReservationPeriod(value) {
+		dispatch(setPeriod(value))
+	}
+	if (!formData.pickup) {
+		reservationPeriod = script.getDefaultReservationPeriod()
+		setReservationPeriod(reservationPeriod)
+	}
+
+	// let [reservationPeriod, setReservationPeriod] = useState(script.getDefaultReservationPeriod())
 
 	// INPUTS
 	const inputs = {}
@@ -45,21 +52,19 @@ const Period = memo(function Period({className = '', ...props}) {
 		className: classes.timeInput,
 		value: script.getStringifiedTime(reservationPeriod.return),
 	}
-	let [activeInput, setActiveInput] = useState('')
 	const inputQueue = [script.PICKUP_DATE, script.PICKUP_TIME, script.RETURN_DATE, script.RETURN_TIME]
 
 	const goToNextInput = function(inputName){
 		let nextInput = inputQueue[inputQueue.indexOf(inputName) + 1] || ''
-		dispatch(setActivePopup(nextInput))
-		setActiveInput(nextInput)
+		setActiveDataType(null, nextInput)
 	}
 	const handleInputClick = function(e){
-		toggleActiveDataType(e)
+		setActiveDataType(e, e.target.dataset.name)
 	}
 	const handleInputChange = function(){}
 	const createInputElem = (name) => { return (
 		<div
-			className={`${inputs[name].className} ${name === activeInput ? classes.active : ''}`}
+			className={`${inputs[name].className} ${name === activeDataType ? classes.active : ''}`}
 			data-name={name}
 			value={inputs[name].value}
 			onClick={handleInputClick}
@@ -72,6 +77,7 @@ const Period = memo(function Period({className = '', ...props}) {
 	const handleSelect = function(selectedItemValue, dataType){
 		let newPeriod = script.getNewReservationPeriod(selectedItemValue, dataType, reservationPeriod)
 		setReservationPeriod(newPeriod)
+		// setFormData(newPeriod)
 		goToNextInput(dataType)
 	}
 	// end POPUPS
