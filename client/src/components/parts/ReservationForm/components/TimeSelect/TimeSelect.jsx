@@ -36,7 +36,7 @@ const TimeSelect = memo(function TimeSelect({
 	}
 
 	const createTimeElem = (times) =>
-		<div className={classes.wrapper} ref={wrapperElem}>
+		<div className={classes.listWrapper} ref={wrapperElem}>
 			<div className={classes.list}>
 				{times.map((item, index) => {
 					let [className, isActive, children] = script.getTimeElemPropsData(classes, period, item)
@@ -60,8 +60,10 @@ const TimeSelect = memo(function TimeSelect({
 	return (
 		<TranslateHandler>
 			<Popup className={classes.popup} name={dataType} {...props}>
-				{createTimeElem(timeList)}
-				<Divider className={classes.divider} modif='dark' />
+				<div className={classes.popupContent}>
+					{createTimeElem(timeList)}
+					<Divider className={classes.divider} modif='dark' />
+				</div>
 			</Popup>
 		</TranslateHandler>
 	)

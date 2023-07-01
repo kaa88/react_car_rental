@@ -29,10 +29,25 @@
 		border-radius: 18px;
 		background-color: var(--color02);
 		font-size: 20px;
+		@media (max-width: $media-m+px) {
+			background-color: transparent;
+		}
 	}
 	&.active, .reservation & {
 		color: var(--color01);
 		fill: var(--color01);
+	}
+	.reservation & {
+		@media (max-width: $media-m+px) {
+			color: var(--color02);
+			fill: var(--color02);
+		}
+	}
+	.reservation &.active {
+		@media (max-width: $media-m+px) {
+			color: var(--color01);
+			fill: var(--color01);
+		}
 	}
 }
 .headerText {
@@ -69,10 +84,7 @@
 .listWrapper {
 	position: absolute;
 	top: 0;
-	// top: calc(100% - 7px);
 	right: 0;
-	// width: calc(100% - 22px);
-	// left: 0;
 	width: 100%;
 	z-index: 2;
 	height: 27px;
@@ -92,7 +104,11 @@
 	}
 }
 .list {
-	padding-top: 27px; // 7
+	padding-top: 28px;
+	.reservation & {
+		padding-top: 30px;
+		padding-bottom: 10px;
+	}
 }
 .option {
 	display: flex;
@@ -106,6 +122,7 @@
 	opacity: 0.5;
 	cursor: pointer;
 	.reservation & {
+		height: 28px;
 		margin-left: 10px;
 	}
 	&.selected, &:hover {

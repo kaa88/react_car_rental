@@ -71,9 +71,11 @@ const DateSelect = memo(function DateSelect({
 	return (
 		<TranslateHandler>
 			<Popup className={classes.popup} name={dataType} {...props}>
-				{createMonthElem(selectorCurrentMonth)}
-				<Divider className={classes.divider} modif='dark' />
-				{createMonthElem(selectorCurrentMonth, true)}
+				<div className={classes.popupContent}>
+					{createMonthElem(selectorCurrentMonth)}
+					<Divider className={classes.divider} modif='dark' />
+					{createMonthElem(selectorCurrentMonth, true)}
+				</div>
 			</Popup>
 		</TranslateHandler>
 	)

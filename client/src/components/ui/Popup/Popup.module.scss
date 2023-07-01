@@ -1,18 +1,18 @@
 @import "../../../styles/variables.scss";
 
-.default, .location, .date, .time {
+.default {
+	// background-color: orange;
 	position: absolute;
 	left: 0;
-	top: calc(100% + 6px);
+	top: 0;
 	display: flex;
-	background-color: var(--color01);
-	color: var(--color02);
-	border-radius: 16px;
-	// user-select: none;
+	justify-content: center;
+	align-items: center;
 	opacity: 0;
 	visibility: hidden;
 	transition: opacity $timer-popup, visibility $timer-popup;
 }
+
 .active {
 	opacity: 1;
 	visibility: visible;

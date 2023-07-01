@@ -59,7 +59,8 @@ const Period = memo(function Period({
 		setActiveDataType(null, nextInput)
 	}
 	const handleInputClick = function(e){
-		setActiveDataType(e, e.target.dataset.name)
+		let newActiveType = activeDataType === e.target.dataset.name ? '' : e.target.dataset.name
+		setActiveDataType(e, newActiveType)
 	}
 	const handleInputChange = function(){}
 	const createInputElem = (name) => { return (
@@ -91,18 +92,17 @@ const Period = memo(function Period({
 					<p className={classes.sectionTitle}>?_Pick up</p>
 					{createInputElem(script.PICKUP_DATE)}
 					{createInputElem(script.PICKUP_TIME)}
+					<DateSelect onSelect={handleSelect} dataType={script.PICKUP_DATE} period={reservationPeriod} />
+					<TimeSelect onSelect={handleSelect} dataType={script.PICKUP_TIME} period={reservationPeriod.pickup} />
 				</div>
 
 				<div className={classes.section}>
 					<p className={classes.sectionTitle}>?_Return</p>
 					{createInputElem(script.RETURN_DATE)}
 					{createInputElem(script.RETURN_TIME)}
+					<DateSelect onSelect={handleSelect} dataType={script.RETURN_DATE} period={reservationPeriod} />
+					<TimeSelect onSelect={handleSelect} dataType={script.RETURN_TIME} period={reservationPeriod.return} />
 				</div>
-
-				<DateSelect onSelect={handleSelect} dataType={script.PICKUP_DATE} period={reservationPeriod} />
-				<TimeSelect onSelect={handleSelect} dataType={script.PICKUP_TIME} period={reservationPeriod.pickup} />
-				<DateSelect onSelect={handleSelect} dataType={script.RETURN_DATE} period={reservationPeriod} />
-				<TimeSelect onSelect={handleSelect} dataType={script.RETURN_TIME} period={reservationPeriod.return} />
 
 			</div>
 		</TranslateHandler>

@@ -1,8 +1,21 @@
 @import "../../../../../styles/variables.scss";
 
-.popup {
+body .popup {
+	left: calc(50% - 153px);
+	top: calc(100% + 6px);
+	@media (max-width: $media-ml+px) {
+		left: 0;
+		width: 100%;
+	}
+}
+.popupContent {
+	position: relative;
 	height: 380px;
+	background-color: var(--color01);
+	color: var(--color02);
+	border-radius: 16px;
 	user-select: none;
+	box-shadow: 0 0 5px 0 var(--color06);
 	.divider {
 		position: absolute;
 		left: 140px;
@@ -10,11 +23,13 @@
 		height: 72%;
 	}
 }
-.wrapper {
+
+.listWrapper {
 	margin-right: 10px;
 	padding: 16px 10px;
 	height: 100%;
-	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 	&::-webkit-scrollbar {
 		width: 16px;
 	}
@@ -32,6 +47,11 @@
 	scrollbar-width: thin; // = 8px
 	scrollbar-color: var(--color01) var(--color02); // thumb track
 	overscroll-behavior: contain;
+	@media (max-width: $media-ml+px) {
+		&::-webkit-scrollbar {
+			width: 8px;
+		}
+	}
 }
 .list {
 	display: grid;
@@ -41,12 +61,19 @@
 .item {
 	width: 120px;
 	height: 50px;
+	font-size: 20px;
 	border-radius: 33px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
 	transition: background-color $timer-hover, color $timer-hover;
+	@media (max-width: $media-form2+px) {
+		font-size: 18px;
+	}
+	@media (max-width: $media-ml+px) {
+		font-size: 16px;
+	}
 	&:hover, &.active {
 		background-color: var(--color02);
 		color: var(--color01);

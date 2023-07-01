@@ -70,20 +70,26 @@ const Location = memo(function Location({
 	// console.log('render Location');
 	return (
 		<TranslateHandler>
-			<div className={classes.wrapper}>
+			<div className={`${className} ${classes.wrapper}`}>
 				<p className={classes.title}>?_Location</p>
-				<input
-					className={`${classes.input} ${dataType === activeDataType ? classes.active : ''}`}
-					type="text"
-					value={inputValue}
-					onClick={handleInputClick}
-					onChange={handleInputChange} />
-				<div className={classes.iconBox}>
-					<Icon name='icon-search' size={24} />
+				<div className={classes.inputBox}>
+					<input
+						className={`${classes.input} ${dataType === activeDataType ? classes.active : ''}`}
+						type="text"
+						value={inputValue}
+						onClick={handleInputClick}
+						onChange={handleInputChange}
+						autoComplete="off"
+					/>
+					<div className={classes.iconBox}>
+						<Icon name='icon-search' />
+					</div>
 				</div>
-				<Popup name={dataType}>
-					<div className={classes.searchList}>
-						{getSearchListItems()}
+				<Popup className={classes.popup} name={dataType}>
+					<div className={classes.popupContent}>
+						<div className={classes.searchList}>
+							{getSearchListItems()}
+						</div>
 					</div>
 				</Popup>
 			</div>

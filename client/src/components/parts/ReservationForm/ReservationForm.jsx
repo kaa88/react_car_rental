@@ -10,6 +10,9 @@ import Button from '../../ui/Button/Button';
 import Divider from '../../ui/Divider/Divider';
 import Options from './components/Options/Options';
 
+/* TODO:
+	make popup scroll into view on open (mobile)
+*/
 
 const ReservationForm = memo(function ReservationForm({className = '', ...props}) {
 
@@ -44,10 +47,8 @@ const ReservationForm = memo(function ReservationForm({className = '', ...props}
 	return (
 		<TranslateHandler>
 			<form className={`${classes.form} ${className}`} action="#" onSubmit={handleSubmit} {...props}>
-				<Location activeDataType={activeDataType} setActiveDataType={setActiveDataType} />
-				<Divider className={classes.divider} />
-				<Period activeDataType={activeDataType} setActiveDataType={setActiveDataType} />
-				<Divider className={`${classes.divider} ${classes.mobileHorizontal}`} />
+				<Location className={classes.location} activeDataType={activeDataType} setActiveDataType={setActiveDataType} />
+				<Period className={classes.period} activeDataType={activeDataType} setActiveDataType={setActiveDataType} />
 				<Button className={classes.submitBtn} type='submit'>?_Reserve</Button>
 				<Options className={classes.options} />
 			</form>

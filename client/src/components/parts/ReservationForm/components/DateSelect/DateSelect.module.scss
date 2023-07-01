@@ -1,19 +1,57 @@
 @import "../../../../../styles/variables.scss";
 
-.popup {
+body .popup {
+	left: calc(50% - 352px);
+	top: calc(100% + 6px);
+	@media (max-width: $media-form+px) and (min-width: $media-form2+1+px) {
+		left: auto;
+		right: 0;
+	}
+	@media (max-width: $media-mxl+px) {
+		left: calc(50% - 206px);
+	}
+	@media (max-width: $media-ml+px) {
+		left: 0;
+		width: 100%;
+	}
+	@media (max-width: $media-date-select+px) { //400
+		margin-left: -18px;
+		width: 100vw;
+	}
+}
+.popupContent {
 	height: 414px;
+	display: flex;
+	background-color: var(--color01);
+	color: var(--color02);
+	border-radius: 16px;
+	box-shadow: 0 0 5px 0 var(--color06);
 	user-select: none;
+	@media (max-width: $media-mxl+px) {
+		& > *:not(:first-child) {
+			display: none;
+		}
+	}
+	@media (max-width: $media-ml+px) {
+		width: 100%;
+		height: 398px;
+		justify-content: center;
+	}
 	.divider {
 		position: relative;
 		top: 16%;
 		height: 75%;
 	}
 }
+
 .month {
 	padding: 24px 8px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	@media (max-width: $media-ml+px) {
+		padding: 16px 0;
+	}
 }
 .title {
 	font-size: 20px;
@@ -26,6 +64,9 @@
 	display: grid;
 	grid-template-columns: repeat(7, 48px);
 	cursor: default;
+	@media (max-width: $media-ms+px) {
+		grid-template-columns: repeat(7, 45px);
+	}
 	& > * {
 		display: flex;
 		justify-content: center;
@@ -36,6 +77,9 @@
 .dates {
 	display: grid;
 	grid-template-columns: repeat(7, auto);
+	@media (max-width: $media-ms+px) {
+		grid-template-columns: repeat(7, 45px);
+	}
 }
 .dateItem {
 	width: 48px;

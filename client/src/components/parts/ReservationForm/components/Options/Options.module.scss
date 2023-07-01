@@ -2,11 +2,19 @@
 
 .options {
 	position: relative;
-	& > * {
-		margin-right: 20px;
-	}
-	@media (max-width: $media-m+px) {
+	@media (max-width: $media-form2+px) {
 		display: flex;
 		flex-direction: column;
+	}
+	& > * {
+		margin-right: 20px;
+		@media (max-width: $media-form2+px) {
+			&:not(:first-child) {
+				margin-top: 16px;
+			}
+		}
+		@media (max-width: $media-ml+px) {
+			margin-right: 0;
+		}
 	}
 }

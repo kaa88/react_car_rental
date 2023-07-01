@@ -32,27 +32,33 @@ const Banner = memo(function Banner() {
 	return (
 		<TranslateHandler>
 			<section className={classes.banner}>
-				<div className={classes.bg}>
-					<Image src='img/bg.jpg' />
+
+				<div className={classes.form}>
+					<div className={classes.bg}>
+						<Image src='img/bg.jpg' />
+					</div>
+					<Container className={classes.container}>
+						<h3 className={`${classes.formTitle} color01 fz36 tac`}>
+							?_Rent a car
+						</h3>
+						<ReservationForm className={classes.blur} />
+					</Container>
 				</div>
-				<Container>
-					<h3 className='color01 fz36 tac'>
-						?_Rent a car
-					</h3>
 
-					<ReservationForm className={classes.blur} />
-
-					<div className={classes.features}>
+				<div className={classes.features}>
+					<Container className={classes.container}>
 						{features.map((item, index) =>
 							<div className={`${classes.featuresItem} ${classes.blur}`} key={index}>
 								<Icon className={classes.featuresIcon} name={item.icon} size={item.iconSize} />
-								<p className={classes.featuresTitle}>{`?_${item.title}`}</p>
-								<p className={classes.featuresText}>{`?_${item.text}`}</p>
+								<div className={classes.featuresContent}>
+									<p className={classes.featuresTitle}>{`?_${item.title}`}</p>
+									<p className={classes.featuresText}>{`?_${item.text}`}</p>
+								</div>
 							</div>
 						)}
-					</div>
+					</Container>
+				</div>
 
-				</Container>
 			</section>
 		</TranslateHandler>
 	)

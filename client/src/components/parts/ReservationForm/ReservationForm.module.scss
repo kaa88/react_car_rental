@@ -3,44 +3,117 @@
 .form {
 	position: relative;
 	z-index: 9;
-	margin-top: 57px;
-	padding: 50px 24px 30px;
+	padding: 30px 24px;
 	display: grid;
-	/* grid-template-columns: repeat(6, auto); */
-	grid-template-columns: auto 1px auto 1px auto;
-	grid-column-gap: 8px;
-	align-items: center;
-	@media (max-width: $media-m+px) {
+	grid-template-columns: 1fr repeat(3, auto);
+	grid-column-gap: 17px; // 8 * 2 + 1(divider-line)
+	@media (max-width: $media-form+px) {
+		grid-template-columns: 1fr auto;
+		@media (min-width: $media-form2+1+px) {
+			grid-row-gap: 26px;
+		}
+	}
+	@media (max-width: $media-form2+px) {
 		grid-template-columns: auto;
+		width: min-content;
+		margin: 0 auto;
+	}
+	@media (max-width: $media-ml+px) {
+		padding: 36px 8px 16px;
+		width: 100%;
+		max-width: 400px;
+	}
+}
+.location, .period {
+	position: relative;
+	&:after {
+		content: '';
+		position: absolute;
+		top: calc(50% - 20px);
+		right: -8px;
+		display: inline-block;
+		width: 1px;
+		height: 40px;
+		background-color: var(--color01);
+		opacity: 0.5;
+	}
+}
+.location {
+	width: 100%;
+	@media (max-width: $media-form2+px) and (min-width: $media-ml+1+px) {
+		grid-column: span 2;
+	}
+	&:after {
+		@media (max-width: $media-form2+px) {
+			display: none;
+		}
+	}
+}
+.period {
+	grid-column: span 2;
+	// @media (max-width: $media-form+px) {
+	// 	margin-bottom: 26px;
+	// }
+	@media (max-width: $media-form2+px) {
+		grid-row: 2;
+		margin-bottom: 33px;
+	}
+	@media (max-width: $media-ml+px) {
+		grid-column: 1;
+	}
+	&:after {
+		@media (max-width: $media-form+px) {
+			display: none;
+		}
+		@media (max-width: $media-form2+px) {
+			display: block;
+			top: calc(100% + 12px);
+			right: calc(50% - 35%);
+			width: 70%;
+			height: 1px;
+		}
 	}
 }
 .options {
 	grid-column: 1/-1;
 	margin-top: 14px;
+	align-self: center;
+	@media (max-width: $media-form+px) {
+		grid-column: span 2;
+		grid-row: 2;
+		margin-top: 0;
+	}
+	@media (max-width: $media-form2+px) {
+		grid-column: 1;
+		grid-row: 3;
+	}
+	@media (max-width: $media-ml+px) {
+		margin: 0 13px;
+	}
 }
 .submitBtn {
 	width: 221px;
 	height: 80px;
 	border-radius: 70px;
 	font-size: 24px;
-	@media (max-width: $media-m+px) {
+	align-self: end;
+	@media (max-width: $media-form+px) {
+		grid-column: 3;
+		justify-self: end;
+		height: 60px;
+	}
+	@media (max-width: $media-form2+px) {
+		grid-column: 2;
+		grid-row: 3;
+		font-size: 20px;
+	}
+	@media (max-width: $media-ml+px) {
+		grid-column: 1;
 		grid-row: 6;
-		margin: 0 auto;
+		margin: 18px auto 0;
+		padding: 0 32px;
+		width: auto;
 		height: 50px;
 		font-size: 16px;
-	}
-}
-.divider {
-	@media (max-width: $media-m+px) {
-		display: none;
-	}
-	&.mobileHorizontal {
-		@media (max-width: $media-m+px) {
-			display: block;
-			width: 70%;
-			height: 1px;
-			margin: 12px auto 0;
-			opacity: 0.5;
-		}
 	}
 }

@@ -6,6 +6,7 @@ import { changeMobileBreakpoint } from '../store/reducers/mobileBreakpointReduce
 import { register } from 'swiper/element/bundle'
 register() // register Swiper custom elements
 
+// TODO: window events module
 
 function initBreakpoints(dispatch) {
 	const mobileBPVariable = '--media-mobile'

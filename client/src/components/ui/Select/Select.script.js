@@ -26,6 +26,7 @@ const SelectScript = { // todo: сделать класс, т.к. может п�
 		listWrapper = this.elems.listWrapper,
 		list = this.elems.list
 	) {
+		// console.log(e.currentTarget);
 		if (!this.initialized) return;
 		if (list.children.length === 1) return;
 		const active = this.activeClass

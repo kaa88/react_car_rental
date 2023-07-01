@@ -2,29 +2,44 @@
 
 .wrapper {
 	position: relative;
-	width: 377px;
-	height: 80px;
+	display: grid;
+	height: 100%;
+	z-index: 5;
 }
 .title {
-	position: absolute;
-	left: 0;
-	top: -23px;
+	margin-bottom: 5px;
 	user-select: none;
 	color: var(--color01);
+	@media (max-width: $media-ml+px) {
+		margin-left: 13px;
+	}
+}
+.inputBox {
+	position: relative;
 }
 .input {
 	padding: 0 50px 0 21px;
 	width: 100%;
-	height: 100%;
+	height: 80px;
 	font-size: 20px;
 	border-radius: 70px;
 	background-color: var(--color01);
 	box-shadow: inset 0 1000px 0 0 var(--color01);
 	-webkit-text-fill-color: var(--color02);
-	border: solid 4px transparent;
+	border: solid 3px transparent;
 	transition: border-color $timer-hover;
 	&.active {
 		border-color: var(--color03);
+	}
+	@media (max-width: $media-form2+px) {
+		height: 60px;
+		font-size: 18px;
+		// border-width: 3px;
+	}
+	@media (max-width: $media-ml+px) {
+		height: 50px;
+		font-size: 16px;
+		border-width: 2px;
 	}
 }
 .iconBox {
@@ -36,15 +51,44 @@
 	display: flex;
 	align-items: center;
 	user-select: none;
+	svg {
+		width: 24px;
+		height: 24px;
+		@media (max-width: $media-ml+px) {
+			width: 20px;
+			height: 20px;
+		}
+	}
 }
 
+.wrapper .popup {
+	top: calc(100% + 6px);
+	@media (max-width: $media-ml+px) {
+		width: 100%;
+	}
+	@media (max-width: $media-date-select+px) { //400
+		margin-left: -18px;
+		width: 100vw;
+	}
+}
+.popupContent {
+	background-color: var(--color01);
+	color: var(--color02);
+	border-radius: 16px;
+	user-select: none;
+	box-shadow: 0 0 5px 0 var(--color06);
+	@media (max-width: $media-ml+px) {
+		width: 100%;
+	}
+}
 .searchList {
-	margin-right: 6px;
-	padding: 16px 10px;
-	width: calc(377px - 6px); // 377
+	margin-right: 10px;
+	padding: 16px 10px 10px;
+	width: calc(377px - 10px); // 377
 	min-height: 82px;
 	max-height: 380px;
-	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 	&::-webkit-scrollbar {
 		width: 16px;
 	}
@@ -62,6 +106,12 @@
 	scrollbar-width: thin; // = 8px
 	scrollbar-color: var(--color01) var(--color02); // thumb track
 	overscroll-behavior: contain;
+	@media (max-width: $media-ml+px) {
+		width: calc(100% - 10px);
+		&::-webkit-scrollbar {
+			width: 8px;
+		}
+	}
 }
 .searchListItem {
 	@include text-nowrap();
@@ -73,6 +123,9 @@
 	border-radius: 33px;
 	cursor: pointer;
 	transition: background-color $timer-hover, color $timer-hover;
+	@media (max-width: $media-ml+px) {
+		font-size: 16px;
+	}
 	&:hover {
 		background-color: var(--color02);
 		color: var(--color01);
