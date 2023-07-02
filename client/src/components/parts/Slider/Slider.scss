@@ -1,7 +1,32 @@
+@import "../../../styles/variables.scss";
+
+.swiper {
+	display: grid;
+}
 swiper-container {
 	width: 100%;
 }
+.swiperNavigationBox {
+	display: flex;
+	justify-content: center;
+	@media (max-width: $media-t+px) {
+		position: relative;
+		justify-content: space-between;
+		align-items: center;
+		height: 40px;
+		margin-bottom: 20px;
+		.paginationTop & {
+			grid-row: 1;
+		}
+	}
+	@media (max-width: $media-ts+px) {
+		margin-bottom: 0;
+	}
+}
 .swiper-button-prev, .swiper-button-next {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 80px;
 	height: 80px;
 	border-radius: 50%;
@@ -9,9 +34,25 @@ swiper-container {
 	fill: var(--color03);
 	overflow: hidden;
 	background-color: var(--color01);
-}
-.swiper-button-prev:after, .swiper-button-next:after {
-	display: none;
+	&:after {
+		display: none;
+	}
+	svg {
+		margin-left: 2px;
+		width: 28px;
+		height: 28px;
+	}
+	@media (max-width: $media-t+px) {
+		flex: 0 0 auto;
+		position: static;
+		margin: 0;
+		width: 40px;
+		height: 40px;
+		svg {
+			width: 15px;
+			height: 15px;
+		}
+	}
 }
 .swiper-button-prev {
 	left: 0;
@@ -25,6 +66,9 @@ swiper-container {
 	font-size: 0;
 	top: auto !important;
 	bottom: 0 !important;
+	@media (max-width: $media-t+px) {
+		position: relative;
+	}
 }
 .swiper-pagination-bullet {
 	position: relative;
@@ -34,21 +78,25 @@ swiper-container {
 	background-color: var(--color01);
 	border: solid 1px var(--color03);
 	overflow: hidden;
-}
-.swiper-pagination-bullet:after {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	display: inline-block;
-	width: 100%;
-	height: 100%;
-	background-color: var(--color03);
-	opacity: 0;
-	transition: opacity var(--timer-hover);
-}
-.swiper-pagination-bullet:hover:after {
-	opacity: 0.2;
+	@media (max-width: $media-t+px) {
+		width: 16px;
+		height: 16px;
+	}
+	&:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: inline-block;
+		width: 100%;
+		height: 100%;
+		background-color: var(--color03);
+		opacity: 0;
+		transition: opacity var(--timer-hover);
+	}
+	&:hover:after {
+		opacity: 0.2;
+	}
 }
 .swiper-pagination-bullet-active {
 	background-color: var(--color03);

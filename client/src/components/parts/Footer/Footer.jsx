@@ -9,6 +9,7 @@ import Link from '../../ui/Link/Link';
 import Logo from '../../ui/Logo/Logo';
 import TranslateHandler from '../../TranslateHandler';
 
+// разбить на компоненты как форму
 
 const Footer = memo(function Footer() {
 
@@ -38,7 +39,7 @@ const Footer = memo(function Footer() {
 							<div className={classes.contacts}>
 								<div className={classes.contactsItem}>
 									<Icon name='icon-phone' size='13.3px' />
-									<Link className={classes.contactsItemLink} href='tel:+1 234 567 89'>+123456789</Link>
+									<Link className={classes.contactsItemLink} href='tel:+123456789'>+1 234 567 89</Link>
 								</div>
 								<div className={classes.contactsItem}>
 									<Icon name='icon-at' size='13.3px' />

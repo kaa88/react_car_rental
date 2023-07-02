@@ -8,6 +8,8 @@ import Slider from '../Slider/Slider';
 import feedbackData from './Feedback.data.json';
 import TranslateHandler from '../../TranslateHandler';
 
+const IMAGE_DIR = 'img/'
+const IMAGE_EXT = '.jpg'
 
 const Feedback = memo(function Feedback() {
 
@@ -29,14 +31,19 @@ const Feedback = memo(function Feedback() {
 	function fillRating(rating) {
 		rating = Number(rating);
 		if (isNaN(rating)) return console.warn('WARN! Feedback rating is NaN. Expected "Number".')
-		return new Array(rating).fill(true).map((c,i) => <Icon key={i} name='icon-star' />);
+		return new Array(rating).fill(true).map((c,i) => <Icon key={i} name='icon-star' />)
 	}
-	let imageDir = 'img/';
+
 	let slides = feedbackData.map((item, index) =>
 		<swiper-slide key={index}>
 			<div className={classes.slide}>
 				<div className={classes.image}>
-					<Image src={`${imageDir}${item.img}`} />
+					<div className={classes.imgWrapper}>
+						{item.img
+							? <Image src={`${IMAGE_DIR}${item.img}`} />
+							: ''
+						}
+					</div>
 				</div>
 				<div className={classes.rating}>
 					{fillRating(item.rating)}
@@ -56,12 +63,10 @@ const Feedback = memo(function Feedback() {
 	return (
 		<TranslateHandler>
 			<section className={classes.feedback}>
-				<Container>
+				<Container className={classes.container}>
 					<h3 className='fz36 color02 tac'>?_Feedback</h3>
 					<Slider className={classes.slider} swiperParams={swiperParams}>{slides}</Slider>
-
 					<Button className={classes.addBtn} modif='negative'>?_Leave a feedback</Button>
-
 				</Container>
 			</section>
 		</TranslateHandler>

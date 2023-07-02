@@ -1,6 +1,11 @@
+@import "../../../styles/variables.scss";
+
 .faq {
 	position: relative;
 	padding: 30px 0 38px;
+	@media (max-width: $media-ml+px) {
+		padding: 20px 0 30px;
+	}
 }
 .bg {
 	position: absolute;
@@ -20,11 +25,27 @@
 		height: 100%;
 		background: linear-gradient(to left, var(--color02) 40%, transparent);
 	}
+	@media (max-width: $media-ml+px) {
+		&:before {
+			background: rgba(0,0,0,0.75);
+		}
+	}
+}
+.title {
+	font-size: 36px;
+	color: var(--color01);
+	@media (max-width: $media-ml+px) {
+		font-size: 24px;
+		text-align: center;
+	}
 }
 .faqItems {
 	margin-top: 32px;
 	max-width: 520px;
 	color: var(--color01);
+	@media (max-width: $media-ml+px) {
+		margin-top: 10px;
+	}
 }
 .item {
 	display: grid;
@@ -35,6 +56,9 @@
 	&:not(:last-child) {
 		margin-bottom: 24px;
 	}
+	@media (max-width: $media-ml+px) {
+		grid-column-gap: resize-multiplier(22, $media-ml, 1.4);
+	}
 }
 .index {
 	grid-row: 1/-1;
@@ -42,10 +66,14 @@
 }
 .divider {
 	grid-row: 1/-1;
+	opacity: 0.5;
 }
 .question {
 	font-size: 20px;
 	line-height: 23px;
+	@media (max-width: $media-ml+px) {
+		font-size: 16px;
+	}
 }
 .answer {
 	margin-top: 8px;

@@ -9,6 +9,7 @@ import Period from './components/Period/Period';
 import Button from '../../ui/Button/Button';
 import Divider from '../../ui/Divider/Divider';
 import Options from './components/Options/Options';
+import e from 'cors';
 
 /* TODO:
 	make popup scroll into view on open (mobile)
