@@ -1,9 +1,9 @@
 import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setOptions } from '../../../../../store/reducers/formDataReducer';
+import { setOptions } from '../../../../store/reducers/formDataReducer';
 import classes from './Options.module.scss';
-import TranslateHandler from '../../../../TranslateHandler';
-import InputCheckbox from '../../../../ui/Checkbox/InputCheckbox';
+import TranslateHandler from '../../../TranslateHandler';
+import InputCheckbox from '../../../ui/Checkbox/InputCheckbox';
 
 
 const DRIVER_AGE = 'driver_age'

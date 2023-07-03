@@ -1,4 +1,4 @@
-import { defaultOptions } from "../../components/parts/ReservationForm/components/Options/Options"
+import { defaultOptions } from "../../components/parts/ReservationForm/Options/Options"
 
 const defaultState = {
 	location: '',

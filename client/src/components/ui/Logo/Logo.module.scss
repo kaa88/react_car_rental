@@ -1,3 +1,5 @@
+@import "../../../styles/variables.scss";
+
 .default, .negative {
 	font-size: 16px;
 	span {
@@ -5,6 +7,7 @@
 		font-size: 1.5em;
 		font-weight: 500;
 		color: var(--color02);
+		letter-spacing: em(2);
 	}
 }
 .negative span {
@@ -17,10 +20,12 @@
 	white-space: nowrap;
 }
 .icon {
-	fill: var(--color03);
+	margin-left: em(2);
+	margin-right: em(2);
 	width: 1.5em;
 	height: 1.5em;
 	position: relative;
 	bottom: 0.2em;
 	transform: rotate(24deg);
+	fill: var(--color03);
 }

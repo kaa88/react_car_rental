@@ -1,12 +1,12 @@
 import { memo, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setLocation } from '../../../../../store/reducers/formDataReducer';
-import Utils from '../../../../../script/utilities';
+import { setLocation } from '../../../../store/reducers/formDataReducer';
+import Utils from '../../../../script/utilities';
 import script from './Location.script';
 import classes from './Location.module.scss';
-import TranslateHandler from '../../../../TranslateHandler';
-import Popup from '../../../../ui/Popup/Popup';
-import Icon from '../../../../ui/Icon/Icon';
+import TranslateHandler from '../../../TranslateHandler';
+import Popup from '../../../ui/Popup/Popup';
+import Icon from '../../../ui/Icon/Icon';
 
 /* TODO:
 	translate

@@ -1,4 +1,4 @@
-@import "../../../../../styles/variables.scss";
+@import "../../../../styles/variables.scss";
 
 body .popup {
 	left: calc(50% - 352px);
@@ -16,7 +16,7 @@ body .popup {
 	}
 	@media (max-width: $media-date-select+px) { //400
 		margin-left: -18px;
-		width: 100vw;
+		width: calc(100vw - var(--scrollbar-width));
 	}
 }
 .popupContent {
@@ -65,7 +65,7 @@ body .popup {
 	grid-template-columns: repeat(7, 48px);
 	cursor: default;
 	@media (max-width: $media-ms+px) {
-		grid-template-columns: repeat(7, 45px);
+		grid-template-columns: repeat(7, 41px);
 	}
 	& > * {
 		display: flex;
@@ -78,7 +78,7 @@ body .popup {
 	display: grid;
 	grid-template-columns: repeat(7, auto);
 	@media (max-width: $media-ms+px) {
-		grid-template-columns: repeat(7, 45px);
+		grid-template-columns: repeat(7, 41px);
 	}
 }
 .dateItem {

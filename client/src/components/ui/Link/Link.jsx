@@ -15,7 +15,7 @@ function Link({
 			{...props}
 		>
 			<span>
-				{props.children || 'Link'}
+				{props.children}
 			</span>
 		</a>
 	)

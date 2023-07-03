@@ -4,7 +4,8 @@
 	top: var(--header-position); //REQ!
 	// left: 0; //REQ!
 	z-index: 51; //REQ!
-	width: 100%; //REQ!
+	// width: 100%; //REQ!
+	width: 100vw; // test scroll lock
 	max-width: $page-max-width+px; //REQ! set it same as body max-width
 	// font-size: 0; // prevent random margins... careful with 'em'
 	// Set 'position' inside these subclasses because it depends on script options. But it is unlikely to change default 'positions' values. Try to work with it first.
@@ -52,6 +53,7 @@
 .level {
 	position: relative; //REQ! for submenu positioning
 	padding: 36px 0 16px 0;
+	padding-right: var(--scrollbar-width); // test scroll lock
 	background-color: var(--color01);
 	@media (min-width: $media-ts+1+px) {
 		transition: padding-top $timer-header-compact;
@@ -61,9 +63,11 @@
 	}
 	@media (max-width: $media-ts+px) {
 		padding: 14px 0 10px 0;
+		padding-right: var(--scrollbar-width); // test scroll lock
 	}
 	@media (max-width: $media-ml+px) {
 		padding: 2px 0 6px 0;
+		padding-right: var(--scrollbar-width); // test scroll lock
 	}
 }
 .container {

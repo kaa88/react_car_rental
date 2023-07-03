@@ -1,13 +1,13 @@
 import { memo, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectorCurrentMonth } from '../../../../../store/reducers/formPopupReducer';
+import { setSelectorCurrentMonth } from '../../../../store/reducers/formPopupReducer';
 import classes from './DateSelect.module.scss';
 import script from './DateSelect.script';
 import parentScript from '../Period/Period.script';
-import TranslateHandler from '../../../../TranslateHandler';
-import Popup from '../../../../ui/Popup/Popup';
-import Divider from '../../../../ui/Divider/Divider';
-import Select from '../../../../ui/Select/Select';
+import TranslateHandler from '../../../TranslateHandler';
+import Popup from '../../../ui/Popup/Popup';
+import Divider from '../../../ui/Divider/Divider';
+import Select from '../../../ui/Select/Select';
 
 const DateSelect = memo(function DateSelect({
 	className = '',

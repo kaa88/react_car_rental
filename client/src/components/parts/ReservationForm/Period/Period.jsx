@@ -1,9 +1,9 @@
 import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPeriod } from '../../../../../store/reducers/formDataReducer';
+import { setPeriod } from '../../../../store/reducers/formDataReducer';
 import script from './Period.script';
 import classes from './Period.module.scss';
-import TranslateHandler from '../../../../TranslateHandler';
+import TranslateHandler from '../../../TranslateHandler';
 import DateSelect from '../DateSelect/DateSelect';
 import TimeSelect from '../TimeSelect/TimeSelect';
 

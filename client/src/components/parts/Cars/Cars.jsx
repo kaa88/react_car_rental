@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react';
-import { useSelector } from 'react-redux';
-import store from '../../../store/index'
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveModal } from '../../../store/reducers/modalReducer'
 import classes from './Cars.module.scss';
 import Container from '../../ui/Container/Container';
 import Slider from '../Slider/Slider';
@@ -9,6 +9,7 @@ import Icon from '../../ui/Icon/Icon';
 import Button from '../../ui/Button/Button';
 import carData from './Cars.data.json';
 import TranslateHandler from '../../TranslateHandler';
+import Modal from '../../ui/Modal/Modal';
 
 const IMAGE_DIR = 'img/'
 const IMAGE_EXT = '.jpg'
@@ -84,6 +85,17 @@ const Cars = memo(function Cars() {
 			</div>
 		</swiper-slide>
 	)
+	
+	// modal
+	const dispatch = useDispatch()
+	const modalName = 'cars_modal'
+
+	function showModal() {
+		console.log('show modal');
+		dispatch(setActiveModal(modalName))
+	}
+
+	// end modal
 
 	return (
 		<TranslateHandler>
@@ -103,6 +115,12 @@ const Cars = memo(function Cars() {
 						<p className={classes.reqsItem}>?_Valid credit card and 300 euro deposit</p>
 						<p className={classes.reqsItem}>?_Official document (driver licence or passport) for another driver</p>
 					</div>
+
+					<button onClick={showModal} style={{width: '200px', height: '100px'}}>show modal</button>
+
+					<Modal name={modalName}>
+						<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error porro pariatur dolorem consequuntur totam, a itaque ipsam sed ducimus doloribus? Tempora voluptate ipsa tenetur delectus deleniti aliquam eius, dignissimos pariatur ipsum temporibus omnis deserunt impedit repellendus sapiente veritatis nulla minus perferendis quaerat illo eligendi neque architecto voluptatibus velit placeat alias!</p>
+					</Modal>
 
 				</Container>
 			</section>

@@ -2,11 +2,18 @@
 // - 'scroll-lock-item-m' class - for fixed elems ('margin-right' prop.)
 // - 'scroll-lock-item-pm' class - for static elems that will be hidden in menu
 
+
+// NEW:
+// works for any elem in body except "position:fixed" elems
+// use "padding-right: var(--scrollbar-width);" for them
+
 body.scroll-is-locked {
-	.scroll-lock-item-p, .scroll-lock-item-pm {
-		padding-right: var(--scrollbar-width);
-	}
-	.scroll-lock-item-m {
-		margin-right: var(--scrollbar-width);
-	}
+	width: calc(100vw - var(--scrollbar-width));
+	margin-right: var(--scrollbar-width);
+	// .scroll-lock-item-p, .scroll-lock-item-pm {
+	// 	padding-right: var(--scrollbar-width);
+	// }
+	// .scroll-lock-item-m {
+	// 	margin-right: var(--scrollbar-width);
+	// }
 }

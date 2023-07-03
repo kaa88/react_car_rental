@@ -3,16 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setActivePopup } from '../../../store/reducers/formPopupReducer';
 // import script from './ReservationForm.script';
 import classes from './ReservationForm.module.scss';
+import Location from './Location/Location';
+import Period from './Period/Period';
+import Options from './Options/Options';
 import TranslateHandler from '../../TranslateHandler';
-import Location from './components/Location/Location';
-import Period from './components/Period/Period';
 import Button from '../../ui/Button/Button';
-import Divider from '../../ui/Divider/Divider';
-import Options from './components/Options/Options';
-import e from 'cors';
 
 /* TODO:
-	make popup scroll into view on open (mobile)
 */
 
 const ReservationForm = memo(function ReservationForm({className = '', ...props}) {

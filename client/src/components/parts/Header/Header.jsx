@@ -72,12 +72,12 @@ const Header = memo(function Header({
 			<header className={header.className} ref={header.ref} {...props}>
 				<div className={classes.menuTurnoffArea} onClick={toggleMenu}></div>
 
-				<div className={`${classes.level} scroll-lock-item-p`}>
+				<div className={classes.level}>
 					<Container className={classes.container} modif='flex'>
 						<Logo className={classes.logo} />
 
 						<div className={menuHideWrapper.className} ref={menuHideWrapper.ref}>
-							<nav className={`${menu.className} scroll-lock-item-p`} ref={menu.ref}>
+							<nav className={menu.className} ref={menu.ref}>
 								<ul className={classes.menuItems}>
 									{menuLinks.map((item, index) =>
 										<li className={classes.menuItem} key={index}>

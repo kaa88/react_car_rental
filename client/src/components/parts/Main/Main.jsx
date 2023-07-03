@@ -14,7 +14,7 @@ const Main = memo(function Main() {
 	// console.log(headerMetrics);
 
 	return (
-		<main className={`${classes.main} scroll-lock-item-p`}>
+		<main className={classes.main}>
 			<Banner />
 			<Cars />
 			<Faq />

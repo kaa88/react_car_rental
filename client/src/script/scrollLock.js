@@ -22,6 +22,7 @@ export const scrollLock = {
 		// this.lock() // prevant some 'scroll' events when page loads... Header will unlock it
 	},
 	calcScrollbarWidth() {
+		if (document.body.classList.contains(lockedClassName)) return;
 		let scrollbarWidth = window.innerWidth - document.body.offsetWidth
 		if (scrollbarWidth !== this.scrollbarWidth) {
 			document.body.style.setProperty(cssVarName, scrollbarWidth + 'px')
