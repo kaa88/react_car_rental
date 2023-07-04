@@ -1,0 +1,51 @@
+@import "../../../../styles/variables.scss";
+
+.reqs {
+	position: relative;
+}
+.title {
+	margin-top: 60px;
+	font-size: 36px;
+	text-align: center;
+	@media (max-width: $media-ml+px) {
+		margin-top: 30px;
+		font-size: 24px;
+	}
+}
+.items {
+	margin-top: 30px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-column-gap: 30px;
+	@media (max-width: $media-tl+px) and (min-width: $media-mxl+1+px) {
+		grid-column-gap: resize-multiplier(30, $media-tl, 2);
+	}
+	@media (max-width: $media-mxl+px) {
+		grid-template-columns: 100%;
+		grid-row-gap: 10px;
+		justify-content: center;
+		max-width: 592px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	@media (max-width: $media-ml+px) {
+		margin-top: 10px;
+	}
+}
+.item {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	padding: 10px;
+	min-height: 179px;
+	font-size: 20px;
+	line-height: 23px;
+	background-color: var(--color01);
+	border: 1px solid var(--color02);
+	border-top-width: 3px;
+	border-radius: 16px;
+	@media (max-width: $media-mxl+px) {
+		min-height: 100px;
+	}
+}

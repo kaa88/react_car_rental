@@ -4,7 +4,7 @@ import Icon from '../../ui/Icon/Icon';
 import Button from '../../ui/Button/Button';
 
 
-function Slider({modif = '', className = '', children, swiperParams, ...props}) {
+function Slider({modif = '', className = '', children, swiperParams = {}, ...props}) {
 
 	const swiperEl = useRef()
 	useEffect(() => {

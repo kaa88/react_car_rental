@@ -148,7 +148,7 @@
 
 .buttonPrev, .buttonNext {
 	// required any style to make react classname exist
-	color: #000;
+	user-select: none;
 }
 .feedback .pagination {
 	left: calc(50% + 15px - 4px);

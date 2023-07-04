@@ -5,7 +5,7 @@ import './styles/index.scss';
 import Header from './components/parts/Header/Header';
 import Main from './components/parts/Main/Main';
 import Footer from './components/parts/Footer/Footer';
-// import Modal from './components/parts/Modal/Modal';
+import Modal from './components/ui/Modal/Modal';
 
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
 			<Header />
 			<Main />
 			<Footer />
-			{/* Modal */}
+			<Modal />
 		</>
 	)
 }

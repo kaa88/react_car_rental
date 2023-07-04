@@ -1,48 +1,52 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveModal } from '../../../store/reducers/modalReducer'
+import { setModalIsActive } from '../../../store/reducers/modalReducer'
 import Utils from '../../../script/utilities';
+import { scrollLock } from '../../../script/scrollLock';
+import TranslateHandler from '../../TranslateHandler';
 import classes from './Modal.module.scss';
 import Icon from '../Icon/Icon';
-import { scrollLock } from '../../../script/scrollLock';
 
 const lockScroll = scrollLock.lock
 const unlockScroll = scrollLock.unlock
+const timeout = Utils.getCssVariable('timer-modal')*1000
 
 
 const Modal = memo(function Modal({modif = 'default', className = '', name = '', children, ...props}) {
 
 	const dispatch = useDispatch()
-	const activeModal = useSelector(state => state.modal)
-	let activeClass = activeModal === name ? classes.active : ''
+	const {isActive, content} = useSelector(state => state.modal)
+	let [activeClass, setActiveClass] = useState('')
 
-	if (activeClass) lockScroll()
+	useEffect(() => {
+		if (isActive) openModal()
+	})
 
-	const timeout = Utils.getCssVariable('timer-modal')*1000
-
+	function openModal() {
+		lockScroll()
+		setActiveClass(classes.active)
+	}
 	function closeModal() {
 		unlockScroll(timeout)
-		dispatch(setActiveModal(''))
+		setActiveClass('')
+		dispatch(setModalIsActive(false))
 	}
 
-	const rejectWindowClosePopupEvent = function(e) {
-		e.stopPropagation()
-	}
 
 	return (
-		<div className={`${className} ${classes[modif]} ${activeClass}`} {...props}>
-			{/* <div className={`${classes.window} ${activeClass}`} name={name}> */}
+		<TranslateHandler>
+			<div className={`${className} ${classes[modif]} ${activeClass}`} {...props}>
 				<div className={classes.closeArea} onClick={closeModal}></div>
 				<div className={classes.wrapper}>
 					<div className={classes.closeButton} onClick={closeModal}>
 						<Icon name='icon-cross' />
 					</div>
 					<div className={classes.content}>
-						{children}
+						{content}
 					</div>
 				</div>
-			{/* </div> */}
-		</div>
+			</div>
+		</TranslateHandler>
 	)
 })
 

@@ -1,325 +1,117 @@
-[
-	{
-		"id": 1,
-		"text": "Cars"
-	},
-	{
-		"id": 2,
-		"text": "Feedback"
-	},
-	{
-		"id": 3,
-		"text": "F.A.Q"
-	},
-	{
-		"id": 4,
-		"text": "How to rent"
-	},
-	{
-		"id": 5,
-		"text": "Sign in"
-	},
-	{
-		"id": 6,
-		"text": "Rent a car"
-	},
-	{
-		"id": 7,
-		"text": "Location"
-	},
-	{
-		"id": 8,
-		"text": "Pick up"
-	},
-	{
-		"id": 9,
-		"text": "Return"
-	},
-	{
-		"id": 10,
-		"text": "Reserve"
-	},
-	{
-		"id": 11,
-		"text": "Driver's age 21+"
-	},
-	{
-		"id": 12,
-		"text": "Return to different location"
-	},
-	{
-		"id": 13,
-		"text": "Delivery to other town is possible"
-	},
-	{
-		"id": 14,
-		"text": "Rent no matter where you are"
-	},
-	{
-		"id": 15,
-		"text": "Fine cars"
-	},
-	{
-		"id": 16,
-		"text": "All cars in perfect condition"
-	},
-	{
-		"id": 17,
-		"text": "Best price"
-	},
-	{
-		"id": 18,
-		"text": "Don't even try to find better"
-	},
-	{
-		"id": 19,
-		"text": "Our cars"
-	},
-	{
-		"id": 20,
-		"text": "Engine displacement"
-	},
-	{
-		"id": 21,
-		"text": "Transmission"
-	},
-	{
-		"id": 22,
-		"text": "Passengers"
-	},
-	{
-		"id": 23,
-		"text": "Large bags"
-	},
-	{
-		"id": 24,
-		"text": "Doors"
-	},
-	{
-		"id": 25,
-		"text": "per day"
-	},
-	{
-		"id": 26,
-		"text": "Book now"
-	},
-	{
-		"id": 27,
-		"text": "View details"
-	},
-	{
-		"id": 28,
-		"text": "Requirements"
-	},
-	{
-		"id": 29,
-		"text": "You must be 21+ years old"
-	},
-	{
-		"id": 30,
-		"text": "Personal driver licence"
-	},
-	{
-		"id": 31,
-		"text": "Valid credit card and 300 euro deposit"
-	},
-	{
-		"id": 32,
-		"text": "Official document (driver licence or passport) for another driver"
-	},
-	{
-		"id": 33,
-		"text": "F.A.Q"
-	},
-	{
-		"id": 34,
-		"text": "What documents are needed for car rental?"
-	},
-	{
-		"id": 35,
-		"text": "Passport or driver licence"
-	},
-	{
-		"id": 36,
-		"text": "What to do in case of an accident?"
-	},
-	{
-		"id": 37,
-		"text": "In the event of an accident, call the number specified in the contract"
-	},
-	{
-		"id": 38,
-		"text": "Is it possible to deliver the car to another city?"
-	},
-	{
-		"id": 39,
-		"text": "Delivery of the car is possible within a radius of 20 km from the office"
-	},
-	{
-		"id": 40,
-		"text": "Is it possible to transfer the vehicle to third parties?"
-	},
-	{
-		"id": 41,
-		"text": "Allowed if they are written in the contract"
-	},
-	{
-		"id": 42,
-		"text": "What is not included in the rental price?"
-	},
-	{
-		"id": 43,
-		"text": "The price does not include fuel"
-	},
-	{
-		"id": 44,
-		"text": "Are there mileage restrictions?"
-	},
-	{
-		"id": 45,
-		"text": "250 km per day, anything above costs 0.20 cents per kilometer"
-	},
-	{
-		"id": 46,
-		"text": "Feedback"
-	},
-	{
-		"id": 47,
-		"text": "Leave a feedback"
-	},
-	{
-		"id": 48,
-		"text": "Phone"
-	},
-	{
-		"id": 49,
-		"text": "Call me back"
-	},
-	{
-		"id": 50,
-		"text": "manual"
-	},
-	{
-		"id": 51,
-		"text": "automat"
-	},
-	{
-		"id": 52,
-		"text": "All rights reserved."
-	},
-	{
-		"id": 53,
-		"text": "Terms of Use"
-	},
-	{
-		"id": 54,
-		"text": "Privacy Policy"
-	},
+{
+	"1": "Cars", // доделать 
+	"2": "Feedback",
+	"3": "F.A.Q",
+	"4": "How to rent",
+	"5": "Sign in",
+	"6": "Rent a car",
+	"7": "Location",
+	"8": "Pick up",
+	"9": "Return",
+	"10": "Reserve",
+	"11": "Driver's age 21+",
+	"12": "Return to different location",
+	"13": "Delivery to other town is possible",
+	"14": "Rent no matter where you are",
+	"15": "Fine cars",
+	"16": "All cars in perfect condition",
+	"17": "Best price",
+	"18": "Don't even try to find better",
+	"19": "Our cars",
+	"20": "Engine displacement",
+	"21": "Transmission",
+	"22": "Passengers",
+	"23": "Large bags",
+	"24": "Doors",
+	"25": "per day",
+	"26": "Book now",
+	"27": "View details",
+	"28": "Requirements",
+	"29": "You must be 21+ years old",
+	"30": "Personal driver licence",
+	"31": "Valid credit card and 300 euro deposit",
+	"32": "Official document (driver licence or passport) for another driver",
+	"33": "F.A.Q",
+	"34": "What documents are needed for car rental?",
+	"35": "Passport or driver licence",
+	"36": "What to do in case of an accident?",
+	"37": "In the event of an accident, call the number specified in the contract",
+	"38": "Is it possible to deliver the car to another city?",
+	"39": "Delivery of the car is possible within a radius of 20 km from the office",
+	"40": "Is it possible to transfer the vehicle to third parties?",
+	"41": "Allowed if they are written in the contract",
+	"42": "What is not included in the rental price?",
+	"43": "The price does not include fuel",
+	"44": "Are there mileage restrictions?",
+	"45": "250 km per day, anything above costs 0.20 cents per kilometer",
+	"46": "Feedback",
+	"47": "Leave a feedback",
+	"48": "Phone",
+	"49": "Call me back",
+	"50": "manual",
+	"51": "automat",
+	"52": "All rights reserved.",
+	"53": "Terms of Use",
+	"54": "Privacy Policy",
 
+	"101": "January",
+	"102": "February",
+	"103": "March",
+	"104": "April",
+	"105": "May",
+	"106": "June",
+	"107": "July",
+	"108": "August",
+	"109": "September",
+	"110": "October",
+	"111": "November",
+	"112": "December",
+	"113": "Monday",
+	"114": "Tuesday",
+	"115": "Wednesday",
+	"116": "Thursday",
+	"117": "Friday",
+	"118": "Saturday",
+	"119": "Sunday",
+	"120": "Mo",
+	"121": "Tu",
+	"122": "We",
+	"123": "Th",
+	"124": "Fr",
+	"125": "Sa",
+	"126": "Su",
 
-
-	{
-		"id": 101,
-		"text": "January"
-	},
-	{
-		"id": 102,
-		"text": "February"
-	},
-	{
-		"id": 103,
-		"text": "March"
-	},
-	{
-		"id": 104,
-		"text": "April"
-	},
-	{
-		"id": 105,
-		"text": "May"
-	},
-	{
-		"id": 106,
-		"text": "June"
-	},
-	{
-		"id": 107,
-		"text": "July"
-	},
-	{
-		"id": 108,
-		"text": "August"
-	},
-	{
-		"id": 109,
-		"text": "September"
-	},
-	{
-		"id": 110,
-		"text": "October"
-	},
-	{
-		"id": 111,
-		"text": "November"
-	},
-	{
-		"id": 112,
-		"text": "December"
-	},
-	{
-		"id": 113,
-		"text": "Monday"
-	},
-	{
-		"id": 114,
-		"text": "Tuesday"
-	},
-	{
-		"id": 115,
-		"text": "Wednesday"
-	},
-	{
-		"id": 116,
-		"text": "Thursday"
-	},
-	{
-		"id": 117,
-		"text": "Friday"
-	},
-	{
-		"id": 118,
-		"text": "Saturday"
-	},
-	{
-		"id": 119,
-		"text": "Sunday"
-	},
-	{
-		"id": 120,
-		"text": "Mo"
-	},
-	{
-		"id": 121,
-		"text": "Tu"
-	},
-	{
-		"id": 122,
-		"text": "We"
-	},
-	{
-		"id": 123,
-		"text": "Th"
-	},
-	{
-		"id": 124,
-		"text": "Fr"
-	},
-	{
-		"id": 125,
-		"text": "Sa"
-	},
-	{
-		"id": 126,
-		"text": "Su"
-	}
-]
+	"130": "Satellite Navigation",
+	"131": "17\" Alloy Wheels",
+	"132": "Bluetooth",
+	"133": "Airbags",
+	"134": "Cruise Control",
+	"135": "Speed Limiter",
+	"136": "Automatic Headlamps",
+	"137": "Centre console",
+	"138": "Push Button Start",
+	"139": "DAB Digital Radio",
+	"140": "USB Functionality",
+	"141": "Daytime Running Lights",
+	"142": "Multi function steering wheel",
+	"143": "Multi Function Display",
+	"144": "Electric Windows Front and Rear",
+	"145": "Remote Central Locking",
+	"146": "Electric Door Mirrors",
+	"147": "Quick-Clear Heated Windscreen",
+	"148": "6 Speed Manual Transmission",
+	"149": "Trip Computer",
+	"150": "Traction Control",
+	"151": "Lane Keeping Aid and Alert",
+	"152": "Electric Parking Brake (EPB)",
+	"153": "Front Cup Holders",
+	"154": "Centre Armrest",
+	"155": "Isofix",
+	"156": "Hazard Warning Lights",
+	"157": "Interior Lights",
+	"158": "Rev Counter",
+	"159": "2 Keys",
+	"160": "Stop/Start Function",
+	"161": "Trip Computer",
+	"162": "Front Fog Lights"
+}

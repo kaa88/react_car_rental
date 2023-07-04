@@ -321,5 +321,140 @@
 	{
 		"id": 126,
 		"text": "Вс"
+	},
+
+
+
+	{
+		"id": 130,
+		"text": "Satellite Navigation"
+	},
+	{
+		"id": 131,
+		"text": "17\" Alloy Wheels"
+	},
+	{
+		"id": 132,
+		"text": "Bluetooth"
+	},
+	{
+		"id": 133,
+		"text": "Airbags"
+	},
+	{
+		"id": 134,
+		"text": "Cruise Control"
+	},
+	{
+		"id": 135,
+		"text": "Speed Limiter"
+	},
+	{
+		"id": 136,
+		"text": "Automatic Headlamps"
+	},
+	{
+		"id": 137,
+		"text": "Centre console"
+	},
+	{
+		"id": 138,
+		"text": "Push Button Start"
+	},
+	{
+		"id": 139,
+		"text": "DAB Digital Radio"
+	},
+	{
+		"id": 140,
+		"text": "USB Functionality"
+	},
+	{
+		"id": 141,
+		"text": "Daytime Running Lights"
+	},
+	{
+		"id": 142,
+		"text": "Multi function steering wheel"
+	},
+	{
+		"id": 143,
+		"text": "Multi Function Display"
+	},
+	{
+		"id": 144,
+		"text": "Electric Windows Front and Rear"
+	},
+	{
+		"id": 145,
+		"text": "Remote Central Locking"
+	},
+	{
+		"id": 146,
+		"text": "Electric Door Mirrors"
+	},
+	{
+		"id": 147,
+		"text": "Quick-Clear Heated Windscreen"
+	},
+	{
+		"id": 148,
+		"text": "6 Speed Manual Transmission"
+	},
+	{
+		"id": 149,
+		"text": "Trip Computer"
+	},
+	{
+		"id": 150,
+		"text": "Traction Control"
+	},
+	{
+		"id": 151,
+		"text": "Lane Keeping Aid and Alert"
+	},
+	{
+		"id": 152,
+		"text": "Electric Parking Brake (EPB)"
+	},
+	{
+		"id": 153,
+		"text": "Front Cup Holders"
+	},
+	{
+		"id": 154,
+		"text": "Centre Armrest"
+	},
+	{
+		"id": 155,
+		"text": "Isofix"
+	},
+	{
+		"id": 156,
+		"text": "Hazard Warning Lights"
+	},
+	{
+		"id": 157,
+		"text": "Interior Lights"
+	},
+	{
+		"id": 158,
+		"text": "Rev Counter"
+	},
+	{
+		"id": 159,
+		"text": "2 Keys"
+	},
+	{
+		"id": 160,
+		"text": "Stop/Start Function"
+	},
+	{
+		"id": 161,
+		"text": "Trip Computer"
+	},
+	{
+		"id": 162,
+		"text": "Front Fog Lights"
 	}
 ]
