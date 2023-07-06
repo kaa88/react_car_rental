@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect, useState, useRef, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import carData from './Cars.data.json';
 import classes from './Cars.module.scss';
@@ -22,6 +22,25 @@ const Cars = memo(function Cars() {
 	let currency = {
 		name: currencyStore.current,
 		rate: currencyStore.rates[currencyStore.current]
+	}
+
+
+	const modalName = 'cars'
+	const defaultCurrentSlideModalContent = getCurrentSlideModalContent(0)
+	let [currentSlideModalContent, setCurrentSlideModalContent] = useState(defaultCurrentSlideModalContent)
+
+	function getCurrentSlideModalContent(index = 0) {
+		const car = carData.cars[index]
+		return {
+			carId: car.id,
+			carName: car.name,
+			carImage: getCarImage(car),
+			carParams: getCarParams(car),
+			carAdditionalParams: getCarAdditionalParams(car)
+		}
+	}
+	function updateModalContent(index) {
+		setCurrentSlideModalContent(getCurrentSlideModalContent(index))
 	}
 
 	function getCarImage(car) {
@@ -58,17 +77,45 @@ const Cars = memo(function Cars() {
 		</>
 	)}
 
-	function getModalContent(car) {
+	function getModalReadMoreContent(s) {
+		console.log('get content');
+		return <p>hello</p>
+	}
+
+	function getModalContent() {
+		const content = currentSlideModalContent
 		return (
 			<div className={classes.modalContent}>
 				<Container className={classes.container}>
-					<div className={classes.carName}>{car.name}</div>
-					<div className={classes.carImage}>{getCarImage(car)}</div>
-					<div className={classes.carParams}>{getCarParams(car)}</div>
-					<div className={classes.carAdditionalParams}>{getCarAdditionalParams(car)}</div>
-					<Button className={classes.actionBtn} data-car-id={car.id}>?_Book now</Button>
-					{/* button read more */}
-					{/* button return */}
+					<div className={classes.carName}>{content.carName}</div>
+					<div className={classes.carImage}>{content.carImage}</div>
+					<div className={classes.carParams}>{content.carParams}</div>
+					<div className={classes.carAdditionalParams}>{content.carAdditionalParams}</div>
+					<ModalLink name={modalName} onClick={getModalReadMoreContent}>
+						<div className={classes.readMoreBtn}>
+							<span>{`?_Read more`}</span>
+							<Icon className={classes.readMoreBtnIcon} name='icon-arrow-short' />
+						</div>
+					</ModalLink>
+					<Button className={classes.actionBtn} data-car-id={content.carId}>?_Book now</Button>
+					<ModalLink name=''>
+						<div className={classes.returnButton}>?_Return</div>
+					</ModalLink>
+				</Container>
+			</div>
+		)
+	}
+
+	function getModalReadMoreContent() {
+		const content = currentSlideModalContent
+		return (
+			<div className={classes.modalReadMoreContent}>
+				<Container className={classes.container}>
+					<div className={classes.carName}>{content.carName}</div>
+					<div className={classes.carAdditionalParams}>{content.carAdditionalParams}</div>
+					<ModalLink name={modalName} onClick={getModalContent}>
+						<div className={classes.returnButton}>?_Return</div>
+					</ModalLink>
 				</Container>
 			</div>
 		)
@@ -84,8 +131,8 @@ const Cars = memo(function Cars() {
 					<p className={classes.carPrice}>{getCarPrice(car)}</p>
 					<div className={classes.actionButtons}>
 						<Button className={classes.actionBtn} data-car-id={car.id}>?_Book now</Button>
-						<ModalLink name={car.id} content={getModalContent(car)}>
-							<Button className={classes.infoBtn} modif='negative'>?_View details</Button>
+						<ModalLink name={modalName} onClick={getModalContent}>
+							<Button className={classes.infoBtn} data-car-id={car.id} modif='negative'>?_View details</Button>
 						</ModalLink>
 					</div>
 				</div>
@@ -113,7 +160,12 @@ const Cars = memo(function Cars() {
 			<section className={classes.cars}>
 				<Container>
 					<h3 className='fz36 tac color02'>?_Our cars</h3>
-					<Slider modif='paginationTop' className={classes.slider} swiperParams={swiperParams}>
+					<Slider
+						modif='paginationTop'
+						className={classes.slider}
+						swiperParams={swiperParams}
+						onSlideChange={updateModalContent}
+					>
 						{getSlides()}
 					</Slider>
 					<Requirements />

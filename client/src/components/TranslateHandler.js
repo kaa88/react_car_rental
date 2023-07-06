@@ -4,21 +4,11 @@ import lang_en from '../language/en.json'
 import lang_ru from '../language/ru.json'
 import lang_de from '../language/de.json'
 
-const deps = {
+const languages = {
 	en: lang_en,
 	ru: lang_ru,
 	de: lang_de
 }
-Object.entries(deps).forEach(([key, value]) => {
-	let checkId = []
-	let duplicates = {}
-	value.forEach((item) => {
-		if (checkId[item.id]) duplicates[item.id] = true
-		else checkId[item.id] = true
-	})
-	let keys = Object.keys(duplicates)
-	if (keys.length) console.warn(`Duplicates of "id" [${keys}] have been found in "${key}" language package. It may cause errors with translation.`)
-})
 
 const MATCHING_SYMBOLS = /^\?_/
 
@@ -62,10 +52,10 @@ export function translate(str, language) {
 	if (language.current === language.default) return str
 	if (!isNaN(Number(str))) return str
 	
-	let match = deps[language.default].find(item => item.text.toLocaleLowerCase() === str.toLocaleLowerCase())
+	let match = Object.entries(languages[language.default]).find(([key, value]) => value.toLocaleLowerCase() === str.toLocaleLowerCase())
 	if (match) {
-		let translate = deps[language.current].find(item => item.id === match.id)
-		if (translate) return translate.text
+		let translation = languages[language.current][match[0]]
+		return translation ? translation : ''
 	}
 	// else
 	let shortStr, shortStrLength = 30;

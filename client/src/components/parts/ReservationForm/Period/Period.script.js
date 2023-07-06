@@ -81,8 +81,7 @@ const Period = {
 			}
 		}
 		else {
-			const getSystemFormatDate = addTimeToDateString.bind(this)
-			let systemFormatDate = getSystemFormatDate(period[actionType], value)
+			let systemFormatDate = addTimeToDateString.call(this, period[actionType], value)
 			period[actionType] = systemFormatDate ? new Date(systemFormatDate) : ''
 		}
 		return period

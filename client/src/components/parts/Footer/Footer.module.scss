@@ -33,7 +33,9 @@
 		}
 	}
 	.callButton {
-		flex: 0 0 140px;
+		flex: 0 0 auto;
+		// flex: 0 0 140px;
+		padding: 0 24px;
 		height: 51px;
 		border-radius: 53px;
 	}

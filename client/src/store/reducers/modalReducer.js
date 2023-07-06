@@ -1,15 +1,16 @@
 const defaultState = {
-	isActive: false,
+	// isActive: false,
+	activeModal: '',
 	content: ''
 }
 
-const SET_MODAL_IS_ACTIVE = 'SET_MODAL_IS_ACTIVE'
+const SET_ACTIVE_MODAL = 'SET_ACTIVE_MODAL'
 const SET_MODAL_CONTENT = 'SET_MODAL_CONTENT'
 
 export default function modalReducer(state = defaultState, action) {
 	switch(action.type) {
-		case SET_MODAL_IS_ACTIVE:
-			return {...state, isActive: action.payload}
+		case SET_ACTIVE_MODAL:
+			return {...state, activeModal: action.payload}
 		case SET_MODAL_CONTENT:
 			return {...state, content: action.payload}
 		default:
@@ -17,9 +18,9 @@ export default function modalReducer(state = defaultState, action) {
 	}
 }
 
-export function setModalIsActive(value) {
+export function setActiveModal(value) {
 	return {
-		type: SET_MODAL_IS_ACTIVE,
+		type: SET_ACTIVE_MODAL,
 		payload: value
 	}
 }

@@ -4,13 +4,22 @@ import Icon from '../../ui/Icon/Icon';
 import Button from '../../ui/Button/Button';
 
 
-function Slider({modif = '', className = '', children, swiperParams = {}, ...props}) {
+function Slider({modif = '',
+	className = '',
+	children,
+	swiperParams = {},
+	onSlideChange = function(carId){},
+	...props}) {
 
 	const swiperEl = useRef()
 	useEffect(() => {
 		const sw = Object.assign(swiperEl.current, swiperParams)
 		sw.initialize()
-	})
+		swiperEl.current.addEventListener('slidechange', (e) => {
+			onSlideChange(e.detail[0].realIndex)
+			console.log(e.detail[0].realIndex);
+		})
+	}, [])
 
 	const prevButtonClassName = `swiper-button-prev ${swiperParams.navigation.prevEl.substring(1)}`
 	const nextButtonClassName = `swiper-button-next ${swiperParams.navigation.nextEl.substring(1)}`

@@ -1,325 +1,117 @@
-[
-	{
-		"id": 1,
-		"text": "Autos"
-	},
-	{
-		"id": 2,
-		"text": "Rückmeldung"
-	},
-	{
-		"id": 3,
-		"text": "F.A.Q"
-	},
-	{
-		"id": 4,
-		"text": "So mieten Sie"
-	},
-	{
-		"id": 5,
-		"text": "Eintreten"
-	},
-	{
-		"id": 6,
-		"text": "Autovermietungen"
-	},
-	{
-		"id": 7,
-		"text": "Standort"
-	},
-	{
-		"id": 8,
-		"text": "Abholen"
-	},
-	{
-		"id": 9,
-		"text": "Zurückkehren"
-	},
-	{
-		"id": 10,
-		"text": "Reservieren"
-	},
-	{
-		"id": 11,
-		"text": "Alter des Fahrers 21+"
-	},
-	{
-		"id": 12,
-		"text": "Kehren Sie an einen anderen Ort zurück"
-	},
-	{
-		"id": 13,
-		"text": "Eine Lieferung in eine andere Stadt ist möglich"
-	},
-	{
-		"id": 14,
-		"text": "Mieten Sie, egal wo Sie sind"
-	},
-	{
-		"id": 15,
-		"text": "Feine Autos"
-	},
-	{
-		"id": 16,
-		"text": "Alle Autos in einwandfreiem Zustand"
-	},
-	{
-		"id": 17,
-		"text": "Bestpreis"
-	},
-	{
-		"id": 18,
-		"text": "Versuchen Sie nicht einmal, etwas Besseres zu finden"
-	},
-	{
-		"id": 19,
-		"text": "Unsere Autos"
-	},
-	{
-		"id": 20,
-		"text": "Hubraum"
-	},
-	{
-		"id": 21,
-		"text": "Transmission"
-	},
-	{
-		"id": 22,
-		"text": "Passagiere"
-	},
-	{
-		"id": 23,
-		"text": "Große Taschen"
-	},
-	{
-		"id": 24,
-		"text": "Türen"
-	},
-	{
-		"id": 25,
-		"text": "pro tag"
-	},
-	{
-		"id": 26,
-		"text": "Buchen Sie jetzt"
-	},
-	{
-		"id": 27,
-		"text": "Details anzeigen"
-	},
-	{
-		"id": 28,
-		"text": "Anforderungen"
-	},
-	{
-		"id": 29,
-		"text": "Sie müssen mindestens 21 Jahre alt sein"
-	},
-	{
-		"id": 30,
-		"text": "Persönlicher Führerschein"
-	},
-	{
-		"id": 31,
-		"text": "Gültige Kreditkarte und 300 Euro Kaution"
-	},
-	{
-		"id": 32,
-		"text": "Offizielles Dokument (Führerschein oder Reisepass) für einen anderen Fahrer"
-	},
-	{
-		"id": 33,
-		"text": "F.A.Q"
-	},
-	{
-		"id": 34,
-		"text": "Welche Dokumente werden für die Autovermietung benötigt?"
-	},
-	{
-		"id": 35,
-		"text": "Reisepass oder Führerschein"
-	},
-	{
-		"id": 36,
-		"text": "Was tun bei einem Unfall?"
-	},
-	{
-		"id": 37,
-		"text": "Rufen Sie im Falle eines Unfalls die im Vertrag angegebene Nummer an"
-	},
-	{
-		"id": 38,
-		"text": "Ist es möglich, das Auto in eine andere Stadt zu liefern?"
-	},
-	{
-		"id": 39,
-		"text": "Die Lieferung des Autos ist im Umkreis von 20 km um das Büro möglich"
-	},
-	{
-		"id": 40,
-		"text": "Ist eine Weitergabe des Fahrzeugs an Dritte möglich?"
-	},
-	{
-		"id": 41,
-		"text": "Zulässig, wenn sie im Vertrag festgehalten sind"
-	},
-	{
-		"id": 42,
-		"text": "Was ist nicht im Mietpreis enthalten?"
-	},
-	{
-		"id": 43,
-		"text": "Der Preis beinhaltet keinen Treibstoff"
-	},
-	{
-		"id": 44,
-		"text": "Gibt es Kilometerbeschränkungen?"
-	},
-	{
-		"id": 45,
-		"text": "250 km pro Tag, alles darüber kostet 0,20 Cent pro Kilometer"
-	},
-	{
-		"id": 46,
-		"text": "Rückmeldung"
-	},
-	{
-		"id": 47,
-		"text": "Hinterlassen Sie ein Feedback"
-	},
-	{
-		"id": 48,
-		"text": "Telefon"
-	},
-	{
-		"id": 49,
-		"text": "Ruf mich zurück"
-	},
-	{
-		"id": 50,
-		"text": "handbuch"
-	},
-	{
-		"id": 51,
-		"text": "automat"
-	},
-	{
-		"id": 52,
-		"text": "Alle Rechte vorbehalten."
-	},
-	{
-		"id": 53,
-		"text": "Nutzungsbedingungen"
-	},
-	{
-		"id": 54,
-		"text": "Datenschutz-Bestimmungen"
-	},
+{
+	"1": "Autos",
+	"2": "Rückmeldung",
+	"3": "F.A.Q",
+	"4": "So mieten Sie",
+	"5": "Eintreten",
+	"6": "Autovermietungen",
+	"7": "Standort",
+	"8": "Abholen",
+	"9": "Zurückkehren",
+	"10": "Reservieren",
+	"11": "Alter des Fahrers 21+",
+	"12": "Kehren Sie an einen anderen Ort zurück",
+	"13": "Eine Lieferung in eine andere Stadt ist möglich",
+	"14": "Mieten Sie, egal wo Sie sind",
+	"15": "Feine Autos",
+	"16": "Alle Autos in einwandfreiem Zustand",
+	"17": "Bestpreis",
+	"18": "Versuchen Sie nicht einmal, etwas Besseres zu finden",
+	"19": "Unsere Autos",
+	"20": "Hubraum",
+	"21": "Transmission",
+	"22": "Passagiere",
+	"23": "Große Taschen",
+	"24": "Türen",
+	"25": "pro tag",
+	"26": "Buchen Sie jetzt",
+	"27": "Details anzeigen",
+	"28": "Anforderungen",
+	"29": "Sie müssen mindestens 21 Jahre alt sein",
+	"30": "Persönlicher Führerschein",
+	"31": "Gültige Kreditkarte und 300 Euro Kaution",
+	"32": "Offizielles Dokument (Führerschein oder Reisepass) für einen anderen Fahrer",
+	"33": "F.A.Q",
+	"34": "Welche Dokumente werden für die Autovermietung benötigt?",
+	"35": "Reisepass oder Führerschein",
+	"36": "Was tun bei einem Unfall?",
+	"37": "Rufen Sie im Falle eines Unfalls die im Vertrag angegebene Nummer an",
+	"38": "Ist es möglich, das Auto in eine andere Stadt zu liefern?",
+	"39": "Die Lieferung des Autos ist im Umkreis von 20 km um das Büro möglich",
+	"40": "Ist eine Weitergabe des Fahrzeugs an Dritte möglich?",
+	"41": "Zulässig, wenn sie im Vertrag festgehalten sind",
+	"42": "Was ist nicht im Mietpreis enthalten?",
+	"43": "Der Preis beinhaltet keinen Treibstoff",
+	"44": "Gibt es Kilometerbeschränkungen?",
+	"45": "250 km pro Tag, alles darüber kostet 0,20 Cent pro Kilometer",
+	"46": "Rückmeldung",
+	"47": "Hinterlassen Sie ein Feedback",
+	"48": "Telefon",
+	"49": "Ruf mich zurück",
+	"50": "handbuch",
+	"51": "automat",
+	"52": "Alle Rechte vorbehalten.",
+	"53": "Nutzungsbedingungen",
+	"54": "Datenschutz-Bestimmungen",
+	"55": "Siehe Karte",
 
+	"101": "Januar",
+	"102": "Februar",
+	"103": "März",
+	"104": "April",
+	"105": "Mai",
+	"106": "Juni",
+	"107": "Juli",
+	"108": "August",
+	"109": "September",
+	"110": "Oktober",
+	"111": "November",
+	"112": "Dezember",
+	"113": "Montag",
+	"114": "Dienstag",
+	"115": "Mittwoch",
+	"116": "Donnerstag",
+	"117": "Freitag",
+	"118": "Samstag",
+	"119": "Sonntag",
+	"120": "Mo",
+	"121": "Di",
+	"122": "Mi",
+	"123": "Do",
+	"124": "Fr",
+	"125": "Sa",
+	"126": "So",
 
-
-	{
-		"id": 101,
-		"text": "Januar"
-	},
-	{
-		"id": 102,
-		"text": "Februar"
-	},
-	{
-		"id": 103,
-		"text": "März"
-	},
-	{
-		"id": 104,
-		"text": "April"
-	},
-	{
-		"id": 105,
-		"text": "Mai"
-	},
-	{
-		"id": 106,
-		"text": "Juni"
-	},
-	{
-		"id": 107,
-		"text": "Juli"
-	},
-	{
-		"id": 108,
-		"text": "August"
-	},
-	{
-		"id": 109,
-		"text": "September"
-	},
-	{
-		"id": 110,
-		"text": "Oktober"
-	},
-	{
-		"id": 111,
-		"text": "November"
-	},
-	{
-		"id": 112,
-		"text": "Dezember"
-	},
-	{
-		"id": 113,
-		"text": "Montag"
-	},
-	{
-		"id": 114,
-		"text": "Dienstag"
-	},
-	{
-		"id": 115,
-		"text": "Mittwoch"
-	},
-	{
-		"id": 116,
-		"text": "Donnerstag"
-	},
-	{
-		"id": 117,
-		"text": "Freitag"
-	},
-	{
-		"id": 118,
-		"text": "Samstag"
-	},
-	{
-		"id": 119,
-		"text": "Sonntag"
-	},
-	{
-		"id": 120,
-		"text": "Mo"
-	},
-	{
-		"id": 121,
-		"text": "Di"
-	},
-	{
-		"id": 122,
-		"text": "Mi"
-	},
-	{
-		"id": 123,
-		"text": "Do"
-	},
-	{
-		"id": 124,
-		"text": "Fr"
-	},
-	{
-		"id": 125,
-		"text": "Sa"
-	},
-	{
-		"id": 126,
-		"text": "So"
-	}
-]
+	"130": "Satellitennavigation",
+	"131": "17\" Leichtmetallräder",
+	"132": "Bluetooth",
+	"133": "Airbags",
+	"134": "Tempomat",
+	"135": "Geschwindigkeitsbegrenzer",
+	"136": "Automatische Scheinwerfer",
+	"137": "Mittelkonsole",
+	"138": "Start per Knopfdruck",
+	"139": "DAB-Digitalradio",
+	"140": "USB-Funktionalität",
+	"141": "Tagfahrlicht",
+	"142": "Multifunktionslenkrad",
+	"143": "Multifunktionsdisplay",
+	"144": "Elektrische Fensterheber vorne und hinten",
+	"145": "Ferngesteuerte Zentralverriegelung",
+	"146": "Elektrische Außenspiegel",
+	"147": "Schnell zu reinigende, beheizte Windschutzscheibe",
+	"148": "6-Gang-Schaltgetriebe",
+	"149": "Reisecomputer",
+	"150": "Traktionskontrolle",
+	"151": "Spurhalteassistent und -warnung",
+	"152": "Elektrische Feststellbremse (EPB)",
+	"153": "Getränkehalter vorne",
+	"154": "Mittelarmlehne",
+	"155": "Isofix",
+	"156": "Warnleuchten",
+	"157": "Innenbeleuchtung",
+	"158": "Drehzahlmesser",
+	"159": "2 Schlüssel",
+	"160": "Stopp-/Startfunktion",
+	"161": "Nebelscheinwerfer vorne"
+}

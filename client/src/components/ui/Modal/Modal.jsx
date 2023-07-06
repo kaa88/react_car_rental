@@ -1,6 +1,6 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setModalIsActive } from '../../../store/reducers/modalReducer'
+import { setActiveModal } from '../../../store/reducers/modalReducer'
 import Utils from '../../../script/utilities';
 import { scrollLock } from '../../../script/scrollLock';
 import TranslateHandler from '../../TranslateHandler';
@@ -12,15 +12,17 @@ const unlockScroll = scrollLock.unlock
 const timeout = Utils.getCssVariable('timer-modal')*1000
 
 
-const Modal = memo(function Modal({modif = 'default', className = '', name = '', children, ...props}) {
+const Modal = memo(function Modal({className = '', children, ...props}) {
 
 	const dispatch = useDispatch()
-	const {isActive, content} = useSelector(state => state.modal)
+	const {activeModal, content} = useSelector(state => state.modal)
+	let modif = activeModal ? activeModal : 'default'
 	let [activeClass, setActiveClass] = useState('')
 
 	useEffect(() => {
-		if (isActive) openModal()
-	})
+		if (activeModal) openModal()
+		else closeModal()
+	}, [activeModal])
 
 	function openModal() {
 		lockScroll()
@@ -29,9 +31,8 @@ const Modal = memo(function Modal({modif = 'default', className = '', name = '',
 	function closeModal() {
 		unlockScroll(timeout)
 		setActiveClass('')
-		dispatch(setModalIsActive(false))
+		dispatch(setActiveModal(''))
 	}
-
 
 	return (
 		<TranslateHandler>

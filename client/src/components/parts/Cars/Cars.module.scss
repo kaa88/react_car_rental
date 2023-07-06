@@ -17,6 +17,10 @@ $offset-resize-multiplier: 3.3;
 		max-width: 638px;
 	}
 }
+.buttonPrev, .buttonNext, .pagination {
+	// required any style to make react classname exist
+	user-select: none;
+}
 .slide {
 	position: relative;
 	background-color: var(--color01);
@@ -36,9 +40,10 @@ $offset-resize-multiplier: 3.3;
 	}
 }
 
-.modalContent {
+.modalContent, .modalReadMoreContent {
 	position: relative;
 	.container {
+		position: relative;
 		padding: 16px;
 		width: calc(100vw - 40px);
 		@media (max-width: $media-ts+px) {
@@ -49,6 +54,9 @@ $offset-resize-multiplier: 3.3;
 			width: 100%;
 		}
 	}
+}
+.modalReadMoreContent {
+
 }
 
 .carImage {
@@ -177,7 +185,7 @@ $offset-resize-multiplier: 3.3;
 		grid-template-columns: repeat(2, 1fr);
 		grid-column-gap: 20px;
 		opacity: 0.5;
-		& > *:nth-child(n+9) {
+		.modalContent & > *:nth-child(n+9) {
 			display: none;
 		}
 		&:before {
@@ -245,17 +253,52 @@ $offset-resize-multiplier: 3.3;
 	@media (max-width: $media-ts+px) {
 		margin-top: 10px;
 		height: 43px;
-		font-size: 16px;
+		// font-size: 16px;
 	}
 	.modalContent & {
 		margin: 30px auto 0;
 	}
 }
 
-.buttonPrev, .buttonNext {
-	// required any style to make react classname exist
-	user-select: none;
+.readMoreBtn {
+	position: relative;
+	margin-left: auto;
+	margin-right: 0;
+	margin: 10px 10px 0 auto;
+	display: flex;
+	width: min-content;
+	white-space: nowrap;
+	align-items: center;
+	cursor: pointer;
+	color: var(--color02);
+	fill: var(--color02);
+	&Icon {
+		margin-top: 2px;
+		margin-left: 10px;
+		width: 10px;
+		height: 10px;
+	}
+	&:before {
+		content: '';
+		position: absolute;
+		bottom: -2px;
+		left: 0;
+		display: inline-block;
+		width: 100%;
+		height: 1px;
+		background-color: var(--color02);
+	}
 }
-.pagination {
-	user-select: none;
+.returnButton {
+	margin: 8px auto 30px;
+	max-width: 200px;
+	text-align: center;
+	line-height: 43px;
+	font-size: 20px;
+	cursor: pointer;
+	.cars & {
+		@media (min-width: $media-ts+1+px) {
+			display: none;
+		}
+	}
 }

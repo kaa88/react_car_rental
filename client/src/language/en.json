@@ -1,5 +1,5 @@
 {
-	"1": "Cars", // доделать 
+	"1": "Cars",
 	"2": "Feedback",
 	"3": "F.A.Q",
 	"4": "How to rent",
@@ -53,6 +53,7 @@
 	"52": "All rights reserved.",
 	"53": "Terms of Use",
 	"54": "Privacy Policy",
+	"55": "See map",
 
 	"101": "January",
 	"102": "February",
@@ -112,6 +113,5 @@
 	"158": "Rev Counter",
 	"159": "2 Keys",
 	"160": "Stop/Start Function",
-	"161": "Trip Computer",
-	"162": "Front Fog Lights"
+	"161": "Front Fog Lights"
 }

@@ -1,23 +1,20 @@
-import { memo, useEffect, useMemo, useRef, useState, cloneElement } from 'react';
+import { memo, cloneElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setModalIsActive, setModalContent } from '../../../store/reducers/modalReducer'
-// import Utils from '../../../script/utilities';
-// import { scrollLock } from '../../../script/scrollLock';
-// import TranslateHandler from '../../TranslateHandler';
-// import classes from './ModalLink.module.scss';
-// import Icon from '../Icon/Icon';
-
-// const lockScroll = scrollLock.lock
-// const unlockScroll = scrollLock.unlock
-// const timeout = Utils.getCssVariable('timer-modal')*1000
+import { setActiveModal, setModalContent } from '../../../store/reducers/modalReducer'
 
 
-const ModalLink = memo(function ModalLink({name = '', content, children, ...props}) {
+const ModalLink = memo(function ModalLink({
+	name = '',
+	content = '',
+	onClick: getContent = function(){},
+	children,
+	...props
+}) {
 
 	const dispatch = useDispatch()
 	function showModal() {
-		dispatch(setModalContent(content))
-		dispatch(setModalIsActive(true))
+		dispatch(setActiveModal(name))
+		if (name) dispatch(setModalContent(getContent()))
 	}
 
 	const newProps = {...children.props, onClick: showModal}
