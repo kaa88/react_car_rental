@@ -77,11 +77,6 @@ const Cars = memo(function Cars() {
 		</>
 	)}
 
-	function getModalReadMoreContent(s) {
-		console.log('get content');
-		return <p>hello</p>
-	}
-
 	function getModalContent() {
 		const content = currentSlideModalContent
 		return (
@@ -91,7 +86,7 @@ const Cars = memo(function Cars() {
 					<div className={classes.carImage}>{content.carImage}</div>
 					<div className={classes.carParams}>{content.carParams}</div>
 					<div className={classes.carAdditionalParams}>{content.carAdditionalParams}</div>
-					<ModalLink name={modalName} onClick={getModalReadMoreContent}>
+					<ModalLink name={modalName} content={getModalReadMoreContent}>
 						<div className={classes.readMoreBtn}>
 							<span>{`?_Read more`}</span>
 							<Icon className={classes.readMoreBtnIcon} name='icon-arrow-short' />
@@ -113,7 +108,7 @@ const Cars = memo(function Cars() {
 				<Container className={classes.container}>
 					<div className={classes.carName}>{content.carName}</div>
 					<div className={classes.carAdditionalParams}>{content.carAdditionalParams}</div>
-					<ModalLink name={modalName} onClick={getModalContent}>
+					<ModalLink name={modalName} content={getModalContent}>
 						<div className={classes.returnButton}>?_Return</div>
 					</ModalLink>
 				</Container>
@@ -131,7 +126,7 @@ const Cars = memo(function Cars() {
 					<p className={classes.carPrice}>{getCarPrice(car)}</p>
 					<div className={classes.actionButtons}>
 						<Button className={classes.actionBtn} data-car-id={car.id}>?_Book now</Button>
-						<ModalLink name={modalName} onClick={getModalContent}>
+						<ModalLink name={modalName} content={getModalContent}>
 							<Button className={classes.infoBtn} data-car-id={car.id} modif='negative'>?_View details</Button>
 						</ModalLink>
 					</div>

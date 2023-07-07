@@ -14,9 +14,11 @@ swiper-container {
 		justify-content: space-between;
 		align-items: center;
 		height: 40px;
+		margin-top: 10px;
 		margin-bottom: 20px;
 		.paginationTop & {
 			grid-row: 1;
+			margin-top: 0;
 		}
 	}
 	@media (max-width: $media-ts+px) {

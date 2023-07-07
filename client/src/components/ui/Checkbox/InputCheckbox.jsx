@@ -4,6 +4,7 @@ import Icon from '../Icon/Icon';
 
 
 function InputCheckbox({
+	className = '',
 	name = '',
 	onChange = function(){},
 	checked = false,
@@ -20,7 +21,7 @@ function InputCheckbox({
 	}
 
 	return (
-		<label className={classes.wrapper}>
+		<label className={`${className} ${classes.wrapper}`}>
 			<input
 				type='checkbox'
 				name={name}

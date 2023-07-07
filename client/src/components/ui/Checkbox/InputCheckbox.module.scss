@@ -1,7 +1,17 @@
+@import "../../../styles/variables.scss";
+
+// make 2 types of chkb (text clickable or not)... make styles controlled from parent el
+
 .wrapper {
 	display: inline-flex;
 	input {
 		display: none;
+	}
+	input:checked ~ .box {
+		background-color: var(--color01);
+	}
+	input:checked ~ .box .boxIcon {
+		opacity: 1;
 	}
 }
 .box {
@@ -15,20 +25,14 @@
 	border: 1px solid var(--color01);
 	border-radius: 2px;
 	cursor: pointer;
-	transition: background-color var(--timer-hover);
+	transition: background-color $timer-hover;
 }
 .boxIcon {
 	width: 7.4px;
 	height: 5.7px;
 	fill: var(--color02);
 	opacity: 0;
-	transition: opacity var(--timer-hover);
-}
-.wrapper input:checked ~ .box {
-	background-color: var(--color01);
-}
-.wrapper input:checked ~ .box .boxIcon {
-	opacity: 1;
+	transition: opacity $timer-hover;
 }
 .text {
 	margin-left: 8px;

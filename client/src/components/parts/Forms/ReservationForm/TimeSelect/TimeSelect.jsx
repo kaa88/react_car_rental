@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import classes from './TimeSelect.module.scss';
 import script from './TimeSelect.script';
 import parentScript from '../Period/Period.script';
-import TranslateHandler from '../../../TranslateHandler';
-import Popup from '../../../ui/Popup/Popup';
-import Divider from '../../../ui/Divider/Divider';
+import TranslateHandler from '../../../../TranslateHandler';
+import Popup from '../../../../ui/Popup/Popup';
+import Divider from '../../../../ui/Divider/Divider';
 
 const TimeSelect = memo(function TimeSelect({
 	className = '',

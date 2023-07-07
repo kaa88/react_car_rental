@@ -1,6 +1,5 @@
 const defaultState = {
-	// isActive: false,
-	activeModal: '',
+	activeModal: null,
 	content: ''
 }
 

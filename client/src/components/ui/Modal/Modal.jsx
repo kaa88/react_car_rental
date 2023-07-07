@@ -3,32 +3,39 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setActiveModal } from '../../../store/reducers/modalReducer'
 import Utils from '../../../script/utilities';
 import { scrollLock } from '../../../script/scrollLock';
+import { transitionLock } from '../../../script/transLock';
 import TranslateHandler from '../../TranslateHandler';
 import classes from './Modal.module.scss';
 import Icon from '../Icon/Icon';
 
 const lockScroll = scrollLock.lock
 const unlockScroll = scrollLock.unlock
+const transitionIsLocked = transitionLock.check
 const timeout = Utils.getCssVariable('timer-modal')*1000
 
+// TODO: multi-window modal
 
-const Modal = memo(function Modal({className = '', children, ...props}) {
+const Modal = memo(function Modal({ className = '' }) {
 
 	const dispatch = useDispatch()
 	const {activeModal, content} = useSelector(state => state.modal)
-	let modif = activeModal ? activeModal : 'default'
 	let [activeClass, setActiveClass] = useState('')
 
 	useEffect(() => {
-		if (activeModal) openModal()
+		if (activeModal && content) openModal()
 		else closeModal()
-	}, [activeModal])
+	}, [activeModal, content])
+
+	const contentRef = useRef()
 
 	function openModal() {
 		lockScroll()
 		setActiveClass(classes.active)
+		contentRef.current.scrollTo({top: 0})
 	}
 	function closeModal() {
+		if (activeModal === null) return;
+		if (transitionIsLocked(timeout)) return;
 		unlockScroll(timeout)
 		setActiveClass('')
 		dispatch(setActiveModal(''))
@@ -36,13 +43,13 @@ const Modal = memo(function Modal({className = '', children, ...props}) {
 
 	return (
 		<TranslateHandler>
-			<div className={`${className} ${classes[modif]} ${activeClass}`} {...props}>
+			<div className={`${className} ${classes.default} ${activeModal} ${activeClass}`}>
 				<div className={classes.closeArea} onClick={closeModal}></div>
 				<div className={classes.wrapper}>
 					<div className={classes.closeButton} onClick={closeModal}>
 						<Icon name='icon-cross' />
 					</div>
-					<div className={classes.content}>
+					<div className={classes.content} ref={contentRef}>
 						{content}
 					</div>
 				</div>

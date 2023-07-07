@@ -1,13 +1,13 @@
 import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActivePopup } from '../../../store/reducers/formPopupReducer';
+import { setActivePopup } from '../../../../store/reducers/formPopupReducer';
 // import script from './ReservationForm.script';
 import classes from './ReservationForm.module.scss';
 import Location from './Location/Location';
 import Period from './Period/Period';
 import Options from './Options/Options';
-import TranslateHandler from '../../TranslateHandler';
-import Button from '../../ui/Button/Button';
+import TranslateHandler from '../../../TranslateHandler';
+import Button from '../../../ui/Button/Button';
 
 /* TODO:
 */

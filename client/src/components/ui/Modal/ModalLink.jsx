@@ -1,18 +1,30 @@
 import { memo, cloneElement } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setActiveModal, setModalContent } from '../../../store/reducers/modalReducer'
+import { useDispatch } from 'react-redux';
+import { setActiveModal, setModalContent } from '../../../store/reducers/modalReducer';
+import ModalStaticContent from './ModalStaticContent';
+import Utils from '../../../script/utilities';
+import { transitionLock } from '../../../script/transLock';
 
+const transitionIsLocked = transitionLock.check
+const timeout = Utils.getCssVariable('timer-modal')*1000
 
-const ModalLink = memo(function ModalLink({
-	name = '',
-	content = '',
-	onClick: getContent = function(){},
-	children,
-	...props
-}) {
-
+const ModalLink = memo(function ModalLink({ name = '', content = '', children }) {
+	
 	const dispatch = useDispatch()
+
+	function getContent() {
+		if (name) {
+			if (content) {
+				if (typeof content === 'function') return content()
+				else return content
+			}
+			else return <ModalStaticContent name={name} />
+		}
+		else return ''
+	}
+
 	function showModal() {
+		if (transitionIsLocked(timeout)) return;
 		dispatch(setActiveModal(name))
 		if (name) dispatch(setModalContent(getContent()))
 	}

@@ -11,6 +11,7 @@ import Logo from '../../ui/Logo/Logo';
 // import Select from '../../ui/Select/Select';
 import Icon from '../../ui/Icon/Icon';
 import OptionsSelect from '../../ui/OptionsSelect/OptionsSelect';
+import ModalLink from '../../ui/Modal/ModalLink'
 
 export let actualElems = {} // this var allows scripts to have updated CustomElements
 
@@ -102,7 +103,9 @@ const Header = memo(function Header({
 							<OptionsSelect type='currency' />
 							<OptionsSelect type='language' />
 							{/* <Select type='language'></Select> */}
-							<Button className={classes.accountButton} modif='negative'>?_Sign in</Button>
+							<ModalLink name='signin'>
+								<Button className={classes.accountButton} modif='negative'>?_Sign in</Button>
+							</ModalLink>
 						</div>
 
 						{/* <!-- script will add current page href if print-address tag is empty --> */}
