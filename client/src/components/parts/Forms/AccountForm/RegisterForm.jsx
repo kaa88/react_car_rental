@@ -23,11 +23,13 @@ const RegisterForm = memo(function RegisterForm() {
 					<InputPassword className={classes.InputPassword} placeholder='?_Password' />
 					<InputPassword className={classes.InputPassword} placeholder='?_Repeat password' />
 
-					<InputCheckbox className={classes.checkbox}>
-						<span>I have read and agreed with</span>
-						<a className={classes.link} href="#" target='_blank'>terms</a>
-						<span>&</span>
-						<a className={classes.link} href="#" target='_blank'>conditions</a>
+					<InputCheckbox className={classes.checkbox} clickableText={false}>
+						<span className={classes.checkboxText}>
+							<span>?_I have read and agreed with</span>
+							<a className={classes.link} href="#" target='_blank'>?_terms</a>
+							<span>?_&</span>
+							<a className={classes.link} href="#" target='_blank'>?_conditions</a>
+						</span>
 					</InputCheckbox>
 
 					<Button className={classes.button} onClick={handleRegister}>

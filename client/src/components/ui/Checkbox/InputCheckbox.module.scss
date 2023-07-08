@@ -1,8 +1,9 @@
 @import "../../../styles/variables.scss";
 
-// make 2 types of chkb (text clickable or not)... make styles controlled from parent el
-
 .wrapper {
+	display: inline-flex;
+}
+.label {
 	display: inline-flex;
 	input {
 		display: none;
@@ -22,20 +23,26 @@
 	width: 16px;
 	height: 16px;
 	background-color: transparent;
-	border: 1px solid var(--color01);
+	border: 1px solid var(--color02);
 	border-radius: 2px;
 	cursor: pointer;
 	transition: background-color $timer-hover;
+	.light & {
+		border-color: var(--color01);
+	}
 }
 .boxIcon {
-	width: 7.4px;
-	height: 5.7px;
+	width: 8px;
+	height: 8px;
 	fill: var(--color02);
 	opacity: 0;
 	transition: opacity $timer-hover;
 }
 .text {
 	margin-left: 8px;
-	color: var(--color01);
+	color: var(--color02);
 	user-select: none;
+	.light & {
+		color: var(--color01);
+	}
 }

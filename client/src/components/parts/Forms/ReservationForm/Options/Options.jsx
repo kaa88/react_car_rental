@@ -37,6 +37,7 @@ const Options = memo(function Options({className = '', ...props}) {
 					name={DRIVER_AGE}
 					onChange={handleCheckboxChange}
 					checked={formDataOptions[DRIVER_AGE]}
+					modif='light'
 				>
 					?_Driver's age 21+
 				</InputCheckbox>
@@ -45,6 +46,7 @@ const Options = memo(function Options({className = '', ...props}) {
 					name={DIFFERENT_LOCATION}
 					onChange={handleCheckboxChange}
 					checked={formDataOptions[DIFFERENT_LOCATION]}
+					modif='light'
 				>
 					?_Return to different location
 				</InputCheckbox>

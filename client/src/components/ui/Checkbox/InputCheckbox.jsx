@@ -4,10 +4,12 @@ import Icon from '../Icon/Icon';
 
 
 function InputCheckbox({
+	modif = 'dark',
 	className = '',
 	name = '',
 	onChange = function(){},
 	checked = false,
+	clickableText = true,
 	children,
 	...props
 }) {
@@ -20,20 +22,25 @@ function InputCheckbox({
 		onChange(name, newState)
 	}
 
+	const textEl = <span className={classes.text}>{children}</span>
+
 	return (
-		<label className={`${className} ${classes.wrapper}`}>
-			<input
-				type='checkbox'
-				name={name}
-				checked={state}
-				onChange={handleChange}
-				{...props}
-			/>
-			<span className={classes.box}>
-				<Icon className={classes.boxIcon} name='icon-ok' />
-			</span>
-			<span className={classes.text}>{children}</span>
-		</label>
+		<div className={`${className} ${classes[modif]} ${classes.wrapper}`}>
+			<label className={classes.label}>
+				<input
+					type='checkbox'
+					name={name}
+					checked={state}
+					onChange={handleChange}
+					{...props}
+				/>
+				<span className={classes.box}>
+					<Icon className={classes.boxIcon} name='icon-ok' />
+				</span>
+				{clickableText ? textEl : ''}
+			</label>
+			{clickableText ? '' : textEl}
+		</div>
 	)
 }
 
