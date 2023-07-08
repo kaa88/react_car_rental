@@ -13,6 +13,16 @@ import Icon from '../../ui/Icon/Icon';
 import OptionsSelect from '../../ui/OptionsSelect/OptionsSelect';
 import ModalLink from '../../ui/Modal/ModalLink'
 
+
+export const headerDefaultState = {
+	headerIsInitialized: false,
+	headerIsCompact: false,
+	headerIsSharing: false,
+	headerIsFixed: false,
+	menuIsActive: false,
+	returnHeader: function(){}
+}
+
 export let actualElems = {} // this var allows scripts to have updated CustomElements
 
 const Header = memo(function Header({

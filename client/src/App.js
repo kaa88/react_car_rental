@@ -2,10 +2,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { initOnloadScripts, initInstantScripts } from './script/index'
 import './styles/index.scss';
-import Header from './components/parts/Header/Header';
-import Main from './components/parts/Main/Main';
-import Footer from './components/parts/Footer/Footer';
-import Modal from './components/ui/Modal/Modal';
+import Router from './router/index';
+import WindowEvents from './components/WindowEvents';
 
 
 function App() {
@@ -15,10 +13,8 @@ function App() {
 
 	return (
 		<>
-			<Header />
-			<Main />
-			<Footer />
-			<Modal />
+			<Router />
+			<WindowEvents />
 		</>
 	)
 }

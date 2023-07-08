@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useMemo, useState, memo } from 'react';
-import { useSelector } from 'react-redux';
-import { useCustomElement } from '../../../hooks/useCustomElement';
+import { useCallback, useEffect, useMemo, useState, memo, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveSelect } from '../../../store/reducers/selectReducer';
 import { translate } from '../../TranslateHandler';
-import script from './Select.script'
+import utilities from '../../../script/utilities';
 import classes from './Select.module.scss';
 import Icon from '../Icon/Icon';
 
@@ -10,40 +10,41 @@ import Icon from '../Icon/Icon';
 const Select = memo(function Select({
 	modif = 'default',
 	className = '',
-	children,
 	data,
 	onSelect = function(){},
 	applyTranslator = false,
+	children,
 	...props
 }) {
-	// console.log(data);
-	const language = useSelector(state => state.language) // alternative usage of TranslateHandler
-
 	const defaultData = {
 		selected: '',
 		list: []
 	}
 	if (typeof data !== 'object' || Array.isArray(data)) data = defaultData
-	let [prevData, setPrevData] = useState(data.list)
 
-	const select = useCustomElement(`${className} ${classes[modif]}`)
-	const header = useCustomElement(classes.header)
-	// const headerText = useCustomElement(classes.headerText, data.selected)
-	const listWrapper = useCustomElement(classes.listWrapper)
-	const list = useCustomElement(classes.list)
+	const [currentSelect] = useState(utilities.getRandomId())
+	const dispatch = useDispatch()
+	const activeSelect = useSelector(state => state.select.active)
+	const activeClass = (activeSelect === currentSelect && data.list.length) ? classes.active : ''
 
-	const toggleList = function(event) {
-		script.toggleList(event, header, listWrapper, list)
+	const toggleList = function(e) {
+		e.stopPropagation()
+		let value = activeClass ? '' : currentSelect
+		dispatch(setActiveSelect(value))
 	}
 
-	const selectItem = useCallback((event) => {
-		let onSelectValue = script.selectItem(event)//, headerText)
+	const wrapperRef = useRef()
+	useEffect(() => {
+		let listWrapperEl = wrapperRef.current
+		let listEl = listWrapperEl.children[0]
+		listWrapperEl.style.height = activeClass ? listEl.offsetHeight + 'px' : ''
+	}, [activeClass])
 
-		// list.setChildren(customOptionList)
-		// data = {...data, selected: onSelectValue}
-		// setPrevData(data)
-		onSelect(onSelectValue)
+	const selectItem = useCallback((e) => {
+		onSelect(e.target.dataset.value)
 	}, [onSelect])
+
+	const language = useSelector(state => state.language) // alternative usage of TranslateHandler
 
 	let customOptionList = useMemo(() => data.list.map((item, index) => {
 		let className = classes.option
@@ -56,49 +57,17 @@ const Select = memo(function Select({
 	}
 	), [data, selectItem, applyTranslator, language])
 
-
-	if (list.children === '' || data.selected !== prevData.selected) {
-		list.setChildren(customOptionList)
-		setPrevData(data)
-	}
-	useEffect(() => {
-		list.setChildren(customOptionList)
-	}, [language])
-	// for (let i = 0; i < data.list.length; i++) {
-	// 	if (list.children === '' || data.list[i] !== prevData.list[i] || ) {
-	// 		list.setChildren(customOptionList)
-	// 		setPrevData(data.list)
-	// 		break
-	// 	}
-	// }
-
-	useEffect(() => { //once
-		const elems = {
-			select,
-			header,
-			// headerText,
-			listWrapper,
-			list,
-		}
-		script.init({elems, classes})
-		script.setupEvents()
-		return () => script.removeEvents()
-	}, [])
-
-
-	// console.log('render Select')
 	return (
-		<div className={select.className} ref={select.ref} {...props}>
-			<div className={header.className} ref={header.ref} onClick={toggleList}>
+		<div className={`${className} ${classes[modif]}`} {...props}>
+			<div className={`${classes.header} ${activeClass}`} onClick={toggleList}>
 				<span className={classes.headerText}>{applyTranslator ? translate(`?_${data.selected}`, language) : data.selected}</span>
-				{/* <span className={headerText.className} ref={headerText.ref}>{headerText.children}</span> */}
 				<span className={classes.headerExpandIcon}>
 					<Icon name='icon-arrow-short' />
 				</span>
 			</div>
-			<div className={listWrapper.className} ref={listWrapper.ref} onClick={toggleList}>
-				<ul className={list.className} ref={list.ref}>
-					{list.children}
+			<div className={`${classes.listWrapper} ${activeClass}`} ref={wrapperRef} onClick={toggleList}>
+				<ul className={classes.list}>
+					{customOptionList}
 				</ul>
 			</div>
 		</div>

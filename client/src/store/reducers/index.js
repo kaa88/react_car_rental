@@ -5,6 +5,7 @@ import mobileBreakpointReducer from './mobileBreakpointReducer'
 import formPopupReducer from './formPopupReducer'
 import formDataReducer from './formDataReducer'
 import modalReducer from './modalReducer'
+import selectReducer from './selectReducer'
 
 export const rootReducer = combineReducers({
 	currency: currencyReducer,
@@ -13,4 +14,5 @@ export const rootReducer = combineReducers({
 	formPopup: formPopupReducer,
 	formData: formDataReducer,
 	modal: modalReducer,
+	select: selectReducer,
 })

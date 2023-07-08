@@ -10,7 +10,7 @@ import TranslateHandler from '../../TranslateHandler';
 import Contacts from './Contacts/Contacts';
 import Links from './Links/Links';
 import Copyright from './Copyright/Copyright';
-import Link from '../../ui/Link/Link';
+import Link from '../../ui/TextLink/TextLink';
 
 
 const Footer = memo(function Footer() {

@@ -1,0 +1,42 @@
+import { memo } from 'react';
+import classes from './Policy.module.scss';
+import Container from '../../ui/Container/Container';
+import TranslateHandler from '../../TranslateHandler';
+
+
+const Policy = memo(function Policy() {
+
+	const document = [
+		"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus corrupti tenetur cupiditate sed recusandae suscipit tempore qui similique necessitatibus facere? Ex dolores aspernatur, reiciendis exercitationem tenetur iusto expedita ab aut, ea minus voluptatum corporis eos quisquam neque numquam ipsa at error quaerat odio quas consequatur nesciunt nisi. Excepturi adipisci harum porro, ducimus maiores voluptatibus illum, perferendis, laudantium in debitis provident quidem alias!",
+
+		"Itaque delectus modi reprehenderit atque. Quas, adipisci maxime fugiat eligendi consequuntur similique nobis magnam exercitationem omnis deserunt culpa velit perspiciatis. Repellat culpa unde voluptatibus, aperiam quis numquam amet dolorum nam maxime hic! Dicta, autem! Praesentium eum dicta ducimus repudiandae eos debitis quae, ut eaque itaque quisquam sed asperiores officiis corrupti enim magnam, suscipit error corporis? Cum tenetur illum nam voluptatem, iste ducimus officia commodi explicabo facilis mollitia rem laudantium, assumenda in dicta distinctio quibusdam sequi quae.",
+		"Vel nulla esse error! Magnam ea fugit unde ex illum minus, dicta, iste aspernatur, cumque sint deleniti odio facilis! Molestiae natus cupiditate aliquid vero aut unde quibusdam quisquam culpa fugit porro error esse reprehenderit nam, animi ex, laboriosam debitis est nesciunt, quia sint saepe distinctio eaque assumenda quod. Nam laudantium repellendus eveniet sunt nesciunt itaque, quis earum cum soluta quos rerum temporibus expedita mollitia suscipit delectus, maiores placeat vel corporis nulla cumque modi consequatur nihil doloribus! Harum necessitatibus, fugiat explicabo tempora est deleniti aperiam alias, in nemo repudiandae praesentium, dolorem ipsa illum debitis ratione consectetur consequatur quasi? Ab sint rerum quis esse. Illum at ad iste aliquam corrupti eum vero unde! Iste architecto cumque sint ullam recusandae provident voluptas nobis explicabo nisi dolorem! Natus perferendis facilis officiis vel debitis ex possimus, ut ab sint iste? Dolor neque totam voluptatibus, quisquam reiciendis consectetur similique unde minima ad accusantium rem molestias obcaecati reprehenderit, nulla distinctio quae tenetur fuga quia dolore amet. Praesentium quisquam dicta tempore! Repellat delectus velit numquam, ipsam vel iusto dolore molestiae eum sint odio, fugiat dignissimos facere quidem? Dolore pariatur cumque veniam. Delectus accusantium omnis vero, laborum harum impedit blanditiis perferendis incidunt aspernatur ducimus animi numquam mollitia nostrum iste veniam soluta obcaecati veritatis totam amet eligendi.",
+		"Ab, quod vitae maiores quisquam dignissimos mollitia facere exercitationem et est. Molestiae dolore quae esse ipsa! Magnam beatae quibusdam dolor, tenetur libero rerum accusantium ipsam magni reiciendis quisquam harum recusandae, eius a ipsa iusto voluptates, autem dolorum officiis quidem doloremque dolores nulla facilis amet. Illum, placeat obcaecati maxime beatae accusamus soluta saepe fugit minus, est veritatis quidem id nisi, dolores harum. Hic minima deleniti fuga distinctio consequuntur, similique, odit quod nam alias totam quibusdam a. Natus ullam repellat et distinctio veritatis numquam ipsam nemo saepe nesciunt. Nesciunt quaerat rerum ut deserunt sunt enim nulla, veniam rem aliquam laborum, odit eaque, non perspiciatis consequuntur repellendus sapiente iusto dolore pariatur! Quas laboriosam vero quos explicabo ab ad, at dolorem rerum modi rem nam aperiam corrupti cumque facere dicta cum molestiae praesentium placeat excepturi amet.",
+
+		"Vitae laborum temporibus esse voluptatem aut, tempore voluptate vel officia quia quod impedit harum error sit sapiente adipisci? Inventore nam tenetur facere pariatur, laudantium porro eum earum totam, incidunt unde recusandae nisi nemo nostrum voluptates eveniet sit dicta autem mollitia ipsum.",
+		"Hic culpa in perferendis corporis suscipit. Suscipit libero totam ut obcaecati delectus illum porro, tempore, laboriosam error aut veniam recusandae eligendi, harum quibusdam nulla rerum deserunt facilis enim minus sed deleniti officia incidunt pariatur expedita. Odit saepe ducimus ab error voluptatum quasi earum at doloremque in quas illum sapiente explicabo ratione, id, asperiores aperiam obcaecati debitis quos incidunt! Atque deleniti necessitatibus, architecto harum earum soluta molestias libero repellendus, odit quae natus eveniet modi, quidem minima nostrum aliquid perspiciatis iure fugiat quasi. Magnam, mollitia exercitationem voluptatum sunt perspiciatis dicta aliquam tenetur? Labore, officiis, deleniti ipsam optio beatae consequuntur repellendus perspiciatis consectetur, esse totam assumenda. Rerum iste reiciendis, facere quam quos repudiandae sequi quae nisi! Delectus ducimus excepturi blanditiis! Illo esse tenetur veniam sapiente totam obcaecati optio praesentium rem eligendi voluptate animi omnis dignissimos blanditiis adipisci impedit corrupti, id consectetur ex assumenda. Ullam placeat iure dicta quas iusto illo perferendis corrupti doloribus, deleniti aspernatur eos magni delectus hic error quisquam quaerat sequi culpa, dolores odio saepe harum consectetur! Sequi, mollitia.",
+
+		"Numquam voluptate fugit distinctio, eveniet quam sequi, voluptatibus reiciendis, alias quis facere corporis eius nostrum incidunt culpa? Eaque harum, odio beatae illo, nihil officia consectetur incidunt adipisci necessitatibus distinctio possimus. Optio quas error enim earum placeat dignissimos esse consequuntur reiciendis aperiam, reprehenderit animi similique repellat! Exercitationem consequuntur veritatis ipsam quaerat possimus magni! Fuga, odio commodi eligendi omnis placeat nam vel reiciendis facere qui ullam sunt iure laborum in autem dolorum eveniet quasi culpa magnam distinctio quo unde delectus ducimus? Saepe, tempore! Nobis, architecto quidem. Et cupiditate delectus ex necessitatibus magnam neque similique officia! Aliquid dolor et ratione dolorum repellendus blanditiis fuga eaque eligendi, pariatur esse tempora non id? Earum deserunt nostrum in libero cum officia iste eos ad dolore rerum quis, similique et.",
+
+		"Numquam, consequatur consequuntur, officiis nulla explicabo necessitatibus optio ratione rerum placeat sunt exercitationem dolores, cum cupiditate corrupti delectus dignissimos laboriosam beatae cumque provident modi magnam recusandae nostrum! Quidem porro deserunt voluptates, molestiae ut fugit placeat incidunt tempore totam cumque unde ipsa reprehenderit. Ullam facere, corporis voluptatibus repellat quod fugit asperiores veniam totam explicabo cupiditate illo quibusdam molestiae nemo recusandae eos perferendis vel provident et rem adipisci at incidunt. Aspernatur, nulla doloribus laudantium repudiandae repellendus quod eum necessitatibus! Alias numquam ad mollitia aspernatur quibusdam vel asperiores placeat, saepe dolorum natus similique quis officia libero voluptatem facere dolor ea laborum eos sunt reprehenderit nihil! Animi unde, totam cum doloribus consectetur minima vitae incidunt facere consequuntur sequi aliquam accusantium, iusto soluta nulla aspernatur placeat. Distinctio soluta sequi a commodi dolorum cum totam possimus obcaecati pariatur. Provident, quibusdam? Aspernatur veritatis, perferendis doloremque iure, voluptate libero delectus velit iusto quos dignissimos harum optio obcaecati vero quasi in beatae repellendus minima at tenetur fuga sed numquam perspiciatis inventore? Rerum culpa dicta eligendi corporis, harum voluptas velit laboriosam qui provident nulla totam consequuntur quo voluptatibus autem, error nam alias maxime quod quos distinctio illum.",
+	]
+
+	const content = document.map((item, index) =>
+		<p className={classes.paragraph} key={index}>
+			<span className={classes.id}>{index+1}.</span>
+			<span className={classes.text}>{item}</span>
+		</p>
+	)
+
+	return (
+		<TranslateHandler>
+			<Container className={classes.container}>
+				<div className={classes.header}>?_Privacy Policy</div>
+				{content}
+				<p className={classes.copyright}>&copy; 2023 Somecompany, Inc.</p>
+			</Container>
+		</TranslateHandler>
+	)
+})
+
+export default Policy

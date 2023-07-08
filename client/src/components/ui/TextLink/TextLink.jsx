@@ -1,8 +1,8 @@
 import React from 'react';
-import classes from './Link.module.scss';
+import classes from './TextLink.module.scss';
 
 
-function Link({
+function TextLink({
 	modif = 'default',
 	className = '',
 	...props
@@ -21,4 +21,4 @@ function Link({
 	)
 }
 
-export default Link
+export default TextLink

@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import classes from './Links.module.scss';
-import Link from '../../../ui/Link/Link';
+import Link from '../../../ui/TextLink/TextLink';
 import TranslateHandler from '../../../TranslateHandler';
 
 

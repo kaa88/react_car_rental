@@ -2,7 +2,7 @@ import { memo } from 'react';
 import classes from './Contacts.module.scss';
 import Icon from '../../../ui/Icon/Icon';
 import Button from '../../../ui/Button/Button';
-import Link from '../../../ui/Link/Link';
+import Link from '../../../ui/TextLink/TextLink';
 import TranslateHandler from '../../../TranslateHandler';
 
 

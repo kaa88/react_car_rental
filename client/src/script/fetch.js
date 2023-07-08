@@ -3,6 +3,8 @@ import Utils from "./utilities";
 
 // add fake data
 
+const FETCH_TIMEOUT = 200
+
 async function fetchData(request) {
 	if (!request || typeof request !== 'object') return null
 	const { path='', method='GET', body={} } = request
@@ -20,7 +22,7 @@ async function fetchData(request) {
 		controller.abort()
 		console.error(`"${path}" fetch has been aborted due to timeout`)
 		return result
-	}, process.env.REACT_APP_FETCH_TIMEOUT)
+	}, FETCH_TIMEOUT)
 
 	const fetchParams = {
 		method,
