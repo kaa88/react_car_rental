@@ -8,7 +8,7 @@ function WindowEvents(){
 	const dispatch = useDispatch()
 
 	function closeSelects() {
-		console.log('close');
+		// console.log('close by window');
 		dispatch(setActiveSelect(''))
 	}
 

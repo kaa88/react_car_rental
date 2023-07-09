@@ -33,10 +33,10 @@ const Select = memo(function Select({
 		dispatch(setActiveSelect(value))
 	}
 
-	const wrapperRef = useRef()
+	const listWrapperRef = useRef()
 	useEffect(() => {
-		let listWrapperEl = wrapperRef.current
-		let listEl = listWrapperEl.children[0]
+		const listWrapperEl = listWrapperRef.current
+		const listEl = listWrapperEl.children[0]
 		listWrapperEl.style.height = activeClass ? listEl.offsetHeight + 'px' : ''
 	}, [activeClass])
 
@@ -65,7 +65,7 @@ const Select = memo(function Select({
 					<Icon name='icon-arrow-short' />
 				</span>
 			</div>
-			<div className={`${classes.listWrapper} ${activeClass}`} ref={wrapperRef} onClick={toggleList}>
+			<div className={`${classes.listWrapper} ${activeClass}`} ref={listWrapperRef} onClick={toggleList}>
 				<ul className={classes.list}>
 					{customOptionList}
 				</ul>

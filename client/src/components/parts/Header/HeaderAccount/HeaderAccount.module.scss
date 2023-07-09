@@ -1,0 +1,30 @@
+@import "../../../../styles/variables.scss";
+
+.account {
+	margin-top: 5px;
+	display: flex;
+	align-items: center;
+	& > * {
+		margin-left: 28px;
+		@media (max-width: $media-ts+px) {
+			margin-left: resize-multiplier(28, $media-ts, 1.2);
+		}
+		@media (max-width: $media-ml+px) {
+			margin-left: 0;
+		}
+	}
+	@media (max-width: $media-ml+px) {
+		margin-top: 0;
+		flex-grow: 1;
+		justify-content: space-between;
+	}
+}
+.accountButton {
+	width: 112px;
+	height: 39px;
+	border-radius: 28px;
+	@media (max-width: $media-ml+px) {
+		width: 85px;
+		height: 35px;
+	}
+}

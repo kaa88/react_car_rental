@@ -6,6 +6,7 @@ import formPopupReducer from './formPopupReducer'
 import formDataReducer from './formDataReducer'
 import modalReducer from './modalReducer'
 import selectReducer from './selectReducer'
+import headerReducer from './headerReducer'
 
 export const rootReducer = combineReducers({
 	currency: currencyReducer,
@@ -15,4 +16,5 @@ export const rootReducer = combineReducers({
 	formData: formDataReducer,
 	modal: modalReducer,
 	select: selectReducer,
+	header: headerReducer,
 })

@@ -1,17 +1,14 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveModal } from '../../../store/reducers/modalReducer'
-import Utils from '../../../script/utilities';
-import { scrollLock } from '../../../script/scrollLock';
-import { transitionLock } from '../../../script/transLock';
+import utilities from '../../../script/utilities';
+import { lockScroll, unlockScroll } from '../../../script/scrollLock';
+import { transitionIsLocked } from '../../../script/transitionLock';
 import TranslateHandler from '../../TranslateHandler';
 import classes from './Modal.module.scss';
 import Icon from '../Icon/Icon';
 
-const lockScroll = scrollLock.lock
-const unlockScroll = scrollLock.unlock
-const transitionIsLocked = transitionLock.check
-const timeout = Utils.getCssVariable('timer-modal')*1000
+const timeout = utilities.getCssVariable('timer-modal')*1000
 
 // TODO: multi-window modal
 

@@ -12,7 +12,7 @@ function Router() {
 		{
 			path: '/',
 			element: <HomePage />,
-			errorElement: <ErrorPage />
+			// errorElement: <ErrorPage />
 		},
 		{
 			path: '/account',

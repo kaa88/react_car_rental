@@ -1,38 +1,43 @@
 import { jsMediaQueries } from '../../../script/jsMediaQueries'
 import { scriptManager } from '../../../script/scriptManager';
-import utilities from '../../../script/utilities';
-import { setHeaderInitialized } from '../../../store/reducers/headerReducer';
-import Metrics from './HeaderMetrics';
+import classNameChanger from '../../../script/classNameChanger'
+import Metrics from './metrics';
+import Menu from './menu';
+
 
 const HeaderScript = {
 	initialized: false,
-	init({headerParams, classes, headerEl, breakpointStore, dispatch}) {
-		if (this.initialized) return;
+	init({headerParams, classes, header, breakpointStore, languageStore}) {
 		this.params = this.getFixedParams(headerParams)
-		this.dispatch = dispatch
 
-		Metrics.init({headerScript: this, headerEl, classes, breakpointStore, dispatch})
+		let headerPositonClassName = header.className
+		if (this.params.headerPositionFixed) {
+			headerPositonClassName = classNameChanger.remove(headerPositonClassName, classes.header_static)
+			headerPositonClassName = classNameChanger.add(headerPositonClassName, classes.header_fixed)
+		} else {
+			headerPositonClassName = classNameChanger.remove(headerPositonClassName, classes.header_fixed)
+			headerPositonClassName = classNameChanger.add(headerPositonClassName, classes.header_static)
+		} header.setClassName(headerPositonClassName)
+
+		Metrics.init({headerScript: this, header, classes, breakpointStore})
 		this.metrics = Metrics
 		
+		if (this.params.menu) {
+			Menu.init({headerScript: this, classes, breakpointStore, languageStore})
+			this.menu = Menu
+		}
 		scriptManager.registerFunctions('Header', {
-			// toggleMenu: this.menu.toggleMenu,
-			// calcMenuWidth: this.menu.calcMenuWidth
+			toggleMenu: this.menu.toggleMenu,
+			calcMenuWidth: this.menu.calcMenuWidth
 		})
 		jsMediaQueries.registerActions(breakpointStore.tablet, [this.checkViewportChange.bind(this)])
 		jsMediaQueries.registerActions(breakpointStore.mobile, [this.checkViewportChange.bind(this)])
 
-		dispatch(setHeaderInitialized(true))
 		this.initialized = true
-	},
-	destroy() {
-		if (!this.initialized) return;
-		this.metrics.destroy()
-		this.dispatch(setHeaderInitialized(false))
-		this.initialized = false
 	},
 
 	getFixedParams({...params}) {
-		params.transitionTimeout = utilities.getCssVariable('timer-menu')*1000 || 0
+		params.transitionTimeout = parseFloat(getComputedStyle(document.body).getPropertyValue('--timer-menu'))*1000 || 0;
 
 		if (!params.headerPositionFixed) params.hidingHeader = params.compactMode = null
 
@@ -50,13 +55,14 @@ const HeaderScript = {
 		if (isNaN(params.hiddenPositionOffset)) params.hiddenPositionOffset = 0
 
 		if (params.resetCompactMode !== false) params.resetCompactMode = true
+		if (params.hideOnViewChangе !== false) params.hideOnViewChangе = true
 
 		return params
 	},
 
 	checkViewportChange() {
-		// this.menu.toggleMenu()
-		// this.menu.hideMenuOnViewChange()
+		this.menu.toggleMenu()
+		this.menu.hideMenuOnViewChange()
 		this.metrics.resetHeaderPosition(true)
 		this.metrics.resetCompactMode()
 	},

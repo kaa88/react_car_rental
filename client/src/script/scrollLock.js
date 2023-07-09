@@ -29,12 +29,12 @@ export const scrollLock = {
 			this.scrollbarWidth = scrollbarWidth
 		}
 	},
-	lock() {
-		document.body.classList.add(lockedClassName)
-	},
-	unlock(timeout = 0) {
-		setTimeout(() => {
-			document.body.classList.remove(lockedClassName)
-		}, timeout)
-	}
+}
+export function lockScroll() {
+	document.body.classList.add(lockedClassName)
+}
+export function unlockScroll(timeout = 0) {
+	setTimeout(() => {
+		document.body.classList.remove(lockedClassName)
+	}, timeout)
 }

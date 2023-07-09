@@ -25,7 +25,7 @@ export function initInstantScripts(dispatch) {
 		// testMode: true
 	})
 	jsMediaQueries.init({
-		// testMode: true
+		testMode: true
 	})
 }
 export function initOnloadScripts(dispatch) {
