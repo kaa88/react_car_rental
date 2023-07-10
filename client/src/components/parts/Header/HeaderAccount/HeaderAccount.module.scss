@@ -19,12 +19,71 @@
 		justify-content: space-between;
 	}
 }
-.accountButton {
-	width: 112px;
+.account .divider {
+	margin-left: 19px;
+	@media (max-width: $media-ts+px) {
+		margin-left: 10px;
+	}
+	@media (max-width: $media-ml+px) {
+		display: none;
+	}
+}
+.userNav {
+	position: relative;
+}
+body .signinButton {
+	min-width: 112px;
 	height: 39px;
 	border-radius: 28px;
 	@media (max-width: $media-ml+px) {
-		width: 85px;
+		line-height: 14px;
+		min-width: 85px;
+		max-width: 100px;
 		height: 35px;
 	}
 }
+.profileButton {
+	width: 39px;
+	height: 39px;
+	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--color05);
+	fill: var(--color06);
+	svg {
+		width: 30px;
+		height: 30px;
+	}
+	@media (max-width: $media-ml+px) {
+		width: 39px;
+		height: 39px;
+	}
+}
+body .popup {
+	top: calc(100% + 6px);
+	left: auto;
+	right: -8px;
+}
+.popupContent {
+	padding: 20px;
+	border-radius: 16px;
+	background-color: var(--color01);
+	box-shadow: 0 0 5px 0 var(--color06);
+}
+
+body .popupButton {
+	min-width: 112px;
+	height: 35px;
+	border-radius: 28px;
+	&:not(:last-child) {
+		margin-bottom: 10px;
+	}
+	@media (max-width: $media-ml+px) {
+		line-height: 14px;
+		min-width: 85px;
+		max-width: 100px;
+		height: 35px;
+	}
+}
+

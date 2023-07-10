@@ -17,18 +17,15 @@
 	}
 	&.active {}
 	// classes for 'sharing mode', e.g. if 'modal' calls header and uses its close button
-	&.sharing {}
-	&.sharing-z {
-		z-index: 501;
-	}
 	box-shadow: 0 0 5px 0 transparent;
 	transition: box-shadow $timer-header-compact;
 	&.compact {
 		box-shadow: 0 0 5px 0 var(--color06);
 	}
-	// &_compact .logo__link { // compact mode test
-	// 	@media (min-width: $media-mxl+1+px) {font-size: 20px;}
-	// }
+	&.sharing {}
+	&.sharing-z {
+		z-index: 501;
+	}
 }
 
 .level {
@@ -38,7 +35,7 @@
 	background-color: var(--color01);
 	@media (min-width: $media-ts+1+px) {
 		transition: padding-top $timer-header-compact;
-		.header_compact & {
+		.compact & {
 			padding-top: calc(36px - var(--compact-mode-padding-reduced));
 		}
 	}
@@ -51,32 +48,33 @@
 		padding-right: var(--scrollbar-width); // test scroll lock
 	}
 }
-.container {
+body .container {
 	background-color: var(--color01);
 	@media (max-width: $media-ml+px) {
-		flex-wrap: wrap;
+		// flex-wrap: wrap;
+		display: grid;
+		grid-template-columns: 1fr 3fr;
+	}
+	@media (max-width: $media-ms+px) {
+		grid-template-columns: 1fr 5fr;
 	}
 }
-
 .logo {
 	font-size: 20px;
 	margin-right: 19px;
 	@media (max-width: $media-ml+px) {
-		flex: 1 1 100%;
+		// flex: 1 1 100%;
+		grid-column: span 2;
 		text-align: center;
 	}
 }
-.header .divider {
-	margin-left: 19px;
-	@media (max-width: $media-ts+px) {
-		margin-left: 10px;
+body .menu {
+	@media (min-width: $media-ml+1+px) {
+		flex-grow: 1;
 	}
 	@media (max-width: $media-ml+px) {
-		display: none;
+		justify-content: flex-start;
 	}
 }
-.printAddress, .printAddressQr {display: none;} //REQ!
 
-.menu {
-	position: relative;
-}
+.printAddress, .printAddressQr {display: none;} //REQ!

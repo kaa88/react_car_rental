@@ -15,7 +15,7 @@ const TimeSelect = memo(function TimeSelect({
 	...props
 }) {
 	script.init(parentScript)
-	const activePopup = useSelector(state => state.formPopup.activePopup)
+	const activePopup = useSelector(state => state.popup.active)
 	const wrapperElem = useRef()
 	const activeTimeElem = useRef()
 	const inactiveTimeElem = useRef()
@@ -59,7 +59,7 @@ const TimeSelect = memo(function TimeSelect({
 	// console.log('render TimeSelect');
 	return (
 		<TranslateHandler>
-			<Popup className={classes.popup} name={dataType} {...props}>
+			<Popup className={classes.popup} name={dataType} modif='noCloseButton' {...props}>
 				<div className={classes.popupContent}>
 					{createTimeElem(timeList)}
 					<Divider className={classes.divider} modif='dark' />

@@ -1,30 +1,48 @@
+import { jsMediaQueries } from '../../../script/jsMediaQueries'
 import { setHeaderCompact } from "../../../store/reducers/headerReducer"
 
 const MetricsHandler = {
 	defaultMetrics: {
-		headerHeight: 0,
-		headerPosition: 0,
-		headerOffset: 0,
-		windowHeight: 0
+		headerHeight: null,
+		headerPosition: null,
+		headerOffset: null,
+		windowHeight: null
 	},
 	initialized: false,
-	init({headerScript, headerEl, classes, breakpointStore, dispatch}) {
-		this.metrics = this.defaultMetrics
+	init({headerScript, headerEl, breakpoints, dispatch}) {
+		if (this.initialized) return;
+		this.metrics = {...this.defaultMetrics}
+		this.breakpoints = breakpoints
+		
 		headerHeight.init(this, headerEl)
-		if (headerScript.params.hidingHeader) hidingHeader.init(this, headerScript.params, breakpointStore.tablet)
-		if (headerScript.params.compactMode) compactMode.init(headerScript.params, classes, dispatch)
+		if (headerScript.params.hidingHeader) hidingHeader.init(this, headerScript.params, breakpoints.tablet)
+		if (headerScript.params.compactMode) compactMode.init(headerScript.params, dispatch)
+
+		this.setupJsMediaQueries(true)
+
 		this.initialized = true
 	},
 	destroy() {
+		if (!this.initialized) return;
 		this.setMetrics(this.defaultMetrics)
+		headerHeight.destroy()
+		hidingHeader.destroy()
+		compactMode.destroy()
+		this.setupJsMediaQueries()
 		this.initialized = false
+	},
+	setupJsMediaQueries(init) {
+		let task = init ? 'registerActions' : 'deleteActions'
+		let jsmqActions = [this.resetHeaderPosition, this.resetCompactMode]
+		jsMediaQueries[task](this.breakpoints.tablet, jsmqActions)
+		jsMediaQueries[task](this.breakpoints.mobile, jsmqActions)
 	},
 	getMetrics() {
 		return this.metrics
 	},
 	setMetrics(newMetrics) {
 		Object.entries(newMetrics).forEach(([key, value]) => {
-			value = Math.round(value * 10) / 10
+			if (value !== null) value = Math.round(value * 10) / 10
 			if (value !== this.metrics[key]) {
 				this.metrics[key] = value
 				cssVariables.set(key, value)
@@ -35,9 +53,9 @@ const MetricsHandler = {
 		if (!headerHeight.initialized) return;
 		headerHeight.calcHeight()
 	},
-	resetHeaderPosition(instant) {
+	resetHeaderPosition() {
 		if (!hidingHeader.initialized) return;
-		hidingHeader.resetPosition(instant)
+		hidingHeader.resetPosition(true)
 	},
 	resetCompactMode() {
 		if (!compactMode.initialized) return;
@@ -53,32 +71,43 @@ const cssVariables = {
 		windowHeight: '--window-height',
 	},
 	set(key, value) {
-		document.body.style.setProperty(this.vars[key], value + 'px')
+		value = value === null ? '' : value + 'px'
+		document.body.style.setProperty(this.vars[key], value)
 	}
 }
 
 const headerHeight = {
 	initialized: false,
 	init(metricsHandler, headerEl) {
+		if (this.initialized) return;
 		this.headerEl = headerEl
 		this.setMetrics = metricsHandler.setMetrics.bind(metricsHandler)
-		window.addEventListener('resize', this.calcHeight.bind(this))
+
+		this.calcHeightBinded = this.calcHeight.bind(this)
+		window.addEventListener('resize', this.calcHeightBinded)
 		this.calcHeight()
+
 		this.initialized = true
 	},
+	destroy() {
+		if (!this.initialized) return;
+		window.removeEventListener('resize', this.calcHeightBinded)
+		this.initialized = false
+	},
 	calcHeight() {
-		const heights = {
+		const metrics = {
 			headerHeight: this.headerEl.offsetHeight,
 			headerOffset: 0,
 			windowHeight: window.innerHeight,
 		}
-		this.setMetrics(heights)
+		this.setMetrics(metrics)
 	},
 }
 
 const hidingHeader = {
 	initialized: false,
 	init(metricsHandler, headerParams, mobileBreakpoint) {
+		if (this.initialized) return;
 		this.getMetrics = metricsHandler.getMetrics.bind(metricsHandler)
 		this.setMetrics = metricsHandler.setMetrics.bind(metricsHandler)
 		this.mobileBreakpoint = mobileBreakpoint
@@ -92,9 +121,15 @@ const hidingHeader = {
 			this.hidingHeaderView = this.viewAny
 		this.headerPositionFixed = headerParams.headerPositionFixed
 
-		window.addEventListener('scroll', this.moveHeader.bind(this))
+		this.moveHeaderBinded = this.moveHeader.bind(this)
+		window.addEventListener('scroll', this.moveHeaderBinded)
 		this.firstMoveScroll = true
 		this.initialized = true
+	},
+	destroy() {
+		if (!this.initialized) return;
+		window.removeEventListener('scroll', this.moveHeaderBinded)
+		this.initialized = false
 	},
 	moveHeader() {
 		if (this.hidingHeaderView === this.viewMobile && window.innerWidth > this.mobileBreakpoint) return;
@@ -126,6 +161,7 @@ const hidingHeader = {
 		this.setMetrics({headerPosition: currentPos})
 	},
 	resetPosition(instant) {
+		if (!this.initialized) return;
 		// This func has 2 ways to reset position (instant or not), that's why I use JS-animation instead of css-animation
 		let headerPosition = this.getMetrics().headerPosition
 		let headerOffset = this.getMetrics().headerOffset
@@ -160,16 +196,22 @@ const hidingHeader = {
 
 const compactMode = {
 	initialized: false,
-	init(headerParams, classes, dispatch) {
-		this.compactClass = classes.header_compact
+	init(headerParams, dispatch) {
+		if (this.initialized) return;
 		this.firstCompactScroll = true
 		this.isCompact = this.isCompactPrev = false
 		this.compactModeThreshold = headerParams.compactModeThreshold
 		this.resetMode = headerParams.resetCompactMode
 		this.dispatch = dispatch
 
-		window.addEventListener('scroll', this.setCompactMode.bind(this))
+		this.setCompactModeBinded = this.setCompactMode.bind(this)
+		window.addEventListener('scroll', this.setCompactModeBinded)
 		this.initialized = true
+	},
+	destroy() {
+		if (!this.initialized) return;
+		window.removeEventListener('scroll', this.setCompactModeBinded)
+		this.initialized = false
 	},
 	setCompactMode() {
 		if (this.firstCompactScroll) return this.firstCompactScroll = false
@@ -181,7 +223,7 @@ const compactMode = {
 		}
 	},
 	resetCompactMode() {
-		if (!this.resetMode) return;
+		if (!this.initialized || !this.resetMode) return;
 		this.dispatch(setHeaderCompact(false))
 		this.isCompactPrev = this.isCompact = false
 	}

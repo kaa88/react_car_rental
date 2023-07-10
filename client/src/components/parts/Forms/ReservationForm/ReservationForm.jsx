@@ -1,6 +1,6 @@
 import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActivePopup } from '../../../../store/reducers/formPopupReducer';
+import { setActivePopup } from '../../../../store/reducers/popupReducer';
 // import script from './ReservationForm.script';
 import classes from './ReservationForm.module.scss';
 import Location from './Location/Location';
@@ -15,13 +15,14 @@ import Button from '../../../ui/Button/Button';
 const ReservationForm = memo(function ReservationForm({className = '', ...props}) {
 
 	const dispatch = useDispatch()
-	const activeDataType = useSelector(state => state.formPopup.activePopup)
-	const formData = useSelector(state => state.formData)
+	const activeDataType = useSelector(state => state.popup.active)
+	const formData = useSelector(state => state.reservationForm)
 	// useEffect(() => {
 	// })
 
 
 	function setActiveDataType(event, value) {
+		console.log('setActiveDataType');
 		let active = value
 		if (event) {
 			event.stopPropagation()

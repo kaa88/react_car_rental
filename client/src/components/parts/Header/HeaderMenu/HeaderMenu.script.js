@@ -1,4 +1,4 @@
-import { setMenuInitialized, setMenuActive, setMenuShrinked } from '../../../../store/reducers/headerReducer';
+import { setMenuInitialized, setMenuActive } from '../../../../store/reducers/headerReducer';
 import { transitionIsLocked } from '../../../../script/transitionLock';
 import { lockScroll, unlockScroll } from '../../../../script/scrollLock';
 import { jsMediaQueries } from '../../../../script/jsMediaQueries'
@@ -14,12 +14,17 @@ const VIEW_KEY_MEDIUM = 'M'
 const VIEW_KEY_SMALL = 'S'
 
 const Menu = {
+	dispatch() {},
+	breakpoints: {},
+	menuIsActive: false,
+	elems: {
+		hideWrapper: {},
+		menu: {}
+	},
+
 	initialized: false,
-	init({headerMenuParams, breakpointStore, languageStore, dispatch, classes, getActualElems, closeMenuFromOutside}) {
+	init(params = {}, classes) {
 		if (this.initialized) return;
-		this.dispatch = dispatch
-		this.closeMenuFromOutside = closeMenuFromOutside
-		this.getActualElems = getActualElems
 		this.classes = {
 			active: classes.active,
 			menuShrink: classes.shrinked,
@@ -29,19 +34,16 @@ const Menu = {
 				[VIEW_KEY_SMALL]: classes.viewChangeStageS
 			}
 		}
-		this.menuIsHidingOnViewChange = headerMenuParams.hideOnViewChangе === false ? false : true
+		this.menuIsHidingOnViewChange = params.hideOnViewChangе === false ? false : true
 		this.hideMenuOnViewChangeTimeoutId = HIDE_MENU_DEFAULT_TIMEOUT_ID
 		this.menuIsShrinked = false
 
-		this.breakpoints = breakpointStore
-		this.language = languageStore.current
 
-		let jsmqActions = [this.closeMenu.bind(this), this.hideMenuOnViewChange.bind(this)]
-		jsMediaQueries.registerActions(this.breakpoints.tablet, jsmqActions)
-		jsMediaQueries.registerActions(this.breakpoints.mobile, jsmqActions)
+		this.calcMenuWidthBinded = this.calcMenuWidth.bind(this)
+		window.addEventListener('resize', this.calcMenuWidthBinded)
+		this.setupJsMediaQueries(true)
 
-		window.addEventListener('resize', this.calcMenuWidth.bind(this))
-		dispatch(setMenuInitialized(true))
+		this.dispatch(setMenuInitialized(true))
 		this.initialized = true
 		// following fns must run after init=true
 		this.calcMenuWidth()
@@ -49,22 +51,29 @@ const Menu = {
 	},
 	destroy() {
 		if (!this.initialized) return;
-		window.removeEventListener('resize', this.calcMenuWidth.bind(this))
+		window.removeEventListener('resize', this.calcMenuWidthBinded)
+		this.setupJsMediaQueries()
 		this.dispatch(setMenuInitialized(false))
 		this.initialized = false
 	},
 
-	openMenu(active) {
-		if (active || transitionIsLocked(TRANSITION_TIMEOUT)) return;
+	setupJsMediaQueries(init) {
+		let task = init ? 'registerActions' : 'deleteActions'
+		let jsmqActions = [this.closeMenu.bind(this), this.hideMenuOnViewChange.bind(this)]
+		jsMediaQueries[task](this.breakpoints.tablet, jsmqActions)
+		jsMediaQueries[task](this.breakpoints.mobile, jsmqActions)
+	},
+
+	openMenu() {
+		if (this.menuIsActive || transitionIsLocked(TRANSITION_TIMEOUT)) return;
 		lockScroll()
 		this.dispatch(setMenuActive(true))
 		// this.closeOtherModules() 						// script manager will do it
 		// this.headerScript.scrollIntoView() 			// header will do it
 		// this.onMenuOpen()
 	},
-	closeMenu(active) {
-		if (active === false || transitionIsLocked(TRANSITION_TIMEOUT)) return;
-		if (!active) this.closeMenuFromOutside()
+	closeMenu() {
+		if (!this.menuIsActive || transitionIsLocked(TRANSITION_TIMEOUT)) return;
 		unlockScroll(TRANSITION_TIMEOUT)
 		this.dispatch(setMenuActive(false))
 		// this.onMenuClose()
@@ -78,7 +87,7 @@ const Menu = {
 			if (window.innerWidth <= this.breakpoints.mobile) viewKey = VIEW_KEY_SMALL
 			else if (window.innerWidth > this.breakpoints.tablet) viewKey = VIEW_KEY_LARGE
 			
-			const {wrapper} = this.getActualElems()
+			const wrapper = this.elems.hideWrapper
 			let newClassName = wrapper.className
 			Object.entries(this.classes.hideOnViewChange).forEach(([key, value]) => {
 				if (key === viewKey) newClassName = classNameChanger.add(newClassName, value)
@@ -94,8 +103,7 @@ const Menu = {
 		const langChangeTimeout = 200
 		const hiddenProp = 'opacity'
 		const hiddenValue = '0'
-		const visibleValue = '1'
-		const {menu} = this.getActualElems()
+		const menu = this.elems.menu
 
 		if (lang !== this.language) {
 			this.language = lang
@@ -105,13 +113,14 @@ const Menu = {
 
 			setTimeout(function() {
 				this.calcMenuWidth()
-				menu.el.style[hiddenProp] = visibleValue
+				menu.el.style[hiddenProp] = ''
 			}.bind(this), langChangeTimeout)
 		}
 	},
 	calcMenuWidth() {
 		if (!this.initialized) return;
-		const {wrapper, menu} = this.getActualElems()
+		const wrapper = this.elems.hideWrapper
+		const menu = this.elems.menu
 		let menuIsShrinked;
 		if (window.innerWidth <= this.breakpoints.tablet) menuIsShrinked = false
 		else {

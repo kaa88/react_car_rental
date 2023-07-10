@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setLocation } from '../../../../../store/reducers/formDataReducer';
+import { setLocation } from '../../../../../store/reducers/reservationFormReducer';
 import Utils from '../../../../../script/utilities';
 import script from './Location.script';
 import classes from './Location.module.scss';
@@ -85,7 +85,7 @@ const Location = memo(function Location({
 						<Icon name='icon-search' />
 					</div>
 				</div>
-				<Popup className={classes.popup} name={dataType}>
+				<Popup className={classes.popup} name={dataType} modif='noCloseButton'>
 					<div className={classes.popupContent}>
 						<div className={classes.searchList}>
 							{getSearchListItems()}

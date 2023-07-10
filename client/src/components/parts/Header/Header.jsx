@@ -18,8 +18,8 @@ const headerParams = {
 	resetCompactMode: false, // reset on view change or page reload (default = true)
 }
 
-const Header = memo(() => {
-	const breakpointStore = useSelector(state => state.mobileBreakpoint)
+const Header = memo(function Header() {
+	const breakpoints = useSelector(state => state.mobileBreakpoint)
 	const dispatch = useDispatch()
 	
 	const {menuIsActive, headerIsCompact, headerIsSharing} = useSelector(state => state.header)
@@ -33,7 +33,7 @@ const Header = memo(() => {
 	const headerRef = useRef()
 
 	useEffect(() => {
-		script.init({headerParams, classes, headerEl: headerRef.current, breakpointStore, dispatch})
+		script.init({headerParams, classes, headerEl: headerRef.current, breakpoints, dispatch})
 		return () => script.destroy()
 	}, [])
 

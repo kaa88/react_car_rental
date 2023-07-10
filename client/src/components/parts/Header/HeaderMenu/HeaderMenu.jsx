@@ -1,4 +1,4 @@
-import React, { useState, memo, useRef, useEffect, useCallback } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useCustomElement } from '../../../../hooks/useCustomElement';
 import script from './HeaderMenu.script';
@@ -12,22 +12,15 @@ const headerMenuParams = {
 
 const HeaderMenu = memo(function HeaderMenu({className = '', ...props}) {
 
-	const dispatch = useDispatch()
-	const menuIsActive = useSelector(state => state.header.menuIsActive)
-	const activeClass = menuIsActive ? classes.active : ''
+	script.dispatch = useDispatch()
+	script.breakpoints = useSelector(state => state.mobileBreakpoint)
+	const language = useSelector(state => state.language.current)
 
-	const breakpointStore = useSelector(state => state.mobileBreakpoint)
-	const languageStore = useSelector(state => state.language.current)
+	script.menuIsActive = useSelector(state => state.header.menuIsActive)
+	const activeClass = script.menuIsActive ? classes.active : ''
 
-	const hideWrapper = useCustomElement(classes.hideWrapper)
-	const menu = useCustomElement(classes.menu)
-	const turnoffArea = useCustomElement(classes.turnoffArea)
-
-	const getActualElems = useCallback(function() {
-		return {wrapper: hideWrapper, menu, menuIsActive}
-	}, [menuIsActive])
-	
-	// Убрать getActualElems, т.к. данные старые в замыкании... хотя вроде бы что-то работает (stageL...)
+	script.elems.hideWrapper = useCustomElement(classes.hideWrapper)
+	script.elems.menu = useCustomElement(classes.menu)
 
 	const openMenu = function() {
 		script.openMenu()
@@ -35,19 +28,15 @@ const HeaderMenu = memo(function HeaderMenu({className = '', ...props}) {
 	const closeMenu = function() {
 		script.closeMenu()
 	}
-	const closeMenuFromOutside = function() {
-		let event = new Event('click')
-		turnoffArea.el.dispatchEvent(event)
-	}
 	
 	useEffect(() => {
-		script.init({headerMenuParams, classes, breakpointStore, languageStore, dispatch, getActualElems, closeMenuFromOutside})
+		script.init(headerMenuParams, classes)
 		return () => script.destroy()
 	}, [])
 
 	useEffect(() => {
-		script.resetShrinkStateOnLanguageChange(languageStore)
-	}, [languageStore])
+		script.resetShrinkStateOnLanguageChange(language)
+	}, [language])
 
 
 	const menuLinks = [
@@ -70,10 +59,10 @@ const HeaderMenu = memo(function HeaderMenu({className = '', ...props}) {
 					</div>
 				</div>
 
-				<div className={turnoffArea.className} onClick={closeMenu} ref={turnoffArea.ref}></div>
+				<div className={classes.turnoffArea} onClick={closeMenu}></div>
 
-				<div className={hideWrapper.className} ref={hideWrapper.ref}>
-					<nav className={menu.className} ref={menu.ref}>
+				<div className={script.elems.hideWrapper.className} ref={script.elems.hideWrapper.ref}>
+					<nav className={script.elems.menu.className} ref={script.elems.menu.ref}>
 						<ul className={classes.menuItems}>
 							{menuLinks.map((item, index) =>
 								<li className={classes.menuItem} key={index}>

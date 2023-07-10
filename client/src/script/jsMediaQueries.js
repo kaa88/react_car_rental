@@ -14,10 +14,10 @@
 
 export const jsMediaQueries = {
 	selfName: 'jsMediaQueries',
+	breakpoints: {0: []},
 	initiated: false,
 	init(params) {
 		this.params = params || {}
-		this.breakpoints = {0: []}
 		this.keys = this.keysReversed = []
 		this.check(false, true)
 		window.addEventListener('resize', this.check.bind(this))
@@ -39,19 +39,27 @@ export const jsMediaQueries = {
 
 	registerActions(breakpoint, callbacks) {
 		if (!breakpoint || !Array.isArray(callbacks))
-			return console.error(`${this.selfName} could not register a new action because of missing arguments`)
+			return console.error(`${this.selfName} could not register a new actions because of missing arguments`)
 	
 		if (!this.breakpoints[breakpoint]) this.breakpoints[breakpoint] = []
 		this.breakpoints[breakpoint] = this.breakpoints[breakpoint].concat(callbacks)
 
-		if (this.params.testMode) {
-			console.log(`[${this.selfName}] Registered new action at breakpoint "${breakpoint}". Total:`)
-			console.log(this.breakpoints)
-		}
+		this.log('register', breakpoint)
 		this.generateKeys()
 	},
 
-	check: function(e, init = false) {
+	deleteActions(breakpoint, callbacks) {
+		if (!breakpoint || !Array.isArray(callbacks))
+			return console.error(`${this.selfName} could not delete actions because of missing arguments`)
+
+		let callbackNames = callbacks.map(cb => cb.name)
+		this.breakpoints[breakpoint] = this.breakpoints[breakpoint].filter(item => !callbackNames.includes(item.name))
+
+		this.log('delete', breakpoint)
+		this.generateKeys()
+	},
+
+	check(e, init = false) {
 		for (let i = 0; i < this.keys.length; i++) {
 			if (window.innerWidth > this.keys[i]) this.state = this.keys[i]
 			else break
@@ -71,8 +79,21 @@ export const jsMediaQueries = {
 			this.prev_state = this.state
 		}
 		function run(key, that) {
-			that.breakpoints[key].forEach((item) => item())
+			that.breakpoints[key].forEach((item) => {
+				try { item() } catch(err) { console.log(err.message) }
+			})
 			if (that.params.testMode) console.log(`[${that.selfName}] Executed breakpoint: ${key}`)
+		}
+	},
+	log(type, breakpoint) {
+		if (this.params.testMode) {
+			let msgParts = {
+				register: 'Registered new actions',
+				delete: 'Deleted actions'
+			}
+			let message = `[${this.selfName}] ${msgParts[type]} at breakpoint "${breakpoint}". Total:`
+			console.log(message)
+			console.log(this.breakpoints)
 		}
 	}
 }

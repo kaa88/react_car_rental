@@ -22,7 +22,7 @@ const Select = memo(function Select({
 	}
 	if (typeof data !== 'object' || Array.isArray(data)) data = defaultData
 
-	const [currentSelect] = useState(utilities.getRandomId())
+	const [currentSelect] = useState(utilities.getRandomId(5))
 	const dispatch = useDispatch()
 	const activeSelect = useSelector(state => state.select.active)
 	const activeClass = (activeSelect === currentSelect && data.list.length) ? classes.active : ''

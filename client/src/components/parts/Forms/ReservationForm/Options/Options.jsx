@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setOptions } from '../../../../../store/reducers/formDataReducer';
+import { setOptions } from '../../../../../store/reducers/reservationFormReducer';
 import classes from './Options.module.scss';
 import TranslateHandler from '../../../../TranslateHandler';
 import InputCheckbox from '../../../../ui/Checkbox/InputCheckbox';
@@ -16,7 +16,7 @@ defaultOptions[DIFFERENT_LOCATION] = false
 const Options = memo(function Options({className = '', ...props}) {
 
 	const dispatch = useDispatch()
-	const formDataOptions = useSelector(state => state.formData.options)
+	const formDataOptions = useSelector(state => state.reservationForm.options)
 
 	function setFormDataOptions(value) {
 		dispatch(setOptions(value))

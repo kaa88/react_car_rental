@@ -2,8 +2,8 @@ import { combineReducers } from 'redux'
 import currencyReducer from './currencyReducer'
 import languageReducer from './languageReducer'
 import mobileBreakpointReducer from './mobileBreakpointReducer'
-import formPopupReducer from './formPopupReducer'
-import formDataReducer from './formDataReducer'
+import popupReducer from './popupReducer'
+import reservationFormReducer from './reservationFormReducer'
 import modalReducer from './modalReducer'
 import selectReducer from './selectReducer'
 import headerReducer from './headerReducer'
@@ -12,9 +12,9 @@ export const rootReducer = combineReducers({
 	currency: currencyReducer,
 	language: languageReducer,
 	mobileBreakpoint: mobileBreakpointReducer,
-	formPopup: formPopupReducer,
-	formData: formDataReducer,
+	reservationForm: reservationFormReducer,
+	header: headerReducer,
 	modal: modalReducer,
 	select: selectReducer,
-	header: headerReducer,
+	popup: popupReducer,
 })

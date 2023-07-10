@@ -2,13 +2,15 @@ import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './Popup.module.scss';
 import TranslateHandler from '../../TranslateHandler';
+import Icon from '../Icon/Icon';
+import { setActivePopup } from '../../../store/reducers/popupReducer';
 
 
 const Popup = memo(function Popup({modif = 'default', className = '', name = '', children, ...props}) {
 
 	const popup = useRef()
-	// const dispatch = useDispatch()
-	const activePopup = useSelector(state => state.formPopup.activePopup)
+	const dispatch = useDispatch()
+	const activePopup = useSelector(state => state.popup.active)
 	let activeClass = activePopup === name ? classes.active : ''
 
 	useEffect(() => {
@@ -18,6 +20,10 @@ const Popup = memo(function Popup({modif = 'default', className = '', name = '',
 			}, 50)
 		}
 	})
+
+	const closePopup = function() {
+		dispatch(setActivePopup(''))
+	}
 
 	const rejectWindowClosePopupEvent = function(e) {
 		e.stopPropagation()
@@ -32,6 +38,9 @@ const Popup = memo(function Popup({modif = 'default', className = '', name = '',
 				onClick={rejectWindowClosePopupEvent}
 				{...props}
 			>
+				<div className={classes.closeBtn} onClick={closePopup}>
+					<Icon name='icon-cross' />
+				</div>
 				{children}
 			</div>
 		</TranslateHandler>

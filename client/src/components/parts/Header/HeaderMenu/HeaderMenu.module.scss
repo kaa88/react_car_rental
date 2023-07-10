@@ -1,7 +1,14 @@
 @import "../../../../styles/variables.scss";
 
 .headerMenu {
-
+	padding-top: 5px;
+	@media (max-width: $media-ts+px) {
+		display: flex;
+		justify-content: flex-end;
+	}
+	@media (max-width: $media-ml+px) {
+		padding-top: 0;
+	}
 }
 .turnoffArea {
 	position: fixed; //REQ!
@@ -65,13 +72,13 @@
 	}
 }
 .openBtn {
-	background-color: limegreen;
+	// background-color: limegreen;
 	visibility: visible;
 	opacity: 1;
 	stroke: var(--color02);
 }
 .closeBtn {
-	background-color: crimson;
+	// background-color: crimson;
 	visibility: hidden;
 	opacity: 0;
 	.active &, .header_shared & {
@@ -81,7 +88,6 @@
 }
 
 .hideWrapper {
-	flex-grow: 1;
 	display: flex;
 	justify-content: flex-end;
 	// align-items: center;
@@ -159,9 +165,9 @@
 	display: flex;
 	align-items: center;
 	background-color: var(--color01);
-	@media (min-width: $media-ts+1+px) {
-		margin-top: 5px;
-	}
+	// @media (min-width: $media-ts+1+px) {
+		// margin-top: 5px;
+	// }
 	@media (max-width: $media-mxl+px) {
 		height: fit-content; //REQ! for mobile menu stretch
 		max-height: 260px;
@@ -177,6 +183,9 @@
 			width: 100%;
 			justify-content: center;
 			// background-color: yellow;
+			& > * {
+				width: min-content;
+			}
 		}
 	}
 }

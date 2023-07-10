@@ -1,6 +1,6 @@
 import { memo, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectorCurrentMonth } from '../../../../../store/reducers/formPopupReducer';
+import { setSelectorCurrentMonth } from '../../../../../store/reducers/reservationFormReducer';
 import classes from './DateSelect.module.scss';
 import script from './DateSelect.script';
 import parentScript from '../Period/Period.script';
@@ -20,7 +20,7 @@ const DateSelect = memo(function DateSelect({
 	const today = script.today
 
 	let dispatch = useDispatch()
-	let selectorCurrentMonth = useSelector(state => state.formPopup.selectorCurrentMonth)
+	let selectorCurrentMonth = useSelector(state => state.reservationForm.selectorCurrentMonth)
 	// let [selectorCurrentMonth, setSelectorCurrentMonth] = useState(new Date(today.year, today.month))
 
 	const monthSelectData = useMemo(() => script.getMonthSelectData(selectorCurrentMonth), [selectorCurrentMonth])
@@ -70,7 +70,7 @@ const DateSelect = memo(function DateSelect({
 	// console.log('render DateSelect');
 	return (
 		<TranslateHandler>
-			<Popup className={classes.popup} name={dataType} {...props}>
+			<Popup className={classes.popup} name={dataType} modif='noCloseButton' {...props}>
 				<div className={classes.popupContent}>
 					{createMonthElem(selectorCurrentMonth)}
 					<Divider className={classes.divider} modif='dark' />
