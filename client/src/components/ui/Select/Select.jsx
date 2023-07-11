@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState, memo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveSelect } from '../../../store/reducers/selectReducer';
 import { translate } from '../../TranslateHandler';
-import utilities from '../../../script/utilities';
+import {getRandomId} from '../../../services/utilities';
 import classes from './Select.module.scss';
 import Icon from '../Icon/Icon';
 
@@ -22,7 +22,7 @@ const Select = memo(function Select({
 	}
 	if (typeof data !== 'object' || Array.isArray(data)) data = defaultData
 
-	const [currentSelect] = useState(utilities.getRandomId(5))
+	const [currentSelect] = useState(getRandomId(5))
 	const dispatch = useDispatch()
 	const activeSelect = useSelector(state => state.select.active)
 	const activeClass = (activeSelect === currentSelect && data.list.length) ? classes.active : ''

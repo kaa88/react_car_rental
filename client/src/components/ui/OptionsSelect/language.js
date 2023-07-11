@@ -1,4 +1,4 @@
-import { getCookie } from '../../../script/cookie'
+import { getCookie } from '../../../services/cookie'
 
 export const Language = {
 	name: 'language',

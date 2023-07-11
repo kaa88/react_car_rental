@@ -1,12 +1,12 @@
 import { setMenuInitialized, setMenuActive } from '../../../../store/reducers/headerReducer';
-import { transitionIsLocked } from '../../../../script/transitionLock';
-import { lockScroll, unlockScroll } from '../../../../script/scrollLock';
-import { jsMediaQueries } from '../../../../script/jsMediaQueries'
-import utilities from '../../../../script/utilities';
-import classNameChanger from '../../../../script/classNameChanger';
+import { transitionIsLocked } from '../../../../services/transitionLock';
+import { lockScroll, unlockScroll } from '../../../../services/scrollLock';
+import { jsMediaQueries } from '../../../../services/jsMediaQueries'
+import {getCssVariable} from '../../../../services/utilities';
+import classNameChanger from '../../../../services/classNameChanger';
 import Metrics from '../HeaderMetrics';
 
-const TRANSITION_TIMEOUT = utilities.getCssVariable('timer-menu')*1000 || 0
+const TRANSITION_TIMEOUT = getCssVariable('timer-menu')*1000 || 0
 const HIDE_MENU_DEFAULT_TIMEOUT_ID = 321 // рандомный id чтобы вдруг не зацепить другие таймауты на старте
 const WRAPPER_WIDTH_THRESHOLD = 2
 const VIEW_KEY_LARGE = 'L'

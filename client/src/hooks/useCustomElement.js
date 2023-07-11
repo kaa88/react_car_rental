@@ -1,5 +1,5 @@
 import { useRef, useState } from "react"
-import classNameChanger from '../script/classNameChanger'
+import classNameChanger from '../services/classNameChanger'
 
 export function useCustomElement(classNameAttr = '', childrenAttr = '', other) { // (str, any, obj)
 	if (typeof classNameAttr !== 'string') console.error('Hook "useCustomElement" 1st argument must be a "string"')

@@ -1,5 +1,5 @@
-import getData from '../../../script/fetch'
-import { getCookie } from '../../../script/cookie'
+import api from '../../../services/fetch'
+import { getCookie } from '../../../services/cookie'
 
 export const Currency = {
 	name: 'currency',
@@ -9,14 +9,7 @@ export const Currency = {
 	rates: {usd: 1}
 }
 
-const request = {
-	path: '/currency',
-	method: 'GET',
-	body: {}
-}
-const process = ['currency', 'fetch'] // ?
-
-let data = await getData(request, process)
+let data = await api.getCurrency()
 if (data) {
 	Currency.list = data.map(item => item.name)
 	data.map(item => Currency.rates[item.name] = item.rate)

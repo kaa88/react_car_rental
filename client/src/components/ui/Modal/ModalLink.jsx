@@ -2,10 +2,10 @@ import { memo, cloneElement } from 'react';
 import { useDispatch } from 'react-redux';
 import { setActiveModal, setModalContent } from '../../../store/reducers/modalReducer';
 import ModalStaticContent from './ModalStaticContent';
-import utilities from '../../../script/utilities';
-import { transitionIsLocked } from '../../../script/transitionLock';
+import {getCssVariable} from '../../../services/utilities';
+import { transitionIsLocked } from '../../../services/transitionLock';
 
-const timeout = utilities.getCssVariable('timer-modal')*1000
+const timeout = getCssVariable('timer-modal')*1000
 
 const ModalLink = memo(function ModalLink({ name = '', content = '', children }) {
 	

@@ -5,8 +5,11 @@ import Container from '../../ui/Container/Container';
 import ReservationForm from '../Forms/ReservationForm/ReservationForm';
 import Icon from '../../ui/Icon/Icon';
 import Image from '../../ui/Image/Image';
+import images from './img'
 
 const Banner = memo(function Banner() {
+
+	console.log(images);
 
 	const features = [
 		{
@@ -35,7 +38,7 @@ const Banner = memo(function Banner() {
 
 				<div className={classes.form}>
 					<div className={classes.bg}>
-						<Image src='img/bg.jpg' />
+						<Image src={images.bg} />
 					</div>
 					<Container className={classes.container}>
 						<h3 className={`${classes.formTitle} color01 fz36 tac`}>

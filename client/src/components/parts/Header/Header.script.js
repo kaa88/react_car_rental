@@ -1,5 +1,5 @@
-import { scriptManager } from '../../../script/scriptManager';
-import utilities from '../../../script/utilities';
+import { scriptManager } from '../../../services/scriptManager';
+import {getCssVariable} from '../../../services/utilities';
 import { setHeaderInitialized } from '../../../store/reducers/headerReducer';
 import Metrics from './HeaderMetrics';
 
@@ -29,7 +29,7 @@ const HeaderScript = {
 	},
 
 	getFixedParams({...params}) {
-		params.transitionTimeout = utilities.getCssVariable('timer-menu')*1000 || 0
+		params.transitionTimeout = getCssVariable('timer-menu')*1000 || 0
 
 		if (!params.headerPositionFixed) params.hidingHeader = params.compactMode = null
 

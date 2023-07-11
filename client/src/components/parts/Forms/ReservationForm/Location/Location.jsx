@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setLocation } from '../../../../../store/reducers/reservationFormReducer';
-import Utils from '../../../../../script/utilities';
+import {getCssVariable} from '../../../../../services/utilities';
 import script from './Location.script';
 import classes from './Location.module.scss';
 import TranslateHandler from '../../../../TranslateHandler';
@@ -53,7 +53,7 @@ const Location = memo(function Location({
 		setFormData(value)
 		setActiveDataType(e, '')
 
-		const transitionDelay = Utils.getCssVariable('timer-popup')*1000
+		const transitionDelay = getCssVariable('timer-popup')*1000
 		setTimeout(() => {
 			setSearchList(script.getSearchList())
 		}, transitionDelay);

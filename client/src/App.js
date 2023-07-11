@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { initOnloadScripts, initInstantScripts } from './script/index'
-import './styles/index.scss';
-import Router from './router/index';
+import { initOnloadScripts, initInstantScripts } from './services'
+import './scss/index.scss';
+import Router from './router';
 import WindowEvents from './components/WindowEvents';
 
 

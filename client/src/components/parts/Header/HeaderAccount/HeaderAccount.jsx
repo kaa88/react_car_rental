@@ -24,21 +24,6 @@ const HeaderAccount = memo(function HeaderAccount({className = ''}) {
 	const popupName = 'usernav'
 
 
-
-
-
-	let obj = {
-		name: 'name'
-	}
-	let id = Symbol("id")
-	obj[id] = 'surname'
-	console.log(obj);
-
-
-
-
-
-
 	const handleProfileClick = function(e) {
 		e.stopPropagation()
 		let active = activePopup === popupName ? '' : popupName

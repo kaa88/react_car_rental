@@ -2,11 +2,11 @@ import { useCallback, useEffect, useMemo, useState, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { changeCurrency } from '../../../store/reducers/currencyReducer'
 import { changeLanguage } from '../../../store/reducers/languageReducer'
-import Utils from '../../../script/utilities';
+import {getCssVariable} from '../../../services/utilities';
 import classes from './OptionsSelect.module.scss';
 import Icon from '../Icon/Icon';
 import Select from '../Select/Select';
-import Cookie from '../../../script/cookie'
+import Cookie from '../../../services/cookie'
 
 
 const OptionsSelect = memo(function OptionsSelect({type, className = '', children, ...props}) {
@@ -59,7 +59,7 @@ const OptionsSelect = memo(function OptionsSelect({type, className = '', childre
 	}
 
 	useEffect(() => {
-		const transitionDelay = Utils.getCssVariable('timer-select')*1000
+		const transitionDelay = getCssVariable('timer-select')*1000
 		setTimeout(() => {
 			// if (isReloadLanguage) window.location.reload()
 			if (isReloadList) {

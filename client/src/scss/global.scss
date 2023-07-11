@@ -1,0 +1,173 @@
+// Global elements //
+body {
+	// Variables for JS manipulations:
+	--header-position: 0px; //REQ!
+	--header-offset: 0px; //REQ!
+	--header-height: 0px; //REQ!
+	--window-height: 100vh; //REQ!
+	--scrollbar-width: 0px; //REQ!
+	--marker-position: 0px; //REQ!
+	--media-mobile: #{$media-mxl}; //REQ!
+	--media-tablet: #{$media-ts}; //REQ!
+	--timer-menu: #{$timer-menu}; //REQ!
+	--timer-modal: #{$timer-modal}; //REQ!
+	--timer-select: #{$timer-select}; //REQ!
+	--timer-popup: #{$timer-popup}; //REQ!
+	--compact-mode-padding-reduced: 25px;
+	@media (max-width: $media-ml+px) {
+		--compact-mode-padding-reduced: 0px;
+	}
+
+	// position: relative;
+	// display: grid; //REQ!
+	// grid-template-columns: 100%;
+	// grid-template-rows: 1fr auto; //REQ! if footer at the bottom
+	// min-height: 100vh; //REQ! if footer at the bottom
+	// max-width: $page-max-width+px;
+	// margin: 0 auto; //REQ! if max-width
+	// padding-top: calc(var(--header-offset) + var(--header-height) - var(--compact-mode-padding-reduced));
+
+	font-family: var(--font01);
+	font-size: $font-size-default;
+	color: var(--color02);
+	background-color: var(--color01);
+	&.scroll-is-locked, &.loadscreen--locked {
+		overflow: hidden;
+		padding-right: var(--scrollbar-width);
+	} //REQ!
+	// @media (min-width: $media-d+1+px) {
+	// 	font-size: 0.8333vw; // experiment
+	// }
+}
+#app {
+	position: relative;
+	display: grid; //REQ!
+	grid-template-columns: 100%;
+	grid-template-rows: 1fr auto; //REQ! if footer at the bottom
+	min-height: 100vh; //REQ! if footer at the bottom
+	max-width: $page-max-width+px;
+	margin: 0 auto; //REQ! if max-width
+	padding-top: calc(var(--header-offset) + var(--header-height) - var(--compact-mode-padding-reduced));
+}
+
+// Window scrollbar
+// html { // Firefox scrollbar is setting up in 'html'
+// 	scrollbar-width: thin; // = 8px
+// 	scrollbar-color: coral darkred; // thumb track
+// }
+// body {
+// 	&::-webkit-scrollbar {
+// 		width: 8px;
+// 	}
+// 	&::-webkit-scrollbar-thumb {
+// 		background: coral;
+// 	}
+// 	&::-webkit-scrollbar-track {
+// 		background: darkred;
+// 	}
+// }
+
+
+// .svg-templates {
+// 	position: fixed;
+// 	top: 0;
+// 	left: 0;
+// 	width: 0;
+// 	height: 0;
+// 	overflow: hidden;
+// }
+// #svg-clip-shape {transform: scale(0.001133, 0.001923);} // настройка координат (разм. svg-файла / разм. эл-та / 100), нужна ручная подгонка... или сделать в редакторе размер '1x1' (viewbox '0 0 1 1'), тогда transform не нужен
+
+.g-h1 {
+	// font-size: 40px;
+	// line-height: 3;
+	// text-align: center;
+}
+.g-h2 {}
+.g-h3 {}
+.g-h4 {}
+.g-text {}
+.g-button {}
+.g-link {}
+
+.nowrap {
+	white-space: nowrap;
+}
+.mobile-only {
+	@media (min-width: $media-ml+1+px) {
+		display: none !important;
+	}
+}
+.desktop-only {
+	@media (max-width: $media-ml+px) {
+		display: none !important;
+	}
+}
+
+// textarea {
+// 	resize: none; // none, both, horizontal, vertical
+// 	@media (min-width: $media-m+1+px) {
+// 		scrollbar-width: thin; // none, thin, auto
+// 		scrollbar-color: orange gray; // thumb, track
+// 		&::-webkit-scrollbar {
+// 			width: 8px;
+// 		}
+// 		&::-webkit-scrollbar-thumb {
+// 			background: orange;
+// 		}
+// 		&::-webkit-scrollbar-track {
+// 			background: gray;
+// 		}
+// 	}
+// }
+
+
+.undefined {
+	box-shadow: 0 0 5px 5px red !important;
+}
+
+
+// NEW car rental
+.fontMain {
+	font-family: var(--font01);
+}
+.fontAccent {
+	font-family: var(--font02);
+}
+.bold {
+	font-weight: 500;
+}
+.fz16 {
+	font-size: 16px;
+}
+.fz20 {
+	font-size: 20px;
+}
+.fz36 {
+	font-size: 36px;
+	@media (max-width: $media-ml+px) {
+		font-size: 24px;
+	}
+}
+.color01 {
+	color: var(--color01);
+	fill: var(--color01);
+}
+.color02 {
+	color: var(--color02);
+	fill: var(--color02);
+}
+.color03 {
+	color: var(--color03);
+	fill: var(--color03);
+}
+.color04 {
+	color: var(--color04);
+	fill: var(--color04);
+}
+.tac {
+	text-align: center;
+}
+.opacity05 {
+	opacity: 0.5;
+}

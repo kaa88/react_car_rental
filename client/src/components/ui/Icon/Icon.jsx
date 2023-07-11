@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './Icon.module.scss';
+import iconSprite from './sprite.svg';
 
 
 function Icon({
@@ -9,6 +10,8 @@ function Icon({
 	className = '',
 	...props
 }) {
+	const path = `${iconSprite}#${name}`
+
 	if (size) style.width = style.height = size;
 	return (
 		<svg
@@ -16,7 +19,7 @@ function Icon({
 			style={style}
 			{...props}
 		>
-			<use href={'img/sprite.svg#' + name}></use>
+			<use href={path}></use>
 		</svg>
 	)
 }
