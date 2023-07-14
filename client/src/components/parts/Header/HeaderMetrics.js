@@ -1,4 +1,4 @@
-import { jsMediaQueries } from '../../../services/jsMediaQueries'
+import { jsMediaQueries } from '../../../utilities/jsMediaQueries'
 import { setHeaderCompact } from "../../../store/reducers/headerReducer"
 
 const MetricsHandler = {

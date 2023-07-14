@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setLocation } from '../../../../../store/reducers/reservationFormReducer';
-import {getCssVariable} from '../../../../../services/utilities';
+import {getCssVariable} from '../../../../../utilities/utilities';
 import script from './Location.script';
 import classes from './Location.module.scss';
 import TranslateHandler from '../../../../TranslateHandler';

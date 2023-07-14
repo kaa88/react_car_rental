@@ -1,5 +1,5 @@
-import { scriptManager } from '../../../services/scriptManager';
-import {getCssVariable} from '../../../services/utilities';
+import { scriptManager } from '../../../utilities/scriptManager';
+import {getCssVariable} from '../../../utilities/utilities';
 import { setHeaderInitialized } from '../../../store/reducers/headerReducer';
 import Metrics from './HeaderMetrics';
 

@@ -66,7 +66,7 @@ export const defaultController = {
 
 export function getDefaultControllers (names = []) {
 	let controllers = {}
-	if (Array.isArray(names) && names.length > 0) {
+	if (Array.isArray(names) && names.length) {
 		names.map((item) => {
 			controllers[item] = {
 				async add(req, res, next) {

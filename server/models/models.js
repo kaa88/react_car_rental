@@ -5,38 +5,37 @@ export const user = sequelize.define('user', {
 	id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 	email: {type: DataTypes.STRING, allowNull: false, unique: true},
 	password: {type: DataTypes.STRING, allowNull: false},
-	role: {type: DataTypes.STRING, defaultValue: 'USER'}
+	role: {type: DataTypes.STRING, defaultValue: 'USER'}, // USER ADMIN
+	accessToken: {type: DataTypes.STRING, unique: true},
+	refreshToken: {type: DataTypes.STRING, unique: true},
+	image: {type: DataTypes.STRING},
+	language: {type: DataTypes.STRING},
 })
 
 export const car = sequelize.define('car', {
 	id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 	name: {type: DataTypes.STRING, allowNull: false},
-	engine: {type: DataTypes.STRING},
-	transmission: {type: DataTypes.STRING},
-	passengers: {type: DataTypes.INTEGER},
-	bags: {type: DataTypes.INTEGER},
-	doors: {type: DataTypes.INTEGER},
-	info: {type: DataTypes.TEXT}
+	price: {type: DataTypes.INTEGER, allowNull: false},
+	params: {type: DataTypes.JSON},
+	additionalParams: {type: DataTypes.JSON},
 })
 
-export const carprops = sequelize.define('car_props', {
+export const carParams = sequelize.define('car_params', {
 	id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-	key: {type: DataTypes.STRING, allowNull: false, unique: true},
-	fullName: {type: DataTypes.STRING, allowNull: false}
+	name: {type: DataTypes.STRING, allowNull: false, unique: true}
 })
 
 export const reservation = sequelize.define('reservation', {
 	id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-	dateFrom: {type: DataTypes.STRING, allowNull: false},
-	dateTill: {type: DataTypes.STRING, allowNull: false},
-	time: {type: DataTypes.STRING, allowNull: false},
+	pickupDate: {type: DataTypes.DATE, allowNull: false},
+	returnDate: {type: DataTypes.DATE, allowNull: false},
 	place: {type: DataTypes.STRING, allowNull: false},
-	price: {type: DataTypes.FLOAT(2), allowNull: false}
+	price: {type: DataTypes.INTEGER, allowNull: false}
 })
 
 export const feedback = sequelize.define('feedback', {
 	id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-	img: {type: DataTypes.STRING},
+	image: {type: DataTypes.STRING},
 	rating: {type: DataTypes.INTEGER, defaultValue: 5},
 	text: {type: DataTypes.TEXT, allowNull: false},
 	author: {type: DataTypes.STRING, allowNull: false}
@@ -48,23 +47,20 @@ export const currency = sequelize.define('currency', {
 	rate: {type: DataTypes.FLOAT, allowNull: false}
 })
 
-export const language = sequelize.define('language', {
-	id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-	locale: {type: DataTypes.STRING, allowNull: false, unique: true}
-})
+user.hasMany(reservation) // means user.getReservations()
+reservation.belongsTo(user) // means reservation.getUser()
 
-user.hasMany(reservation)
-reservation.belongsTo(user)
+user.hasOne(currency)
 
-reservation.hasOne(car)
-car.belongsTo(reservation)
+car.hasMany(reservation)
+reservation.belongsTo(car)
+
 
 export default {
 	user,
 	car,
-	carprops,
+	carParams,
 	reservation,
 	feedback,
 	currency,
-	language,
 }

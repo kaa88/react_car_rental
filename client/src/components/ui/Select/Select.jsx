@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState, memo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveSelect } from '../../../store/reducers/selectReducer';
 import { translate } from '../../TranslateHandler';
-import {getRandomId} from '../../../services/utilities';
+import {getRandomId} from '../../../utilities/utilities';
 import classes from './Select.module.scss';
 import Icon from '../Icon/Icon';
 

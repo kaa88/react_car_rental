@@ -1,20 +1,18 @@
 import {getDefaultControllers} from './defaultController.js'
 import user from './userController.js'
-import language from './langController.js'
 
-const defaults = [
+const defaultControllerNames = [
 	'car',
-	'carprops',
-	'currency',
+	'carParams',
+	'reservation',
 	'feedback',
-	'regexp',
-	'reservation'
+	'currency',
 ]
-const defaultControllers = getDefaultControllers(defaults)
+const defaultControllers = getDefaultControllers(defaultControllerNames)
 
 const mainController = Object.assign(
+	{},
 	defaultControllers,
-	{language},
 	{user}
 )
 

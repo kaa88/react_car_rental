@@ -1,23 +1,22 @@
 import express from 'express'
 import getDefaultRouters from './defaultRouter.js'
-import languageRouter from './langRouter.js'
 import userRouter from './userRouter.js'
 
-const defaults = [
+const defaultRouterNames = [
 	'car',
-	'carprops',
-	'currency',
+	'carParams',
+	'reservation',
 	'feedback',
-	'regexp',
-	'reservation'
+	'currency',
 ]
-const defaultRouters = getDefaultRouters(defaults)
+const defaultRouters = getDefaultRouters(defaultRouterNames)
+
 const mainRouter = express.Router()
-defaults.forEach((route) =>
-	mainRouter.use('/' + route, defaultRouters[route])
+defaultRouterNames.forEach((route) =>
+	mainRouter.use('/' + route.toLowerCase(), defaultRouters[route])
 )
 // specific:
-mainRouter.use('/language', languageRouter)
 mainRouter.use('/user', userRouter)
+
 
 export default mainRouter

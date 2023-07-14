@@ -1,9 +1,9 @@
 import { setMenuInitialized, setMenuActive } from '../../../../store/reducers/headerReducer';
-import { transitionIsLocked } from '../../../../services/transitionLock';
-import { lockScroll, unlockScroll } from '../../../../services/scrollLock';
-import { jsMediaQueries } from '../../../../services/jsMediaQueries'
-import {getCssVariable} from '../../../../services/utilities';
-import classNameChanger from '../../../../services/classNameChanger';
+import { transitionIsLocked } from '../../../../utilities/transitionLock';
+import { lockScroll, unlockScroll } from '../../../../utilities/scrollLock';
+import { jsMediaQueries } from '../../../../utilities/jsMediaQueries'
+import {getCssVariable} from '../../../../utilities/utilities';
+import classNameChanger from '../../../../utilities/classNameChanger';
 import Metrics from '../HeaderMetrics';
 
 const TRANSITION_TIMEOUT = getCssVariable('timer-menu')*1000 || 0

@@ -3,8 +3,8 @@ import controllers from '../controllers/index.js'
 
 export default function(routeNames = []) {
 	let routers = {}
-	if (Array.isArray(routeNames) && routeNames.length > 0) {
-		routeNames.map((item) => {
+	if (Array.isArray(routeNames) && routeNames.length) {
+		routeNames.forEach((item) => {
 			let router = express.Router()
 
 			router.post('/', controllers[item].add)

@@ -5,11 +5,18 @@ import {defaultController} from './defaultController.js'
 import regexp from '../regexp.js'
 import {user} from '../models/models.js'
 
-function getJwt(id, email) {
+function getAccessJwt(id, email) {
 	return jwt.sign(
 		{id, email},
-		process.env.SECRET_KEY,
-		{expiresIn: '24h'}
+		process.env.JWT_ACCESS_SECRET_KEY,
+		{expiresIn: '15m'}
+	)
+}
+function getRefreshJwt(id, email) {
+	return jwt.sign(
+		{id, email},
+		process.env.JWT_REFRESH_SECRET_KEY,
+		{expiresIn: '15d'}
 	)
 }
 
@@ -46,11 +53,6 @@ export default {
 		return res.json(response)
 	},
 
-	async get(req, res, next) {
-		let response = await defaultController.get( req, res, next, user )
-		return res.json(response)
-	},
-
 	async login(req, res, next) {
 		let {email, password} = req.body
 		if (!email || !password) return next(ApiError.badRequest('Email and password are required'))
@@ -68,6 +70,15 @@ export default {
 		return res.json(token)
 	},
 
+	async logout(req, res, next) {
+	},
+
+	async activate(req, res, next) {
+	},
+
+	async updatetoken(req, res, next) {
+	},
+
 	async check(req, res, next) {
 		let user;
 		try {
@@ -78,4 +89,5 @@ export default {
 		}
 		return res.json(getJwt(user.id, user.email))
 	}
+
 }

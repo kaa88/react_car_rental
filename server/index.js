@@ -4,12 +4,14 @@ import sequelize from './db.js'
 import cors from 'cors'
 import router from './routes/index.js'
 import errorHandler from './middleware/errorHandler.js'
+import cookieParser from 'cookie-parser'
 
 
 const PORT = process.env.SERVER_PORT || 5000
 
 const app = express()
 app.use(express.json())
+app.use(cookieParser())
 app.use(cors({
 	origin: process.env.CLIENT_URL,
 	credentials: true

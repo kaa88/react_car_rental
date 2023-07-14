@@ -1,9 +1,9 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveModal } from '../../../store/reducers/modalReducer'
-import {getCssVariable} from '../../../services/utilities';
-import { lockScroll, unlockScroll } from '../../../services/scrollLock';
-import { transitionIsLocked } from '../../../services/transitionLock';
+import {getCssVariable} from '../../../utilities/utilities';
+import { lockScroll, unlockScroll } from '../../../utilities/scrollLock';
+import { transitionIsLocked } from '../../../utilities/transitionLock';
 import TranslateHandler from '../../TranslateHandler';
 import classes from './Modal.module.scss';
 import Icon from '../Icon/Icon';
