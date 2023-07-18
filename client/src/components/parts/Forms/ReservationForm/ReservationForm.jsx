@@ -1,6 +1,6 @@
 import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActivePopup } from '../../../../store/reducers/popupReducer';
+import { setActivePopup } from '../../../../store/slices/popupSlice';
 // import script from './ReservationForm.script';
 import classes from './ReservationForm.module.scss';
 import Location from './Location/Location';

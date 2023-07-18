@@ -12,7 +12,7 @@ export const user = sequelize.define('user', {
 	language: {type: DataTypes.STRING},
 })
 
-export const car = sequelize.define('car', {
+export const cars = sequelize.define('car', {
 	id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 	name: {type: DataTypes.STRING, allowNull: false},
 	price: {type: DataTypes.INTEGER, allowNull: false},
@@ -21,7 +21,12 @@ export const car = sequelize.define('car', {
 })
 
 export const carParams = sequelize.define('car_params', {
-	id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+	id: {type: DataTypes.INTEGER, primaryKey: true, allowNull: false, unique: true},
+	name: {type: DataTypes.STRING, allowNull: false, unique: true}
+})
+
+export const carOptions = sequelize.define('car_options', {
+	id: {type: DataTypes.INTEGER, primaryKey: true, allowNull: false, unique: true},
 	name: {type: DataTypes.STRING, allowNull: false, unique: true}
 })
 
@@ -52,14 +57,15 @@ reservation.belongsTo(user) // means reservation.getUser()
 
 user.hasOne(currency)
 
-car.hasMany(reservation)
-reservation.belongsTo(car)
+cars.hasMany(reservation)
+reservation.belongsTo(cars)
 
 
 export default {
 	user,
-	car,
+	cars,
 	carParams,
+	carOptions,
 	reservation,
 	feedback,
 	currency,

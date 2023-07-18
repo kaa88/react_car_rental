@@ -1,6 +1,6 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveModal } from '../../../store/reducers/modalReducer'
+import { setActiveModal } from '../../../store/slices/modalSlice'
 import {getCssVariable} from '../../../utilities/utilities';
 import { lockScroll, unlockScroll } from '../../../utilities/scrollLock';
 import { transitionIsLocked } from '../../../utilities/transitionLock';

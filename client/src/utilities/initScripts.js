@@ -1,7 +1,7 @@
 import { scrollLock } from './scrollLock'
 import { jsMediaQueries } from './jsMediaQueries'
 import { scriptManager } from './scriptManager'
-import { changeMobileBreakpoint } from '../store/reducers/mobileBreakpointReducer'
+import { changeMobileBreakpoint } from '../store/slices/mobileBreakpointSlice'
 
 import { register } from 'swiper/element/bundle'
 register() // register Swiper custom elements

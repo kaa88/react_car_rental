@@ -3,8 +3,9 @@ import getDefaultRouters from './defaultRouter.js'
 import userRouter from './userRouter.js'
 
 const defaultRouterNames = [
-	'car',
+	'cars',
 	'carParams',
+	'carOptions',
 	'reservation',
 	'feedback',
 	'currency',

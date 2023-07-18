@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setOptions } from '../../../../../store/reducers/reservationFormReducer';
+import { setOptions } from '../../../../../store/slices/reservationFormSlice';
 import classes from './Options.module.scss';
 import TranslateHandler from '../../../../TranslateHandler';
 import InputCheckbox from '../../../../ui/Checkbox/InputCheckbox';

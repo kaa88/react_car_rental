@@ -1,6 +1,6 @@
 import { memo, useEffect, useState, useRef, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import carData from './Cars.data.json';
+// import carData from './Cars.data.json';
 import classes from './Cars.module.scss';
 import Container from '../../ui/Container/Container';
 import Requirements from './Requirements/Requirements';
@@ -10,20 +10,37 @@ import TranslateHandler from '../../TranslateHandler';
 import ModalLink from '../../ui/Modal/ModalLink'
 import Image from '../../ui/Image/Image';
 import Icon from '../../ui/Icon/Icon';
+import FetchService from '../../../services/fetch';
+import { useFetching } from '../../../hooks/useFetching';
 
 const IMAGE_DIR = 'img/'
 const IMAGE_EXT = '.jpg'
 
-// Note: хотел сделать разбивку на компоненты, но swiper отказывается работать с множественной вложенностью (а может другая причина), почему-то перестают инициализироваться кнопки навигации и пагинация... Пришлось напихать всё сюда
+// Note: хотел сделать разбивку на компоненты, но swiper отказывается работать с множественной вложенностью (а может другая причина), перестают инициализироваться кнопки навигации и пагинация... Пришлось напихать всё сюда
+
+async function getCarData(updateValue) {
+	let res = await FetchService.getCars()
+	if (res.ok) console.log(res);
+}
 
 const Cars = memo(function Cars() {
+
+	// I need 'carData'
+	let [cars, setCars] = useState(null)
+	if (cars === null) getCarData(setCars)
+	console.log(cars);
+
+
+
+
+
+	const carData ={} //
 
 	const currencyStore = useSelector(state => state.currency)
 	let currency = {
 		name: currencyStore.current,
 		rate: currencyStore.rates[currencyStore.current]
 	}
-
 
 	const modalName = 'cars'
 	const defaultCurrentSlideModalContent = getCurrentSlideModalContent(0)

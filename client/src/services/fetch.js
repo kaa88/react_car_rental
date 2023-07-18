@@ -1,4 +1,4 @@
-import api from "../api";
+import api from "../api/api";
 
 // TODO: add fake data
 
@@ -13,7 +13,7 @@ const FetchService = {
 	},
 	async getCars() {
 		return api.get('/cars')
-			.then(response => response.data)
+			.then(response => {console.log(response.data);return response.data})
 			.catch(error => {
 				console.log(error)
 				return {}

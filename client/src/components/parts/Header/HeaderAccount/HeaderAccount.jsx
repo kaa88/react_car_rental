@@ -10,7 +10,7 @@ import OptionsSelect from '../../../ui/OptionsSelect/OptionsSelect';
 import ModalLink from '../../../ui/Modal/ModalLink'
 import Icon from '../../../ui/Icon/Icon';
 import Popup from '../../../ui/Popup/Popup';
-import { setActivePopup } from '../../../../store/reducers/popupReducer';
+import { setActivePopup } from '../../../../store/slices/popupSlice';
 
 
 const HeaderAccount = memo(function HeaderAccount({className = ''}) {

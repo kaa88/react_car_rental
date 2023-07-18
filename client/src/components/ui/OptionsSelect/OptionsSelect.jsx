@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { changeCurrency } from '../../../store/reducers/currencyReducer'
-import { changeLanguage } from '../../../store/reducers/languageReducer'
+import { changeCurrency } from '../../../store/slices/currencySlice'
+import { changeLanguage } from '../../../store/slices/languageSlice'
 import {getCssVariable} from '../../../utilities/utilities';
 import classes from './OptionsSelect.module.scss';
 import Icon from '../Icon/Icon';

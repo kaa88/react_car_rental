@@ -8,7 +8,7 @@ function PageTitle({value}) {
 	let title = siteName // обработать транслейтером
 	if (value) title = value + divider + title
 
-	console.log(title);
+	// console.log(title);
 
 	// useEffect(() => {
 		document.title = title

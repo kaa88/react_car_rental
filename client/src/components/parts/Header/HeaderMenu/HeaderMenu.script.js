@@ -1,4 +1,4 @@
-import { setMenuInitialized, setMenuActive } from '../../../../store/reducers/headerReducer';
+import { setMenuInitialized, setMenuActive } from '../../../../store/slices/headerSlice';
 import { transitionIsLocked } from '../../../../utilities/transitionLock';
 import { lockScroll, unlockScroll } from '../../../../utilities/scrollLock';
 import { jsMediaQueries } from '../../../../utilities/jsMediaQueries'

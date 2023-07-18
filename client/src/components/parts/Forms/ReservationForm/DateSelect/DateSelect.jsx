@@ -1,6 +1,6 @@
 import { memo, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectorCurrentMonth } from '../../../../../store/reducers/reservationFormReducer';
+import { setSelectorCurrentMonth } from '../../../../../store/slices/reservationFormSlice';
 import classes from './DateSelect.module.scss';
 import script from './DateSelect.script';
 import parentScript from '../Period/Period.script';
@@ -20,13 +20,14 @@ const DateSelect = memo(function DateSelect({
 	const today = script.today
 
 	let dispatch = useDispatch()
-	let selectorCurrentMonth = useSelector(state => state.reservationForm.selectorCurrentMonth)
+	let selectorCurrentMonth = useSelector(state => new Date(state.reservationForm.selectorCurrentMonth))
 	// let [selectorCurrentMonth, setSelectorCurrentMonth] = useState(new Date(today.year, today.month))
 
 	const monthSelectData = useMemo(() => script.getMonthSelectData(selectorCurrentMonth), [selectorCurrentMonth])
 
 	const handleMonthSelect = function(value){
-		dispatch(setSelectorCurrentMonth(new Date(today.year, script.getMonthIndex(value))))
+		let date = new Date(today.year, script.getMonthIndex(value))
+		dispatch(setSelectorCurrentMonth(date.getTime()))
 	}
 	const handleDateSelect = function(e){
 		onSelect(e.target.dataset.date, dataType)

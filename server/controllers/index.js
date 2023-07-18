@@ -2,8 +2,9 @@ import {getDefaultControllers} from './defaultController.js'
 import user from './userController.js'
 
 const defaultControllerNames = [
-	'car',
+	'cars',
 	'carParams',
+	'carOptions',
 	'reservation',
 	'feedback',
 	'currency',

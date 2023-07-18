@@ -1,6 +1,6 @@
 import { memo, cloneElement } from 'react';
 import { useDispatch } from 'react-redux';
-import { setActiveModal, setModalContent } from '../../../store/reducers/modalReducer';
+import { setActiveModal, setModalContent } from '../../../store/slices/modalSlice';
 import ModalStaticContent from './ModalStaticContent';
 import {getCssVariable} from '../../../utilities/utilities';
 import { transitionIsLocked } from '../../../utilities/transitionLock';

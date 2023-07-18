@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import classes from './Popup.module.scss';
 import TranslateHandler from '../../TranslateHandler';
 import Icon from '../Icon/Icon';
-import { setActivePopup } from '../../../store/reducers/popupReducer';
+import { setActivePopup } from '../../../store/slices/popupSlice';
 
 
 const Popup = memo(function Popup({modif = 'default', className = '', name = '', children, ...props}) {
