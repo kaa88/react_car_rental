@@ -9,9 +9,26 @@ $offset-resize-multiplier: 3.3;
 		padding: 20px 0;
 	}
 }
+.sliderBox {
+	position: relative;
+	height: 660px;
+}
+.loader, .loadError {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 3;
+	width: 100%;
+	height: 100%;
+	background-color: var(--color01);
+}
+.loadError {
+	z-index: 2;
+}
 .slider {
 	margin-top: 30px;
 	position: relative;
+	height: 100%;
 	@media (max-width: $media-ts+px) {
 		margin-top: 10px;
 		max-width: 638px;
@@ -171,7 +188,7 @@ $offset-resize-multiplier: 3.3;
 	fill: var(--color02);
 	stroke: var(--color02);
 }
-.carAdditionalParams {
+.carOptions {
 	position: relative;
 	columns: auto 162px;
 	column-rule: solid 1px var(--color06);

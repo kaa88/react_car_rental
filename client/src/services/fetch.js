@@ -5,7 +5,7 @@ import api from "../api/api";
 const FetchService = {
 	async getCurrency() {
 		return api.get('/currency')
-			.then(response => response.data)
+			.then(response => response.data || [])
 			.catch(error => {
 				console.log(error)
 				return {} //?
@@ -13,18 +13,34 @@ const FetchService = {
 	},
 	async getCars() {
 		return api.get('/cars')
-			.then(response => {console.log(response.data);return response.data})
+			.then(response => response.data || [])
 			.catch(error => {
 				console.log(error)
-				return {}
+				return []
+			})
+	},
+	async getCarParams() {
+		return api.get('/carparams')
+			.then(response => response.data || [])
+			.catch(error => {
+				console.log(error)
+				return []
+			})
+	},
+	async getCarOptions() {
+		return api.get('/caroptions')
+			.then(response => response.data || [])
+			.catch(error => {
+				console.log(error)
+				return []
 			})
 	},
 	async getFeedback() {
-		return api.get('/feedback')
-			.then(response => response.data)
+		return api.get('/feedback?max=5&order=desc')
+			.then(response => response.data || [])
 			.catch(error => {
 				console.log(error)
-				return {}
+				return []
 			})
 	},
 }

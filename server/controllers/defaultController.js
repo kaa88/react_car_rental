@@ -3,7 +3,7 @@ import models from '../models/models.js'
 
 export const defaultController = {
 	async add(req, res, next, model) {
-		let {createdAt, updatedAt, id, ...attributes} = model.getAttributes()
+		let {createdAt, updatedAt, ...attributes} = model.getAttributes()
 		// console.log(Object.keys(attributes));
 
 		let fields = {}, errors = [];
@@ -11,14 +11,18 @@ export const defaultController = {
 		Object.values(attributes).forEach((value) => {
 			if (value.allowNull === false && !req.body[value.fieldName])
 				errors.push(value.fieldName)
-			else fields[value.fieldName] = req.body[value.fieldName]
+			else if (!value.autoIncrement) fields[value.fieldName] = req.body[value.fieldName]
 		})
 
 		if (errors.length) return next(ApiError.badRequest(`Error when creating a new entrie. Missing attributes: ${errors.toString()}`))
-		else {
+		try {
 			let response = await model.create(fields)
 			return response
 		}
+		catch(err) {
+			return next(ApiError.badRequest(err.message))
+		}
+
 	},
 
 	async edit(req, res, next, model) {

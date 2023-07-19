@@ -17,10 +17,16 @@ const Modal = memo(function Modal({ className = '' }) {
 	const dispatch = useDispatch()
 	const {activeModal, content} = useSelector(state => state.modal)
 	let [activeClass, setActiveClass] = useState('')
+	let [activeModalForCss, setActiveModalForCss] = useState('')
 
 	useEffect(() => {
 		if (activeModal && content) openModal()
-		else closeModal()
+		else {
+			closeModal(true)
+			setTimeout(() => {
+				setActiveModalForCss(activeModal) // this one is set with timeout to prevent style changes during the animation
+			}, timeout)
+		}
 	}, [activeModal, content])
 
 	const contentRef = useRef()
@@ -28,19 +34,20 @@ const Modal = memo(function Modal({ className = '' }) {
 	function openModal() {
 		lockScroll()
 		setActiveClass(classes.active)
+		setActiveModalForCss(activeModal)
 		contentRef.current.scrollTo({top: 0})
 	}
-	function closeModal() {
+	function closeModal(linkEvent) {
 		if (activeModal === null) return;
-		if (transitionIsLocked(timeout)) return;
+		if (!linkEvent && transitionIsLocked(timeout)) return;
 		unlockScroll(timeout)
 		setActiveClass('')
 		dispatch(setActiveModal(''))
 	}
-
+	
 	return (
 		<TranslateHandler>
-			<div className={`${className} ${classes.default} ${activeModal} ${activeClass}`}>
+			<div className={`${className} ${classes.default} ${activeClass}`} name={activeModalForCss}>
 				<div className={classes.closeArea} onClick={closeModal}></div>
 				<div className={classes.wrapper}>
 					<div className={classes.closeButton} onClick={closeModal}>

@@ -1,0 +1,48 @@
+@import "../../../scss/variables.scss";
+
+.dark, .light {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 5px;
+	user-select: none;
+	cursor: default;
+}
+
+.dark {
+	fill: var(--color06);
+}
+.light {
+	fill: var(--color01);
+}
+
+.loadIcon {
+	max-width: 50px;
+	max-height: 50px;
+	animation: loader-spin 2s linear infinite;
+	svg {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+@keyframes loader-spin {
+	from {transform: rotate(0deg);}
+	to {transform: rotate(360deg);}
+}
+
+.errIcon {
+	max-width: 40px;
+	max-height: 40px;
+	svg {
+		width: 100%;
+		height: 100%;
+	}
+}
+.errMsg {
+	margin-top: 15px;
+	font-size: 20px;
+}

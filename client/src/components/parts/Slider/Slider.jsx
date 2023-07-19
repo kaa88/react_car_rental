@@ -4,12 +4,14 @@ import Icon from '../../ui/Icon/Icon';
 import Button from '../../ui/Button/Button';
 
 
-function Slider({modif = '',
+function Slider({
+	modif = '',
 	className = '',
 	children,
 	swiperParams = {},
 	onSlideChange = function(carId){},
-	...props}) {
+	...props
+}) {
 
 	const swiperEl = useRef()
 	useEffect(() => {

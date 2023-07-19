@@ -1,13 +1,21 @@
 import { useState } from "react"
-import FetchService from "../services/fetch"
 
-export async function useFetching() {
-	const defaultState = {
-		isLoading: false,
-		response: '',
-		error: ''
+export function useFetching(callback) {
+	let [isLoading, setIsLoading] = useState(false)
+	let [error, setError] = useState('')
+
+	async function fetchData() {
+		try {
+			setIsLoading(true)
+			await callback()
+		}
+		catch(err) {
+			setError(err.message)
+		}
+		finally {
+			setIsLoading(false)
+		}
 	}
-	let [state, setState] = useState(defaultState)
-	const response = await FetchService.getCars()
-	return response
+
+	return [fetchData, isLoading, error]
 }

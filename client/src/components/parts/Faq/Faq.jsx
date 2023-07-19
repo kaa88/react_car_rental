@@ -5,6 +5,7 @@ import Image from '../../ui/Image/Image';
 import faqData from './Faq.data.json';
 import Divider from '../../ui/Divider/Divider';
 import TranslateHandler from '../../TranslateHandler';
+import images from './img'
 
 
 const Faq = memo(function Faq() {
@@ -13,7 +14,7 @@ const Faq = memo(function Faq() {
 		<TranslateHandler>
 			<section className={classes.faq}>
 				<div className={classes.bg}>
-					<Image src='img/bg2.jpg' />
+					<Image src={images.bg2} />
 				</div>
 				<Container>
 					<h3 className={classes.title}>F.A.Q</h3>

@@ -11,6 +11,7 @@ import Contacts from './Contacts/Contacts';
 import Links from './Links/Links';
 import Copyright from './Copyright/Copyright';
 import Link from '../../ui/TextLink/TextLink';
+import images from './img'
 
 
 const Footer = memo(function Footer() {
@@ -45,7 +46,7 @@ const Footer = memo(function Footer() {
 							title='?_See map'
 						></Link>
 						<div className={classes.mapBox}>
-							<Image src='img/map.jpg' />
+							<Image src={images.map} />
 							<Icon className={classes.point} name='icon-point' />
 						</div>
 					</div>

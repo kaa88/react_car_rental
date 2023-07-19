@@ -15,19 +15,22 @@ export const user = sequelize.define('user', {
 export const cars = sequelize.define('car', {
 	id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 	name: {type: DataTypes.STRING, allowNull: false},
+	shortName: {type: DataTypes.STRING, allowNull: false},
 	price: {type: DataTypes.INTEGER, allowNull: false},
 	params: {type: DataTypes.JSON},
-	additionalParams: {type: DataTypes.JSON},
+	options: {type: DataTypes.JSON},
 })
 
 export const carParams = sequelize.define('car_params', {
 	id: {type: DataTypes.INTEGER, primaryKey: true, allowNull: false, unique: true},
-	name: {type: DataTypes.STRING, allowNull: false, unique: true}
+	name: {type: DataTypes.STRING, allowNull: false, unique: true},
+	abbr: {type: DataTypes.STRING, unique: true},
 })
 
 export const carOptions = sequelize.define('car_options', {
 	id: {type: DataTypes.INTEGER, primaryKey: true, allowNull: false, unique: true},
-	name: {type: DataTypes.STRING, allowNull: false, unique: true}
+	name: {type: DataTypes.STRING, allowNull: false, unique: true},
+	abbr: {type: DataTypes.STRING, unique: true},
 })
 
 export const reservation = sequelize.define('reservation', {

@@ -7,8 +7,6 @@ import reservationForm from './slices/reservationFormSlice'
 import modal from './slices/modalSlice'
 import select from './slices/selectSlice'
 import header from './slices/headerSlice'
-import cars from './slices/carsSlice'
-import carParams from './slices/carParamsSlice'
 
 const rootReducer = combineReducers({
 	currency,
@@ -19,11 +17,9 @@ const rootReducer = combineReducers({
 	modal,
 	select,
 	popup,
-	cars,
-	carParams,
 })
 
 export default configureStore({
 	reducer: rootReducer,
-	// middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
 })
