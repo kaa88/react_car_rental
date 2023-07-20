@@ -1,4 +1,4 @@
-import { getCookie } from '../../../services/cookie'
+// import { getCookie } from '../../../services/cookie'
 
 export const Language = {
 	name: 'language',
@@ -6,5 +6,6 @@ export const Language = {
 	current: 'en',
 	list: [ 'en', 'ru', 'de' ]
 }
-let currentLang = getCookie()[Language.name]
-if (currentLang) Language.current = currentLang
+let currentLang = localStorage.getItem(Language.name)
+console.log(currentLang);
+if (currentLang && currentLang !== 'null') Language.current = currentLang

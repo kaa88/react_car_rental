@@ -23,15 +23,12 @@ export default {
 
 	// default:
 	async add(req, res, next) {
-		let response = await defaultController.add( req, res, next, feedback )
-		return res.json(response)
+		return await defaultController.add( req, res, next, feedback )
 	},
 	async edit(req, res, next) {
-		let response = await defaultController.edit( req, res, next, feedback )
-		return res.json(response)
+		return await defaultController.edit( req, res, next, feedback )
 	},
 	async delete(req, res, next) {
-		let response = await defaultController.delete( req, res, next, feedback )
-		return res.json(response)
+		return await defaultController.delete( req, res, next, feedback )
 	},
 }

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import SigninForm from '../../parts/Forms/AccountForm/SigninForm';
+import SigninForm from '../../parts/Forms/AccountForm/LoginForm';
 import RegisterForm from '../../parts/Forms/AccountForm/RegisterForm';
 import RestorePasswordForm from '../../parts/Forms/AccountForm/RestorePasswordForm';
 

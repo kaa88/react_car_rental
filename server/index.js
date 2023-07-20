@@ -3,7 +3,7 @@ import express from 'express'
 import sequelize from './db.js'
 import cors from 'cors'
 import router from './routes/index.js'
-import errorHandler from './middleware/errorHandler.js'
+import errorMiddleware from './middleware/errorMiddleware.js'
 import cookieParser from 'cookie-parser'
 
 
@@ -18,7 +18,7 @@ app.use(cors({
 }))
 app.use('/api', router)
 
-app.use(errorHandler)
+app.use(errorMiddleware)
 
 async function start() {
 	try {

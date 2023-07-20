@@ -4,8 +4,6 @@ import models from '../models/models.js'
 export const defaultController = {
 	async add(req, res, next, model) {
 		let {createdAt, updatedAt, ...attributes} = model.getAttributes()
-		// console.log(Object.keys(attributes));
-
 		let fields = {}, errors = [];
 
 		Object.values(attributes).forEach((value) => {
@@ -17,12 +15,11 @@ export const defaultController = {
 		if (errors.length) return next(ApiError.badRequest(`Error when creating a new entrie. Missing attributes: ${errors.toString()}`))
 		try {
 			let response = await model.create(fields)
-			return response
+			return res.json(response)
 		}
 		catch(err) {
 			return next(ApiError.badRequest(err.message))
 		}
-
 	},
 
 	async edit(req, res, next, model) {
@@ -33,7 +30,7 @@ export const defaultController = {
 				attributes,
 				{where: {id}}
 			)
-			return {message: `Updated ${response[0]} entries`}
+			return res.json(`Updated ${response[0]} entries`)
 		}
 	},
 
@@ -43,17 +40,17 @@ export const defaultController = {
 
 		let response = await model.destroy({where: {id}})
 		if (!response) return next(ApiError.badRequest(`Entrie with id=${id} not found`))
-		return {message: `Deleted ${response} entrie`}
+		return res.json(`Deleted entrie with id=${id}`)
 	},
 
 	async get(req, res, next, model) {
 		const filter = req.query
 		try {
 			let response = await model.findAll({where: filter})
-			return response
+			return res.json(response)
 		}
 		catch(err) {
-			console.error(err.message)
+			return next(ApiError.badRequest(err.message))
 		}
 	}
 }
@@ -61,23 +58,19 @@ export const defaultController = {
 export function getDefaultControllers (names = []) {
 	let controllers = {}
 	if (Array.isArray(names) && names.length) {
-		names.map((item) => {
+		names.forEach((item) => {
 			controllers[item] = {
 				async add(req, res, next) {
-					let response = await defaultController.add( req, res, next, models[item] )
-					return res.json(response)
+					return await defaultController.add( req, res, next, models[item] )
 				},
 				async edit(req, res, next) {
-					let response = await defaultController.edit( req, res, next, models[item] )
-					return res.json(response)
+					return await defaultController.edit( req, res, next, models[item] )
 				},
 				async delete(req, res, next) {
-					let response = await defaultController.delete( req, res, next, models[item] )
-					return res.json(response)
+					return await defaultController.delete( req, res, next, models[item] )
 				},
 				async get(req, res, next) {
-					let response = await defaultController.get( req, res, next, models[item] )
-					return res.json(response)
+					return await defaultController.get( req, res, next, models[item] )
 				}
 			}
 		})

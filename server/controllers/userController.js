@@ -2,8 +2,9 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import ApiError from '../error.js'
 import {defaultController} from './defaultController.js'
-import regexp from '../regexp.js'
 import {user} from '../models/models.js'
+import {validationResult} from 'express-validator'
+
 
 function getAccessJwt(id, email) {
 	return jwt.sign(
@@ -20,60 +21,89 @@ function getRefreshJwt(id, email) {
 	)
 }
 
+// async function findUser(email) {
+// 	let candidate = await user.findOne({where: {email}})
+// }
+
 export default {
 	async add(req, res, next) {
-		let {email, password} = req.body
-		if (!email || !password) return next(ApiError.badRequest('Email and password are required'))
+		let errors = validationResult(req)
+		if (!errors.isEmpty()) return next(ApiError.badRequest('Validation failed', errors))
+
+		const {email, password} = req.body
 
 		let existUser = await user.findOne({where: {email}})
 		if (existUser) return next(ApiError.badRequest(`User with email '${email}' already exists`))
 
-		let emailIsOk = regexp.email.test(email)
-		if (!emailIsOk) return next(ApiError.badRequest('Incorrect email'))
-
-		let passwordIsOk = regexp.password.test(password)
-		if (!passwordIsOk) return next(ApiError.badRequest('Incorrect password'))
-
 		let hashPassword = await bcrypt.hash(password, 5)
 		req.body.password = hashPassword
 
-		let response = await defaultController.add( req, res, next, user )
-		return res.json(response)
+		return await defaultController.add( req, res, next, user )
 	},
 
 	async edit(req, res, next) {
-		// check role
-		let response = await defaultController.edit( req, res, next, user )
-		return res.json(response)
+		return await defaultController.edit( req, res, next, user )
 	},
 
 	async delete(req, res, next) {
-		// check role
-		let response = await defaultController.delete( req, res, next, user )
-		return res.json(response)
+		return await defaultController.delete( req, res, next, user )
+	},
+
+	async activate(req, res, next) {
 	},
 
 	async login(req, res, next) {
+		console.log(req.body);
 		let {email, password} = req.body
 		if (!email || !password) return next(ApiError.badRequest('Email and password are required'))
 
-		let user;
+		let candidate;
 		try {
-			user = await user.findOne({where: {email}})
-			let comparePassword = bcrypt.compareSync(password, user.password)
+			candidate = await user.findOne({where: {email}})
+			let comparePassword = bcrypt.compareSync(password, candidate.password)
 			if (!comparePassword) throw('err')
 		} catch(err) {
 			return next(ApiError.unauthorized('Wrong email or password'))
 		}
 
-		let token = getJwt(user.id, email)
-		return res.json(token)
+		let accessToken = getAccessJwt(candidate.id, email)
+		let refreshToken = getRefreshJwt(candidate.id, email)
+		let updateResponse = await candidate.update(
+			{accessToken, refreshToken}
+		)
+		let userData = {
+			id: updateResponse.id,
+			email: updateResponse.email,
+			role: updateResponse.role,
+			accessToken: updateResponse.accessToken,
+			image: updateResponse.image,
+			language: updateResponse.language,
+			currency: updateResponse.currency,
+		}
+		res.cookie('refreshToken', refreshToken, {
+			maxAge: 15*24*60*60*1000,
+			httpOnly: true,
+			// secure: true,
+		})
+		return res.json(userData)
 	},
 
 	async logout(req, res, next) {
-	},
-
-	async activate(req, res, next) {
+		let {id} = req.body
+		if (!id) return next(ApiError.badRequest('Missing id'))
+		try {
+			let response = await user.update(
+				{accessToken: null, refreshToken: null},
+				{where: {id}}
+			)
+			if (response) {
+				res.clearCookie('refreshToken')
+				return res.json({ok: true})
+			}
+		}
+		catch(err) {
+			return next(ApiError.badRequest('Error when log out'))
+		}
 	},
 
 	async updatetoken(req, res, next) {
@@ -83,7 +113,7 @@ export default {
 		let user;
 		try {
 			let token = req.headers.authorization
-			user = jwt.verify(token, process.env.SECRET_KEY)
+			user = jwt.verify(token, process.env.JWT_ACCESS_SECRET_KEY)
 		} catch(err) {
 			return next(ApiError.unauthorized('Wrong or missing token'))
 		}

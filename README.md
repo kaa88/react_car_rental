@@ -1,5 +1,5 @@
 # TO DO:
-- remake store with redux toolkit
+- only refresh token in DB
 - server (auth, db, account)
 - account page
 - minify (webpack)
@@ -9,7 +9,7 @@
 - cookie popup
 - add-feedback modal
 - header account button image
-- default account image (svg)
+- default account image (svg) (in feedback photo)
 - forms spam-bot check (invisible field)
 
 ========
@@ -55,4 +55,4 @@ simple
 ===================
 
 Continue:
-fetch cars
+users, reservation

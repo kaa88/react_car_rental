@@ -6,7 +6,8 @@ import {getCssVariable} from '../../../utilities/utilities';
 import classes from './OptionsSelect.module.scss';
 import Icon from '../Icon/Icon';
 import Select from '../Select/Select';
-import Cookie from '../../../services/cookie'
+import UserService from '../../../services/user';
+// import Cookie from '../../../services/cookie'
 
 
 const OptionsSelect = memo(function OptionsSelect({type, className = '', children, ...props}) {
@@ -14,6 +15,7 @@ const OptionsSelect = memo(function OptionsSelect({type, className = '', childre
 	const dispatch = useDispatch()
 	const Language = useSelector(state => state.language)
 	const Currency = useSelector(state => state.currency)
+	const userIsAuth = useSelector(state => state.user.isAuth)
 
 	let [isReloadList, setReloadList] = useState(true)
 	// let [isReloadLanguage, setReloadLanguage] = useState(false)
@@ -39,21 +41,23 @@ const OptionsSelect = memo(function OptionsSelect({type, className = '', childre
 	}
 	let [selectData, setSelectData] = useState(createSelectData())
 
-	const cookieExpireDays = 30
-	const isCookieLog = true
-	const setCookie = function(value) {
-		if (value) {
-			Cookie.setCookie({
-				name: type,
-				value: value,
-				expires: cookieExpireDays,
-			}, isCookieLog ? true : false )
-		}
+	const updateStorageValue = function(value) {
+		if (value) localStorage.setItem(type, value)
+		if (userIsAuth) UserService.edit(type, value)
+		// const cookieExpireDays = 30
+		// const isCookieLog = true
+		// if (value) {
+		// 	Cookie.setCookie({
+		// 		name: type,
+		// 		value: value,
+		// 		expires: cookieExpireDays,
+		// 	}, isCookieLog ? true : false )
+		// }
 	}
 
 	const handleSelect = function(value) {
 		value = value.toLowerCase()
-		setCookie(value)
+		updateStorageValue(value)
 		dispatch(categories[type].action(value))
 		setReloadList(true) // change list by useEffect with delay
 	}

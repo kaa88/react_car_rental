@@ -4,6 +4,7 @@ import { initOnloadScripts, initInstantScripts } from './utilities/initScripts'
 import './scss/index.scss';
 import Router from './router';
 import WindowEvents from './components/WindowEvents';
+import AuthChecker from './components/AuthChecker';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
 		<>
 			<Router />
 			<WindowEvents />
+			<AuthChecker />
 		</>
 	)
 }

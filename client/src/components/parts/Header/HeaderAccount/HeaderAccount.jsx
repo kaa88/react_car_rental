@@ -11,13 +11,18 @@ import ModalLink from '../../../ui/Modal/ModalLink'
 import Icon from '../../../ui/Icon/Icon';
 import Popup from '../../../ui/Popup/Popup';
 import { setActivePopup } from '../../../../store/slices/popupSlice';
+import UserService from '../../../../services/user';
+import { changeAuthState } from '../../../../store/slices/userSlice';
 
 
 const HeaderAccount = memo(function HeaderAccount({className = ''}) {
 
-	const isLoggedIn = true
+	const isLoggedIn = useSelector(state => state.user.isAuth)
 	const noDisplayStyle = {display: 'none'}
-	const userName = 'abcd@mail.com'
+	const userName = localStorage.getItem('email') || 'none'
+
+	console.log(isLoggedIn);
+	console.log(userName);
 
 	const dispatch = useDispatch()
 	const activePopup = useSelector(state => state.popup.active)
@@ -28,6 +33,14 @@ const HeaderAccount = memo(function HeaderAccount({className = ''}) {
 		e.stopPropagation()
 		let active = activePopup === popupName ? '' : popupName
 		dispatch(setActivePopup(active))
+	}
+
+	const logout = async function() {
+		let response = await UserService.logout()
+		if (response.ok) {
+			dispatch(changeAuthState(false))
+			dispatch(setActivePopup(''))
+		}
 	}
 
 	return (
@@ -52,7 +65,7 @@ const HeaderAccount = memo(function HeaderAccount({className = ''}) {
 					<Popup className={classes.popup} name={popupName}>
 						<div className={classes.popupContent}>
 							<Button className={classes.popupButton}>?_Account</Button>
-							<Button className={classes.popupButton} modif='negative'>?_Sign out</Button>
+							<Button className={classes.popupButton} modif='negative' onClick={logout}>?_Sign out</Button>
 						</div>
 					</Popup>
 				</div>

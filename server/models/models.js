@@ -10,6 +10,7 @@ export const user = sequelize.define('user', {
 	refreshToken: {type: DataTypes.STRING, unique: true},
 	image: {type: DataTypes.STRING},
 	language: {type: DataTypes.STRING},
+	currency: {type: DataTypes.STRING},
 })
 
 export const cars = sequelize.define('car', {
@@ -57,8 +58,6 @@ export const currency = sequelize.define('currency', {
 
 user.hasMany(reservation) // means user.getReservations()
 reservation.belongsTo(user) // means reservation.getUser()
-
-user.hasOne(currency)
 
 cars.hasMany(reservation)
 reservation.belongsTo(cars)
