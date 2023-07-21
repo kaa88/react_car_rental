@@ -23,7 +23,7 @@ router.delete('/delete', userController.delete)
 router.post('/activate/:code', userController.activate)
 router.post('/login', userController.login)
 router.post('/logout', userController.logout)
-router.post('/updatetoken', tokenMiddleware, userController.updatetoken)
-router.get('/check', tokenMiddleware, userController.check) //?
+router.get('/refresh', userController.refresh)
+router.get('/', tokenMiddleware, userController.getUserData)
 
 export default router

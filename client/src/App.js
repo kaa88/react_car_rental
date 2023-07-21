@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { initOnloadScripts, initInstantScripts } from './utilities/initScripts'
 import './scss/index.scss';
-import Router from './router';
+import Router from './router/Router';
 import WindowEvents from './components/WindowEvents';
-import AuthChecker from './components/AuthChecker';
+import UserSession from './components/UserSession';
 
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
 		<>
 			<Router />
 			<WindowEvents />
-			<AuthChecker />
+			<UserSession />
 		</>
 	)
 }

@@ -1,7 +1,7 @@
 import express from 'express'
 import controllers from '../controllers/index.js'
 
-export default function(routeNames = []) {
+function defaultRouter(routeNames = []) {
 	let routers = {}
 	if (Array.isArray(routeNames) && routeNames.length) {
 		routeNames.forEach((item) => {
@@ -17,3 +17,5 @@ export default function(routeNames = []) {
 	}
 	return routers
 }
+
+export default defaultRouter

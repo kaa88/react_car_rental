@@ -1,31 +1,11 @@
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
 import ApiError from '../error.js'
 import {defaultController} from './defaultController.js'
 import {user} from '../models/models.js'
 import {validationResult} from 'express-validator'
+import TokenService from '../services/TokenService.js'
 
-
-function getAccessJwt(id, email) {
-	return jwt.sign(
-		{id, email},
-		process.env.JWT_ACCESS_SECRET_KEY,
-		{expiresIn: '15m'}
-	)
-}
-function getRefreshJwt(id, email) {
-	return jwt.sign(
-		{id, email},
-		process.env.JWT_REFRESH_SECRET_KEY,
-		{expiresIn: '15d'}
-	)
-}
-
-// async function findUser(email) {
-// 	let candidate = await user.findOne({where: {email}})
-// }
-
-export default {
+const userController = {
 	async add(req, res, next) {
 		let errors = validationResult(req)
 		if (!errors.isEmpty()) return next(ApiError.badRequest('Validation failed', errors))
@@ -61,63 +41,73 @@ export default {
 		try {
 			candidate = await user.findOne({where: {email}})
 			let comparePassword = bcrypt.compareSync(password, candidate.password)
-			if (!comparePassword) throw('err')
-		} catch(err) {
+			if (!comparePassword) throw 'er'
+		} catch(er) {
 			return next(ApiError.unauthorized('Wrong email or password'))
 		}
-
-		let accessToken = getAccessJwt(candidate.id, email)
-		let refreshToken = getRefreshJwt(candidate.id, email)
-		let updateResponse = await candidate.update(
-			{accessToken, refreshToken}
-		)
-		let userData = {
-			id: updateResponse.id,
-			email: updateResponse.email,
-			role: updateResponse.role,
-			accessToken: updateResponse.accessToken,
-			image: updateResponse.image,
-			language: updateResponse.language,
-			currency: updateResponse.currency,
-		}
-		res.cookie('refreshToken', refreshToken, {
-			maxAge: 15*24*60*60*1000,
-			httpOnly: true,
-			// secure: true,
-		})
-		return res.json(userData)
+		let userData = new UserDTO(candidate.dataValues)
+		let {accessToken, refreshToken} = TokenService.generateToken({id: candidate.dataValues.id, email})
+		res.cookie(...getCookieSettings(refreshToken))
+		return res.json({userData, accessToken})
 	},
 
 	async logout(req, res, next) {
-		let {id} = req.body
-		if (!id) return next(ApiError.badRequest('Missing id'))
-		try {
-			let response = await user.update(
-				{accessToken: null, refreshToken: null},
-				{where: {id}}
-			)
-			if (response) {
-				res.clearCookie('refreshToken')
-				return res.json({ok: true})
-			}
-		}
-		catch(err) {
-			return next(ApiError.badRequest('Error when log out'))
-		}
+		res.clearCookie('refreshToken')
+		return res.json({ok: true})
 	},
 
-	async updatetoken(req, res, next) {
+	async getUserData(req, res, next) {
+		let {id} = req.tokenData
+		let candidate = await user.findOne({where: {id}})
+		if (!candidate) return next(ApiError.badRequest('User not found'))
+		let userData = new UserDTO(candidate.dataValues)
+		return res.json(userData)
 	},
 
-	async check(req, res, next) {
-		let user;
+	async refresh(req, res, next) {
 		try {
-			let token = req.headers.authorization
-			user = jwt.verify(token, process.env.JWT_ACCESS_SECRET_KEY)
-		} catch(err) {
-			return next(ApiError.unauthorized('Wrong or missing token'))
+			let token = req.cookies.refreshToken
+			if (!token) throw 'er'
+	
+			let tokenData = TokenService.validateRefreshToken(token)
+			if (tokenData instanceof Error) throw 'er'
+	
+			let {id, email} = tokenData
+			let candidate = await user.findOne({where: {id, email}})
+			if (!candidate) return next(ApiError.badRequest('User not found'))
+	
+			let {accessToken, refreshToken} = TokenService.generateToken({id, email})
+	
+			res.cookie(...getCookieSettings(refreshToken))
+			res.send(accessToken)
 		}
-		return res.json(getJwt(user.id, user.email))
-	}
-
+		catch(er) {
+			return next(ApiError.unauthorized())
+		}
+	},
 }
+
+function getCookieSettings(token = 'null') {
+	return [
+		'refreshToken',
+		token,
+		{
+			maxAge: 15*24*60*60*1000,
+			httpOnly: true,
+			// secure: true,
+		}
+	]
+}
+
+class UserDTO {
+	constructor(user) {
+		this.id = user.id
+		this.email = user.email
+		this.role = user.role
+		this.image = user.image
+		this.language = user.language
+		this.currency = user.currency
+	}
+}
+
+export default userController

@@ -39,5 +39,5 @@ export function getCookie() {
 	return Object.fromEntries(cookiesArr.map((item) => item.split('=')))
 }
 
-const cookie = {setCookie, getCookie}
-export default cookie
+const CookieService = {setCookie, getCookie}
+export default CookieService

@@ -7,5 +7,4 @@ export const Language = {
 	list: [ 'en', 'ru', 'de' ]
 }
 let currentLang = localStorage.getItem(Language.name)
-console.log(currentLang);
 if (currentLang && currentLang !== 'null') Language.current = currentLang

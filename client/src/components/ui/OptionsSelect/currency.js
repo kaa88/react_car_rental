@@ -1,4 +1,4 @@
-import api from '../../../services/fetch'
+import api from '../../../services/FetchService'
 // import { getCookie } from '../../../services/cookie'
 
 export const Currency = {

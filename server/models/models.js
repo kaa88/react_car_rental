@@ -6,8 +6,6 @@ export const user = sequelize.define('user', {
 	email: {type: DataTypes.STRING, allowNull: false, unique: true},
 	password: {type: DataTypes.STRING, allowNull: false},
 	role: {type: DataTypes.STRING, defaultValue: 'USER'}, // USER ADMIN
-	accessToken: {type: DataTypes.STRING, unique: true},
-	refreshToken: {type: DataTypes.STRING, unique: true},
 	image: {type: DataTypes.STRING},
 	language: {type: DataTypes.STRING},
 	currency: {type: DataTypes.STRING},
@@ -63,7 +61,7 @@ cars.hasMany(reservation)
 reservation.belongsTo(cars)
 
 
-export default {
+const models = {
 	user,
 	cars,
 	carParams,
@@ -72,3 +70,4 @@ export default {
 	feedback,
 	currency,
 }
+export default models

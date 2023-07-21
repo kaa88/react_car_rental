@@ -1,4 +1,5 @@
 export function objectIsEmpty(obj) {
+	if (Array.isArray(obj)) return !obj.length
 	for (let prop in obj) {
 		if (Object.hasOwn(obj, prop)) return false
 	}

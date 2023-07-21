@@ -12,12 +12,34 @@ api.interceptors.request.use((config) => {
 })
 
 api.interceptors.response.use(
-	(response) => {
-		return response
-	},
-	(error) => {
-		return Promise.reject(error)
+	(response) => response,
+	async (error) => {
+		if (isRefreshing) return Promise.reject(new Error('Unauthorized'))
+		if (error.response.status === 401) {
+			isRefreshing = true
+			let token = await refreshToken()
+			if (token instanceof Error) return Promise.reject(token)
+			isRefreshing = false
+			let response = await repeatRequest(error.config.method, error.config.url)
+			return response
+		}
 	}
 )
+
+let isRefreshing = false
+
+async function refreshToken() {
+	return api.get('/user/refresh')
+		.then(response => {
+			localStorage.setItem('token', response.data)
+		})
+		.catch(error => error)
+}
+async function repeatRequest(method, url) {
+	return api[method](url)
+		.then(response => response)
+		.catch(error => error)
+}
+
 
 export default api

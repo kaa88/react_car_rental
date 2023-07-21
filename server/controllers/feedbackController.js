@@ -3,7 +3,7 @@ import {defaultController} from './defaultController.js'
 import {feedback} from '../models/models.js'
 
 
-export default {
+const feedbackController = {
 
 	async get(req, res, next) {
 		let {max, order, ...filter} = req.query
@@ -32,3 +32,5 @@ export default {
 		return await defaultController.delete( req, res, next, feedback )
 	},
 }
+
+export default feedbackController

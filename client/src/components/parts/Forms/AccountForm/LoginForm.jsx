@@ -6,10 +6,10 @@ import ModalLink from '../../../ui/Modal/ModalLink'
 import InputText from '../../../ui/InputText/InputText';
 import InputPassword from '../../../ui/InputPassword/InputPassword';
 import Container from '../../../ui/Container/Container';
-import UserService from '../../../../services/user';
+import UserService from '../../../../services/UserService';
 import { useDispatch } from 'react-redux';
-import { changeAuthState } from '../../../../store/slices/userSlice';
-import { setActiveModal } from '../../../../store/slices/modalSlice';
+import { changeUserData } from '../../../../store/slices/userSlice';
+import { setActiveModal, setModalContent } from '../../../../store/slices/modalSlice';
 
 
 const LoginForm = memo(function LoginForm() {
@@ -30,15 +30,15 @@ const LoginForm = memo(function LoginForm() {
 	async function handleLogin(e) {
 		e.preventDefault()
 		if (!email || !password) return setError('Missing email or password')
-		let response = await UserService.login(email, password)
-		if (response.ok) {
+		let {ok, error, ...userData} = await UserService.login(email, password)
+		if (ok) {
 			setError('')
-			dispatch(changeAuthState(true))
-			dispatch(setActiveModal(''))
+			dispatch(changeUserData(userData))
+			dispatch(setActiveModal('user_logged_in'))
 		}
 		else {
-			setError(response.error.message)
-			dispatch(changeAuthState(false))
+			setError(error.message)
+			dispatch(changeUserData({isAuth: false}))
 		}
 	}
 

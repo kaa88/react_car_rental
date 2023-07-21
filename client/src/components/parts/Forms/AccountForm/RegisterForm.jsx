@@ -36,7 +36,7 @@ const RegisterForm = memo(function RegisterForm() {
 						?_Register
 					</Button>
 
-					<ModalLink name='signin'>
+					<ModalLink name='login'>
 						<div className={`${classes.link} ${classes.centered}`}>?_Already have account</div>
 					</ModalLink>
 				</Container>

@@ -1,12 +1,13 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveModal } from '../../../store/slices/modalSlice'
+import { setActiveModal, setModalContent } from '../../../store/slices/modalSlice'
 import {getCssVariable} from '../../../utilities/utilities';
 import { lockScroll, unlockScroll } from '../../../utilities/scrollLock';
 import { transitionIsLocked } from '../../../utilities/transitionLock';
 import TranslateHandler from '../../TranslateHandler';
 import classes from './Modal.module.scss';
 import Icon from '../Icon/Icon';
+import ModalStaticContent, { names } from './ModalStaticContent';
 
 const timeout = getCssVariable('timer-modal')*1000
 
@@ -18,6 +19,10 @@ const Modal = memo(function Modal({ className = '' }) {
 	const {activeModal, content} = useSelector(state => state.modal)
 	let [activeClass, setActiveClass] = useState('')
 	let [activeModalForCss, setActiveModalForCss] = useState('')
+
+	let modalContent = ''
+	if (activeModal && Object.keys(names).includes(activeModal))
+		modalContent = <ModalStaticContent name={activeModal} />
 
 	useEffect(() => {
 		if (activeModal && content) openModal()
@@ -54,7 +59,7 @@ const Modal = memo(function Modal({ className = '' }) {
 						<Icon name='icon-cross' />
 					</div>
 					<div className={classes.content} ref={contentRef}>
-						{content}
+						{modalContent}
 					</div>
 				</div>
 			</div>

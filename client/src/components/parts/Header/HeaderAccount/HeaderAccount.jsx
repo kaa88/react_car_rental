@@ -11,8 +11,8 @@ import ModalLink from '../../../ui/Modal/ModalLink'
 import Icon from '../../../ui/Icon/Icon';
 import Popup from '../../../ui/Popup/Popup';
 import { setActivePopup } from '../../../../store/slices/popupSlice';
-import UserService from '../../../../services/user';
-import { changeAuthState } from '../../../../store/slices/userSlice';
+import UserService from '../../../../services/UserService';
+import { changeUserData } from '../../../../store/slices/userSlice';
 
 
 const HeaderAccount = memo(function HeaderAccount({className = ''}) {
@@ -38,7 +38,7 @@ const HeaderAccount = memo(function HeaderAccount({className = ''}) {
 	const logout = async function() {
 		let response = await UserService.logout()
 		if (response.ok) {
-			dispatch(changeAuthState(false))
+			dispatch(changeUserData({isAuth: false}))
 			dispatch(setActivePopup(''))
 		}
 	}
@@ -51,7 +51,7 @@ const HeaderAccount = memo(function HeaderAccount({className = ''}) {
 				<OptionsSelect type='language' />
 
 				<div className={classes.userNav}>
-					<ModalLink name='signin'>
+					<ModalLink name='login'>
 						<Button className={classes.signinButton} modif='negative' style={isLoggedIn ? noDisplayStyle : {}}>?_Sign in</Button>
 					</ModalLink>
 					<button

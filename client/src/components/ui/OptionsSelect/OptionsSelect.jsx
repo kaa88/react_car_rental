@@ -6,7 +6,7 @@ import {getCssVariable} from '../../../utilities/utilities';
 import classes from './OptionsSelect.module.scss';
 import Icon from '../Icon/Icon';
 import Select from '../Select/Select';
-import UserService from '../../../services/user';
+import UserService from '../../../services/UserService';
 // import Cookie from '../../../services/cookie'
 
 

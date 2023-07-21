@@ -11,7 +11,7 @@ import TranslateHandler from '../../TranslateHandler';
 import ModalLink from '../../ui/Modal/ModalLink'
 import Image from '../../ui/Image/Image';
 import Icon from '../../ui/Icon/Icon';
-import FetchService from '../../../services/fetch';
+import FetchService from '../../../services/FetchService';
 import Loader from '../../ui/Loader/Loader';
 import LoadError from '../../ui/Loader/LoadError';
 

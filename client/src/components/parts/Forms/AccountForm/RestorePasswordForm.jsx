@@ -18,7 +18,7 @@ const RestorePasswordForm = memo(function RestorePasswordForm() {
 					<div className={classes.title}>?_Restore password</div>
 					<InputText className={classes.inputText} placeholder='?_E-mail' />
 					<Button className={classes.button} onClick={handleRestorePassword}>?_Restore</Button>
-					<ModalLink name='signin'>
+					<ModalLink name='login'>
 						<div className={`${classes.link} ${classes.centered}`}>?_Return</div>
 					</ModalLink>
 				</Container>

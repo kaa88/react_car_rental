@@ -7,7 +7,7 @@ import Button from '../../ui/Button/Button';
 import Slider from '../Slider/Slider';
 import TranslateHandler from '../../TranslateHandler';
 import { useFetching } from '../../../hooks/useFetching';
-import FetchService from '../../../services/fetch';
+import FetchService from '../../../services/FetchService';
 import Loader from '../../ui/Loader/Loader';
 import LoadError from '../../ui/Loader/LoadError';
 
