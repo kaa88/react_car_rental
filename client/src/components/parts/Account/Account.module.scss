@@ -1,0 +1,298 @@
+@import "../../../scss/variables.scss";
+
+.account {
+	.container {
+		@media (max-width: $media-t+px) {
+			max-width: 680px;
+		}
+	}
+}
+.box {
+	position: relative;
+	& > *:not(:last-child) .content {
+		border-bottom: solid 1px var(--color02);
+	}
+}
+.booking, .history, .settings {
+	display: flex;
+	width: 100%;
+	@media (max-width: $media-tl+px) {
+		flex-direction: column;
+	}
+}
+.header {
+	flex: 0 0 186px;
+	position: relative;
+	font-size: 24px;
+	border-right: solid 1px var(--color02);
+	.booking & {
+		padding-top: 6px;
+	}
+	.history & {
+		padding-top: 48px;
+	}
+	.settings & {
+		padding-top: 45px;
+	}
+	@media (max-width: $media-tl+px) {
+		flex: 0 0 auto;
+		border: none;
+		.booking &, .history &, .settings & {
+			margin-top: 26px;
+			padding-top: 0;
+			line-height: 40px;
+			span {
+				display: inline-block;
+				line-height: 40px;
+			}
+		}
+	}
+	@media (max-width: $media-m+px) {
+		font-size: 20px;
+		font-weight: 500;
+	}
+}
+.spoilerButton {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	background-color: transparent;
+	@media (min-width: $media-m+1+px) {
+		display: none;
+	}
+}
+.spoilerIcon {
+	width: 18px;
+	height: 18px;
+	transform: rotate(90deg);
+	fill: var(--color02);
+}
+.content {
+	margin-left: 28px;
+	flex: 1 1 auto;
+	display: grid;
+	grid-template-columns: repeat(4, auto);
+	grid-row-gap: 24px;
+	.booking & {
+		padding-top: 6px;
+		padding-bottom: 40px;
+	}
+	.history & {
+		padding-top: 48px;
+		padding-bottom: 16px;
+	}
+	.settings & {
+		padding-top: 45px;
+		padding-bottom: 70px;
+		display: flex;
+	}
+	@media (max-width: $media-tl+px) {
+		margin-left: 0;
+		.booking &, .history &, .settings & {
+			padding-top: 20px;
+			padding-bottom: 30px;
+		}
+	}
+	@media (max-width: $media-t+px) {
+		grid-template-columns: repeat(2, auto);
+		grid-row-gap: 20px;
+	}
+	@media (max-width: $media-m+px) {
+		grid-template-columns: 100%;
+	}
+}
+.spoilerContent {
+	@media (max-width: $media-m+px) {
+		height: 0;
+		overflow: hidden;
+		&.spoilerActive {
+			height: auto;
+		}
+		&:not(.spoilerActive) {
+			padding-bottom: 0;
+		}
+	}
+}
+
+.bookingItem, .historyItem {
+	width: 100%;
+	position: relative;
+	padding-left: 24px;
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: inline-block;
+		width: 1px;
+		height: 50%;
+		background-color: var(--color02);
+	}
+	&:nth-child(4n-3) {
+		padding-left: 0;
+		&:before {display: none;}
+	}
+	&:not(:nth-child(4n)) {
+		padding-right: 24px;
+	}
+	@media (max-width: $media-t+px) {
+		&:nth-child(odd) {
+			padding-left: 0;
+			&:before {display: none;}
+		}
+		&:nth-child(even) {
+			padding-right: 0;
+		}
+	}
+	@media (max-width: $media-ml+px) {
+		&:nth-child(odd) {
+			padding-right: 15px;
+		}
+		&:nth-child(even) {
+			padding-left: 15px;
+		}
+	}
+	@media (max-width: $media-m+px) {
+		&:nth-child(n+1) {
+			padding: 0;
+			&:before {
+				display: none;
+			}
+		}
+		&:not(:first-child) {
+			padding-top: 20px;
+			&:before {
+				display: inline-block;
+				left: 25%;
+				width: 50%;
+				height: 1px;
+			}
+		}
+	}
+}
+.historyItem {}
+.bookingItemButtons {
+	margin-top: 15px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	@media (max-width: $media-m+px) {
+		justify-content: space-between;
+		column-gap: 0;
+	}
+}
+body .bookingItemBtn {
+	height: 35px;
+	padding: 0 24px;
+	font-size: 16px;
+	@media (max-width: $media-m+px) {
+		flex: 0 1 calc(50% - 6px);
+	}
+}
+.bookingInfoBox {
+	background-color: orange;
+	color: var(--color02);
+	fill: var(--color02);
+	.historyItem & {
+		opacity: 0.7;
+	}
+}
+.bookingTitle {
+	font-size: 20px;
+}
+.bookingText {
+	margin-top: 15px;
+	display: flex;
+	align-items: center;
+	font-size: 16px;
+}
+.bookingIcon {
+	margin-right: 6px;
+	width: 22px;
+	height: 22px;
+}
+.historyItemDeleteBtn {
+	margin-top: 15px;
+	color: var(--color03);
+	fill: var(--color03);
+	background-color: transparent;
+	display: flex;
+	align-items: center;
+	opacity: 1;
+	transition: opacity $timer-hover;
+	&:hover {
+		opacity: 0.7;
+	}
+	@media (max-width: $media-m+px) {
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+.historyMoreBtn {
+	grid-column: span 4;
+	padding: 0 24px;
+	justify-self: end;
+	height: 35px;
+	@media (max-width: $media-t+px) {
+		grid-column: span 2;
+	}
+	@media (max-width: $media-m+px) {
+		grid-column: span 1;
+		justify-self: center;
+	}
+}
+
+
+.settingsForm {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 410px;
+}
+.settingsInput {
+	margin-bottom: 16px;
+	padding: 0 24px;
+	width: 100%;
+	height: 60px;
+	font-size: 20px;
+	border: solid 1px var(--color02);
+	&::placeholder {
+		opacity: 0.5;
+	}
+}
+body .settingsPhotoButton {
+	padding: 0 16px;
+	width: fit-content;
+	height: 43px;
+	font-size: 20px;
+}
+body .settingsSubmitButton {
+	margin-top: 24px;
+	padding: 0 24px;
+	width: fit-content;
+	height: 55px;
+	font-size: 20px;
+}
+.userPhotoBox {
+	margin-left: 28px;
+	width: 300px;
+}
+.userPhoto {
+	background-color: var(--color05);
+	width: 100%;
+	padding-bottom: 121.9512%;
+	position: relative;
+	img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}

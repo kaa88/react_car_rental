@@ -5,10 +5,11 @@ export const user = sequelize.define('user', {
 	id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 	email: {type: DataTypes.STRING, allowNull: false, unique: true},
 	password: {type: DataTypes.STRING, allowNull: false},
-	role: {type: DataTypes.STRING, defaultValue: 'USER'}, // USER ADMIN
+	role: {type: DataTypes.STRING, defaultValue: 'USER'}, // USER, ADMIN
 	image: {type: DataTypes.STRING},
 	language: {type: DataTypes.STRING},
 	currency: {type: DataTypes.STRING},
+	cookieAccepted: {type: DataTypes.BOOLEAN, defaultValue: false},
 })
 
 export const cars = sequelize.define('car', {

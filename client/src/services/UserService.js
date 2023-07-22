@@ -1,50 +1,29 @@
 import api from "../api/api"
+import { changeCurrency } from "../store/slices/currencySlice"
+import { changeLanguage } from "../store/slices/languageSlice"
+import { changeUserData } from "../store/slices/userSlice"
 
-const USER_ID = 'userId'
-const USER_EMAIL = 'userEmail'
-const USER_ROLE = 'userRole'
-const USER_IMAGE = 'userImage'
-const TOKEN = 'token'
-const CURRENCY = 'currency'
-const LANGUAGE = 'language'
-
-function updateStorage(data) {
-	let token = checkValue(data.accessToken)
-	if (token) localStorage.setItem(TOKEN, token)
-	// localStorage.setItem(USER_ID, checkValue(data.userData.id))
-	// localStorage.setItem(USER_EMAIL, checkValue(data.userData.email))
-	// localStorage.setItem(USER_ROLE, checkValue(data.userData.role))
-	// localStorage.setItem(USER_IMAGE, checkValue(data.userData.image))
-	// localStorage.setItem(CURRENCY, checkValue(data.userData.currency))
-	// localStorage.setItem(LANGUAGE, checkValue(data.userData.language))
-}
-function clearStorage() {
-	localStorage.removeItem(TOKEN)
-	// localStorage.removeItem(USER_ID)
-	// localStorage.removeItem(USER_EMAIL)
-	// localStorage.removeItem(USER_ROLE)
-	// localStorage.removeItem(USER_IMAGE)
-}
-function checkValue(value) {
-	if (!value || value === 'null') return ''
-	return value
-}
+// const USER_ID = 'userId'
 
 
 const UserService = {
-	async register(username, password) {
-		return api.post('/user/add', {email: username, password})
-			.then(response => ({ok: true}))
-			.catch(error => ({error: error.response.data}))
+	async getUserData() {
+		console.log('getUserData');
+		return api.get('/user')
+			.then(response => {
+				updateStorage(response.data)
+				return {ok: true}
+			})
+			.catch(error => handleError(error))
 	},
 
 	async login(username, password) {
 		return api.post('/user/login', {email: username, password})
 			.then(response => {
 				updateStorage(response.data)
-				return {ok: true, ...response.data.userData}
+				return {ok: true}
 			})
-			.catch(error => ({error: error.response}))
+			.catch(error => handleError(error))
 	},
 
 	async logout() {
@@ -53,27 +32,68 @@ const UserService = {
 				clearStorage()
 				return {ok: true}
 			})
+			.catch(error => handleError(error))
 	},
 
-	async edit(key, value) {
+	async register(username, password) {
+		return api.post('/user/add', {email: username, password})
+			.then(response => {
+				updateStorage(response.data)
+				return {ok: true}
+			})
+			.catch(error => handleError(error))
+	},
+
+	async edit(userId, key, value) {
+		// if (!key || !value) return console.log('Missing attributes')
 		return api.put('/user/edit', {
-				id: localStorage.getItem(USER_ID),
+				// id: localStorage.getItem(USER_ID),
+				id: userId,
 				[key]: value,
 			})
 			.then(response => ({ok: true}))
-			.catch(error => ({error: error.response.data}))
-	},
-
-	async getUserData() {
-		console.log('getUserData');
-		return api.get('/user')
-			.then(response => {
-				console.log('update storage');
-				updateStorage(response.data)
-				return {ok: true, ...response.data.userData}
-			})
-			.catch(error => error)
+			.catch(error => handleError(error))
 	},
 }
-
 export default UserService
+
+
+const TOKEN = 'token'
+
+function updateStorage(data) {
+	console.log('updateStorage');
+	console.log(data);
+	let token = data.accessToken
+	let {currency, language, ...userData} = data.userData
+
+	if (token && token !== 'null') localStorage.setItem(TOKEN, checkValue(token))
+	// localStorage.setItem(USER_ID, checkValue(userData.id))
+
+	const dispatch = getDispatch()
+	console.log(dispatch);
+	if (dispatch) {
+		console.log(userData);
+		dispatch(changeUserData(userData))
+		dispatch(changeCurrency(checkValue(currency)))
+		dispatch(changeLanguage(checkValue(language)))
+	}
+}
+function clearStorage() {
+	localStorage.removeItem(TOKEN)
+	// localStorage.removeItem(USER_ID)
+	const dispatch = getDispatch()
+	if (dispatch) dispatch(changeUserData(null))
+}
+function getDispatch() {
+	const dispatch = UserService.dispatch
+	if (dispatch) return dispatch
+	console.error('Could not update "Store" because of missing "dispatch" function in "UserService". Check "UserSession" component is rendered.')
+}
+function checkValue(value) {
+	if (!value || value === 'null' || value === 'undefined') return ''
+	return value
+}
+function handleError(error) {
+	// if (error instanceof AxiosError) return {error: error.response.data}
+	return error
+}

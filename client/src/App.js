@@ -4,7 +4,6 @@ import { initOnloadScripts, initInstantScripts } from './utilities/initScripts'
 import './scss/index.scss';
 import Router from './router/Router';
 import WindowEvents from './components/WindowEvents';
-import UserSession from './components/UserSession';
 
 
 function App() {
@@ -16,7 +15,6 @@ function App() {
 		<>
 			<Router />
 			<WindowEvents />
-			<UserSession />
 		</>
 	)
 }

@@ -61,7 +61,7 @@ const userController = {
 		let candidate = await user.findOne({where: {id}})
 		if (!candidate) return next(ApiError.badRequest('User not found'))
 		let userData = new UserDTO(candidate.dataValues)
-		return res.json(userData)
+		return res.json({userData})
 	},
 
 	async refresh(req, res, next) {

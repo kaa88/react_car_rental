@@ -6,7 +6,7 @@ import Button from '../../../ui/Button/Button';
 
 const UserLoggedInAlert = function({className = '', ...praps}) {
 
-	let username = localStorage.getItem('email')
+	const username = useSelector(state => state.user.email)
 
 	return (
 		<TranslateHandler>

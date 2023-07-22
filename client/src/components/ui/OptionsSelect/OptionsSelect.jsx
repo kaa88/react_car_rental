@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, memo } from 'react';
+import { useEffect, useMemo, useState, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { changeCurrency } from '../../../store/slices/currencySlice'
 import { changeLanguage } from '../../../store/slices/languageSlice'
@@ -7,7 +7,8 @@ import classes from './OptionsSelect.module.scss';
 import Icon from '../Icon/Icon';
 import Select from '../Select/Select';
 import UserService from '../../../services/UserService';
-// import Cookie from '../../../services/cookie'
+
+const transitionDelay = getCssVariable('timer-select')*1000
 
 
 const OptionsSelect = memo(function OptionsSelect({type, className = '', children, ...props}) {
@@ -15,10 +16,9 @@ const OptionsSelect = memo(function OptionsSelect({type, className = '', childre
 	const dispatch = useDispatch()
 	const Language = useSelector(state => state.language)
 	const Currency = useSelector(state => state.currency)
-	const userIsAuth = useSelector(state => state.user.isAuth)
+	const userID = useSelector(state => state.user.id)
 
-	let [isReloadList, setReloadList] = useState(true)
-	// let [isReloadLanguage, setReloadLanguage] = useState(false)
+	// let [isReloadList, setReloadList] = useState(true)
 
 	const categories = useMemo(function() {return {
 		language: {
@@ -41,39 +41,23 @@ const OptionsSelect = memo(function OptionsSelect({type, className = '', childre
 	}
 	let [selectData, setSelectData] = useState(createSelectData())
 
-	const updateStorageValue = function(value) {
-		if (value) localStorage.setItem(type, value)
-		if (userIsAuth) UserService.edit(type, value)
-		// const cookieExpireDays = 30
-		// const isCookieLog = true
-		// if (value) {
-		// 	Cookie.setCookie({
-		// 		name: type,
-		// 		value: value,
-		// 		expires: cookieExpireDays,
-		// 	}, isCookieLog ? true : false )
-		// }
-	}
-
 	const handleSelect = function(value) {
 		value = value.toLowerCase()
-		updateStorageValue(value)
 		dispatch(categories[type].action(value))
-		setReloadList(true) // change list by useEffect with delay
+		if (userID) UserService.edit(userID, type, value)
+		// setReloadList(true) // change list by useEffect with delay
 	}
 
 	useEffect(() => {
-		const transitionDelay = getCssVariable('timer-select')*1000
 		setTimeout(() => {
-			// if (isReloadLanguage) window.location.reload()
-			if (isReloadList) {
-				setReloadList(false)
+			// if (isReloadList) {
+				// setReloadList(false)
+				// console.log('kajsdf');
 				setSelectData(createSelectData())
-			}
+			// }
 		}, transitionDelay)
-	})
+	}, [Language, Currency])
 
-	// console.log('render OptionsSelect')
 	return (
 		<div className={classes.default}>
 			<span className={classes.icon}>

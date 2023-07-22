@@ -30,15 +30,15 @@ const LoginForm = memo(function LoginForm() {
 	async function handleLogin(e) {
 		e.preventDefault()
 		if (!email || !password) return setError('Missing email or password')
-		let {ok, error, ...userData} = await UserService.login(email, password)
+		let {ok, error} = await UserService.login(email, password)
 		if (ok) {
 			setError('')
-			dispatch(changeUserData(userData))
+			// dispatch(changeUserData(userData))
 			dispatch(setActiveModal('user_logged_in'))
 		}
-		else {
+		if (error) {
 			setError(error.message)
-			dispatch(changeUserData({isAuth: false}))
+			// dispatch(changeUserData({isAuth: false}))
 		}
 	}
 

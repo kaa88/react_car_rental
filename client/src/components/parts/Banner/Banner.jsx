@@ -9,7 +9,7 @@ import images from './img'
 
 const Banner = memo(function Banner() {
 
-	console.log(images);
+	// console.log(images);
 
 	const features = [
 		{

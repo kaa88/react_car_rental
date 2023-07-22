@@ -21,7 +21,6 @@ const Feedback = memo(function Feedback() {
 
 	async function getFeedbacks() {
 		let data = await FetchService.getFeedback()
-		console.log(data);
 		setFeedbackData(data)
 	}
 

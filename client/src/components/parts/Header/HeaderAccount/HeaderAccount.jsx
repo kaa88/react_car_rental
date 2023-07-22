@@ -1,6 +1,5 @@
 import React, { useState, memo, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { useCustomElement } from '../../../../hooks/useCustomElement';
 // import script from './HeaderAccount.script';
 import classes from './HeaderAccount.module.scss';
 import TranslateHandler from '../../../TranslateHandler';
@@ -12,19 +11,18 @@ import Icon from '../../../ui/Icon/Icon';
 import Popup from '../../../ui/Popup/Popup';
 import { setActivePopup } from '../../../../store/slices/popupSlice';
 import UserService from '../../../../services/UserService';
-import { changeUserData } from '../../../../store/slices/userSlice';
+// import { changeUserData } from '../../../../store/slices/userSlice';
 
 
 const HeaderAccount = memo(function HeaderAccount({className = ''}) {
 
-	const isLoggedIn = useSelector(state => state.user.isAuth)
-	const noDisplayStyle = {display: 'none'}
-	const userName = localStorage.getItem('email') || 'none'
-
-	console.log(isLoggedIn);
-	console.log(userName);
-
 	const dispatch = useDispatch()
+
+	const userData = useSelector(state => state.user)
+	const userID = userData ? userData.id : ''
+	const userName = userData ? userData.email : 'user'
+	const noDisplayStyle = {display: 'none'}
+
 	const activePopup = useSelector(state => state.popup.active)
 	const popupName = 'usernav'
 
@@ -38,7 +36,7 @@ const HeaderAccount = memo(function HeaderAccount({className = ''}) {
 	const logout = async function() {
 		let response = await UserService.logout()
 		if (response.ok) {
-			dispatch(changeUserData({isAuth: false}))
+			// dispatch(changeUserData({isAuth: false}))
 			dispatch(setActivePopup(''))
 		}
 	}
@@ -52,13 +50,13 @@ const HeaderAccount = memo(function HeaderAccount({className = ''}) {
 
 				<div className={classes.userNav}>
 					<ModalLink name='login'>
-						<Button className={classes.signinButton} modif='negative' style={isLoggedIn ? noDisplayStyle : {}}>?_Sign in</Button>
+						<Button className={classes.signinButton} modif='negative' style={!!userID ? noDisplayStyle : {}}>?_Sign in</Button>
 					</ModalLink>
 					<button
 						className={classes.profileButton}
 						onClick={handleProfileClick}
 						title={userName}
-						style={isLoggedIn ? {} : noDisplayStyle}
+						style={!!userID ? {} : noDisplayStyle}
 					>
 						<Icon name='icon-user' />
 					</button>

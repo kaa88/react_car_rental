@@ -34,7 +34,6 @@ const Cars = memo(function Cars() {
 			params: await FetchService.getCarParams(),
 			options: await FetchService.getCarOptions(),
 		}
-		console.log(data);
 		setCarData(data)
 		setNeedToUpdateModal(true)
 	}
