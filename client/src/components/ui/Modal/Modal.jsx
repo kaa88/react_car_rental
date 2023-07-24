@@ -23,6 +23,7 @@ const Modal = memo(function Modal({ className = '' }) {
 	let modalContent = ''
 	if (activeModal && Object.keys(names).includes(activeModal))
 		modalContent = <ModalStaticContent name={activeModal} />
+	else modalContent = content
 
 	useEffect(() => {
 		if (activeModal && content) openModal()

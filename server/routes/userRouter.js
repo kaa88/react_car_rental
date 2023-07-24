@@ -24,6 +24,7 @@ router.post('/activate/:code', userController.activate)
 router.post('/login', userController.login)
 router.post('/logout', userController.logout)
 router.get('/refresh', userController.refresh)
+router.get('/changepassword', userController.changePassword)
 router.get('/', tokenMiddleware, userController.getUserData)
 
 export default router

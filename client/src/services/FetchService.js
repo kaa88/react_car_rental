@@ -8,7 +8,7 @@ const FetchService = {
 			.then(response => response.data || [])
 			.catch(error => {
 				console.log(error)
-				return {} //?
+				return []
 			})
 	},
 	async getCars() {

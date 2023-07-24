@@ -51,14 +51,15 @@ body .signinButton {
 	align-items: center;
 	background-color: var(--color05);
 	fill: var(--color06);
-	svg {
-		width: 30px;
-		height: 30px;
-	}
-	@media (max-width: $media-ml+px) {
-		width: 39px;
-		height: 39px;
-	}
+	border-radius: 6px;
+	overflow: hidden;
+	// @media (max-width: $media-ml+px) {
+	// 	width: 39px;
+	// 	height: 39px;
+	// }
+}
+body .userPhoto {
+	padding-bottom: 100%;
 }
 body .popup {
 	top: calc(100% + 6px);
@@ -76,8 +77,8 @@ body .popupButton {
 	min-width: 112px;
 	height: 35px;
 	border-radius: 28px;
-	&:not(:last-child) {
-		margin-bottom: 10px;
+	&:not(:first-child) {
+		margin-top: 10px;
 	}
 	@media (max-width: $media-ml+px) {
 		line-height: 14px;

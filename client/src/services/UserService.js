@@ -35,8 +35,8 @@ const UserService = {
 			.catch(error => handleError(error))
 	},
 
-	async register(username, password) {
-		return api.post('/user/add', {email: username, password})
+	async register(username, password, currency = null, language = null, cookieAccepted = false) {
+		return api.post('/user/add', {email: username, password, currency, language, cookieAccepted})
 			.then(response => {
 				updateStorage(response.data)
 				return {ok: true}
@@ -54,6 +54,16 @@ const UserService = {
 			.then(response => ({ok: true}))
 			.catch(error => handleError(error))
 	},
+
+	async changePassword(userId, currentPassword, newPassword) {
+		return api.put('/user/changepassword', {
+				id: userId,
+				currentPassword,
+				newPassword
+			})
+			.then(response => ({ok: true}))
+			.catch(error => handleError(error))
+	},
 }
 export default UserService
 
@@ -66,21 +76,18 @@ function updateStorage(data) {
 	let token = data.accessToken
 	let {currency, language, ...userData} = data.userData
 
-	if (token && token !== 'null') localStorage.setItem(TOKEN, checkValue(token))
-	// localStorage.setItem(USER_ID, checkValue(userData.id))
+	if (token) localStorage.setItem(TOKEN, token)
 
 	const dispatch = getDispatch()
-	console.log(dispatch);
 	if (dispatch) {
 		console.log(userData);
 		dispatch(changeUserData(userData))
-		dispatch(changeCurrency(checkValue(currency)))
-		dispatch(changeLanguage(checkValue(language)))
+		dispatch(changeLanguage(language))
+		dispatch(changeCurrency(currency))
 	}
 }
 function clearStorage() {
 	localStorage.removeItem(TOKEN)
-	// localStorage.removeItem(USER_ID)
 	const dispatch = getDispatch()
 	if (dispatch) dispatch(changeUserData(null))
 }
@@ -89,10 +96,10 @@ function getDispatch() {
 	if (dispatch) return dispatch
 	console.error('Could not update "Store" because of missing "dispatch" function in "UserService". Check "UserSession" component is rendered.')
 }
-function checkValue(value) {
-	if (!value || value === 'null' || value === 'undefined') return ''
-	return value
-}
+// function checkValue(value) {
+// 	if (!value || value === 'null' || value === 'undefined') return ''
+// 	return value
+// }
 function handleError(error) {
 	// if (error instanceof AxiosError) return {error: error.response.data}
 	return error

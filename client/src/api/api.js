@@ -14,7 +14,7 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
 	(response) => response,
 	async (error) => {
-		if (isRefreshing) return Promise.reject(new Error('Unauthorized'))
+		if (isRefreshing) return Promise.reject()
 		if (error.response.status === 401) {
 			isRefreshing = true
 			let token = await refreshToken()

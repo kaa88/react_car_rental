@@ -4,8 +4,10 @@ const initialState = {
 	id: '',
 	email: '',
 	role: '',
+	name: '',
 	image: '',
-	cookieAccepted: false
+	cookieAccepted: false,
+	isActivated: false,
 }
 
 export const userSlice = createSlice({
@@ -15,13 +17,13 @@ export const userSlice = createSlice({
 		changeUserData(state, action) {
 			let payload = action.payload === null ? initialState : action.payload
 			let newState = Object.assign({}, state, payload)
-			console.log(newState); //
-			// state.isAuth = newState.isAuth
 			state.id = newState.id
 			state.email = newState.email
 			state.role = newState.role
+			state.name = (newState.name && newState.name !== 'null') ? newState.name : newState.email
 			state.image = newState.image
 			state.cookieAccepted = newState.cookieAccepted
+			state.isActivated = newState.isActivated
 		},
 	}
 })

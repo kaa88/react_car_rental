@@ -12,9 +12,15 @@ import InputText from '../../ui/InputText/InputText';
 import { useCustomElement } from '../../../hooks/useCustomElement';
 import { jsMediaQueries } from '../../../utilities/jsMediaQueries';
 import UserPhoto from '../../ui/UserPhoto/UserPhoto';
+import { useSelector } from 'react-redux';
+import SettingsForm from '../Forms/AccountForm/SettingsForm';
+
 
 
 const Account = memo(function Account() {
+
+	// const userData = useSelector(state => state.user)
+	// const userPhoto = userData ? userData.image : ''
 
 	const activeSpoilersDefault = {
 		history: false,
@@ -127,18 +133,7 @@ const Account = memo(function Account() {
 								</div>
 							</div>
 							<div className={`${classes.content} ${classes.spoilerContent} ${activeSpoilers.settings ? classes.spoilerActive : ''}`}>
-								<form className={classes.settingsForm} action="#">
-									<InputText className={classes.settingsInput} placeholder='?_Name' />
-									<InputText className={classes.settingsInput} placeholder='?_Last name' />
-									<InputText className={classes.settingsInput} placeholder='?_Change password' />
-									<Button className={classes.settingsPhotoButton} modif='negative'>?_+ Add photo</Button>
-									<Button className={classes.settingsSubmitButton}>?_Save changes</Button>
-								</form>
-								<div className={classes.userPhotoBox}>
-									<div className={classes.userPhoto}>
-										<UserPhoto src='img/user_photos/b2g.jpg' />
-									</div>
-								</div>
+								<SettingsForm />
 							</div>
 						</div>
 					</div>

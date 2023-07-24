@@ -15,7 +15,7 @@
 	font-size: 24px;
 	margin-bottom: 30px;
 }
-body .inputText, body .InputPassword {
+body .inputText, body .inputPassword {
 	height: 60px;
 	padding: 0 24px;
 	font-size: 20px;
@@ -36,11 +36,19 @@ body .inputText, body .InputPassword {
 	min-width: 143px;
 	height: 43px;
 	font-size: 16px;
+	&.settingsPhotoBtn {
+		margin-top: 16px;
+	}
+	&.settingsSubmitBtn {
+		margin-top: 0;
+		@media (max-width: $media-m+px) {
+			margin-top: 10px;
+		}
+	}
 }
 .link {
 	align-self: flex-start;
 	margin-top: 14px;
-	// font-size: 16px;
 	color: var(--color02);
 	text-decoration: underline;
 	cursor: pointer;
@@ -62,5 +70,65 @@ body .checkbox {
 	font-size: 16px;
 	& > * {
 		margin-right: em(4);
+	}
+}
+.error {
+	margin-left: 20px;
+	font-size: 20px;
+	min-height: 24px;
+	color: var(--color03);
+	@media (max-width: $media-m+px) {
+		margin-left: 0;
+		font-size: 16px;
+		min-height: 20px;
+	}
+}
+.sectionTitle {
+	font-size: 18px;
+	&:not(:first-child) {
+		margin-top: 10px;
+	}
+}
+
+.settingsForm {
+	display: grid;
+	grid-template-columns: 410px auto;
+	grid-column-gap: 28px;
+	grid-row-gap: 20px;
+	width: 100%;
+	@media (max-width: $media-t+px) {
+		grid-template-columns: 2fr 1fr;
+		justify-content: space-between;
+	}
+	@media (max-width: $media-ml+px) {
+		grid-column-gap: 10px;
+	}
+	@media (max-width: $media-m+px) {
+		grid-template-columns: 100%;
+		grid-row-gap: 10px;
+	}
+}
+.settingsInputs {
+	max-width: 410px;
+	& > * {
+		margin-bottom: 10px;
+	}
+}
+.settingsPhoto {
+	max-width: 200px;
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	@media (max-width: $media-m+px) {
+		justify-self: center;
+	}
+}
+.settingsSubmit {
+	grid-column: span 2;
+	display: flex;
+	align-items: center;
+	@media (max-width: $media-m+px) {
+		grid-column: 1;
+		flex-direction: column-reverse;
 	}
 }

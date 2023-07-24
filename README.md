@@ -2,6 +2,7 @@
 - only refresh token in DB
 - server (auth, db, account)
 - account page
+- user role 'TEST' (test@user.one) with 'frozen' settings
 - minify (webpack)
 - print.scss - move specific styles inside the component
 - rename color vars

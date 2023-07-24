@@ -49,13 +49,13 @@ const LoginForm = memo(function LoginForm() {
 					<div className={classes.title}>?_Sign in</div>
 
 					<InputText className={classes.inputText} placeholder='?_E-mail' value={email} onChange={handleEmailInput} />
-					<InputPassword className={classes.InputPassword} placeholder='?_Password' value={password} onChange={handlePasswordInput} />
+					<InputPassword className={classes.inputPassword} placeholder='?_Password' value={password} onChange={handlePasswordInput} />
 
 					<ModalLink name='restore_password'>
 						<div className={classes.link}>?_Forgot password</div>
 					</ModalLink>
 
-					{error && <p>{error}</p>}
+					{error && <p className={classes.error}>{error}</p>}
 
 					<Button className={classes.button} type='submit' onClick={handleLogin}>
 						?_Sign in

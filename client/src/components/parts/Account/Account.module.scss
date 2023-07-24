@@ -175,7 +175,6 @@
 		}
 	}
 }
-.historyItem {}
 .bookingItemButtons {
 	margin-top: 15px;
 	display: flex;
@@ -244,55 +243,5 @@ body .bookingItemBtn {
 	@media (max-width: $media-m+px) {
 		grid-column: span 1;
 		justify-self: center;
-	}
-}
-
-
-.settingsForm {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	max-width: 410px;
-}
-.settingsInput {
-	margin-bottom: 16px;
-	padding: 0 24px;
-	width: 100%;
-	height: 60px;
-	font-size: 20px;
-	border: solid 1px var(--color02);
-	&::placeholder {
-		opacity: 0.5;
-	}
-}
-body .settingsPhotoButton {
-	padding: 0 16px;
-	width: fit-content;
-	height: 43px;
-	font-size: 20px;
-}
-body .settingsSubmitButton {
-	margin-top: 24px;
-	padding: 0 24px;
-	width: fit-content;
-	height: 55px;
-	font-size: 20px;
-}
-.userPhotoBox {
-	margin-left: 28px;
-	width: 300px;
-}
-.userPhoto {
-	background-color: var(--color05);
-	width: 100%;
-	padding-bottom: 121.9512%;
-	position: relative;
-	img {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
 	}
 }

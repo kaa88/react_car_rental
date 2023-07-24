@@ -1,15 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Currency } from '../../components/ui/OptionsSelect/currency';
+import FetchService from '../../services/FetchService';
 
 const CURRENCY = 'currency'
 
+const initialState = {
+	name: CURRENCY,
+	default: 'usd',
+	current: 'usd',
+	list: ['usd'],
+	rates: {usd: 1}
+}
+let data = await FetchService.getCurrency()
+if (data.length) {
+	initialState.list = data.map(item => item.name)
+	data.forEach(item => initialState.rates[item.name] = item.rate)
+}
+let storageValue = localStorage.getItem(CURRENCY)
+if (initialState.list.includes(storageValue)) initialState.current = storageValue
+else localStorage.setItem(CURRENCY, initialState.default)
+
+
 export const currencySlice = createSlice({
 	name: CURRENCY,
-	initialState: Currency,
+	initialState,
 	reducers: {
 		changeCurrency(state, action) {
-			state.current = action.payload
-			localStorage.setItem(CURRENCY, action.payload)
+			let newValue = action.payload.toLowerCase()
+			if (initialState.list.includes(newValue)) {
+				state.current = newValue
+				localStorage.setItem(CURRENCY, newValue)
+			}
 		}
 	}
 })

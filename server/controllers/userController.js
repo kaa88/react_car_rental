@@ -17,6 +17,7 @@ const userController = {
 
 		let hashPassword = await bcrypt.hash(password, 5)
 		req.body.password = hashPassword
+		req.body.role = 'USER'
 
 		return await defaultController.add( req, res, next, user )
 	},
@@ -85,6 +86,23 @@ const userController = {
 			return next(ApiError.unauthorized())
 		}
 	},
+
+	async changePassword(req, res, next) {
+		console.log(req.body);
+		let {id, currentPassword, newPassword} = req.body
+		if (!id || !currentPassword || !newPassword) return next(ApiError.badRequest('Missing arguments'))
+
+		let candidate;
+		try {
+			candidate = await user.findOne({where: {id}})
+			let comparePassword = bcrypt.compareSync(currentPassword, candidate.password)
+			if (!comparePassword) throw 'er'
+		} catch(er) {
+			return next(ApiError.badRequest('Current password is invalid'))
+		}
+		req.password = newPassword
+		return await defaultController.edit( req, res, next, user )
+	}
 }
 
 function getCookieSettings(token = 'null') {
@@ -104,7 +122,10 @@ class UserDTO {
 		this.id = user.id
 		this.email = user.email
 		this.role = user.role
+		this.name = user.name
 		this.image = user.image
+		this.isActivated = user.isActivated
+		this.cookieAccepted = user.cookieAccepted
 		this.language = user.language
 		this.currency = user.currency
 	}

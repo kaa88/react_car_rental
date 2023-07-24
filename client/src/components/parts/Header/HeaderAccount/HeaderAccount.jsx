@@ -11,7 +11,11 @@ import Icon from '../../../ui/Icon/Icon';
 import Popup from '../../../ui/Popup/Popup';
 import { setActivePopup } from '../../../../store/slices/popupSlice';
 import UserService from '../../../../services/UserService';
+import UserPhoto from '../../../ui/UserPhoto/UserPhoto';
+import { Link } from 'react-router-dom';
 // import { changeUserData } from '../../../../store/slices/userSlice';
+
+const IMAGE_DIR = process.env.REACT_APP_USER_PHOTOS_DIR
 
 
 const HeaderAccount = memo(function HeaderAccount({className = ''}) {
@@ -20,7 +24,9 @@ const HeaderAccount = memo(function HeaderAccount({className = ''}) {
 
 	const userData = useSelector(state => state.user)
 	const userID = userData ? userData.id : ''
-	const userName = userData ? userData.email : 'user'
+	const userName = userData ? userData.name : 'user'
+	const userPhoto = userData ? userData.image : ''
+	const userIsActivated = userData ? userData.isActivated : false
 	const noDisplayStyle = {display: 'none'}
 
 	const activePopup = useSelector(state => state.popup.active)
@@ -41,6 +47,14 @@ const HeaderAccount = memo(function HeaderAccount({className = ''}) {
 		}
 	}
 
+	const activateAccount = async function() {
+
+	}
+
+	const closePopup = function() {
+		dispatch(setActivePopup(''))
+	}
+
 	return (
 		<TranslateHandler>
 			<div className={`${className} ${classes.account}`}>
@@ -58,11 +72,14 @@ const HeaderAccount = memo(function HeaderAccount({className = ''}) {
 						title={userName}
 						style={!!userID ? {} : noDisplayStyle}
 					>
-						<Icon name='icon-user' />
+						<UserPhoto className={classes.userPhoto} src={`${IMAGE_DIR}/${userPhoto}`} />
 					</button>
 					<Popup className={classes.popup} name={popupName}>
 						<div className={classes.popupContent}>
-							<Button className={classes.popupButton}>?_Account</Button>
+							<Link to='/account' onClick={closePopup}>
+								<Button className={classes.popupButton}>?_Account</Button>
+							</Link>
+							{userIsActivated && <Button className={classes.popupButton} modif='negative' onClick={activateAccount}>?_Activate</Button>}
 							<Button className={classes.popupButton} modif='negative' onClick={logout}>?_Sign out</Button>
 						</div>
 					</Popup>

@@ -1,15 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Language } from '../../components/ui/OptionsSelect/language'
 
 const LANGUAGE = 'language'
 
+const initialState = {
+	name: LANGUAGE,
+	default: 'en',
+	current: 'en',
+	list: [ 'en', 'ru', 'de' ]
+}
+let storageValue = localStorage.getItem(LANGUAGE)
+if (initialState.list.includes(storageValue)) initialState.current = storageValue
+else localStorage.setItem(LANGUAGE, initialState.default)
+
+
 export const languageSlice = createSlice({
 	name: LANGUAGE,
-	initialState: Language,
+	initialState,
 	reducers: {
 		changeLanguage(state, action) {
-			state.current = action.payload
-			localStorage.setItem(LANGUAGE, action.payload)
+			let newValue = action.payload.toLowerCase()
+			if (initialState.list.includes(newValue)) {
+				state.current = newValue
+				localStorage.setItem(LANGUAGE, newValue)
+			}
 		}
 	}
 })

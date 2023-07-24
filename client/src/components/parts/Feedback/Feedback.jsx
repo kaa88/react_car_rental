@@ -10,8 +10,10 @@ import { useFetching } from '../../../hooks/useFetching';
 import FetchService from '../../../services/FetchService';
 import Loader from '../../ui/Loader/Loader';
 import LoadError from '../../ui/Loader/LoadError';
+import UserPhoto from '../../ui/UserPhoto/UserPhoto';
 
-const IMAGE_DIR = 'img/user_photos/'
+const IMAGE_DIR = process.env.REACT_APP_USER_PHOTOS_DIR
+
 
 const Feedback = memo(function Feedback() {
 
@@ -39,7 +41,7 @@ const Feedback = memo(function Feedback() {
 			<div className={classes.slide}>
 				<div className={classes.image}>
 					<div className={classes.imgWrapper}>
-						{item.image && <Image src={IMAGE_DIR + item.image} />}
+						<UserPhoto src={IMAGE_DIR + '/' + item.image} />
 					</div>
 				</div>
 				<div className={classes.rating}>
