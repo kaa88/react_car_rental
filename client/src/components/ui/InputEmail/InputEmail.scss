@@ -1,0 +1,51 @@
+@import "../../../scss/variables.scss";
+
+.inputBox {//
+	position: relative;
+	width: 100%;
+	height: 43px;
+	border-radius: 45px;
+	font-family: var(--font01);
+	font-size: 16px;
+	letter-spacing: 2px;
+	color: inherit;
+}
+
+.default, .textCenter {
+	width: 100%;
+	height: 100%;
+	padding: 0 40px 0 0;
+	font-family: inherit;
+	font-size: inherit;
+	letter-spacing: inherit;
+	opacity: inherit;
+	&[type='password'] {
+		letter-spacing: 3px;
+	}
+	&[type='text'] {
+		letter-spacing: normal;
+	}
+	&::placeholder {
+		letter-spacing: 0;
+		opacity: 0.5;
+	}
+}
+.textCenter {
+	text-align: center;
+}
+.iconBox {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 48px;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+.icon {
+	width: 24px;
+	height: 24px;
+	fill: var(--color02);
+	cursor: pointer;
+	opacity: 0.5;
+}

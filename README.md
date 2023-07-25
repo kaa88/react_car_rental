@@ -12,6 +12,7 @@
 - header account button image
 - default account image (svg) (in feedback photo)
 - forms spam-bot check (invisible field)
+- global error handler, tests
 
 ========
 

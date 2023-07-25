@@ -8,6 +8,9 @@ const TEXT = 'text'
 function InputPassword({
 	modif = 'default',
 	className = '',
+	// validation = true,
+	// required = false,
+	// onChange = function(obj) {},
 	...props
 }) {
 
@@ -20,7 +23,12 @@ function InputPassword({
 	}
 
 	function handleChange(e) {
-		setValue(e.target.value)
+		let value = e.target.value
+		setValue(value)
+		// onChange({
+		// 	isValid: validate(value),
+		// 	value
+		// })
 	}
 
 	function changeVisibility() {
@@ -32,7 +40,18 @@ function InputPassword({
 		if (type !== PASSWORD) setType(PASSWORD)
 	}
 
+	// function validate(value, required) {
+	// 	if (!value && required) return false
+	// 	if (value && !validation) return true
+	// 	else if (value.length < 4) return false
+	// 	else return true
+	// }
+
 	useEffect(() => {
+		// onChange({
+		// 	isValid: validate(value),
+		// 	value
+		// })
 		resetType()
 		return () => resetType()
 	}, [])

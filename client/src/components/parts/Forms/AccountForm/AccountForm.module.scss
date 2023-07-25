@@ -4,12 +4,22 @@
 	width: 100vw;
 	max-width: 630px;
 	padding: 50px 0;
+	position: relative;
 	.container {
 		max-width: 470px; //410+20*2
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 	}
+}
+.loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 5;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255,255,255,0.5);
 }
 .title {
 	font-size: 24px;
@@ -25,6 +35,9 @@ body .inputText, body .inputPassword {
 	}
 	&::placeholder {
 		opacity: 0.5;
+	}
+	&.error {
+		border-color: red;
 	}
 }
 .InputPassword {
@@ -72,7 +85,7 @@ body .checkbox {
 		margin-right: em(4);
 	}
 }
-.error {
+.errorMessage {
 	margin-left: 20px;
 	font-size: 20px;
 	min-height: 24px;
@@ -91,6 +104,7 @@ body .checkbox {
 }
 
 .settingsForm {
+	position: relative;
 	display: grid;
 	grid-template-columns: 410px auto;
 	grid-column-gap: 28px;
