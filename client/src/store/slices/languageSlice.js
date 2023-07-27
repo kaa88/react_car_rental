@@ -18,7 +18,7 @@ export const languageSlice = createSlice({
 	initialState,
 	reducers: {
 		changeLanguage(state, action) {
-			let newValue = action.payload.toLowerCase()
+			let newValue = action.payload ? action.payload.toLowerCase() : ''
 			if (initialState.list.includes(newValue)) {
 				state.current = newValue
 				localStorage.setItem(LANGUAGE, newValue)

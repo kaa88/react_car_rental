@@ -25,7 +25,7 @@ export const currencySlice = createSlice({
 	initialState,
 	reducers: {
 		changeCurrency(state, action) {
-			let newValue = action.payload.toLowerCase()
+			let newValue = action.payload ? action.payload.toLowerCase() : ''
 			if (initialState.list.includes(newValue)) {
 				state.current = newValue
 				localStorage.setItem(CURRENCY, newValue)

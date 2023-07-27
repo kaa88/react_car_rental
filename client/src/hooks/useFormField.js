@@ -63,13 +63,18 @@ export function useFormField(params = {}) {
 			// может быть часть задач сделать только для сабмита, чтобы разгрузить инпут???
 		},
 		validate() {
-			setIsError(!isValid)
-			return !isValid ? null : errorType
+			let isError = !isValid
+			setIsError(isError)
+			return isError ? errorType : null
 		},
 		clear() {
 			setValue('')
 			setIsValid(defaultIsValid)
 			setErrorType(defaultErrorType)
 		},
+		setError(type) {
+			setIsError(true)
+			if (type) setErrorType(type)
+		}
 	}
 }

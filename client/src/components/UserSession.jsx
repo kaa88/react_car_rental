@@ -14,7 +14,7 @@ function UserSession() {
 		console.log('init user session')
 		let {ok, error, userData} = await UserService.getUserData()
 		// if (ok && userData) updateStore(userData)
-		if (error) console.error(error)
+		// if (error) console.error(error)
 	}
 	
 	const token = localStorage.getItem('token')

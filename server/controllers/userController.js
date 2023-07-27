@@ -23,7 +23,18 @@ const userController = {
 	},
 
 	async edit(req, res, next) {
-		return await defaultController.edit( req, res, next, user )
+		delete req.body.email
+		delete req.body.password
+		delete req.body.role
+		delete req.body.isActivated
+		let editResponse = await defaultController.edit( req, res, next, user )
+		if (editResponse) {
+			let candidate = await user.findOne({where: {id: req.body.id}})
+			if (!candidate) return next(ApiError.badRequest('User not found'))
+			let userData = new UserDTO(candidate.dataValues)
+			return res.json({userData})
+		}
+		else res.json({editResponse})
 	},
 
 	async delete(req, res, next) {
@@ -100,7 +111,7 @@ const userController = {
 		} catch(er) {
 			return next(ApiError.badRequest('Current password is invalid'))
 		}
-		req.password = newPassword
+		req.body.password = newPassword
 		return await defaultController.edit( req, res, next, user )
 	}
 }

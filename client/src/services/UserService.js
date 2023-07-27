@@ -51,7 +51,10 @@ const UserService = {
 				id: userId,
 				[key]: value,
 			})
-			.then(response => ({ok: true}))
+			.then(response => {
+				updateStorage(response.data)
+				return {ok: true}
+			})
 			.catch(error => handleError(error))
 	},
 
@@ -101,6 +104,12 @@ function getDispatch() {
 // 	return value
 // }
 function handleError(error) {
-	// if (error instanceof AxiosError) return {error: error.response.data}
-	return error
+	console.error(error)
+	const UNKNOWN_ERR = 'Unknown error'
+	let errorMessage = error.message
+	if (error.name && error.name === 'AxiosError') {
+		if (error.response.status !== 404) errorMessage = error.response.data
+	}
+	if (!errorMessage) errorMessage = UNKNOWN_ERR
+	return {error: errorMessage}
 }

@@ -23,6 +23,7 @@ api.interceptors.response.use(
 			let response = await repeatRequest(error.config.method, error.config.url)
 			return response
 		}
+		else return Promise.reject(error)
 	}
 )
 
