@@ -8,8 +8,13 @@ function Image({className = '', src = '', ...props}) {
 	if (Array.isArray(src)) [img, img2x] = src
 
 	const imageRef = useRef()
+
 	function hideImageOnError() {
 		imageRef.current.style.visibility = 'hidden'
+	}
+
+	function refresh() {
+		imageRef.current.style = ''
 	}
 	
 	return (
@@ -20,6 +25,7 @@ function Image({className = '', src = '', ...props}) {
 				src={img}
 				alt=''
 				loading='lazy'
+				onLoad={refresh}
 				onError={hideImageOnError}
 				ref={imageRef}
 				{...props}

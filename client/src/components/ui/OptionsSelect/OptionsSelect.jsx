@@ -44,7 +44,7 @@ const OptionsSelect = memo(function OptionsSelect({type, className = '', childre
 	const handleSelect = function(value) {
 		value = value.toLowerCase()
 		dispatch(categories[type].action(value))
-		if (userID) UserService.edit(userID, type, value)
+		if (userID) UserService.edit(type, value)
 		// setReloadList(true) // change list by useEffect with delay
 	}
 

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setOptions } from '../../../../../store/slices/reservationFormSlice';
 import classes from './Options.module.scss';
 import TranslateHandler from '../../../../TranslateHandler';
-import InputCheckbox from '../../../../ui/Checkbox/InputCheckbox';
+import InputCheckbox from '../../../../ui/InputCheckbox/InputCheckbox';
 
 
 const DRIVER_AGE = 'driver_age'

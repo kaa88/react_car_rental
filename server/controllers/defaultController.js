@@ -2,7 +2,7 @@ import ApiError from '../error.js'
 import models from '../models/models.js'
 
 export const defaultController = {
-	async add(req, res, next, model) {
+	async add(req, res, next, model, returnSimpleResponse) {
 		let {createdAt, updatedAt, ...attributes} = model.getAttributes()
 		let fields = {}, errors = [];
 
@@ -15,14 +15,15 @@ export const defaultController = {
 		if (errors.length) return next(ApiError.badRequest(`Error when creating a new entrie. Missing attributes: ${errors.toString()}`))
 		try {
 			let response = await model.create(fields)
-			return res.json(response)
+			if (returnSimpleResponse) return response
+			else return res.json(response)
 		}
 		catch(err) {
 			return next(ApiError.badRequest(err.message))
 		}
 	},
 
-	async edit(req, res, next, model) {
+	async edit(req, res, next, model, returnSimpleResponse) {
 		let {id, ...attributes} = req.body
 		if (!id) return next(ApiError.badRequest(`Error when editing an entrie. Missing attributes: id`))
 		else {
@@ -30,12 +31,13 @@ export const defaultController = {
 				attributes,
 				{where: {id}}
 			)
-			return res.json(`Updated ${response[0]} entries`)
+			if (returnSimpleResponse) return true
+			else return res.json(`Updated ${response[0]} entries`)
 		}
 	},
 
 	async delete(req, res, next, model) {
-		let id = req.query.id
+		let id = req.body.id
 		if (!id) return next(ApiError.badRequest(`Error when deleting an entrie. Missing attributes: id`))
 
 		let response = await model.destroy({where: {id}})

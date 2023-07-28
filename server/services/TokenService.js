@@ -14,6 +14,7 @@ const TokenService = {
 		return validateToken(token, process.env.JWT_REFRESH_SECRET_KEY)
 	},
 }
+export default TokenService
 
 function validateToken(token, key) {
 	try {
@@ -33,5 +34,3 @@ function objectIsEmpty(obj) {
 	}
 	return true
 }
-
-export default TokenService

@@ -44,13 +44,8 @@ const UserService = {
 			.catch(error => handleError(error))
 	},
 
-	async edit(userId, key, value) {
-		// if (!key || !value) return console.log('Missing attributes')
-		return api.put('/user/edit', {
-				// id: localStorage.getItem(USER_ID),
-				id: userId,
-				[key]: value,
-			})
+	async edit(key, value) {
+		return api.put('/user/edit', { [key]: value })
 			.then(response => {
 				updateStorage(response.data)
 				return {ok: true}
@@ -58,12 +53,30 @@ const UserService = {
 			.catch(error => handleError(error))
 	},
 
-	async changePassword(userId, currentPassword, newPassword) {
+	async changePassword(currentPassword, newPassword) {
 		return api.put('/user/changepassword', {
-				id: userId,
 				currentPassword,
 				newPassword
 			})
+			.then(response => ({ok: true}))
+			.catch(error => handleError(error))
+	},
+
+	async restorePassword(email) {
+		return api.post('/user/restorepassword', {email})
+			.then(response => ({ok: true}))
+			.catch(error => handleError(error))
+	},
+
+	async changeImage(file) {
+		// настроить формдату на сервере, а тут ок
+		let formData = new FormData()
+		formData.append('file', file)
+		return api.post('/user/uploadimage', formData, {
+			headers: {
+				"Content-Type": "multipart/form-data"
+			}
+		})
 			.then(response => ({ok: true}))
 			.catch(error => handleError(error))
 	},
@@ -77,13 +90,12 @@ function updateStorage(data) {
 	console.log('updateStorage');
 	console.log(data);
 	let token = data.accessToken
-	let {currency, language, ...userData} = data.userData
-
 	if (token) localStorage.setItem(TOKEN, token)
+
+	let {currency, language, ...userData} = data.userData || {}
 
 	const dispatch = getDispatch()
 	if (dispatch) {
-		console.log(userData);
 		dispatch(changeUserData(userData))
 		dispatch(changeLanguage(language))
 		dispatch(changeCurrency(currency))
@@ -108,7 +120,7 @@ function handleError(error) {
 	const UNKNOWN_ERR = 'Unknown error'
 	let errorMessage = error.message
 	if (error.name && error.name === 'AxiosError') {
-		if (error.response.status !== 404) errorMessage = error.response.data
+		if (error.response && error.response.status !== 404) errorMessage = error.response.data.message
 	}
 	if (!errorMessage) errorMessage = UNKNOWN_ERR
 	return {error: errorMessage}

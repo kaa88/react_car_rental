@@ -5,7 +5,7 @@ import { changeLanguage } from '../store/slices/languageSlice'
 import UserService from '../services/UserService'
 
 
-function UserSession() {
+function UserSession({onLoad = function(){}}) {
 
 	const dispatch = useDispatch()
 	UserService.dispatch = dispatch //?
@@ -13,6 +13,7 @@ function UserSession() {
 	async function initSession() {
 		console.log('init user session')
 		let {ok, error, userData} = await UserService.getUserData()
+		if (ok) onLoad(true)
 		// if (ok && userData) updateStore(userData)
 		// if (error) console.error(error)
 	}

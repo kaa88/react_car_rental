@@ -34,9 +34,9 @@ function InputCheckbox({
 					onChange={handleChange}
 					{...props}
 				/>
-				<span className={classes.box}>
+				<i className={classes.box}>
 					<Icon className={classes.boxIcon} name='icon-ok' />
-				</span>
+				</i>
 				{clickableText ? textEl : ''}
 			</label>
 			{clickableText ? '' : textEl}

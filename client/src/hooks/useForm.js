@@ -4,8 +4,9 @@ const ERROR_REQUIRED = 'required'
 const ERROR_INCORRECT = 'incorrect'
 
 
-export function useForm(params = {}) { // params = {action, fields: {name, type, required, validate}}
+export function useForm(params = {}) { // params = {customValidation, action, fields: {name, type, required, validate}}
 	const handleAction = params.action || function(){}
+	const preValidate = params.customValidation || function(){return {ok: true}}
 
 	let initialFields = {}
 	if (params.fields) params.fields.forEach(function(field) {
@@ -26,10 +27,15 @@ export function useForm(params = {}) { // params = {action, fields: {name, type,
 		message,
 		async submit(e) {
 			e.preventDefault()
-			let {ok, message} = validateForm(fields)
-			if (!ok) {
+			let {ok: preValidationIsOK, message: preValidationMessage} = preValidate()
+			if (!preValidationIsOK) {
 				setIsError(true)
-				return setMessage(message)
+				return setMessage(preValidationMessage)
+			}
+			let {ok: validationIsOK, message: validationMessage} = validateForm(fields)
+			if (!validationIsOK) {
+				setIsError(true)
+				return setMessage(validationMessage)
 			}
 			try {
 				setIsPending(true)
@@ -44,6 +50,14 @@ export function useForm(params = {}) { // params = {action, fields: {name, type,
 			finally {
 				setIsPending(false)
 			}
+		},
+		setError(message) {
+			setIsError(true)
+			if (message) setMessage(message)
+		},
+		removeError() {
+			setIsError(false)
+			setMessage('')
 		},
 		clear() {
 			Object.values(fields).forEach(field => field.clear())
@@ -85,8 +99,6 @@ function validateForm(fields) {
 
 
 
-
-
 // FIELD
 const fieldMessages = {
 	email: {
@@ -100,10 +112,11 @@ const fieldMessages = {
 }
 
 const validations = {
-	email(value) {},
+	email(value) {
+		return /^\S+@\S+\.\S+$/.test(value)
+	},
 	password(value) {
-		if (value.length < 4) return false
-		else return true
+		if (value.length >= 4) return true
 	},
 }
 
@@ -145,7 +158,7 @@ function validateField() {
 	}
 	this.isValid = isValid
 	this.errorType = isValid ? '' : errorType
-	this.message = errorType ? fieldMessages[this.type][errorType] : ''
+	this.message = (errorType && fieldMessages[this.type]) ? fieldMessages[this.type][errorType] : ''
 	let isError = !isValid
 	this._updateField()
 	return isError ? errorType : null
@@ -157,8 +170,8 @@ function clearField() {
 	this.message = ''
 	this._updateField()
 }
-function setFieldError(type) {
+function setFieldError(message) {
 	this.isValid = false
-	if (type) this.errorType = type
+	if (message) this.message = message
 	this._updateField()
 }

@@ -1,13 +1,14 @@
 {
 	"name": "car_rental_backend",
 	"description": "global deps",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"main": "index.js",
 	"private": true,
 	"scripts": {
 		"dev": "nodemon index.js"
 	},
 	"dependencies": {
+		"express-form-data": "^2.0.22",
 		"mysql2": "^3.3.2",
 		"sequelize": "^6.31.1"
 	},

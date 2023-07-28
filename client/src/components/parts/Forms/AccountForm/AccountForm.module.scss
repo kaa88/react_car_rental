@@ -26,6 +26,7 @@
 	margin-bottom: 30px;
 }
 body .inputText, body .inputPassword {
+	margin-bottom: 15px;
 	height: 60px;
 	padding: 0 24px;
 	font-size: 20px;
@@ -78,6 +79,11 @@ body .checkbox {
 	margin-top: 14px;
 	align-self: flex-start;
 	color: var(--color02);
+	&.error {
+		i {
+			border-color: var(--color07);
+		}
+	}
 }
 .checkboxText {
 	font-size: 16px;
@@ -85,11 +91,14 @@ body .checkbox {
 		margin-right: em(4);
 	}
 }
-.errorMessage {
+.formMessage {
 	margin-left: 20px;
 	font-size: 20px;
 	min-height: 24px;
-	color: var(--color03);
+	color: var(--color08);
+	&.error {
+		color: var(--color07);
+	}
 	@media (max-width: $media-m+px) {
 		margin-left: 0;
 		font-size: 16px;
@@ -145,4 +154,8 @@ body .checkbox {
 		grid-column: 1;
 		flex-direction: column-reverse;
 	}
+}
+
+.inputFile {
+	background-color: yellow;
 }

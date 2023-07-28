@@ -37,6 +37,7 @@
 	min-height: 80px;
 	background-color: #fff;
 	border-radius: 16px;
+	overflow: hidden;
 	@media (max-width: $media-ml+px) {
 		max-width: 100%;
 		border-radius: 0;

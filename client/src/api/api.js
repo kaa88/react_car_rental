@@ -15,7 +15,7 @@ api.interceptors.response.use(
 	(response) => response,
 	async (error) => {
 		if (isRefreshing) return Promise.reject()
-		if (error.response.status === 401) {
+		if (error.response && error.response.status === 401) {
 			isRefreshing = true
 			let token = await refreshToken()
 			if (token instanceof Error) return Promise.reject(token)

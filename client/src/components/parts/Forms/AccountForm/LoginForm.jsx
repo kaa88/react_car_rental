@@ -1,4 +1,7 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
+import { useForm } from '../../../../hooks/useForm';
+import { useDispatch } from 'react-redux';
+import { setActiveModal } from '../../../../store/slices/modalSlice';
 import classes from './AccountForm.module.scss';
 import TranslateHandler from '../../../TranslateHandler';
 import Button from '../../../ui/Button/Button';
@@ -7,61 +10,56 @@ import InputText from '../../../ui/InputText/InputText';
 import InputPassword from '../../../ui/InputPassword/InputPassword';
 import Container from '../../../ui/Container/Container';
 import UserService from '../../../../services/UserService';
-import { useDispatch } from 'react-redux';
-import { changeUserData } from '../../../../store/slices/userSlice';
-import { setActiveModal, setModalContent } from '../../../../store/slices/modalSlice';
+import Loader from '../../../ui/Loader/Loader';
 
 
 const LoginForm = memo(function LoginForm() {
-
 	const dispatch = useDispatch()
 
-	let [email, setEmail] = useState('')
-	let [password, setPassword] = useState('')
-	let [error, setError] = useState('')
-
-	const handleEmailInput = function(e) {
-		setEmail(e.target.value)
-	}
-	const handlePasswordInput = function(e) {
-		setPassword(e.target.value)
-	}
-
-	async function handleLogin(e) {
-		e.preventDefault()
-		if (!email || !password) return setError('Missing email or password')
-		let {ok, error} = await UserService.login(email, password)
-		if (ok) {
-			setError('')
-			// dispatch(changeUserData(userData))
-			dispatch(setActiveModal('user_logged_in'))
-		}
+	async function handleLogin() {
+		let {error} = await UserService.login(form.fields.email.value, form.fields.password.value)
 		if (error) {
-			setError(error.message)
-			// dispatch(changeUserData({isAuth: false}))
+			form.fields.email.setError()
+			form.fields.password.setError()
+			throw new Error(error)
 		}
+		dispatch(setActiveModal('user_logged_in'))
+		form.clear()
 	}
+
+	const form = useForm({
+		action: handleLogin,
+		fields: [
+			{name: 'email', type: 'email', required: true},
+			{name: 'password', type: 'password', required: true},
+		]
+	})
+	console.log(form);
 
 	return (
 		<TranslateHandler>
-			<form className={classes.form} action="#">
+			<form className={classes.form} action="#" onSubmit={form.submit}>
 				<Container className={classes.container}>
+					{form.isPending && <Loader className={classes.loader} />}
 					<div className={classes.title}>?_Sign in</div>
-
-					<InputText className={classes.inputText} placeholder='?_E-mail' value={email} onChange={handleEmailInput} />
-					<InputPassword className={classes.inputPassword} placeholder='?_Password' value={password} onChange={handlePasswordInput} />
-
-					<ModalLink name='restore_password'>
+					<InputText
+						className={`${classes.inputText} ${form.fields.email.isValid ? '' : classes.error}`}
+						placeholder='?_E-mail'
+						value={form.fields.email.value}
+						onChange={form.fields.email.change}
+					/>
+					<InputPassword
+						className={`${classes.inputPassword} ${form.fields.password.isValid ? '' : classes.error}`}
+						placeholder='?_Password'
+						value={form.fields.password.value}
+						onChange={form.fields.password.change}
+					/>
+					<ModalLink name='restore_password' onClick={form.clear}>
 						<div className={classes.link}>?_Forgot password</div>
 					</ModalLink>
-
-					{error && <p className={classes.error}>{error}</p>}
-
-					<Button className={classes.button} type='submit' onClick={handleLogin}>
-						?_Sign in
-					</Button>
-
-					<ModalLink name='register'>
+					<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>?_{form.message}</p>
+					<Button className={classes.button}>?_Sign in</Button>
+					<ModalLink name='register' onClick={form.clear}>
 						<div className={`${classes.link} ${classes.centered}`}>?_Don't have account</div>
 					</ModalLink>
 				</Container>
