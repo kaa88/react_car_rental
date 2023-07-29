@@ -47,7 +47,7 @@ const UserService = {
 	async edit(key, value) {
 		return api.put('/user/edit', { [key]: value })
 			.then(response => {
-				updateStorage(response.data)
+				// updateStorage(response.data)
 				return {ok: true}
 			})
 			.catch(error => handleError(error))

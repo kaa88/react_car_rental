@@ -10,6 +10,7 @@ import UserService from '../../../../services/UserService';
 import UserPhoto from '../../../ui/UserPhoto/UserPhoto';
 import Loader from '../../../ui/Loader/Loader';
 import InputFile from '../../../ui/InputFile/InputFile';
+import Icon from '../../../ui/Icon/Icon';
 
 const IMAGE_DIR = process.env.REACT_APP_USER_PHOTOS_DIR
 
@@ -19,8 +20,6 @@ const SettingsForm = memo(function SettingsForm() {
 	const userData = useSelector(state => state.user)
 	const userName = userData ? userData.name : ''
 	const userPhoto = userData ? userData.image : ''
-
-	let [newUserPhoto, setNewUserPhoto] = useState('')
 
 	const submit = async function() {
 		const defaultMessage = {
@@ -55,11 +54,11 @@ const SettingsForm = memo(function SettingsForm() {
 			}
 		}
 
-		if (newUserPhoto) {
-			let {ok, error} = await UserService.changeImage(newUserPhoto)
+		if (form.fields.image.value.file) {
+			let {ok, error} = await UserService.changeImage(form.fields.image.value.file)
 			if (ok) {
 				okCount++
-				// form.fields.image.clear()
+				form.fields.image.clear()
 			}
 			else {
 				form.fields.image.setError(error)
@@ -71,7 +70,10 @@ const SettingsForm = memo(function SettingsForm() {
 			if (errors.length === 1) message = errors[0]
 			else message = [].concat(defaultMessage.error, errors).join('. ')
 		}
-		else if (okCount) message = defaultMessage.success
+		else if (okCount) {
+			message = defaultMessage.success
+			await UserService.getUserData()
+		}
 		else form.clear()
 
 		return message
@@ -104,19 +106,20 @@ const SettingsForm = memo(function SettingsForm() {
 			{name: 'userName'},
 			{name: 'currentPassword', type: 'password', validate: false},
 			{name: 'newPassword', type: 'password'},
-			{name: 'image', type: 'file'},
+			{name: 'image', type: 'file', defaultValue: {file: '', blob: ''}},
 		]
 	})
 
-	function changePhoto(value, file) {
-		setNewUserPhoto(file)
-		form.removeError()
-	}
-
-	function changePhotoError(error) {
-		console.error(error)
-		setNewUserPhoto('default')
-		form.setError(error)
+	function changePhoto(photo = {}, errorMessage) {
+		if (errorMessage) {
+			console.error(errorMessage)
+			form.fields.image.clear()
+			form.setError(errorMessage)
+		}
+		else {
+			form.fields.image.change(false, photo)
+			form.removeError()
+		}
 	}
 
 	return (
@@ -148,11 +151,17 @@ const SettingsForm = memo(function SettingsForm() {
 					/>
 				</div>
 				<div className={classes.settingsPhoto}>
-					<UserPhoto src={newUserPhoto || `${IMAGE_DIR}/${userPhoto}`} />
+					<div className={classes.settingsPhotoBox}>
+						<UserPhoto src={form.fields.image.value.blob || `${IMAGE_DIR}/${userPhoto}`} />
+						{!!form.fields.image.value.file &&
+							<div className={classes.settingsPhotoClearBtn} onClick={form.fields.image.clear()} title='?_Clear'>
+								<Icon name='icon-cross' />
+							</div>
+						}
+					</div>
 					<InputFile
 						className={classes.inputFile}
 						onChange={changePhoto}
-						onError={changePhotoError}
 					>
 						<Button type='button' className={`${classes.button} ${classes.settingsPhotoBtn}`} modif='negative'>
 							<span>+ </span>

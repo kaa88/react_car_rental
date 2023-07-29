@@ -4,7 +4,8 @@ const ERROR_REQUIRED = 'required'
 const ERROR_INCORRECT = 'incorrect'
 
 
-export function useForm(params = {}) { // params = {customValidation, action, fields: {name, type, required, validate}}
+export function useForm(params = {}) {
+	// params = {action, fields: {name, type, defaultValue, required, validate}, customValidation}
 	const handleAction = params.action || function(){}
 	const preValidate = params.customValidation || function(){return {ok: true}}
 
@@ -126,7 +127,7 @@ class FormField {
 		this.type = params.type || 'text'
 		this.isRequired = params.required || false
 		this.isValidating = params.validate === false ? false : true
-		this.defaultValue = ''
+		this.defaultValue = params.defaultValue || ''
 		this.value = this.defaultValue
 		this.isValid = true
 		this.defaultErrorType = this.isRequired ? ERROR_REQUIRED : ''

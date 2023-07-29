@@ -8,6 +8,7 @@
 		"dev": "nodemon index.js"
 	},
 	"dependencies": {
+		"express-fileupload": "^1.4.0",
 		"express-form-data": "^2.0.22",
 		"mysql2": "^3.3.2",
 		"sequelize": "^6.31.1"

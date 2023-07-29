@@ -4,7 +4,7 @@ import {defaultController} from './defaultController.js'
 import {user} from '../models/models.js'
 import {validationResult} from 'express-validator'
 import TokenService from '../services/TokenService.js'
-import UploadService from '../services/UploadService.js'
+import FileService from '../services/FileService.js'
 
 const userController = {
 	async add(req, res, next) {
@@ -30,11 +30,7 @@ const userController = {
 	async edit(req, res, next) {
 		const id = req.tokenData ? req.tokenData.id : null
 		req.body.id = id
-		// Disallow edit following fields
-		delete req.body.email
-		delete req.body.password
-		delete req.body.role
-		delete req.body.isActivated
+		req.body = new UserEditableDTO(req.body)
 		let response = await defaultController.edit( req, res, next, user, true )
 		if (response) {
 			let candidate = await user.findOne({where: {id}})
@@ -143,21 +139,24 @@ const userController = {
 	},
 
 	async addPhoto(req, res, next) {
-		// не видит формдату, нужен парсер (express-fileupload || express-form-data) - изучить, поставить, настроить!
-		
-		console.log(req.body);
-		let formData = req.body.formData
-		let fi = formData.get('file')
-		console.log(fi);
 		const id = req.tokenData ? req.tokenData.id : null
 		req.body.id = id
 
-		let file = ''
-		UploadService.uploadUserPhoto(file)
+		if (!req.files || !req.files.file) return next(ApiError.internal('No file uploaded'))
+		let {file} = req.files
+		let fileName = FileService.uploadUserPhoto(file)
+		if (fileName instanceof Error) return next(ApiError.internal('File upload error'))
+		req.body.image = fileName
 
+		let userData = await user.findOne({where: {id}})
+		let prevImage = userData ? userData.dataValues.image : ''
+
+		req.body = new UserEditableDTO(req.body)
 		let response = await defaultController.edit( req, res, next, user, true )
-
-		res.send('tipo ok')
+		if (response) {
+			if (prevImage) FileService.deleteUserPhoto(prevImage)
+			res.json({ok: true})
+		}
 	}
 }
 
@@ -184,6 +183,17 @@ class UserDTO {
 		this.cookieAccepted = user.cookieAccepted
 		this.language = user.language
 		this.currency = user.currency
+	}
+}
+
+class UserEditableDTO {
+	constructor(body) {
+		this.id = body.id // not editable, but needed to find user... may be I'll find better place for it later
+		if (body.name) this.name = body.name
+		if (body.image) this.image = body.image
+		if (body.language) this.language = body.language
+		if (body.currency) this.currency = body.currency
+		if (body.cookieAccepted) this.cookieAccepted = body.cookieAccepted
 	}
 }
 
