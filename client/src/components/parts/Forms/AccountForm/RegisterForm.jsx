@@ -5,17 +5,21 @@ import { setActiveModal } from '../../../../store/slices/modalSlice';
 import classes from './AccountForm.module.scss';
 import TranslateHandler from '../../../TranslateHandler';
 import Button from '../../../ui/Button/Button';
-import ModalLink from '../../../ui/Modal/ModalLink'
 import InputText from '../../../ui/InputText/InputText';
 import InputPassword from '../../../ui/InputPassword/InputPassword';
 import InputCheckbox from '../../../ui/InputCheckbox/InputCheckbox';
 import Container from '../../../ui/Container/Container';
 import Loader from '../../../ui/Loader/Loader';
 import UserService from '../../../../services/UserService';
+import OptionalLink from './OptionalLink';
+import { useNavigate } from 'react-router-dom';
 
+const DEFAULT_MOD = 'default'
+const MODAL_MOD = 'modal'
 
-const RegisterForm = memo(function RegisterForm() {
+const RegisterForm = memo(function RegisterForm({modif = DEFAULT_MOD}) {
 
+	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const userData = useSelector(state => state.user)
 	const cookieAccepted = userData.cookieAccepted || false
@@ -29,8 +33,9 @@ const RegisterForm = memo(function RegisterForm() {
 			if (error.match(/weak/)) form.fields.password.setError()
 			throw new Error(error)
 		}
-		dispatch(setActiveModal('user_logged_in'))
 		form.clear()
+		if (modif === MODAL_MOD) dispatch(setActiveModal('user_logged_in'))
+		else navigate('/')
 	}
 
 	const form = useForm({
@@ -86,9 +91,15 @@ const RegisterForm = memo(function RegisterForm() {
 					<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>?_{form.message}</p>
 					<Button className={classes.button}>?_Register</Button>
 
-					<ModalLink name='login' onClick={form.clear}>
-						<div className={`${classes.link} ${classes.centered}`}>?_Already have account</div>
-					</ModalLink>
+					<OptionalLink
+						type={modif}
+						path='login'
+						className={`${classes.link} ${classes.centered}`}
+						onClick={form.clear}
+					>
+						?_Already have account
+					</OptionalLink>
+
 				</Container>
 			</form>
 		</TranslateHandler>

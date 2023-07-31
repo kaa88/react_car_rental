@@ -13,9 +13,9 @@ body {
 	--timer-modal: #{$timer-modal}; //REQ!
 	--timer-select: #{$timer-select}; //REQ!
 	--timer-popup: #{$timer-popup}; //REQ!
-	--compact-mode-padding-reduced: 25px;
+	--compact-mode-offset: 25px;
 	@media (max-width: $media-ml+px) {
-		--compact-mode-padding-reduced: 0px;
+		--compact-mode-offset: 0px;
 	}
 
 	// position: relative;
@@ -25,7 +25,7 @@ body {
 	// min-height: 100vh; //REQ! if footer at the bottom
 	// max-width: $page-max-width+px;
 	// margin: 0 auto; //REQ! if max-width
-	// padding-top: calc(var(--header-offset) + var(--header-height) - var(--compact-mode-padding-reduced));
+	// padding-top: calc(var(--header-offset) + var(--header-height) - var(--compact-mode-offset));
 
 	font-family: var(--font01);
 	font-size: $font-size-default;
@@ -47,7 +47,7 @@ body {
 	min-height: 100vh; //REQ! if footer at the bottom
 	max-width: $page-max-width+px;
 	margin: 0 auto; //REQ! if max-width
-	padding-top: calc(var(--header-offset) + var(--header-height) - var(--compact-mode-padding-reduced));
+	padding-top: calc(var(--header-offset) + var(--header-height));
 }
 
 // Window scrollbar
@@ -122,9 +122,9 @@ body {
 // }
 
 
-.undefined {
-	box-shadow: 0 0 5px 5px red !important;
-}
+// .undefined {
+// 	box-shadow: 0 0 5px 5px red !important;
+// }
 
 
 // NEW car rental

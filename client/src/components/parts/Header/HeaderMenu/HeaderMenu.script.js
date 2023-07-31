@@ -113,7 +113,7 @@ const Menu = {
 
 			setTimeout(function() {
 				this.calcMenuWidth()
-				menu.el.style[hiddenProp] = ''
+				if (menu?.el) menu.el.style[hiddenProp] = ''
 			}.bind(this), langChangeTimeout)
 		}
 	},

@@ -2,13 +2,14 @@
 
 .banner {
 	position: relative;
-	padding-top: calc(80px + var(--compact-mode-padding-reduced));
+	margin-top: calc(-1 * var(--compact-mode-offset));
+	padding-top: calc(80px + var(--compact-mode-offset));
 	padding-bottom: 90px;
 	@media (max-width: $media-form+px) {
 		padding-bottom: 70px;
 	}
 	@media (max-width: $media-form2+px) {
-		padding-top: calc(50px + var(--compact-mode-padding-reduced));
+		padding-top: calc(50px + var(--compact-mode-offset));
 		padding-bottom: 50px;
 	}
 	@media (max-width: $media-ml+px) {
@@ -28,7 +29,7 @@
 .form {
 	// background-color: orange;
 	@media (max-width: $media-ml+px) {
-		padding-top: calc(15px + var(--compact-mode-padding-reduced));
+		padding-top: calc(15px + var(--compact-mode-offset));
 		position: relative;
 		padding: 15px 0 18px;
 	}

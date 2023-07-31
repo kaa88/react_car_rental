@@ -7,7 +7,7 @@ function InputFile({
 	modif = 'default',
 	className = '',
 	children,
-	onChange = function({file, fileData}, errorMessage){},
+	onChange = function({file, blob}, errorMessage){},
 	...props
 }) {
 

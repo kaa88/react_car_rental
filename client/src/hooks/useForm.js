@@ -12,7 +12,7 @@ export function useForm(params = {}) {
 	let initialFields = {}
 	if (params.fields) params.fields.forEach(function(field) {
 		let {name, ...props} = field
-		if (name) initialFields[name] = new FormField(props, (field) => setFields({...fields, [name]: field}))
+		if (name) initialFields[name] = new FormField(props, (value) => setFields({...fields, [name]: value}))
 		else console.error('Form field must have a "name" prop')
 	})
 

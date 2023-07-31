@@ -1,3 +1,11 @@
-.main {
-	opacity: 1;
+.default, .lite {
+	position: relative;
+}
+.lite {
+	.container {
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 }

@@ -1,10 +1,10 @@
+import { Link } from 'react-router-dom';
 import Header from '../../components/parts/Header/Header';
-import Footer from '../../components/parts/Footer/Footer';
 import Modal from '../../components/ui/Modal/Modal';
 import Container from '../../components/ui/Container/Container';
 import TranslateHandler from '../../components/TranslateHandler';
-import { Link } from 'react-router-dom';
 import PageTitle from '../PageTitle';
+import Main from '../../components/parts/Main/Main';
 
 function ErrorPage() {
 
@@ -33,15 +33,17 @@ function ErrorPage() {
 
 	return (
 		<>
-			<PageTitle value='404 - Not Found' />
+			<PageTitle value='Page Not Found' />
 			<Header />
-			<TranslateHandler>
-				<Container style={styles.container}>
-					<p style={styles.title}>404</p>
-					<p style={styles.subtitle}>?_Page Not Found</p>
-					<Link to='/' style={styles.link}>?_Go to Homepage</Link>
-				</Container>
-			</TranslateHandler>
+			<Main>
+				<TranslateHandler>
+					<Container style={styles.container}>
+						<p style={styles.title}>404</p>
+						<p style={styles.subtitle}>?_Page Not Found</p>
+						<Link to='/' style={styles.link}>?_Go to Homepage</Link>
+					</Container>
+				</TranslateHandler>
+			</Main>
 			<Modal />
 		</>
 	)

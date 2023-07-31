@@ -11,16 +11,18 @@ export const names = {
 	user_logged_in: 'user_logged_in',
 }
 
+const MODAL = 'modal'
+
 const ModalStaticContent = memo(function ModalStaticContent({ name = '' }) {
 
 	function getContent(name) {
 		switch(name) {
 			case 'login':
-				return <LoginForm />
+				return <LoginForm modif={MODAL} />
 			case 'register':
-				return <RegisterForm />
+				return <RegisterForm modif={MODAL} />
 			case 'restore_password':
-				return <RestorePasswordForm />
+				return <RestorePasswordForm modif={MODAL} />
 			case 'user_logged_in':
 				return <UserLoggedInAlert />
 			default: return ''

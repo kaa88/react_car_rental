@@ -36,7 +36,7 @@
 	@media (min-width: $media-ts+1+px) {
 		transition: padding-top $timer-header-compact;
 		.compact & {
-			padding-top: calc(36px - var(--compact-mode-padding-reduced));
+			padding-top: calc(36px - var(--compact-mode-offset));
 		}
 	}
 	@media (max-width: $media-ts+px) {

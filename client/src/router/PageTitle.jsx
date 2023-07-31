@@ -1,20 +1,15 @@
-// import { useEffect } from 'react';
 
 function PageTitle({value}) {
 
 	const siteName = 'RENT@CAR'
 	const divider = ' | '
 
-	let title = siteName // обработать транслейтером
+	let title = siteName // TODO: translate
 	if (value) title = value + divider + title
 
-	// console.log(title);
+	document.title = title
 
-	// useEffect(() => {
-		document.title = title
-	// }, [value])
-
-	return <></>
+	return null
 }
 
 export default PageTitle

@@ -1,22 +1,44 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import HomePage from "./routes/HomePage";
-import AccountPage from "./routes/AccountPage";
-import ErrorPage from "./routes/ErrorPage";
-import TermsPage from "./routes/TermsPage";
-import PolicyPage from "./routes/PolicyPage";
+import HomePage from "./pages/HomePage";
+import AccountPage from "./pages/AccountPage";
+import ErrorPage from "./pages/ErrorPage";
+import TermsPage from "./pages/TermsPage";
+import PolicyPage from "./pages/PolicyPage";
+import RequireAuth from "./RequireAuth";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import RestorePasswordPage from "./pages/RestorePasswordPage";
 
 
 function Router() {
 
 	const router = createBrowserRouter([
 		{
+			path: '*',
+			element: <ErrorPage />,
+		},
+		{
 			path: '/',
 			element: <HomePage />,
-			// errorElement: <ErrorPage />
 		},
 		{
 			path: '/account',
-			element: <AccountPage />,
+			element:
+				<RequireAuth>
+					<AccountPage />
+				</RequireAuth>,
+		},
+		{
+			path: '/login',
+			element: <LoginPage />,
+		},
+		{
+			path: '/register',
+			element: <RegisterPage />,
+		},
+		{
+			path: '/restore_password',
+			element: <RestorePasswordPage />,
 		},
 		{
 			path: '/terms',

@@ -1,24 +1,18 @@
 import { memo } from 'react';
-// import { useDispatch, useSelector } from 'react-redux'
 import classes from './Main.module.scss';
-import Banner from '../../parts/Banner/Banner';
-import Cars from '../../parts/Cars/Cars';
-import Faq from '../../parts/Faq/Faq';
-import Feedback from '../../parts/Feedback/Feedback';
+import Container from '../../ui/Container/Container';
 
 
-const Main = memo(function Main() {
+const Main = memo(function Main({modif = 'default', children}) {
 
-	// const dispatch = useDispatch()
-	// const headerMetrics = useSelector(state => state.headerMetrics)
-	// console.log(headerMetrics);
+	const getLiteContent = () =>
+		<Container className={classes.container}>
+			{children}
+		</Container>;
 
 	return (
-		<main className={classes.main}>
-			<Banner />
-			<Cars />
-			<Faq />
-			<Feedback />
+		<main className={classes[modif]}>
+			{modif === 'lite' ? getLiteContent() : children}
 		</main>
 	)
 })

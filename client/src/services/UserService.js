@@ -3,17 +3,13 @@ import { changeCurrency } from "../store/slices/currencySlice"
 import { changeLanguage } from "../store/slices/languageSlice"
 import { changeUserData } from "../store/slices/userSlice"
 
-// const USER_ID = 'userId'
-
 
 const UserService = {
-	async getUserData() {
-		console.log('getUserData');
+	getUserDataOnInit: init,
+
+	async updateUserData() {
 		return api.get('/user')
-			.then(response => {
-				updateStorage(response.data)
-				return {ok: true}
-			})
+			.then(response => updateStorage(response.data))
 			.catch(error => handleError(error))
 	},
 
@@ -83,8 +79,16 @@ const UserService = {
 }
 export default UserService
 
-
 const TOKEN = 'token'
+
+async function init() {
+	const token = localStorage.getItem(TOKEN)
+	if (token) {
+		let userData = await UserService.updateUserData()
+		return userData
+	}
+	else return null
+}
 
 function updateStorage(data) {
 	console.log('updateStorage');
@@ -94,26 +98,32 @@ function updateStorage(data) {
 
 	let {currency, language, ...userData} = data.userData || {}
 
-	const dispatch = getDispatch()
+	const dispatch = UserService.dispatch
 	if (dispatch) {
 		dispatch(changeUserData(userData))
 		dispatch(changeLanguage(language))
 		dispatch(changeCurrency(currency))
 	}
+	else {
+		let intervalId = setInterval(() => {
+			if (UserService.dispatch) {
+				clearInterval(intervalId)
+				updateStorage(data)
+			}
+		}, 300)
+		setTimeout(() => clearInterval(intervalId), 10000)
+	}
+	return userData
 }
 function clearStorage() {
 	localStorage.removeItem(TOKEN)
-	const dispatch = getDispatch()
+	const dispatch = UserService.dispatch
 	if (dispatch) dispatch(changeUserData(null))
 }
-function getDispatch() {
-	const dispatch = UserService.dispatch
-	if (dispatch) return dispatch
-	console.error('Could not update "Store" because of missing "dispatch" function in "UserService". Check "UserSession" component is rendered.')
-}
-// function checkValue(value) {
-// 	if (!value || value === 'null' || value === 'undefined') return ''
-// 	return value
+// function getDispatch() {
+// 	const dispatch = UserService.dispatch
+// 	if (dispatch) return dispatch
+// 	console.error('Could not update "Store" because of missing "dispatch" function in "UserService"')
 // }
 function handleError(error) {
 	console.error(error)

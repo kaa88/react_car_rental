@@ -5,16 +5,20 @@ import { setActiveModal } from '../../../../store/slices/modalSlice';
 import classes from './AccountForm.module.scss';
 import TranslateHandler from '../../../TranslateHandler';
 import Button from '../../../ui/Button/Button';
-import ModalLink from '../../../ui/Modal/ModalLink'
 import InputText from '../../../ui/InputText/InputText';
 import InputPassword from '../../../ui/InputPassword/InputPassword';
 import Container from '../../../ui/Container/Container';
 import UserService from '../../../../services/UserService';
 import Loader from '../../../ui/Loader/Loader';
+import OptionalLink from './OptionalLink';
+import { useNavigate } from 'react-router-dom';
 
+const DEFAULT_MOD = 'default'
+const MODAL_MOD = 'modal'
 
-const LoginForm = memo(function LoginForm() {
+const LoginForm = memo(function LoginForm({modif = DEFAULT_MOD}) {
 	const dispatch = useDispatch()
+	const navigate = useNavigate()
 
 	async function handleLogin() {
 		let {error} = await UserService.login(form.fields.email.value, form.fields.password.value)
@@ -23,8 +27,9 @@ const LoginForm = memo(function LoginForm() {
 			form.fields.password.setError()
 			throw new Error(error)
 		}
-		dispatch(setActiveModal('user_logged_in'))
 		form.clear()
+		if (modif === MODAL_MOD) dispatch(setActiveModal('user_logged_in'))
+		else navigate('/')
 	}
 
 	const form = useForm({
@@ -42,6 +47,7 @@ const LoginForm = memo(function LoginForm() {
 				<Container className={classes.container}>
 					{form.isPending && <Loader className={classes.loader} />}
 					<div className={classes.title}>?_Sign in</div>
+
 					<InputText
 						className={`${classes.inputText} ${form.fields.email.isValid ? '' : classes.error}`}
 						placeholder='?_E-mail'
@@ -54,14 +60,28 @@ const LoginForm = memo(function LoginForm() {
 						value={form.fields.password.value}
 						onChange={form.fields.password.change}
 					/>
-					<ModalLink name='restore_password' onClick={form.clear}>
-						<div className={classes.link}>?_Forgot password</div>
-					</ModalLink>
+
+					<OptionalLink
+						type={modif}
+						path='restore_password'
+						className={classes.link}
+						onClick={form.clear}
+					>
+						?_Forgot password
+					</OptionalLink>
+
 					<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>?_{form.message}</p>
 					<Button className={classes.button}>?_Sign in</Button>
-					<ModalLink name='register' onClick={form.clear}>
-						<div className={`${classes.link} ${classes.centered}`}>?_Don't have account</div>
-					</ModalLink>
+
+					<OptionalLink
+						type={modif}
+						path='register'
+						className={`${classes.link} ${classes.centered}`}
+						onClick={form.clear}
+					>
+						?_Don't have account
+					</OptionalLink>
+
 				</Container>
 			</form>
 		</TranslateHandler>

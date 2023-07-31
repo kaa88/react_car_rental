@@ -72,7 +72,7 @@ const SettingsForm = memo(function SettingsForm() {
 		}
 		else if (okCount) {
 			message = defaultMessage.success
-			await UserService.getUserData()
+			await UserService.updateUserData()
 		}
 		else form.clear()
 
@@ -154,7 +154,7 @@ const SettingsForm = memo(function SettingsForm() {
 					<div className={classes.settingsPhotoBox}>
 						<UserPhoto src={form.fields.image.value.blob || `${IMAGE_DIR}/${userPhoto}`} />
 						{!!form.fields.image.value.file &&
-							<div className={classes.settingsPhotoClearBtn} onClick={form.fields.image.clear()} title='?_Clear'>
+							<div className={classes.settingsPhotoClearBtn} onClick={form.fields.image.clear} title='?_Clear'>
 								<Icon name='icon-cross' />
 							</div>
 						}

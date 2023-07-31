@@ -4,6 +4,7 @@ import { scriptManager } from './scriptManager'
 import { changeMobileBreakpoint } from '../store/slices/mobileBreakpointSlice'
 
 import { register } from 'swiper/element/bundle'
+import UserService from '../services/UserService'
 register() // register Swiper custom elements
 
 // TODO: window events module
@@ -18,6 +19,10 @@ function initBreakpoints(dispatch) {
 	dispatch(changeMobileBreakpoint(state))
 }
 
+async function initUserService(dispatch) {
+	UserService.dispatch = dispatch
+}
+
 
 export function initInstantScripts(dispatch) {
 	initBreakpoints(dispatch)
@@ -27,6 +32,7 @@ export function initInstantScripts(dispatch) {
 	jsMediaQueries.init({
 		// testMode: true
 	})
+	initUserService(dispatch)
 }
 export function initOnloadScripts(dispatch) {
 	scrollLock.init()
