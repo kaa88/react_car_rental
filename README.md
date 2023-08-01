@@ -1,21 +1,13 @@
 # TO DO:
-- only refresh token in DB
-- server (auth, db, account)
-- account page
-- user role 'TEST' (test@user.one) with 'frozen' settings
+- user role 'GUEST' with 'frozen' settings
 - minify (webpack)
 - print.scss - move specific styles inside the component
-- rename color vars
-- remove dependencies from components, but use 'script manager' to control them (e.g. when menu opens -> close modal by using a dispatch)
 - cookie popup
-- add-feedback modal
-- header account button image
-- default account image (svg) (in feedback photo)
 - forms spam-bot check (invisible field)
 - global error handler, tests
 - fix gitignore
 - rotation alert
-- phone mask
+- scroll page to top when go to another page
 
 ========
 

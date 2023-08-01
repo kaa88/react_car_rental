@@ -1,0 +1,38 @@
+.Rating__wrapper {
+	input {
+		display: none;
+	}
+}
+.Rating__labels {
+	display: flex;
+	label {
+		display: flex;
+		cursor: pointer;
+		fill: var(--color06);
+	}
+	label:hover ~ label {
+		fill: var(--color06) !important;
+	}
+	svg {
+		width: 30px;
+		height: 30px;
+	}
+}
+.Rating__labels:hover label,
+#rating-radio-1:checked ~ div #rating-btn-1,
+#rating-radio-2:checked ~ div #rating-btn-1,
+#rating-radio-2:checked ~ div #rating-btn-2,
+#rating-radio-3:checked ~ div #rating-btn-1,
+#rating-radio-3:checked ~ div #rating-btn-2,
+#rating-radio-3:checked ~ div #rating-btn-3,
+#rating-radio-4:checked ~ div #rating-btn-1,
+#rating-radio-4:checked ~ div #rating-btn-2,
+#rating-radio-4:checked ~ div #rating-btn-3,
+#rating-radio-4:checked ~ div #rating-btn-4,
+#rating-radio-5:checked ~ div #rating-btn-1,
+#rating-radio-5:checked ~ div #rating-btn-2,
+#rating-radio-5:checked ~ div #rating-btn-3,
+#rating-radio-5:checked ~ div #rating-btn-4,
+#rating-radio-5:checked ~ div #rating-btn-5 {
+	fill: var(--color04);
+}

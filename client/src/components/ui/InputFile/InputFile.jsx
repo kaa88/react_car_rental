@@ -1,6 +1,7 @@
 import imageCompression from 'browser-image-compression';
 import classes from './InputFile.module.scss';
 import TranslateHandler from '../../TranslateHandler';
+import { useEffect, useRef } from 'react';
 
 
 function InputFile({
@@ -8,8 +9,14 @@ function InputFile({
 	className = '',
 	children,
 	onChange = function({file, blob}, errorMessage){},
+	isTemporary,
 	...props
 }) {
+
+	const inputRef = useRef()
+	useEffect(() => {
+		if (isTemporary) inputRef.current.value = ''
+	})
 
 	async function compressImage(image) {
 		const options = {
@@ -51,6 +58,7 @@ function InputFile({
 					accept='image/png, image/jpeg'
 					onChange={uploadFile}
 					title='?_Choose file'
+					ref={inputRef}
 					{...props}
 				/>
 				{children}

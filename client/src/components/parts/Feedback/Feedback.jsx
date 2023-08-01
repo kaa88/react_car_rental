@@ -1,7 +1,6 @@
 import { memo, useEffect, useState } from 'react';
 import classes from './Feedback.module.scss';
 import Container from '../../ui/Container/Container';
-import Image from '../../ui/Image/Image';
 import Icon from '../../ui/Icon/Icon';
 import Button from '../../ui/Button/Button';
 import Slider from '../Slider/Slider';
@@ -11,6 +10,7 @@ import FetchService from '../../../services/FetchService';
 import Loader from '../../ui/Loader/Loader';
 import LoadError from '../../ui/Loader/LoadError';
 import UserPhoto from '../../ui/UserPhoto/UserPhoto';
+import ModalLink from '../../ui/Modal/ModalLink'
 
 const IMAGE_DIR = process.env.REACT_APP_USER_PHOTOS_DIR
 
@@ -87,8 +87,9 @@ const Feedback = memo(function Feedback() {
 							<Slider className={classes.slider} swiperParams={swiperParams}>{slides}</Slider>
 						}
 					</div>
-					
-					<Button className={classes.addBtn} modif='negative'>?_Leave a feedback</Button>
+					<ModalLink name='new_feedback'>
+						<Button className={classes.addBtn} modif='negative'>?_Leave a feedback</Button>
+					</ModalLink>
 				</Container>
 			</section>
 		</TranslateHandler>

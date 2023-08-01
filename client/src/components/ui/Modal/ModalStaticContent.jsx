@@ -3,6 +3,7 @@ import LoginForm from '../../parts/Forms/AccountForm/LoginForm';
 import RegisterForm from '../../parts/Forms/AccountForm/RegisterForm';
 import RestorePasswordForm from '../../parts/Forms/AccountForm/RestorePasswordForm';
 import UserLoggedInAlert from '../../parts/Alerts/UserLoggedInAlert/UserLoggedInAlert';
+import FeedbackForm from '../../parts/Forms/FeedbackForm/FeedbackForm';
 
 export const names = {
 	login: 'login',
@@ -23,6 +24,8 @@ const ModalStaticContent = memo(function ModalStaticContent({ name = '' }) {
 				return <RegisterForm modif={MODAL} />
 			case 'restore_password':
 				return <RestorePasswordForm modif={MODAL} />
+			case 'new_feedback':
+				return <FeedbackForm />
 			case 'user_logged_in':
 				return <UserLoggedInAlert />
 			default: return ''

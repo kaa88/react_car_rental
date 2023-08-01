@@ -47,6 +47,7 @@ export function useForm(params = {}) {
 			catch(err) {
 				setIsError(true)
 				setMessage(err.message)
+				console.error(err);
 			}
 			finally {
 				setIsPending(false)
@@ -110,6 +111,14 @@ const fieldMessages = {
 		required: 'Password is required',
 		incorrect: 'Incorrect password'
 	},
+	phone: {
+		required: 'Please fill in your phone number',
+		incorrect: 'Incorrect phone number'
+	},
+	rating: {
+		required: '!',
+		incorrect: '!'
+	},
 }
 
 const validations = {
@@ -118,6 +127,9 @@ const validations = {
 	},
 	password(value) {
 		if (value.length >= 4) return true
+	},
+	phone(value) {
+		if (!value.match(/_/)) return true
 	},
 }
 

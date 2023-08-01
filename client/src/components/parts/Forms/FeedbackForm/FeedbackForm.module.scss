@@ -1,0 +1,125 @@
+@import "../../../../scss/variables.scss";
+
+.form {
+	width: 100vw;
+	max-width: 630px;
+	padding: 50px 0;
+	position: relative;
+	.container {
+		max-width: 470px; //410+20*2
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+}
+.title {
+	font-size: 24px;
+	// margin-bottom: 30px;
+}
+body .inputText {
+	margin-bottom: 15px;
+	height: 60px;
+	padding: 0 24px;
+	font-size: 18px;
+	border: solid 1px var(--color02);
+	@media (max-width: $media-ml+px) {
+		font-size: 16px;
+	}
+	&::placeholder {
+		opacity: 0.5;
+	}
+	&.error {
+		border-color: var(--color07);
+	}
+}
+.textarea {
+	width: 100%;
+	height: 160px;
+	resize: none;
+	padding: 15px 24px;
+	border-radius: 16px;
+	border: solid 1px var(--color02);
+	font-size: 16px;
+	line-height: 20px;
+	&.error {
+		border-color: var(--color07);
+	}
+	&::placeholder {
+		opacity: 0.5;
+	}
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: var(--color05);
+		border-radius: 5px;
+	}
+	&::-webkit-scrollbar-track {
+		background: transparent;
+		border-radius: 5px;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	scrollbar-width: thin; // = 8px
+	scrollbar-color: var(--color05) transparent; // thumb track
+}
+.sectionTitle {
+
+}
+body .button {
+	// margin-top: 30px;
+	min-width: 143px;
+	height: 43px;
+	font-size: 16px;
+}
+.formMessage {
+	margin: 14px 0;
+	// margin-left: 20px;
+	font-size: 18px;
+	min-height: 20px;
+	color: var(--color08);
+	text-align: center;
+	&.error {
+		color: var(--color07);
+	}
+	@media (max-width: $media-m+px) {
+		margin-left: 0;
+		font-size: 16px;
+		min-height: 22px;
+	}
+}
+body .loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 5;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255,255,255,0.5);
+}
+.ratingWrapper {
+	position: relative;
+}
+.rating {
+	margin: 14px 0;
+}
+.ratingMessage {
+	position: absolute;
+	top: calc(50% - 15px);
+	right: -20px;
+	font-size: 30px;
+	height: 30px;
+	color: var(--color07);
+	user-select: none;
+}
+.userNameSetter {
+	margin-bottom: 14px;
+	color: var(--color02);
+	text-decoration: underline;
+	cursor: pointer;
+	user-select: none;
+	transition: color $timer-hover;
+	&:hover {
+		color: var(--color03);
+	}
+}

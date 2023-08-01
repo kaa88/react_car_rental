@@ -12,6 +12,7 @@ import Links from './Links/Links';
 import Copyright from './Copyright/Copyright';
 import Link from '../../ui/TextLink/TextLink';
 import images from './img'
+import CallForm from '../Forms/CallForm/CallForm';
 
 
 const Footer = memo(function Footer() {
@@ -22,8 +23,9 @@ const Footer = memo(function Footer() {
 
 				<div className={classes.top}>
 					<Container className={classes.container}>
-						<InputText className={classes.callInput} placeholder='?_Phone' />
-						<Button className={classes.callButton}>?_Call me back</Button>
+						{/* <InputText className={classes.callInput} placeholder='?_Phone' />
+						<Button className={classes.callButton}>?_Call me back</Button> */}
+						<CallForm />
 					</Container>
 				</div>
 

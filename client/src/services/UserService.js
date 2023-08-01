@@ -65,7 +65,6 @@ const UserService = {
 	},
 
 	async changeImage(file) {
-		// настроить формдату на сервере, а тут ок
 		let formData = new FormData()
 		formData.append('file', file)
 		return api.post('/user/uploadimage', formData, {
@@ -75,6 +74,17 @@ const UserService = {
 		})
 			.then(response => ({ok: true}))
 			.catch(error => handleError(error))
+	},
+
+	async sendFeedback(username, rating, message) {
+		// Later...
+		console.log('Feedback content:')
+		console.log('username:', username)
+		console.log('rating:', rating)
+		console.log('message:', message)
+		return new Promise((resolve) => {
+			setTimeout(() => resolve(), 1000)
+		})
 	},
 }
 export default UserService

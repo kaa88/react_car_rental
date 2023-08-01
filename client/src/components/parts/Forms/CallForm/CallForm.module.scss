@@ -1,5 +1,64 @@
 @import "../../../../scss/variables.scss";
 
-.form {}
-.inputText {}
-.button {}
+.form {
+	position: relative;
+	width: 100%;
+	max-width: 560px;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-column-gap: 18px;
+	grid-row-gap: 14px;
+	justify-content: center;
+	align-items: center;
+	@media (max-width: $media-m+px) {
+		grid-template-columns: 100%;
+	}
+}
+.inputText {
+	max-width: 434px;
+	padding: 0 20px;
+	height: 51px;
+	border-radius: 53px;
+	border: solid 1px var(--color01);
+	background-color: var(--color02);
+	color: var(--color01);
+	font-family: var(--font01);
+	font-size: 16px;
+	letter-spacing: 1px;
+	box-shadow: inset 0 1000px 0 0 var(--color02);
+	-webkit-text-fill-color: var(--color01);
+	&::placeholder {
+		opacity: 0.5;
+	}
+	@media (max-width: $media-m+px) {
+		width: 100%;
+		max-width: 300px;
+		margin: 0 auto;
+	}
+}
+body .button {
+	flex: 0 0 auto;
+	padding: 0 24px;
+	height: 51px;
+	border-radius: 53px;
+	@media (max-width: $media-m+px) {
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+.formMessage {
+	grid-column: span 2;
+	text-align: center;
+	@media (max-width: $media-m+px) {
+		grid-column: 1;
+	}
+}
+body .loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 5;
+	width: 100%;
+	height: 100%;
+	background-color: var(--color02a);
+}

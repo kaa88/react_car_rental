@@ -162,6 +162,7 @@ const SettingsForm = memo(function SettingsForm() {
 					<InputFile
 						className={classes.inputFile}
 						onChange={changePhoto}
+						isTemporary={!!form.fields.image.value.file}
 					>
 						<Button type='button' className={`${classes.button} ${classes.settingsPhotoBtn}`} modif='negative'>
 							<span>+ </span>

@@ -1,18 +1,28 @@
-import { memo, useState } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { useForm } from '../../../../hooks/useForm';
 import script from './CallForm.script.js';
 import classes from './CallForm.module.scss';
 import TranslateHandler from '../../../TranslateHandler';
 import Button from '../../../ui/Button/Button';
-import InputText from '../../../ui/InputText/InputText';
 import Loader from '../../../ui/Loader/Loader';
 
 
 const CallForm = memo(function CallForm() {
 
+	const inputRef = useRef()
+	useEffect(() => {
+		script.init({
+			change: form.fields.phone.change,
+			inputEl: inputRef.current,
+			phoneMask: '+_ (___) ___-__-__',
+			showPhoneMask: true,
+		})
+		return () => script.destroy()
+	}, [])
+
 	const submit = async function() {
 		const defaultMessage = {
-			success: "Thank you. We'll call you soon.",
+			success: "Thank you. We'll call you soon",
 			error: 'Error'
 		}
 		let message = ''
@@ -22,6 +32,7 @@ const CallForm = memo(function CallForm() {
 				.then(() => {
 					message = defaultMessage.success
 					form.fields.phone.clear()
+					script.clear()
 				})
 				.catch(() => {
 					message = defaultMessage.error
@@ -35,26 +46,38 @@ const CallForm = memo(function CallForm() {
 	}
 
 	const form = useForm({
-		customValidation: preValidatePasswords,
 		action: submit,
 		fields: [
 			{name: 'phone', type: 'phone', required: true},
 		]
 	})
+	console.log(form);
+
+	function getMessage() {
+		if (form.fields.phone.message) return form.fields.phone.message
+		else if (form.message) return form.message
+		else return ''
+	}
 
 	return (
 		<TranslateHandler>
 			<form className={classes.form} action="#" onSubmit={form.submit}>
-				{form.isPending && <Loader className={classes.loader} />}
+				{form.isPending && <Loader className={classes.loader} modif='light' />}
 
-				<InputText
+				<input
+					type='text'
 					className={classes.inputText}
-					value={form.fields.phone.value}
-					onChange={form.fields.phone.change}
 					placeholder='?_Phone'
+					ref={inputRef}
 				/>
 
 				<Button className={classes.button}>?_Call me back</Button>
+
+				{!!getMessage() &&
+					<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>
+						?_{getMessage()}
+					</p>
+				}
 
 			</form>
 		</TranslateHandler>

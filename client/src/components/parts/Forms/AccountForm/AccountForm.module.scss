@@ -38,7 +38,7 @@ body .inputText, body .inputPassword {
 		opacity: 0.5;
 	}
 	&.error {
-		border-color: red;
+		border-color: var(--color07);
 	}
 }
 .InputPassword {
