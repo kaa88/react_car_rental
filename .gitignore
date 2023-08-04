@@ -1,9 +1,9 @@
 node_modules
 .env
 *copy.*
+*[а-яА-ЯёЁ]*
 
 
 # Gulp Project:
-*[а-яА-ЯёЁ]*
 ?temp
 ?design
