@@ -1,21 +1,25 @@
 import { memo, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useFetching } from '../../../hooks/useFetching';
 import classes from './Feedback.module.scss';
 import Container from '../../ui/Container/Container';
 import Icon from '../../ui/Icon/Icon';
 import Button from '../../ui/Button/Button';
 import Slider from '../Slider/Slider';
 import TranslateHandler from '../../TranslateHandler';
-import { useFetching } from '../../../hooks/useFetching';
 import FetchService from '../../../services/FetchService';
 import Loader from '../../ui/Loader/Loader';
 import LoadError from '../../ui/Loader/LoadError';
 import UserPhoto from '../../ui/UserPhoto/UserPhoto';
 import ModalLink from '../../ui/Modal/ModalLink'
+import Anchor from '../../ui/Anchor/Anchor';
 
 const IMAGE_DIR = process.env.REACT_APP_USER_PHOTOS_DIR
 
 
 const Feedback = memo(function Feedback() {
+
+	const userID = useSelector(state => state.user.id)
 
 	const defaultFeedbackData = []
 	let [feedbackData, setFeedbackData] = useState(defaultFeedbackData)
@@ -77,6 +81,8 @@ const Feedback = memo(function Feedback() {
 	return (
 		<TranslateHandler>
 			<section className={classes.feedback}>
+				<Anchor name='feedback' />
+
 				<Container className={classes.container}>
 					<h3 className='fz36 color02 tac'>?_Feedback</h3>
 
@@ -87,7 +93,7 @@ const Feedback = memo(function Feedback() {
 							<Slider className={classes.slider} swiperParams={swiperParams}>{slides}</Slider>
 						}
 					</div>
-					<ModalLink name='new_feedback'>
+					<ModalLink name={userID ? 'new_feedback' : 'login'}>
 						<Button className={classes.addBtn} modif='negative'>?_Leave a feedback</Button>
 					</ModalLink>
 				</Container>

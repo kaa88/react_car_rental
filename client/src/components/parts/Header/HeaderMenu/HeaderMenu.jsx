@@ -1,10 +1,11 @@
-import React, { memo, useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useCustomElement } from '../../../../hooks/useCustomElement';
 import script from './HeaderMenu.script';
 import classes from './HeaderMenu.module.scss';
 import TranslateHandler from '../../../TranslateHandler';
 import Icon from '../../../ui/Icon/Icon';
+import MenuLinks from './MenuLinks';
 
 const headerMenuParams = {
 	hideOnViewChangе: true, // by default menu disappears when window switches between mobile and desktop view, it prevents css transition blinking; if you want to turn it off in some reasons, set 'false' (default = true)
@@ -38,14 +39,6 @@ const HeaderMenu = memo(function HeaderMenu({className = '', ...props}) {
 		script.resetShrinkStateOnLanguageChange(language)
 	}, [language])
 
-
-	const menuLinks = [
-		{ name: 'Cars',				href: '#' },
-		{ name: 'Feedback',			href: '#' },
-		{ name: 'F.A.Q',				href: '#' },
-		{ name: 'How to rent',		href: '#' },
-	]
-
 	return (
 		<TranslateHandler>
 			<div className={`${className} ${classes.headerMenu} ${activeClass}`}>
@@ -64,11 +57,7 @@ const HeaderMenu = memo(function HeaderMenu({className = '', ...props}) {
 				<div className={script.elems.hideWrapper.className} ref={script.elems.hideWrapper.ref}>
 					<nav className={script.elems.menu.className} ref={script.elems.menu.ref}>
 						<ul className={classes.menuItems}>
-							{menuLinks.map((item, index) =>
-								<li className={classes.menuItem} key={index}>
-									<a className={classes.menuLink} href={item.href}>{`?_${item.name}`}</a>
-								</li>
-							)}
+							<MenuLinks onLinkClick={closeMenu} />
 						</ul>
 					</nav>
 				</div>

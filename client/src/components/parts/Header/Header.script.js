@@ -1,4 +1,4 @@
-import { scriptManager } from '../../../utilities/scriptManager';
+// import { scriptManager } from '../../../utilities/scriptManager';
 import {getCssVariable} from '../../../utilities/utilities';
 import { setHeaderInitialized } from '../../../store/slices/headerSlice';
 import Metrics from './HeaderMetrics';

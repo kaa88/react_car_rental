@@ -41,7 +41,6 @@ const Header = memo(function Header() {
 		if (menuIsActive) script.scrollIntoView()
 	}, [menuIsActive])
 
-	// console.log('render Header')
 	return (
 		<TranslateHandler>
 			<header className={className} ref={headerRef}>

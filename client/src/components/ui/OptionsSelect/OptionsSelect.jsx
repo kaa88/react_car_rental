@@ -18,8 +18,6 @@ const OptionsSelect = memo(function OptionsSelect({type, className = '', childre
 	const Currency = useSelector(state => state.currency)
 	const userID = useSelector(state => state.user.id)
 
-	// let [isReloadList, setReloadList] = useState(true)
-
 	const categories = useMemo(function() {return {
 		language: {
 			data: Language,
@@ -45,16 +43,11 @@ const OptionsSelect = memo(function OptionsSelect({type, className = '', childre
 		value = value.toLowerCase()
 		dispatch(categories[type].action(value))
 		if (userID) UserService.edit(type, value)
-		// setReloadList(true) // change list by useEffect with delay
 	}
 
 	useEffect(() => {
 		setTimeout(() => {
-			// if (isReloadList) {
-				// setReloadList(false)
-				// console.log('kajsdf');
-				setSelectData(createSelectData())
-			// }
+			setSelectData(createSelectData())
 		}, transitionDelay)
 	}, [Language, Currency])
 

@@ -2,12 +2,28 @@ import { scrollLock } from './scrollLock'
 import { jsMediaQueries } from './jsMediaQueries'
 import { scriptManager } from './scriptManager'
 import { changeMobileBreakpoint } from '../store/slices/mobileBreakpointSlice'
-
-import { register } from 'swiper/element/bundle'
 import UserService from '../services/UserService'
-register() // register Swiper custom elements
+import { register } from 'swiper/element/bundle'
+import { setActiveSelect } from '../store/slices/selectSlice'
+import { setActivePopup } from '../store/slices/popupSlice'
 
-// TODO: window events module
+export function initInstantScripts(dispatch) {
+	initUserService(dispatch)
+	initBreakpoints(dispatch)
+	register() // Swiper custom elements
+	scriptManager.init({
+		// testMode: true
+	})
+	jsMediaQueries.init({
+		// testMode: true
+	})
+}
+
+export function initOnloadScripts(dispatch) {
+	initWindowEvents(dispatch)
+	scrollLock.init()
+}
+
 
 function initBreakpoints(dispatch) {
 	const mobileBPVariable = '--media-mobile'
@@ -19,21 +35,11 @@ function initBreakpoints(dispatch) {
 	dispatch(changeMobileBreakpoint(state))
 }
 
-async function initUserService(dispatch) {
+function initWindowEvents(dispatch) {
+	window.addEventListener('click', () => dispatch(setActiveSelect('')))
+	window.addEventListener('click', () => dispatch(setActivePopup('')))
+}
+
+function initUserService(dispatch) {
 	UserService.dispatch = dispatch
-}
-
-
-export function initInstantScripts(dispatch) {
-	initBreakpoints(dispatch)
-	scriptManager.init({
-		// testMode: true
-	})
-	jsMediaQueries.init({
-		// testMode: true
-	})
-	initUserService(dispatch)
-}
-export function initOnloadScripts(dispatch) {
-	scrollLock.init()
 }

@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from '../../../../hooks/useForm';
 import classes from './FeedbackForm.module.scss';
@@ -7,7 +7,6 @@ import Button from '../../../ui/Button/Button';
 import InputText from '../../../ui/InputText/InputText';
 import UserService from '../../../../services/UserService';
 import Loader from '../../../ui/Loader/Loader';
-import Icon from '../../../ui/Icon/Icon';
 import Container from '../../../ui/Container/Container';
 import Rating from '../../../ui/Rating/Rating';
 
@@ -43,7 +42,6 @@ const FeedbackForm = memo(function FeedbackForm() {
 			})
 
 		if (okCount) message = defaultMessage.success
-		// else form.clear()
 
 		return message
 	}

@@ -19,7 +19,11 @@ export const scrollLock = {
 	init() {
 		window.addEventListener('resize', this.calcScrollbarWidth.bind(this))
 		this.calcScrollbarWidth()
-		// this.lock() // prevant some 'scroll' events when page loads... Header will unlock it
+		// sometimes calculation = -1, so let's run one more time
+		const secondTryDelay = 1000
+		if (this.scrollbarWidth <= 0) setTimeout(function() {
+			this.calcScrollbarWidth()
+		}.bind(this), secondTryDelay)
 	},
 	calcScrollbarWidth() {
 		if (document.body.classList.contains(lockedClassName)) return;

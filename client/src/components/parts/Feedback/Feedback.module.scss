@@ -1,6 +1,7 @@
 @import "../../../scss/variables.scss";
 
 .feedback {
+	position: relative;
 	padding: 50px 0;
 	@media (max-width: $media-ml+px) {
 		padding: 20px 0;

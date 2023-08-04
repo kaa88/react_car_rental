@@ -4,6 +4,7 @@ $slider-elems-default-offset: 50;
 $offset-resize-multiplier: 3.3;
 
 .cars {
+	position: relative;
 	padding: 40px 0 50px;
 	@media (max-width: $media-ts+px) {
 		padding: 20px 0;

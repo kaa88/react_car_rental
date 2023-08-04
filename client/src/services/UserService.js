@@ -43,7 +43,6 @@ const UserService = {
 	async edit(key, value) {
 		return api.put('/user/edit', { [key]: value })
 			.then(response => {
-				// updateStorage(response.data)
 				return {ok: true}
 			})
 			.catch(error => handleError(error))
@@ -130,11 +129,6 @@ function clearStorage() {
 	const dispatch = UserService.dispatch
 	if (dispatch) dispatch(changeUserData(null))
 }
-// function getDispatch() {
-// 	const dispatch = UserService.dispatch
-// 	if (dispatch) return dispatch
-// 	console.error('Could not update "Store" because of missing "dispatch" function in "UserService"')
-// }
 function handleError(error) {
 	console.error(error)
 	const UNKNOWN_ERR = 'Unknown error'

@@ -68,6 +68,7 @@ const Menu = {
 		if (this.menuIsActive || transitionIsLocked(TRANSITION_TIMEOUT)) return;
 		lockScroll()
 		this.dispatch(setMenuActive(true))
+		exportActiveStateToMetrics(true)
 		// this.closeOtherModules() 						// script manager will do it
 		// this.headerScript.scrollIntoView() 			// header will do it
 		// this.onMenuOpen()
@@ -76,6 +77,7 @@ const Menu = {
 		if (!this.menuIsActive || transitionIsLocked(TRANSITION_TIMEOUT)) return;
 		unlockScroll(TRANSITION_TIMEOUT)
 		this.dispatch(setMenuActive(false))
+		exportActiveStateToMetrics(false)
 		// this.onMenuClose()
 	},
 
@@ -136,3 +138,10 @@ const Menu = {
 	},
 }
 export default Menu
+
+function exportActiveStateToMetrics(isActive) {
+	// этот костыль решает проблему исчезновения хедера на мобилке при переходе по якорной ссылке
+	setTimeout(() => {
+		Metrics.isBlockedPosition = isActive
+	}, 100)
+}

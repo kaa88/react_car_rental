@@ -6,10 +6,9 @@ import ReservationForm from '../Forms/ReservationForm/ReservationForm';
 import Icon from '../../ui/Icon/Icon';
 import Image from '../../ui/Image/Image';
 import images from './img'
+import Anchor from '../../ui/Anchor/Anchor';
 
 const Banner = memo(function Banner() {
-
-	// console.log(images);
 
 	const features = [
 		{
@@ -35,6 +34,7 @@ const Banner = memo(function Banner() {
 	return (
 		<TranslateHandler>
 			<section className={classes.banner}>
+				<Anchor name='rent' />
 
 				<div className={classes.form}>
 					<div className={classes.bg}>

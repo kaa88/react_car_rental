@@ -13,6 +13,7 @@ const MetricsHandler = {
 		if (this.initialized) return;
 		this.metrics = {...this.defaultMetrics}
 		this.breakpoints = breakpoints
+		this.isBlockedPosition = false
 		
 		headerHeight.init(this, headerEl)
 		if (headerScript.params.hidingHeader) hidingHeader.init(this, headerScript.params, breakpoints.tablet)
@@ -42,6 +43,7 @@ const MetricsHandler = {
 	},
 	setMetrics(newMetrics) {
 		Object.entries(newMetrics).forEach(([key, value]) => {
+			if (key === 'headerPosition' && this.isBlockedPosition) return;
 			if (value !== null) value = Math.round(value * 10) / 10
 			if (value !== this.metrics[key]) {
 				this.metrics[key] = value

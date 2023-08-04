@@ -3,16 +3,14 @@ import classes from './Footer.module.scss';
 import Container from '../../ui/Container/Container';
 import Image from '../../ui/Image/Image';
 import Icon from '../../ui/Icon/Icon';
-import Button from '../../ui/Button/Button';
-import InputText from '../../ui/InputText/InputText';
 import Logo from '../../ui/Logo/Logo';
 import TranslateHandler from '../../TranslateHandler';
 import Contacts from './Contacts/Contacts';
-import Links from './Links/Links';
 import Copyright from './Copyright/Copyright';
 import Link from '../../ui/TextLink/TextLink';
 import images from './img'
 import CallForm from '../Forms/CallForm/CallForm';
+import MenuLinks from '../Header/HeaderMenu/MenuLinks';
 
 
 const Footer = memo(function Footer() {
@@ -23,8 +21,6 @@ const Footer = memo(function Footer() {
 
 				<div className={classes.top}>
 					<Container className={classes.container}>
-						{/* <InputText className={classes.callInput} placeholder='?_Phone' />
-						<Button className={classes.callButton}>?_Call me back</Button> */}
 						<CallForm />
 					</Container>
 				</div>
@@ -34,7 +30,9 @@ const Footer = memo(function Footer() {
 					<Container className={classes.container}>
 						<div className={classes.footerContent}>
 							<Logo className={classes.logo} modif='negative' />
-							<Links className={classes.links} />
+							<ul className={classes.menuItems}>
+								<MenuLinks importedClasses={classes} />
+							</ul>
 							<Contacts className={classes.contacts} />
 							<Copyright className={classes.copyright} />
 						</div>

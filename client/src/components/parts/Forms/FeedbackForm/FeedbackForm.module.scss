@@ -14,7 +14,6 @@
 }
 .title {
 	font-size: 24px;
-	// margin-bottom: 30px;
 }
 body .inputText {
 	margin-bottom: 15px;
@@ -63,18 +62,13 @@ body .inputText {
 	scrollbar-width: thin; // = 8px
 	scrollbar-color: var(--color05) transparent; // thumb track
 }
-.sectionTitle {
-
-}
 body .button {
-	// margin-top: 30px;
 	min-width: 143px;
 	height: 43px;
 	font-size: 16px;
 }
 .formMessage {
 	margin: 14px 0;
-	// margin-left: 20px;
 	font-size: 18px;
 	min-height: 20px;
 	color: var(--color08);

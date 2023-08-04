@@ -8,6 +8,7 @@ import modal from './slices/modalSlice'
 import select from './slices/selectSlice'
 import header from './slices/headerSlice'
 import user from './slices/userSlice'
+import anchor from './slices/anchorSlice'
 
 const rootReducer = combineReducers({
 	currency,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
 	select,
 	popup,
 	user,
+	anchor,
 })
 
 export default configureStore({

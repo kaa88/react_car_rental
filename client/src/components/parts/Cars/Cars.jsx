@@ -14,6 +14,7 @@ import Icon from '../../ui/Icon/Icon';
 import FetchService from '../../../services/FetchService';
 import Loader from '../../ui/Loader/Loader';
 import LoadError from '../../ui/Loader/LoadError';
+import Anchor from '../../ui/Anchor/Anchor';
 
 // Note: хотел сделать разбивку на компоненты, но swiper отказывается работать с множественной вложенностью (а может другая причина), перестают инициализироваться кнопки навигации и пагинация... Пришлось напихать всё сюда
 
@@ -191,6 +192,8 @@ const Cars = memo(function Cars() {
 	return (
 		<TranslateHandler>
 			<section className={classes.cars}>
+				<Anchor name='cars' />
+
 				<Container>
 					<h3 className='fz36 tac color02'>?_Our cars</h3>
 					<div className={classes.sliderBox}>

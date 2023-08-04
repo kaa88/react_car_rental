@@ -6,6 +6,7 @@ import faqData from './Faq.data.json';
 import Divider from '../../ui/Divider/Divider';
 import TranslateHandler from '../../TranslateHandler';
 import images from './img'
+import Anchor from '../../ui/Anchor/Anchor';
 
 
 const Faq = memo(function Faq() {
@@ -13,6 +14,8 @@ const Faq = memo(function Faq() {
 	return (
 		<TranslateHandler>
 			<section className={classes.faq}>
+				<Anchor name='faq' />
+
 				<div className={classes.bg}>
 					<Image src={images.bg2} />
 				</div>

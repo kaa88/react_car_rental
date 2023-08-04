@@ -1,0 +1,11 @@
+@import "../../../scss/variables.scss";
+
+.anchor {
+	position: absolute;
+	top: calc(-1 * (var(--header-height) - var(--compact-mode-offset)));
+	left: 0;
+	// z-index: 500;
+	// background-color: var(--color07);
+	font-size: 0;
+	visibility: hidden;
+}

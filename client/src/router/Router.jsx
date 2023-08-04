@@ -19,10 +19,12 @@ function Router() {
 		},
 		{
 			path: '/',
+			loader: scrollToTop,
 			element: <HomePage />,
 		},
 		{
 			path: '/account',
+			loader: scrollToTop,
 			element:
 				<RequireAuth>
 					<AccountPage />
@@ -54,3 +56,9 @@ function Router() {
 }
 
 export default Router
+
+
+function scrollToTop() {
+	window.scrollTo({top: 0})
+	return null
+}

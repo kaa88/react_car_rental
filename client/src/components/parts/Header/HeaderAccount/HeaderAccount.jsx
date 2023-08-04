@@ -1,19 +1,16 @@
-import React, { useState, memo, useRef, useEffect } from 'react';
+import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-// import script from './HeaderAccount.script';
 import classes from './HeaderAccount.module.scss';
 import TranslateHandler from '../../../TranslateHandler';
 import Button from '../../../ui/Button/Button';
 import Divider from '../../../ui/Divider/Divider';
 import OptionsSelect from '../../../ui/OptionsSelect/OptionsSelect';
 import ModalLink from '../../../ui/Modal/ModalLink'
-import Icon from '../../../ui/Icon/Icon';
 import Popup from '../../../ui/Popup/Popup';
 import { setActivePopup } from '../../../../store/slices/popupSlice';
 import UserService from '../../../../services/UserService';
 import UserPhoto from '../../../ui/UserPhoto/UserPhoto';
 import { Link } from 'react-router-dom';
-// import { changeUserData } from '../../../../store/slices/userSlice';
 
 const IMAGE_DIR = process.env.REACT_APP_USER_PHOTOS_DIR
 
@@ -42,7 +39,6 @@ const HeaderAccount = memo(function HeaderAccount({className = ''}) {
 	const logout = async function() {
 		let response = await UserService.logout()
 		if (response.ok) {
-			// dispatch(changeUserData({isAuth: false}))
 			dispatch(setActivePopup(''))
 		}
 	}

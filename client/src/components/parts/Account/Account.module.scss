@@ -1,6 +1,7 @@
 @import "../../../scss/variables.scss";
 
 .account {
+	padding-top: 30px;
 	.container {
 		@media (max-width: $media-t+px) {
 			max-width: 680px;
