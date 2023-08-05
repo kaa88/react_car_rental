@@ -30,7 +30,7 @@ const userController = {
 	async edit(req, res, next) {
 		const id = req.tokenData ? req.tokenData.id : null
 		req.body.id = id
-		req.body = new UserEditableDTO(req.body)
+		req.body = new UserEditableFields(req.body)
 		let response = await defaultController.edit( req, res, next, user, true )
 		if (response) {
 			let candidate = await user.findOne({where: {id}})
@@ -151,7 +151,7 @@ const userController = {
 		let userData = await user.findOne({where: {id}})
 		let prevImage = userData ? userData.dataValues.image : ''
 
-		req.body = new UserEditableDTO(req.body)
+		req.body = new UserEditableFields(req.body)
 		let response = await defaultController.edit( req, res, next, user, true )
 		if (response) {
 			if (prevImage) FileService.deleteUserPhoto(prevImage)
@@ -186,7 +186,7 @@ class UserDTO {
 	}
 }
 
-class UserEditableDTO {
+class UserEditableFields {
 	constructor(body) {
 		this.id = body.id // not editable, but needed to find user... may be I'll find better place for it later
 		if (body.name) this.name = body.name

@@ -25,9 +25,10 @@ const Period = memo(function Period({
 		return: formData.return ? new Date(formData.return) : ''
 	}
 	function setReservationPeriod(value) {
-		let newValue = {...value}
-		newValue.pickup = newValue.pickup.getTime()
-		newValue.return = newValue.return.getTime()
+		let newValue = {
+			pickup: value.pickup ? value.pickup.getTime() : '',
+			return: value.return ? value.return.getTime() : ''
+		}
 		dispatch(setPeriod(newValue))
 	}
 	if (!formData.pickup) {

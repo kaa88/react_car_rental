@@ -1,0 +1,36 @@
+@import "../../../../scss/variables.scss";
+
+.wrapper {
+	position: relative;
+	// position: absolute;
+	// top: 25px;
+	// left: $slider-elems-default-offset+px;
+	// @media (max-width: $media-tl+px) {
+	// 	left: resize-multiplier($slider-elems-default-offset, $media-tl, $offset-resize-multiplier);
+	// }
+	// @media (max-width: $media-ts+px) {
+	// 	position: static;
+	// 	grid-column: 1;
+	// }
+	// @media (max-width: $media-ml+px) {
+	// 	grid-column: span 2;
+	// }
+}
+
+.item {
+	margin-top: 12px;
+	display: flex;
+	align-items: center;
+	font-size: 20px;
+	word-break: break-word;
+	@media (max-width: $media-ts+px) {
+		font-size: 16px;
+	}
+}
+.icon {
+	margin-right: 10px;
+	width: 16px;
+	height: 16px;
+	fill: var(--color02);
+	stroke: var(--color02);
+}

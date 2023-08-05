@@ -21,7 +21,10 @@ const MenuLinks = memo(function MenuLinks({
 		],
 		account: [
 			{ name: 'Home', to: '/' },
-		]
+		],
+		reservation: [
+			{ name: 'Home', to: '/' },
+		],
 	}
 
 	let currentPageLinks = menuLinks.index

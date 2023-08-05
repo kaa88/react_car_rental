@@ -44,7 +44,7 @@ const Banner = memo(function Banner() {
 						<h3 className={`${classes.formTitle} color01 fz36 tac`}>
 							?_Rent a car
 						</h3>
-						<ReservationForm className={classes.blur} />
+						<ReservationForm className={classes.blur} modif='short' />
 					</Container>
 				</div>
 

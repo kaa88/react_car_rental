@@ -1,0 +1,46 @@
+@import "../../../../scss/variables.scss";
+
+.wrapper {
+	position: relative;
+	columns: auto 162px;
+	column-rule: solid 1px var(--color06);
+	column-gap: 32px;
+	& > * {
+		margin-bottom: 6px;
+		word-break: break-word;
+	}
+	&:before {
+		content: '';
+		position: absolute;
+		top: -22px;
+		left: calc(50% - 40%);
+		display: inline-block;
+		width: 80%;
+		height: 1px;
+		background-color: var(--color06);
+	}
+	// @media (min-width: $media-ts+1+px) {
+	// 	.modalReadMoreContent & {
+	// 		margin-top: 40px;
+	// 		margin-bottom: 20px;
+	// 		&:before {
+	// 			display: none;
+	// 		}
+	// 	}
+	// }
+	@media (max-width: $media-ts+px) {
+		margin: 20px auto 0;
+		max-width: 500px;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-column-gap: 20px;
+		align-items: center;
+		opacity: 0.5;
+		// .modalContent & > *:nth-child(n+9) {
+		// 	display: none;
+		// }
+		&:before {
+			display: none;
+		}
+	}
+}

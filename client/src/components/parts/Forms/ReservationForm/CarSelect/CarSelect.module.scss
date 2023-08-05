@@ -1,0 +1,18 @@
+@import "../../../../../scss/variables.scss";
+
+.wrapper {
+	background-color: lightcyan;
+	display: flex;
+}
+.info {
+	background-color: orange;
+}
+.list {
+	background-color: limegreen;
+}
+.listItem {
+	cursor: pointer;
+	&.active {
+		background-color: var(--color08);
+	}
+}

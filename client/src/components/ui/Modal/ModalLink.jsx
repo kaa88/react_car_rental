@@ -24,8 +24,8 @@ const ModalLink = memo(function ModalLink({ name = '', content = '', children, o
 
 	function showModal() {
 		if (transitionIsLocked(timeout)) return;
-		dispatch(setActiveModal(name))
 		if (name) dispatch(setModalContent(getContent()))
+		dispatch(setActiveModal(name))
 		onClick()
 	}
 

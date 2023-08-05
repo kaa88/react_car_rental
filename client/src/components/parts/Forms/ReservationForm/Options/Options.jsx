@@ -6,12 +6,12 @@ import TranslateHandler from '../../../../TranslateHandler';
 import InputCheckbox from '../../../../ui/InputCheckbox/InputCheckbox';
 
 
-const DRIVER_AGE = 'driver_age'
-const DIFFERENT_LOCATION = 'different_location'
+const DRIVER_AGE = 'driverAgeIsOk'
+const DIFFERENT_LOCATION_RETURN = 'isDifferentLocationReturn'
 
 export const defaultOptions = {}
 defaultOptions[DRIVER_AGE] = false
-defaultOptions[DIFFERENT_LOCATION] = false
+defaultOptions[DIFFERENT_LOCATION_RETURN] = false
 
 const Options = memo(function Options({className = '', ...props}) {
 
@@ -43,9 +43,9 @@ const Options = memo(function Options({className = '', ...props}) {
 				</InputCheckbox>
 
 				<InputCheckbox
-					name={DIFFERENT_LOCATION}
+					name={DIFFERENT_LOCATION_RETURN}
 					onChange={handleCheckboxChange}
-					checked={formDataOptions[DIFFERENT_LOCATION]}
+					checked={formDataOptions[DIFFERENT_LOCATION_RETURN]}
 					modif='light'
 				>
 					?_Return to different location

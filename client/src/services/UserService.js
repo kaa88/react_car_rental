@@ -85,6 +85,10 @@ const UserService = {
 			setTimeout(() => resolve(), 1000)
 		})
 	},
+
+	async createReservation() {
+		// location, period, carID, price
+	},
 }
 export default UserService
 

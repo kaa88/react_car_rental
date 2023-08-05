@@ -58,66 +58,15 @@ $offset-resize-multiplier: 3.3;
 	}
 }
 
-.modalContent, .modalReadMoreContent {
-	position: relative;
-	// max-height: 100vh;
-	padding: 16px 0;
-	// overflow-y: auto;
-	.container {
-		position: relative;
-		padding: 0 16px;
-		width: calc(100vw - 40px);
-	}
-	@media (max-width: $media-ts+px) {
-		padding: 10px 0;
-		.container {
-			padding: 0 15px;
-			max-width: 560px;
-		}
-	}
-	@media (max-width: $media-ml+px) {
-		.container {
-			width: 100%;
-		}
-	}
-}
-
-.carImage {
-	// background-color: blue;
-	width: 100%;
-	height: 100%;
-	img {
-		object-fit: contain;
-	}
+body .carImage {
 	@media (max-width: $media-ts+px) {
 		grid-row: 1;
 		grid-column: span 2;
-		// max-height: 356px;
-		height: 0;
-		padding-bottom: 56.25%;
-		position: relative;
-		img {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-		}
-	}
-	.modalContent & {
-		margin-top: 34px;
-		margin-bottom: 10px;
-		height: 420px;
-		@media (max-width: $media-ts+px) {
-			margin: 0 auto;
-			max-width: 600px;
-			height: auto;
-		}
 	}
 }
-.carName {
-	font-size: 20px;
-	font-weight: 500;
+body .carName {
+// 	font-size: 20px;
+// 	font-weight: 500;
 	position: absolute;
 	top: 0;
 	left: $slider-elems-default-offset+px;
@@ -140,13 +89,13 @@ $offset-resize-multiplier: 3.3;
 		grid-column: 1;
 		text-align: left;
 	}
-	.modalContent & {
-		position: static;
-		font-size: 24px;
-		text-align: left;
-	}
+// 	.modalContent & {
+// 		position: static;
+// 		font-size: 24px;
+// 		text-align: left;
+// 	}
 }
-.carParams {
+body .carParams {
 	position: absolute;
 	top: 25px;
 	left: $slider-elems-default-offset+px;
@@ -160,86 +109,25 @@ $offset-resize-multiplier: 3.3;
 	@media (max-width: $media-ml+px) {
 		grid-column: span 2;
 	}
-	.modalContent & {
-		top: 60px;
-		left: 16px;
-		@media (max-width: $media-ts+px) {
-			margin: 0 auto;
-			max-width: 500px;
-			display: grid;
-			grid-template-columns: repeat(2, 1fr);
-			grid-column-gap: 20px;
-		}
-	}
+// 	.modalContent & {
+// 		top: 60px;
+// 		left: 16px;
+// 		@media (max-width: $media-ts+px) {
+// 			margin: 0 auto;
+// 			max-width: 500px;
+// 			display: grid;
+// 			grid-template-columns: repeat(2, 1fr);
+// 			grid-column-gap: 20px;
+// 		}
+// 	}
 }
-.carParamsItem {
-	margin-top: 12px;
-	display: flex;
-	align-items: center;
-	font-size: 20px;
-	word-break: break-word;
-	@media (max-width: $media-ts+px) {
-		font-size: 16px;
-	}
-}
-.carParamsIcon {
-	margin-right: 10px;
-	width: 16px;
-	height: 16px;
-	fill: var(--color02);
-	stroke: var(--color02);
-}
-.carOptions {
-	position: relative;
-	columns: auto 162px;
-	column-rule: solid 1px var(--color06);
-	column-gap: 32px;
-	& > * {
-		margin-bottom: 6px;
-		word-break: break-word;
-	}
-	&:before {
-		content: '';
-		position: absolute;
-		top: -22px;
-		left: calc(50% - 40%);
-		display: inline-block;
-		width: 80%;
-		height: 1px;
-		background-color: var(--color06);
-	}
-	@media (min-width: $media-ts+1+px) {
-		.modalReadMoreContent & {
-			margin-top: 40px;
-			margin-bottom: 20px;
-			&:before {
-				display: none;
-			}
-		}
-	}
-	@media (max-width: $media-ts+px) {
-		margin: 20px auto 0;
-		max-width: 500px;
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		grid-column-gap: 20px;
-		align-items: center;
-		opacity: 0.5;
-		.modalContent & > *:nth-child(n+9) {
-			display: none;
-		}
-		&:before {
-			display: none;
-		}
-	}
-}
-.carPrice {
+body .carPrice {
 	margin-bottom: 10px;
-	padding-right: 20px;
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	font-size: 20px;
+// 	padding-right: 20px;
+// 	display: flex;
+// 	justify-content: flex-end;
+// 	align-items: center;
+// 	font-size: 20px;
 	position: absolute;
 	right: $slider-elems-default-offset+px;
 	bottom: 85px;
@@ -251,19 +139,14 @@ $offset-resize-multiplier: 3.3;
 		grid-row: 3;
 		grid-column: 2;
 		margin: 0;
-		padding: 0;
-		font-weight: 500;
+		// padding: 0;
+// 		font-weight: 500;
 		align-self: start;
 	}
 	@media (max-width: $media-ml+px) {
 		grid-row: 2;
 		grid-column: 2;
 	}
-}
-.priceCurrencyIcon {
-	width: 16px;
-	height: 16px;
-	fill: var(--color02);
 }
 
 .actionButtons {
@@ -293,58 +176,6 @@ $offset-resize-multiplier: 3.3;
 	@media (max-width: $media-ts+px) {
 		margin-top: 10px;
 		height: 43px;
-		// font-size: 16px;
-	}
-	.modalContent & {
-		margin: 30px auto 0;
 	}
 }
 
-.readMoreBtn {
-	position: relative;
-	margin-left: auto;
-	margin-right: 0;
-	margin: 10px 10px 0 auto;
-	display: flex;
-	width: min-content;
-	white-space: nowrap;
-	align-items: center;
-	cursor: pointer;
-	color: var(--color02);
-	fill: var(--color02);
-	@media (min-width: $media-ts+1+px) {
-		display: none;
-	}
-	&Icon {
-		margin-top: 2px;
-		margin-left: 10px;
-		width: 10px;
-		height: 10px;
-	}
-	&:before {
-		content: '';
-		position: absolute;
-		bottom: -2px;
-		left: 0;
-		display: inline-block;
-		width: 100%;
-		height: 1px;
-		background-color: var(--color02);
-	}
-}
-.returnButton {
-	margin: 15px auto 18px;
-	max-width: 200px;
-	text-align: center;
-	line-height: 43px;
-	font-size: 20px;
-	cursor: pointer;
-	@media (min-width: $media-ts+1+px) {
-		display: none;
-	}
-	.cars & {
-		@media (min-width: $media-ts+1+px) {
-			display: none;
-		}
-	}
-}

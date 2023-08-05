@@ -9,7 +9,7 @@ function Slider({
 	className = '',
 	children,
 	swiperParams = {},
-	onSlideChange = function(carId){},
+	// onSlideChange = function(carId){},
 	...props
 }) {
 
@@ -17,10 +17,10 @@ function Slider({
 	useEffect(() => {
 		const sw = Object.assign(swiperEl.current, swiperParams)
 		sw.initialize()
-		swiperEl.current.addEventListener('slidechange', (e) => {
-			onSlideChange(e.detail[0].realIndex)
-			console.log(e.detail[0].realIndex);
-		})
+		// swiperEl.current.addEventListener('slidechange', (e) => {
+		// 	onSlideChange(e.detail[0].realIndex)
+		// 	console.log(e.detail[0].realIndex);
+		// })
 	}, [])
 
 	const prevButtonClassName = `swiper-button-prev ${swiperParams.navigation.prevEl.substring(1)}`

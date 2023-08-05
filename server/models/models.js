@@ -5,7 +5,7 @@ export const user = sequelize.define('user', {
 	id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 	email: {type: DataTypes.STRING, allowNull: false, unique: true},
 	password: {type: DataTypes.STRING, allowNull: false},
-	role: {type: DataTypes.STRING, defaultValue: 'USER'}, // USER, ADMIN, TEST
+	role: {type: DataTypes.STRING, defaultValue: 'USER'}, // USER, ADMIN, GUEST
 	name: {type: DataTypes.STRING},
 	image: {type: DataTypes.STRING},
 	language: {type: DataTypes.STRING},
@@ -39,8 +39,10 @@ export const reservation = sequelize.define('reservation', {
 	id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 	pickupDate: {type: DataTypes.DATE, allowNull: false},
 	returnDate: {type: DataTypes.DATE, allowNull: false},
-	place: {type: DataTypes.STRING, allowNull: false},
-	price: {type: DataTypes.INTEGER, allowNull: false}
+	location: {type: DataTypes.STRING, allowNull: false},
+	price: {type: DataTypes.INTEGER, allowNull: false},
+	isActive: {type: DataTypes.BOOLEAN, defaultValue: true},
+	sameLocationReturn: {type: DataTypes.BOOLEAN, defaultValue: true}
 })
 
 export const feedback = sequelize.define('feedback', {

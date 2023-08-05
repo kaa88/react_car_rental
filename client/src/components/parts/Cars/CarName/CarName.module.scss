@@ -1,0 +1,28 @@
+@import "../../../../scss/variables.scss";
+
+.content {
+	font-size: 20px;
+	font-weight: 500;
+	// position: absolute;
+	// top: 0;
+	// left: $slider-elems-default-offset+px;
+	// @media (max-width: $media-tl+px) {
+	// 	left: resize-multiplier($slider-elems-default-offset, $media-tl, $offset-resize-multiplier);
+	// }
+	// @media (min-width: $media-ts+1+px) {
+	// 	.modalReadMoreContent & {
+	// 		margin-top: 10px;
+	// 	}
+	// }
+	// @media (max-width: $media-ts+px) {
+	// 	position: static;
+	// 	grid-row: 2;
+	// 	grid-column: span 2;
+	// 	text-align: center;
+	// }
+	// @media (max-width: $media-ml+px) {
+	// 	grid-row: 2;
+	// 	grid-column: 1;
+	// 	text-align: left;
+	// }
+}

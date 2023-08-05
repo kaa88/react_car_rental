@@ -9,7 +9,7 @@
 - change color styles
 - delete 'script manager' ?
 - detect unnecessary renders
-- check sizes on 100% scale view
+- check sizes on 100% scale view (use 'em')
 - useFetching or FetchService ???
 
 ========

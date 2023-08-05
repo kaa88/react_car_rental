@@ -7,7 +7,7 @@ const ERROR_INCORRECT = 'incorrect'
 export function useForm(params = {}) {
 	// params = {action, fields: {name, type, defaultValue, required, validate}, customValidation}
 	const handleAction = params.action || function(){}
-	const preValidate = params.customValidation || function(){return {ok: true}}
+	const validateFormCustom = params.customValidation || function(){return {ok: true}}
 
 	let initialFields = {}
 	if (params.fields) params.fields.forEach(function(field) {
@@ -28,10 +28,10 @@ export function useForm(params = {}) {
 		message,
 		async submit(e) {
 			e.preventDefault()
-			let {ok: preValidationIsOK, message: preValidationMessage} = preValidate()
-			if (!preValidationIsOK) {
+			let {ok: customValidationIsOK, message: customValidationMessage} = validateFormCustom()
+			if (!customValidationIsOK) {
 				setIsError(true)
-				return setMessage(preValidationMessage)
+				return setMessage(customValidationMessage)
 			}
 			let {ok: validationIsOK, message: validationMessage} = validateForm(fields)
 			if (!validationIsOK) {

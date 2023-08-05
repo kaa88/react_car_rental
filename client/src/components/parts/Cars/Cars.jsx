@@ -2,24 +2,27 @@ import { memo, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useFetching } from '../../../hooks/useFetching';
 import classes from './Cars.module.scss';
-import images from './img'
 import Container from '../../ui/Container/Container';
 import Requirements from './Requirements/Requirements';
 import Slider from '../Slider/Slider';
 import Button from '../../ui/Button/Button';
 import TranslateHandler from '../../TranslateHandler';
 import ModalLink from '../../ui/Modal/ModalLink'
-import Image from '../../ui/Image/Image';
-import Icon from '../../ui/Icon/Icon';
 import FetchService from '../../../services/FetchService';
 import Loader from '../../ui/Loader/Loader';
 import LoadError from '../../ui/Loader/LoadError';
 import Anchor from '../../ui/Anchor/Anchor';
+import CarImage from './CarImage/CarImage';
+import CarModalContent from './CarModalContent/CarModalContent';
+import CarParams from './CarParams/CarParams';
+import CarPrice from './CarPrice/CarPrice';
+import CarName from './CarName/CarName';
 
 // Note: хотел сделать разбивку на компоненты, но swiper отказывается работать с множественной вложенностью (а может другая причина), перестают инициализироваться кнопки навигации и пагинация... Пришлось напихать всё сюда
 
 const Cars = memo(function Cars() {
 
+	// carData
 	const defaultCarData = {
 		cars: [],
 		params: [],
@@ -27,7 +30,6 @@ const Cars = memo(function Cars() {
 	}
 	let [carData, setCarData] = useState(defaultCarData)
 	let [fetchData, dataIsLoading, loadingError] = useFetching(getCarData)
-	let [needToUpdateModal, setNeedToUpdateModal] = useState(false)
 
 	async function getCarData() {
 		let data = {
@@ -36,136 +38,45 @@ const Cars = memo(function Cars() {
 			options: await FetchService.getCarOptions(),
 		}
 		setCarData(data)
-		setNeedToUpdateModal(true)
 	}
-	
-	useEffect(() => {
-		fetchData()
-	}, [])
-
-	useEffect(() => {
-		if (needToUpdateModal) {
-			updateModalContent()
-			setNeedToUpdateModal(false)
-		}
-	})
+	useEffect(() => { fetchData() }, [])
+	//end carData
 
 
-	const currencyStore = useSelector(state => state.currency)
-	let currency = {
-		name: currencyStore.current,
-		rate: currencyStore.rates[currencyStore.current]
-	}
+
+	// function getCarImage(car) {
+	// 	return <CarImage car={car} />
+	// }
+
+	// function getCarParams(car) {
+	// 	return <CarParams car={car} carParams={carData.params} />
+	// }
+
+	// function getCarOptions(car) {
+	// 	return <CarOptions car={car} options={carData.options} />
+	// }
+
+	// function getCarPrice(car) {
+	// 	return <CarPrice car={car} currency={currency} />
+	// }
 
 	const modalName = 'cars'
-	const defaultCurrentSlideModalContent = getCurrentSlideModalContent(0)
-	let [currentSlideModalContent, setCurrentSlideModalContent] = useState(defaultCurrentSlideModalContent)
 
-	function getCurrentSlideModalContent(index = 0) {
-		const car = carData.cars[index] || {}
-		return {
-			carId: car.shortName || '',
-			carName: car.name || '',
-			carImage: getCarImage(car) || '',
-			carParams: getCarParams(car) || [],
-			carOptions: getCarOptions(car) || [],
-		}
-	}
-	function updateModalContent(index) {
-		setCurrentSlideModalContent(getCurrentSlideModalContent(index))
-	}
-
-	function getCarImage(car) {
-		return <Image src={images[car.shortName]} />
-	}
-
-	function getCarParams(car) {
-		const carParams = carData.params
-		return carParams.map((param, i) =>
-			<div className={classes.carParamsItem} key={i}>
-				{param.abbr &&
-					<Icon className={classes.carParamsIcon} name={`icon-${param.abbr}`} />
-				}
-				{param.name && car.params[i] &&
-					<p>{`?_${param.name}`}: <span className='bold'>{`?_${car.params[i]}`}</span></p>
-				}
-			</div>
-		)
-	}
-
-	function getCarOptions(car) {
-		const optNames = carData.options
-		if (!car.options || !optNames.length) return null
-
-		return car.options.map((option, i) => {
-			let item = optNames.find((item) => item.id === option)
-			return item ? <p key={i}>{`?_${item.name}`}</p> : ''
-		})
-	}
-
-	function getCarPrice(car) { return (
-		<>
-			<span className='bold'>
-				{Math.floor(car.price * currency.rate)}
-			</span>
-			<span>
-				<Icon className={classes.priceCurrencyIcon} name={`icon-${currency.name}`} />
-			</span>
-			<span>/</span>
-			<span>?_per day</span>
-		</>
-	)}
-
-	function getModalContent() {
-		const content = currentSlideModalContent
-		return (
-			<div className={classes.modalContent}>
-				<Container className={classes.container}>
-					<div className={classes.carName}>{content.carName}</div>
-					<div className={classes.carImage}>{content.carImage}</div>
-					<div className={classes.carParams}>{content.carParams}</div>
-					<div className={classes.carOptions}>{content.carOptions}</div>
-					<ModalLink name={modalName} content={getModalReadMoreContent}>
-						<div className={classes.readMoreBtn}>
-							<span>{`?_Read more`}</span>
-							<Icon className={classes.readMoreBtnIcon} name='icon-arrow-short' />
-						</div>
-					</ModalLink>
-					<Button className={classes.actionBtn} data-car-id={content.carId}>?_Book now</Button>
-					<ModalLink name=''>
-						<div className={classes.returnButton}>?_Return</div>
-					</ModalLink>
-				</Container>
-			</div>
-		)
-	}
-
-	function getModalReadMoreContent() {
-		const content = currentSlideModalContent
-		return (
-			<div className={classes.modalReadMoreContent}>
-				<Container className={classes.container}>
-					<div className={classes.carName}>{content.carName}</div>
-					<div className={classes.carOptions}>{content.carOptions}</div>
-					<ModalLink name={modalName} content={getModalContent}>
-						<div className={classes.returnButton}>?_Return</div>
-					</ModalLink>
-				</Container>
-			</div>
-		)
+	function getModalContent(index) {
+		return <CarModalContent carIndex={index} carData={carData} />
 	}
 
 	function getSlides() {
 		return carData.cars.map((car, index) =>
 			<swiper-slide key={index}>
 				<div className={classes.slide}>
-					<div className={classes.carImage}>{getCarImage(car)}</div>
-					<p className={classes.carName}>{car.name}</p>
-					<div className={classes.carParams}>{getCarParams(car)}</div>
-					<p className={classes.carPrice}>{getCarPrice(car)}</p>
+					<CarImage className={classes.carImage} car={car} />
+					<CarName className={classes.carName} car={car} />
+					<CarParams className={classes.carParams} car={car} carParams={carData.params} />
+					<CarPrice className={classes.carPrice} car={car} />
 					<div className={classes.actionButtons}>
 						<Button className={classes.actionBtn} data-car-id={car.shortName}>?_Book now</Button>
-						<ModalLink name={modalName} content={getModalContent}>
+						<ModalLink name={modalName} content={getModalContent.bind(null, index)}>
 							<Button className={classes.infoBtn} data-car-id={car.shortName} modif='negative'>?_View details</Button>
 						</ModalLink>
 					</div>
@@ -204,7 +115,7 @@ const Cars = memo(function Cars() {
 								modif='paginationTop'
 								className={classes.slider}
 								swiperParams={swiperParams}
-								onSlideChange={updateModalContent}
+								// onSlideChange={updateModalContent}
 							>
 								{getSlides()}
 							</Slider>

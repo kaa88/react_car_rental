@@ -7,8 +7,8 @@ export const reservationFormSlice = createSlice({
 		location: '',
 		pickup: '',
 		return: '',
+		selectorCurrentMonth: Date.now(),
 		options: defaultOptions,
-		selectorCurrentMonth: Date.now()
 	},
 	reducers: {
 		setLocation(state, action) {

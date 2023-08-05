@@ -8,6 +8,7 @@ import RequireAuth from "./RequireAuth";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import RestorePasswordPage from "./pages/RestorePasswordPage";
+import ReservationPage from "./pages/ReservationPage";
 
 
 function Router() {
@@ -28,6 +29,14 @@ function Router() {
 			element:
 				<RequireAuth>
 					<AccountPage />
+				</RequireAuth>,
+		},
+		{
+			path: '/reservation',
+			loader: scrollToTop,
+			element:
+				<RequireAuth>
+					<ReservationPage />
 				</RequireAuth>,
 		},
 		{
