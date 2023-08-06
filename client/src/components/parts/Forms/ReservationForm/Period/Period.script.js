@@ -101,7 +101,7 @@ function getClosestAvailableTime(timeIntervalStep) {
 }
 
 function convertToString(date, formatParts) {
-	if (typeof date === 'number') date = new Date(date)
+	if (typeof date !== 'object') date = new Date(date)
 	let newParts = formatParts.map((item) => {
 		let datePart;
 		if (item.match(SYMBOLS.YEAR)) datePart = date.getFullYear()

@@ -8,12 +8,15 @@ import CarName from '../../../Cars/CarName/CarName';
 import CarImage from '../../../Cars/CarImage/CarImage';
 import CarParams from '../../../Cars/CarParams/CarParams';
 import CarPrice from '../../../Cars/CarPrice/CarPrice';
+import { setCar } from '../../../../../store/slices/reservationFormSlice';
+import Button from '../../../../ui/Button/Button';
 
 
 const CarSelect = memo(function CarSelect({className = '', ...props}) {
 
 	const dispatch = useDispatch()
 	const formDataOptions = useSelector(state => state.reservationForm.options)
+	const selectedCar = useSelector(state => state.reservationForm.car)
 
 
 	// carData
@@ -32,23 +35,23 @@ const CarSelect = memo(function CarSelect({className = '', ...props}) {
 			options: await FetchService.getCarOptions(),
 		}
 		setCarData(data)
+		if (!selectedCar) dispatch(setCar(data.cars[0]))
 	}
 	useEffect(() => { fetchData() }, [])
 	//end carData
 
-	let [selectedCar, setSelectedCar] = useState(0)
 
 	function selectItem(e) {
-		setSelectedCar(Number(e.currentTarget.dataset.index))
+		let car = carData.cars.find(item => item.id === Number(e.currentTarget.dataset.index))
+		dispatch(setCar(car))
 	}
 
 	function getCarList() {
-		console.log(selectedCar);
 		return carData.cars.map((item, index) =>
 			<div
-				className={`${classes.listItem} ${selectedCar === index ? classes.active : ''}`}
+				className={`${classes.listItem} ${selectedCar?.id === item.id ? classes.active : ''}`}
 				onClick={selectItem}
-				data-index={index}
+				data-index={item.id}
 				key={index}
 			>
 				{item.name}
@@ -60,10 +63,9 @@ const CarSelect = memo(function CarSelect({className = '', ...props}) {
 		<TranslateHandler>
 			<div className={`${className} ${classes.wrapper}`} {...props}>
 				<div className={classes.info}>
-					<CarName car={carData.cars[selectedCar]} />
-					<CarImage car={carData.cars[selectedCar]} />
-					<CarParams car={carData.cars[selectedCar]} carParams={carData.params} />
-					<CarPrice car={carData.cars[selectedCar]} />
+					<CarImage car={selectedCar} />
+					<CarParams car={selectedCar} carParams={carData.params} />
+					<Button type='button'>INFO</Button>
 				</div>
 				<div className={classes.list}>
 					{getCarList()}

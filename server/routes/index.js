@@ -1,14 +1,14 @@
 import express from 'express'
 import getDefaultRouters from './defaultRouter.js'
 import userRouter from './userRouter.js'
+import reservationRouter from './reservationRouter.js'
 
 const defaultRouterNames = [
 	'cars',
 	'carParams',
 	'carOptions',
-	'reservation',
-	'feedback',
 	'currency',
+	'feedback',
 ]
 const defaultRouters = getDefaultRouters(defaultRouterNames)
 
@@ -18,6 +18,7 @@ defaultRouterNames.forEach((route) =>
 )
 // specific:
 mainRouter.use('/user', userRouter)
+mainRouter.use('/reservation', reservationRouter)
 
 
 export default mainRouter

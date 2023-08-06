@@ -11,6 +11,7 @@
 - detect unnecessary renders
 - check sizes on 100% scale view (use 'em')
 - useFetching or FetchService ???
+- set server .env variables: (allow_feedback_edit, allow_user_add...)
 
 ========
 

@@ -41,7 +41,7 @@ export const reservation = sequelize.define('reservation', {
 	returnDate: {type: DataTypes.DATE, allowNull: false},
 	location: {type: DataTypes.STRING, allowNull: false},
 	price: {type: DataTypes.INTEGER, allowNull: false},
-	isActive: {type: DataTypes.BOOLEAN, defaultValue: true},
+	isInactive: {type: DataTypes.BOOLEAN, defaultValue: false},
 	sameLocationReturn: {type: DataTypes.BOOLEAN, defaultValue: true}
 })
 

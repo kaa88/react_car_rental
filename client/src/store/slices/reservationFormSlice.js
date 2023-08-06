@@ -9,6 +9,8 @@ export const reservationFormSlice = createSlice({
 		return: '',
 		selectorCurrentMonth: Date.now(),
 		options: defaultOptions,
+		car: null,
+		totalPrice: 0,
 	},
 	reducers: {
 		setLocation(state, action) {
@@ -24,8 +26,14 @@ export const reservationFormSlice = createSlice({
 		setSelectorCurrentMonth(state, action) {
 			state.selectorCurrentMonth = action.payload
 		},
+		setCar(state, action) {
+			state.car = action.payload
+		},
+		setTotalPrice(state, action) {
+			state.totalPrice = action.payload
+		},
 	}
 })
 
-export const {setLocation, setPeriod, setOptions, setSelectorCurrentMonth} = reservationFormSlice.actions
+export const {setLocation, setPeriod, setOptions, setSelectorCurrentMonth, setCar, setTotalPrice} = reservationFormSlice.actions
 export default reservationFormSlice.reducer

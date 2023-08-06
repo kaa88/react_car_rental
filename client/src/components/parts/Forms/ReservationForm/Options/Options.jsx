@@ -7,7 +7,7 @@ import InputCheckbox from '../../../../ui/InputCheckbox/InputCheckbox';
 
 
 const DRIVER_AGE = 'driverAgeIsOk'
-const DIFFERENT_LOCATION_RETURN = 'isDifferentLocationReturn'
+const DIFFERENT_LOCATION_RETURN = 'isDifferentReturnLocation'
 
 export const defaultOptions = {}
 defaultOptions[DRIVER_AGE] = false

@@ -1,4 +1,5 @@
 import api from "../api/api"
+import { handleError } from "../services/ErrorService"
 import { changeCurrency } from "../store/slices/currencySlice"
 import { changeLanguage } from "../store/slices/languageSlice"
 import { changeUserData } from "../store/slices/userSlice"
@@ -85,10 +86,7 @@ const UserService = {
 			setTimeout(() => resolve(), 1000)
 		})
 	},
-
-	async createReservation() {
-		// location, period, carID, price
-	},
+	
 }
 export default UserService
 
@@ -133,13 +131,4 @@ function clearStorage() {
 	const dispatch = UserService.dispatch
 	if (dispatch) dispatch(changeUserData(null))
 }
-function handleError(error) {
-	console.error(error)
-	const UNKNOWN_ERR = 'Unknown error'
-	let errorMessage = error.message
-	if (error.name && error.name === 'AxiosError') {
-		if (error.response && error.response.status !== 404) errorMessage = error.response.data.message
-	}
-	if (!errorMessage) errorMessage = UNKNOWN_ERR
-	return {error: errorMessage}
-}
+

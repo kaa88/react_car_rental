@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from '../../../../hooks/useForm';
 import CarSelect from './CarSelect/CarSelect';
 import Totals from './Totals/Totals';
+import ReservationService from '../../../../services/ReservationService';
 
 const MODIF_FULL = 'full'
 const MODIF_SHORT = 'short'
@@ -24,9 +25,6 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 	const dispatch = useDispatch()
 	const activeDataType = useSelector(state => state.popup.active)
 	const formData = useSelector(state => state.reservationForm)
-	// useEffect(() => {
-	// })
-
 
 
 	function setActiveDataType(event, value) {
@@ -49,9 +47,7 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 		navigate('/reservation')
 	}
 
-	function submit(e) {
-		e.preventDefault()
-		console.log(formData);
+	function submit() {
 
 
 		const defaultMessage = {
@@ -60,7 +56,9 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 		}
 		let okCount = 0, errors = [], message = ''
 
+		ReservationService.createReservation(formData)
 
+		return message
 	}
 
 	function customValidation() {
@@ -69,7 +67,8 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 		if (
 			!formData.location ||
 			!formData.pickup ||
-			!formData.return
+			!formData.return ||
+			!formData.car
 		) return {message: defaultErrorMessage}
 		else if (!formData.options.driverAgeIsOk) return {message: ageErrorMessage}
 		else return {ok: true}

@@ -14,13 +14,12 @@ import { jsMediaQueries } from '../../../utilities/jsMediaQueries';
 import UserPhoto from '../../ui/UserPhoto/UserPhoto';
 import { useSelector } from 'react-redux';
 import SettingsForm from '../Forms/AccountForm/SettingsForm';
-
+import ReservationService from '../../../services/ReservationService';
+import PeriodScript from '../Forms/ReservationForm/Period/Period.script'
+import { useFetching } from '../../../hooks/useFetching';
 
 
 const Account = memo(function Account() {
-
-	// const userData = useSelector(state => state.user)
-	// const userPhoto = userData ? userData.image : ''
 
 	const activeSpoilersDefault = {
 		history: false,
@@ -36,27 +35,56 @@ const Account = memo(function Account() {
 		setActiveSpoilers(newActiveSpoilers)
 	}
 
+	let [reservations, setReservations] = useState([])
+	let [fetchData, dataIsLoading, loadingError] = useFetching(getReservations)
+
+	async function getReservations() {
+		setReservations(await ReservationService.getReservation())
+	}
+
 	useEffect(() => {
 		jsMediaQueries.registerActions(480, [() => {toggleSpoiler(false, true)}])
+		fetchData()
 	}, [])
 
 
-	const getBookingItems = function() {
+	async function cancelBooking(e) {
+		let isConfirmed = window.confirm('Are you sure you want to cancel reservation?')
+		if (isConfirmed) {
+			await ReservationService.setReservationInactive(e.currentTarget.dataset.id)
+			fetchData()
+		}
+	}
+
+	async function deleteBooking(e) {
+		let isConfirmed = window.confirm('Are you sure you want to delete reservation?')
+		if (isConfirmed) {
+			await ReservationService.deleteReservation(e.currentTarget.dataset.id)
+			fetchData()
+		}
+	}
+
+	const getBookingItem = function(reservation) {
 		return (
-			<div className={classes.bookingItem}>
-				{getReservationItem()}
+			<div className={classes.bookingItem} key={reservation.id}>
+				{getReservationItem(reservation)}
 				<div className={classes.bookingItemButtons}>
 					<Button className={classes.bookingItemBtn}>?_Edit</Button>
-					<Button className={classes.bookingItemBtn} modif='negative'>?_Cancel</Button>
+					<Button
+						className={classes.bookingItemBtn}
+						modif='negative'
+						data-id={reservation.id}
+						onClick={cancelBooking}
+					>?_Cancel</Button>
 				</div>
 			</div>
 		)
 	}
-	const getHistoryItems = function() {
+	const getHistoryItem = function(reservation) {
 		return (
-			<div className={classes.historyItem}>
-				{getReservationItem()}
-				<button className={classes.historyItemDeleteBtn}>
+			<div className={classes.historyItem} key={reservation.id}>
+				{getReservationItem(reservation)}
+				<button className={classes.historyItemDeleteBtn} data-id={reservation.id} onClick={deleteBooking}>
 					<Icon className={classes.bookingIcon} name='icon-bin' />
 					<span>?_Delete</span>
 				</button>
@@ -69,23 +97,30 @@ const Account = memo(function Account() {
 				<div className={classes.bookingTitle}>{'carName'}</div>
 				<div className={classes.bookingText}>
 					<Icon className={classes.bookingIcon} name='icon-calendar' />
-					<span>{'date'}</span>
+					<span>{`${PeriodScript.getStringifiedDate(data.pickupDate)} - ${PeriodScript.getStringifiedDate(data.returnDate)}`}</span>
 				</div>
 				<div className={classes.bookingText}>
 					<Icon className={classes.bookingIcon} name='icon-point' />
-					<span>{'location'}</span>
+					<span>{data.location}</span>
 				</div>
 				<div className={classes.bookingText}>
 					<Icon className={classes.bookingIcon} name='icon-clock' />
-					<span>{'time'}</span>
+					<span>{PeriodScript.getStringifiedTime(data.pickupDate)}</span>
 				</div>
 				<div className={classes.bookingText}>
 					<Icon className={classes.bookingIcon} name='icon-usd' />
-					<span>{'price'}</span>
+					<span>{data.price}</span>
 				</div>
 			</div>
 		)
 	}
+
+	const bookingItems = []
+	const historyItems = []
+	reservations.forEach(item => {
+		if (!item.isInactive) bookingItems.push(getBookingItem(item))
+		else historyItems.push(getHistoryItem(item))
+	})
 
 	return (
 		<TranslateHandler>
@@ -97,11 +132,7 @@ const Account = memo(function Account() {
 						<div className={classes.booking}>
 							<div className={classes.header}>?_Active booking</div>
 							<div className={classes.content}>
-								{getBookingItems()}
-								{getBookingItems()}
-								{getBookingItems()}
-								{getBookingItems()}
-								{getBookingItems()}
+								{bookingItems}
 							</div>
 						</div>
 						<div className={classes.history}>
@@ -112,16 +143,7 @@ const Account = memo(function Account() {
 								</div>
 							</div>
 							<div className={`${classes.content} ${classes.spoilerContent} ${activeSpoilers.history ? classes.spoilerActive : ''}`}>
-								{getHistoryItems()}
-								{getHistoryItems()}
-								{getHistoryItems()}
-								{getHistoryItems()}
-								{getHistoryItems()}
-								{getHistoryItems()}
-								{getHistoryItems()}
-								{getHistoryItems()}
-								{getHistoryItems()}
-								{getHistoryItems()}
+								{historyItems}
 								<Button className={classes.historyMoreBtn} modif='negative'>?_Load more</Button>
 							</div>
 						</div>

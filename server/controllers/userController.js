@@ -22,7 +22,7 @@ const userController = {
 
 		let newUser = await defaultController.add( req, res, next, user, true )
 		let userData = new UserDTO(newUser)
-		let {accessToken, refreshToken} = TokenService.generateToken({id: newUser.id, email})
+		let {accessToken, refreshToken} = TokenService.generateToken({id: newUser.id, email, role: req.body.role})
 		res.cookie(...getCookieSettings(refreshToken))
 		return res.json({userData, accessToken})
 	},
@@ -30,7 +30,7 @@ const userController = {
 	async edit(req, res, next) {
 		const id = req.tokenData ? req.tokenData.id : null
 		req.body.id = id
-		req.body = new UserEditableFields(req.body)
+		req.body = new EditableFields(req.body)
 		let response = await defaultController.edit( req, res, next, user, true )
 		if (response) {
 			let candidate = await user.findOne({where: {id}})
@@ -64,7 +64,7 @@ const userController = {
 			return next(ApiError.badRequest('Wrong email or password'))
 		}
 		let userData = new UserDTO(candidate.dataValues)
-		let {accessToken, refreshToken} = TokenService.generateToken({id: candidate.dataValues.id, email})
+		let {accessToken, refreshToken} = TokenService.generateToken({id: candidate.dataValues.id, email, role: candidate.dataValues.role})
 		res.cookie(...getCookieSettings(refreshToken))
 		return res.json({userData, accessToken})
 	},
@@ -91,11 +91,11 @@ const userController = {
 			let tokenData = TokenService.validateRefreshToken(token)
 			if (tokenData instanceof Error) throw 'er'
 	
-			let {id, email} = tokenData
+			let {id, email, role} = tokenData
 			let candidate = await user.findOne({where: {id, email}})
 			if (!candidate) return next(ApiError.badRequest('User not found'))
 	
-			let {accessToken, refreshToken} = TokenService.generateToken({id, email})
+			let {accessToken, refreshToken} = TokenService.generateToken({id, email, role})
 	
 			res.cookie(...getCookieSettings(refreshToken))
 			res.send(accessToken)
@@ -151,7 +151,7 @@ const userController = {
 		let userData = await user.findOne({where: {id}})
 		let prevImage = userData ? userData.dataValues.image : ''
 
-		req.body = new UserEditableFields(req.body)
+		req.body = new EditableFields(req.body)
 		let response = await defaultController.edit( req, res, next, user, true )
 		if (response) {
 			if (prevImage) FileService.deleteUserPhoto(prevImage)
@@ -186,7 +186,7 @@ class UserDTO {
 	}
 }
 
-class UserEditableFields {
+class EditableFields {
 	constructor(body) {
 		this.id = body.id // not editable, but needed to find user... may be I'll find better place for it later
 		if (body.name) this.name = body.name

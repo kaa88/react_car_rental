@@ -37,7 +37,7 @@ export const defaultController = {
 	},
 
 	async delete(req, res, next, model) {
-		let id = req.body.id
+		let id = req.query.id ? Number(req.query.id) : null
 		if (!id) return next(ApiError.badRequest(`Error when deleting an entrie. Missing attributes: id`))
 
 		let response = await model.destroy({where: {id}})
