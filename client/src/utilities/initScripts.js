@@ -12,7 +12,7 @@ export function initInstantScripts(dispatch) {
 	initBreakpoints(dispatch)
 	register() // Swiper custom elements
 	scriptManager.init({
-		// testMode: true
+		testMode: true
 	})
 	jsMediaQueries.init({
 		// testMode: true

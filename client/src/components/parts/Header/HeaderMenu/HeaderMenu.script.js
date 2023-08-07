@@ -5,6 +5,7 @@ import { jsMediaQueries } from '../../../../utilities/jsMediaQueries'
 import {getCssVariable} from '../../../../utilities/utilities';
 import classNameChanger from '../../../../utilities/classNameChanger';
 import Metrics from '../HeaderMetrics';
+import { scriptManager } from '../../../../utilities/scriptManager';
 
 const TRANSITION_TIMEOUT = getCssVariable('timer-menu')*1000 || 0
 const HIDE_MENU_DEFAULT_TIMEOUT_ID = 321 // рандомный id чтобы вдруг не зацепить другие таймауты на старте
@@ -37,6 +38,10 @@ const Menu = {
 		this.menuIsHidingOnViewChange = params.hideOnViewChangе === false ? false : true
 		this.hideMenuOnViewChangeTimeoutId = HIDE_MENU_DEFAULT_TIMEOUT_ID
 		this.menuIsShrinked = false
+
+		scriptManager.registerFunctions('header', {
+			closeMenu: this.closeMenu.bind(this),
+		})
 
 
 		this.calcMenuWidthBinded = this.calcMenuWidth.bind(this)

@@ -11,6 +11,7 @@ import TimeSelect from '../TimeSelect/TimeSelect';
 */
 
 const Period = memo(function Period({
+	modif = 'light',
 	className = '',
 	activeDataType = '',
 	setActiveDataType = function(event, value){},
@@ -88,7 +89,7 @@ const Period = memo(function Period({
 	// console.log('render Period');
 	return (
 		<TranslateHandler>
-			<div className={`${classes.period} ${className}`} {...props}>
+			<div className={`${className} ${classes[modif]}`} {...props}>
 
 				<div className={classes.section}>
 					<p className={classes.sectionTitle}>?_Pick up</p>

@@ -1,4 +1,3 @@
-// import { scriptManager } from '../../../utilities/scriptManager';
 import {getCssVariable} from '../../../utilities/utilities';
 import { setHeaderInitialized } from '../../../store/slices/headerSlice';
 import Metrics from './HeaderMetrics';
@@ -13,11 +12,6 @@ const HeaderScript = {
 		Metrics.init({headerScript: this, headerEl, classes, breakpoints, dispatch})
 		this.metrics = Metrics
 		
-		// scriptManager.registerFunctions('Header', {
-			// toggleMenu: this.menu.toggleMenu,
-			// calcMenuWidth: this.menu.calcMenuWidth
-		// })
-
 		dispatch(setHeaderInitialized(true))
 		this.initialized = true
 	},

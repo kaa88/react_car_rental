@@ -13,7 +13,7 @@ export const defaultOptions = {}
 defaultOptions[DRIVER_AGE] = false
 defaultOptions[DIFFERENT_LOCATION_RETURN] = false
 
-const Options = memo(function Options({className = '', ...props}) {
+const Options = memo(function Options({modif = 'light', className = '', ...props}) {
 
 	const dispatch = useDispatch()
 	const formDataOptions = useSelector(state => state.reservationForm.options)
@@ -37,7 +37,7 @@ const Options = memo(function Options({className = '', ...props}) {
 					name={DRIVER_AGE}
 					onChange={handleCheckboxChange}
 					checked={formDataOptions[DRIVER_AGE]}
-					modif='light'
+					modif={modif}
 				>
 					?_Driver's age 21+
 				</InputCheckbox>
@@ -46,7 +46,7 @@ const Options = memo(function Options({className = '', ...props}) {
 					name={DIFFERENT_LOCATION_RETURN}
 					onChange={handleCheckboxChange}
 					checked={formDataOptions[DIFFERENT_LOCATION_RETURN]}
-					modif='light'
+					modif={modif}
 				>
 					?_Return to different location
 				</InputCheckbox>

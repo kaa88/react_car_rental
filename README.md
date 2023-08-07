@@ -1,5 +1,5 @@
 # TO DO:
-- user reservation
+- tweak server to avoid DB editing
 - user role 'GUEST' with 'frozen' settings
 - minify (webpack)
 - print.scss - move specific styles inside the component
@@ -7,10 +7,8 @@
 - forms spam-bot check (invisible field)
 - rotation alert
 - change color styles
-- delete 'script manager' ?
 - detect unnecessary renders
 - check sizes on 100% scale view (use 'em')
-- useFetching or FetchService ???
 - set server .env variables: (allow_feedback_edit, allow_user_add...)
 
 ========

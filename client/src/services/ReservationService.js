@@ -11,30 +11,30 @@ const ReservationService = {
 			.catch(error => handleError(error))
 	},
 
-	async editReservation(reservationId) {
-		reservationId = Number(reservationId)
-		return api.put('/reservation', {id: reservationId})
+	async editReservation(id) {
+		return api.put('/reservation', {id: Number(id)})
 			.then(response => ({ok: true}))
 			.catch(error => handleError(error))
 	},
 
-	async setReservationInactive(reservationId) {
-		reservationId = Number(reservationId)
-		return api.put('/reservation', {id: reservationId, isInactive: true})
+	async setReservationInactive(id) {
+		return api.put('/reservation', {id: Number(id), isInactive: true})
 			.then(response => ({ok: true}))
 			.catch(error => handleError(error))
 	},
 
-	async deleteReservation(reservationId) {
-		reservationId = Number(reservationId)
-		return api.delete(`/reservation?id=${reservationId}`)
+	async deleteReservation(id) {
+		return api.delete(`/reservation?id=${Number(id)}`)
 			.then(response => ({ok: true}))
 			.catch(error => handleError(error))
 	},
 
 	async getReservation() {
 		return api.get('/reservation')
-			.then(response => response.data || [])
+			.then(response => ({
+				ok: true,
+				data: response.data || []
+			}))
 			.catch(error => handleError(error))
 	},
 

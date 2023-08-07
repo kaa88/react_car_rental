@@ -21,12 +21,12 @@ import { useFetching } from '../../../hooks/useFetching';
 
 const Account = memo(function Account() {
 
+	// Spoilers
 	const activeSpoilersDefault = {
 		history: false,
 		settings: false,
 	}
 	let [activeSpoilers, setActiveSpoilers] = useState(activeSpoilersDefault)
-
 	function toggleSpoiler(e, reset) {
 		if (reset) return setActiveSpoilers(activeSpoilersDefault)
 		let spoilerName = e.currentTarget.dataset.name
@@ -34,13 +34,11 @@ const Account = memo(function Account() {
 		newActiveSpoilers[spoilerName] = newActiveSpoilers[spoilerName] ? false : true
 		setActiveSpoilers(newActiveSpoilers)
 	}
+	//end Spoilers
+
 
 	let [reservations, setReservations] = useState([])
 	let [fetchData, dataIsLoading, loadingError] = useFetching(getReservations)
-
-	async function getReservations() {
-		setReservations(await ReservationService.getReservation())
-	}
 
 	useEffect(() => {
 		jsMediaQueries.registerActions(480, [() => {toggleSpoiler(false, true)}])
@@ -48,22 +46,24 @@ const Account = memo(function Account() {
 	}, [])
 
 
-	async function cancelBooking(e) {
+	async function getReservations() {
+		let response = await ReservationService.getReservation()
+		if (response.ok) setReservations(response.data)
+	}
+	async function cancelActiveBooking(e) {
 		let isConfirmed = window.confirm('Are you sure you want to cancel reservation?')
 		if (isConfirmed) {
 			await ReservationService.setReservationInactive(e.currentTarget.dataset.id)
 			fetchData()
 		}
 	}
-
-	async function deleteBooking(e) {
+	async function deleteHistoryItem(e) {
 		let isConfirmed = window.confirm('Are you sure you want to delete reservation?')
 		if (isConfirmed) {
 			await ReservationService.deleteReservation(e.currentTarget.dataset.id)
 			fetchData()
 		}
 	}
-
 	const getBookingItem = function(reservation) {
 		return (
 			<div className={classes.bookingItem} key={reservation.id}>
@@ -74,7 +74,7 @@ const Account = memo(function Account() {
 						className={classes.bookingItemBtn}
 						modif='negative'
 						data-id={reservation.id}
-						onClick={cancelBooking}
+						onClick={cancelActiveBooking}
 					>?_Cancel</Button>
 				</div>
 			</div>
@@ -84,7 +84,7 @@ const Account = memo(function Account() {
 		return (
 			<div className={classes.historyItem} key={reservation.id}>
 				{getReservationItem(reservation)}
-				<button className={classes.historyItemDeleteBtn} data-id={reservation.id} onClick={deleteBooking}>
+				<button className={classes.historyItemDeleteBtn} data-id={reservation.id} onClick={deleteHistoryItem}>
 					<Icon className={classes.bookingIcon} name='icon-bin' />
 					<span>?_Delete</span>
 				</button>
@@ -132,6 +132,7 @@ const Account = memo(function Account() {
 						<div className={classes.booking}>
 							<div className={classes.header}>?_Active booking</div>
 							<div className={classes.content}>
+								{dataIsLoading && <Loader className={classes.loader} />}
 								{bookingItems}
 							</div>
 						</div>
@@ -143,6 +144,7 @@ const Account = memo(function Account() {
 								</div>
 							</div>
 							<div className={`${classes.content} ${classes.spoilerContent} ${activeSpoilers.history ? classes.spoilerActive : ''}`}>
+								{dataIsLoading && <Loader className={classes.loader} />}
 								{historyItems}
 								<Button className={classes.historyMoreBtn} modif='negative'>?_Load more</Button>
 							</div>

@@ -74,8 +74,10 @@
 	fill: var(--color02);
 }
 .content {
+	position: relative;
 	margin-left: 28px;
 	flex: 1 1 auto;
+	min-height: 150px;
 	display: grid;
 	grid-template-columns: repeat(4, auto);
 	grid-row-gap: 24px;
@@ -245,4 +247,11 @@ body .bookingItemBtn {
 		grid-column: span 1;
 		justify-self: center;
 	}
+}
+.loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9;
+	background-color: rgba(255,255,255,0.3);
 }

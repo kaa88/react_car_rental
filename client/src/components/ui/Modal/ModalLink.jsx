@@ -1,6 +1,6 @@
 import { memo, cloneElement } from 'react';
 import { useDispatch } from 'react-redux';
-import { setActiveModal, setModalContent } from '../../../store/slices/modalSlice';
+import { setActiveModal } from '../../../store/slices/modalSlice';
 import ModalStaticContent from './ModalStaticContent';
 import {getCssVariable} from '../../../utilities/utilities';
 import { transitionIsLocked } from '../../../utilities/transitionLock';
@@ -24,8 +24,7 @@ const ModalLink = memo(function ModalLink({ name = '', content = '', children, o
 
 	function showModal() {
 		if (transitionIsLocked(timeout)) return;
-		if (name) dispatch(setModalContent(getContent()))
-		dispatch(setActiveModal(name))
+		dispatch(setActiveModal({name, content: getContent()}))
 		onClick()
 	}
 

@@ -10,7 +10,7 @@ export const scriptManager = {
 
 	registerFunctions(componentName, callbacks) {
 		if (typeof componentName !== 'string' || typeof callbacks !== 'object' || Array.isArray(callbacks))
-			return console.error(`${this.selfName} could not register a new function because of missing arguments`)
+			return console.error(`${this.selfName} could not register a new function because of missing or wrong arguments`)
 
 		if (!this.components[componentName]) this.components[componentName] = {}
 		Object.assign(this.components[componentName], callbacks)

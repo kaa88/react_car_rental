@@ -1,6 +1,6 @@
 @import "../../../../../scss/variables.scss";
 
-.wrapper {
+.light, .dark {
 	position: relative;
 	display: grid;
 	height: 100%;
@@ -10,6 +10,9 @@
 	margin-bottom: 5px;
 	user-select: none;
 	color: var(--color01);
+	.dark & {
+		color: var(--color02);
+	}
 	@media (max-width: $media-ml+px) {
 		margin-left: 13px;
 	}
@@ -28,6 +31,9 @@
 	-webkit-text-fill-color: var(--color02);
 	border: solid 3px transparent;
 	transition: border-color $timer-hover;
+	.dark & {
+		border: solid 1px var(--color02);
+	}
 	&.active {
 		border-color: var(--color03);
 	}
@@ -62,7 +68,7 @@
 	}
 }
 
-.wrapper .popup {
+.light .popup, .dark .popup {
 	top: calc(100% + 6px);
 	@media (max-width: $media-ml+px) {
 		width: 100%;

@@ -18,61 +18,78 @@ const Totals = memo(function Totals({className = '', ...props}) {
 	const location = formData.location
 	const isDifferentReturnLocation = formData.options.isDifferentReturnLocation
 	const differentLocationTax = isDifferentReturnLocation ? 50 : 0
+
+	const currency = useSelector(state => state.currency)
+	console.log(currency);
+	const currencyName = currency.current
+	const currencyRate = currency.rates[currencyName]
+
 	let totalPrice = 0
 	if (selectedCar?.price && numOfDays) totalPrice = selectedCar.price * numOfDays + differentLocationTax
+	totalPrice = Math.floor(totalPrice * currencyRate)
 
 	useEffect(() => {
 		dispatch(setTotalPrice(totalPrice))
 	}, [totalPrice])
 
+
 	const fields = [
 		{
 			title: 'Car',
 			text: selectedCar?.name || '',
-			className: 'carName',
-			icon: '',
+			className: '',
+			icon: 'icon-star',
 		},
 		{
 			title: 'Date',
 			text: `${PeriodScript.getStringifiedDate(pickupDate)} - ${PeriodScript.getStringifiedDate(returnDate)}`,
-			className: 'text',
+			className: '',
 			icon: 'icon-calendar',
 		},
 		{
 			title: 'Time',
 			text: PeriodScript.getStringifiedTime(pickupDate),
-			className: 'text',
+			className: '',
 			icon: 'icon-clock',
-		},
-		{
-			title: 'Days',
-			text: numOfDays,
-			className: 'text',
-			icon: '',
 		},
 		{
 			title: 'Location',
 			text: location,
-			className: 'text',
+			className: '',
 			icon: 'icon-point',
 		},
 		{
 			title: 'Return to different location',
 			text: isDifferentReturnLocation ? 'yes' : 'no',
-			className: 'text',
+			className: '',
+			icon: 'icon-globe',
+		},
+		{
+			title: 'Car price per day',
+			text: selectedCar?.price || '',
+			className: 'carPrice',
+			icon: `icon-${currencyName}`,
+			rightSideIcon: true
+		},
+		{
+			title: 'Number of days',
+			text: numOfDays,
+			className: 'days',
 			icon: '',
 		},
 		{
-			title: 'carPricePerDay',
-			text: selectedCar?.price || '',
-			className: 'text',
-			icon: 'icon-dollar',
+			title: 'Return location tax',
+			text: differentLocationTax,
+			className: 'returnTax',
+			icon: `icon-${currencyName}`,
+			rightSideIcon: true
 		},
 		{
-			title: 'totalPrice',
+			title: 'Total price',
 			text: totalPrice,
 			className: 'totalPrice',
-			icon: 'icon-dollar',
+			icon: `icon-${currencyName}`,
+			rightSideIcon: true
 		},
 	]
 
@@ -80,11 +97,18 @@ const Totals = memo(function Totals({className = '', ...props}) {
 		<TranslateHandler>
 			<div className={`${className} ${classes.wrapper}`} {...props}>
 				{fields.map((item, i) =>
-					<div className={classes.item} key={i}>
-						{!!item.icon && <Icon className={classes.icon} name={item.icon} />}
-						<span>?_{item.title}</span>
-						<span>: </span>
-						<span className={classes[item.className]}>{item.text}</span>
+					<div className={`${classes.item} ${classes[item.className]}`} key={i}>
+						{!!item.icon && !item.rightSideIcon &&
+							<Icon className={classes.icon} name={item.icon} />
+						}
+						<span className={classes.title}>
+							<span>?_{item.title}</span>
+							<span>:</span>
+						</span>
+						<span className={classes.text}>{item.text}</span>
+						{!!item.icon && item.rightSideIcon &&
+							<Icon className={classes.currencyIcon} name={item.icon} />
+						}
 					</div>
 				)}
 			</div>

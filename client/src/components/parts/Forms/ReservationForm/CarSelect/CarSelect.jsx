@@ -10,6 +10,8 @@ import CarParams from '../../../Cars/CarParams/CarParams';
 import CarPrice from '../../../Cars/CarPrice/CarPrice';
 import { setCar } from '../../../../../store/slices/reservationFormSlice';
 import Button from '../../../../ui/Button/Button';
+import Icon from '../../../../ui/Icon/Icon';
+import ModalLink from '../../../../ui/Modal/ModalLink';
 
 
 const CarSelect = memo(function CarSelect({className = '', ...props}) {
@@ -54,7 +56,8 @@ const CarSelect = memo(function CarSelect({className = '', ...props}) {
 				data-index={item.id}
 				key={index}
 			>
-				{item.name}
+				<Icon className={classes.listIcon} name='icon-ok' />
+				<span>{item.name}</span>
 			</div>
 		)
 	}
@@ -63,11 +66,14 @@ const CarSelect = memo(function CarSelect({className = '', ...props}) {
 		<TranslateHandler>
 			<div className={`${className} ${classes.wrapper}`} {...props}>
 				<div className={classes.info}>
-					<CarImage car={selectedCar} />
-					<CarParams car={selectedCar} carParams={carData.params} />
-					<Button type='button'>INFO</Button>
+					<CarImage className={classes.carImage} car={selectedCar} />
+					<CarParams className={classes.carParams} car={selectedCar} carParams={carData.params} />
+					<ModalLink name=''>
+						<Button className={classes.infoBtn} type='button' modif='negative'>?_View details</Button>
+					</ModalLink>
 				</div>
 				<div className={classes.list}>
+					<p className={classes.listTitle}>?_Select a car</p>
 					{getCarList()}
 				</div>
 			</div>

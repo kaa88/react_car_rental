@@ -1,9 +1,12 @@
 @import "../../../../../scss/variables.scss";
 
-.period {
+.light, .dark {
 	position: relative;
 	z-index: 4;
 	display: flex;
+	@media (max-width: $media-form2+px) {
+		justify-content: space-between;
+	}
 	@media (max-width: $media-ml+px) {
 		flex-direction: column;
 	}
@@ -35,6 +38,9 @@
 	margin-bottom: 5px;
 	user-select: none;
 	color: var(--color01);
+	.dark & {
+		color: var(--color02);
+	}
 	@media (max-width: $media-ml+px) {
 		margin-left: 13px;
 		margin-right: 0;
@@ -81,5 +87,8 @@ body { // for css priority (more concrete styles)
 			font-size: 16px;
 			border-width: 2px;
 		}
+	}
+	.dark .dateInput, .dark .timeInput {
+		border: solid 1px var(--color02);
 	}
 }

@@ -13,6 +13,7 @@ import Icon from '../../../../ui/Icon/Icon';
 */
 
 const Location = memo(function Location({
+	modif = 'light',
 	className = '',
 	activeDataType = '',
 	setActiveDataType = function(event, value){},
@@ -70,7 +71,7 @@ const Location = memo(function Location({
 	// console.log('render Location');
 	return (
 		<TranslateHandler>
-			<div className={`${className} ${classes.wrapper}`}>
+			<div className={`${className} ${classes[modif]}`}>
 				<p className={classes.title}>?_Location</p>
 				<div className={classes.inputBox}>
 					<input

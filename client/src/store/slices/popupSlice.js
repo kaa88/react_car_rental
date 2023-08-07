@@ -7,7 +7,7 @@ export const popupSlice = createSlice({
 	},
 	reducers: {
 		setActivePopup(state, action) {
-			state.active = action.payload
+			state.active = action.payload || ''
 		}
 	}
 })

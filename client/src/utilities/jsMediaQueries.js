@@ -39,7 +39,7 @@ export const jsMediaQueries = {
 
 	registerActions(breakpoint, callbacks) {
 		if (!breakpoint || !Array.isArray(callbacks))
-			return console.error(`${this.selfName} could not register a new actions because of missing arguments`)
+			return console.error(`${this.selfName} could not register a new actions because of missing or wrong arguments`)
 	
 		if (!this.breakpoints[breakpoint]) this.breakpoints[breakpoint] = []
 		this.breakpoints[breakpoint] = this.breakpoints[breakpoint].concat(callbacks)

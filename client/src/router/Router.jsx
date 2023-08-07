@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import RestorePasswordPage from "./pages/RestorePasswordPage";
 import ReservationPage from "./pages/ReservationPage";
+import { scriptManager } from "../utilities/scriptManager";
 
 
 function Router() {
@@ -20,12 +21,12 @@ function Router() {
 		},
 		{
 			path: '/',
-			loader: scrollToTop,
+			loader: defaultLoader,
 			element: <HomePage />,
 		},
 		{
 			path: '/account',
-			loader: scrollToTop,
+			loader: defaultLoader,
 			element:
 				<RequireAuth>
 					<AccountPage />
@@ -33,7 +34,7 @@ function Router() {
 		},
 		{
 			path: '/reservation',
-			loader: scrollToTop,
+			loader: defaultLoader,
 			element:
 				<RequireAuth>
 					<ReservationPage />
@@ -67,7 +68,10 @@ function Router() {
 export default Router
 
 
-function scrollToTop() {
+function defaultLoader() {
 	window.scrollTo({top: 0})
+	window.dispatchEvent(new Event('click')) // Closes opened popups if routes through history like using 'return' button. See events in 'initScripts.js'
+	if (scriptManager?.components?.modal?.close) scriptManager.components.modal.close()
+	if (scriptManager?.components?.header?.closeMenu) scriptManager.components.header.closeMenu()
 	return null
 }

@@ -1,6 +1,6 @@
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveModal, setModalContent } from '../../../store/slices/modalSlice'
+import { setActiveModal } from '../../../store/slices/modalSlice'
 import {getCssVariable} from '../../../utilities/utilities';
 import { lockScroll, unlockScroll } from '../../../utilities/scrollLock';
 import { transitionIsLocked } from '../../../utilities/transitionLock';
@@ -8,15 +8,17 @@ import TranslateHandler from '../../TranslateHandler';
 import classes from './Modal.module.scss';
 import Icon from '../Icon/Icon';
 import ModalStaticContent, { names } from './ModalStaticContent';
+import { scriptManager } from '../../../utilities/scriptManager';
+
+// TODO: multi-window modal
 
 const timeout = getCssVariable('timer-modal')*1000
 
-// TODO: multi-window modal
 
 const Modal = memo(function Modal({ className = '' }) {
 
 	const dispatch = useDispatch()
-	const {activeModal, content} = useSelector(state => state.modal)
+	const {active: activeModal, content} = useSelector(state => state.modal)
 	let [activeClass, setActiveClass] = useState('')
 	let [activeModalForCss, setActiveModalForCss] = useState('')
 
@@ -50,6 +52,10 @@ const Modal = memo(function Modal({ className = '' }) {
 		setActiveClass('')
 		dispatch(setActiveModal(''))
 	}
+
+	useEffect(() => {
+		scriptManager.registerFunctions('modal', {close: closeModal.bind(null, true)})
+	}, [])
 	
 	return (
 		<TranslateHandler>

@@ -13,6 +13,8 @@ import { useForm } from '../../../../hooks/useForm';
 import CarSelect from './CarSelect/CarSelect';
 import Totals from './Totals/Totals';
 import ReservationService from '../../../../services/ReservationService';
+import { setActiveModal } from '../../../../store/slices/modalSlice';
+import ModalLink from '../../../ui/Modal/ModalLink';
 
 const MODIF_FULL = 'full'
 const MODIF_SHORT = 'short'
@@ -47,18 +49,24 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 		navigate('/reservation')
 	}
 
-	function submit() {
+	function showConfirmation() {
+		const confirmContent =
+			<div className={classes.confirmContent}>
+				<p className={classes.confirmTitle}>Thanks for your reservation</p>
+				<p>You can manage your reservations at</p>
+				<Button className={classes.confirmButton} modif='negative' onClick={()=>{navigate('/account')}}>Account page</Button>
+				<p>or continue at</p>
+				<ModalLink name=''>
+					<Button className={classes.confirmButton} onClick={()=>{navigate('/')}}>Home page</Button>
+				</ModalLink>
+			</div>;
+		dispatch(setActiveModal({name: 'reservation_confirm', content: confirmContent}))
+	}
 
-
-		const defaultMessage = {
-			success: 'Changes are saved',
-			error: 'Error'
-		}
-		let okCount = 0, errors = [], message = ''
-
-		ReservationService.createReservation(formData)
-
-		return message
+	async function submit() {
+		let response = await ReservationService.createReservation(formData)
+		if (response.ok) showConfirmation()
+		else throw new Error(response.error)
 	}
 
 	function customValidation() {
@@ -87,20 +95,38 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 		// 	{name: 'differentLocation', type: 'checkbox', validate: false},
 		// ]
 	})
-	console.log(form);
+	// console.log(form);
 
+	const elemModif = modif === MODIF_FULL ? 'dark' : 'light'
 
 	return (
 		<TranslateHandler>
-			<form className={`${className} ${classes[modif]}`} action="#" onSubmit={isFullForm ? form.submit : redirectToFullForm} {...props}>
-				<Location className={classes.location} activeDataType={activeDataType} setActiveDataType={setActiveDataType} />
-				<Period className={classes.period} activeDataType={activeDataType} setActiveDataType={setActiveDataType} />
+			<form action="#"
+				className={`${className} ${classes[modif]}`}
+				onSubmit={isFullForm ? form.submit : redirectToFullForm}
+				{...props}
+			>
+				<Location
+					className={classes.location}
+					activeDataType={activeDataType}
+					setActiveDataType={setActiveDataType}
+					modif={elemModif}
+				/>
+				<Period
+					className={classes.period}
+					activeDataType={activeDataType}
+					setActiveDataType={setActiveDataType}
+					modif={elemModif}
+				/>
 				<Button className={classes.submitBtn}>?_Reserve</Button>
-				<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>?_{form.message}</p>
-				<Options className={classes.options} />
+
+				<Options className={classes.options} modif={elemModif} />
+
 				{isFullForm && <>
-					<CarSelect />
-					<Totals />
+					<Totals className={classes.totals} />
+					<CarSelect className={classes.carSelect} />
+					<p className={classes.formMessage}>?_{form.message}fsdfwef</p>
+					<Button className={`${classes.submitBtn} ${classes.submitBtn_bottom}`}>?_Reserve</Button>
 				</>}
 			</form>
 		</TranslateHandler>

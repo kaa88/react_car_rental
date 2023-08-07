@@ -8,5 +8,9 @@ export function handleError(error) {
 		if (error.response && error.response.status !== 404) errorMessage = error.response.data.message
 	}
 	if (!errorMessage) errorMessage = UNKNOWN_ERR_MESSAGE
-	return {error: errorMessage}
+	return {
+		error: errorMessage,
+		ok: false,
+		data: null
+	}
 }

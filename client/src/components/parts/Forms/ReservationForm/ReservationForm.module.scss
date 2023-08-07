@@ -8,14 +8,15 @@
 	grid-template-columns: 1fr repeat(3, auto);
 	grid-column-gap: 17px; // 8 * 2 + 1(divider-line)
 	@media (max-width: $media-form+px) {
-		grid-template-columns: 1fr auto;
+		// grid-template-columns: 1fr auto;
 		@media (min-width: $media-form2+1+px) {
 			grid-row-gap: 26px;
 		}
 	}
 	@media (max-width: $media-form2+px) {
-		grid-template-columns: auto;
-		width: min-content;
+		// grid-template-columns: auto auto;
+		// width: min-content;
+		max-width: 660px;
 		margin: 0 auto;
 	}
 	@media (max-width: $media-ml+px) {
@@ -24,24 +25,52 @@
 		max-width: 400px;
 	}
 }
+.full {
+	padding: 30px 0;
+	@media (max-width: $media-form2+px) {
+		grid-template-columns: 100%;
+	}
+}
+.short {
+	@media (max-width: $media-form+px) {
+		grid-template-columns: 1fr auto;
+	}
+	@media (max-width: $media-form2+px) {
+		grid-template-columns: auto auto;
+		// width: min-content;
+		// max-width: 660px;
+		// margin: 0 auto;
+	}
+}
 .location, .period {
 	position: relative;
 	&:after {
 		content: '';
 		position: absolute;
-		top: calc(50% - 20px);
+		top: calc(50% - 20px + 12px);
 		right: -8px;
 		display: inline-block;
 		width: 1px;
 		height: 40px;
 		background-color: var(--color01);
 		opacity: 0.5;
+		.full & {
+			background-color: var(--color02);
+		}
 	}
 }
 .location {
 	width: 100%;
 	@media (max-width: $media-form2+px) and (min-width: $media-ml+1+px) {
 		grid-column: span 2;
+	}
+	.full & {
+		@media (max-width: $media-form+px) and (min-width: $media-ml+1+px) {
+			grid-column: span 2;
+		}
+		@media (max-width: $media-form2+px) {
+			grid-column: 1;
+		}
 	}
 	&:after {
 		@media (max-width: $media-form2+px) {
@@ -55,8 +84,12 @@
 	// 	margin-bottom: 26px;
 	// }
 	@media (max-width: $media-form2+px) {
+		grid-column: span 2;
 		grid-row: 2;
 		margin-bottom: 33px;
+		.full & {
+			grid-column: 1;
+		}
 	}
 	@media (max-width: $media-ml+px) {
 		grid-column: 1;
@@ -78,14 +111,24 @@
 	grid-column: 1/-1;
 	margin-top: 14px;
 	align-self: center;
+	.full & {
+		margin-bottom: 30px;
+	}
 	@media (max-width: $media-form+px) {
-		grid-column: span 2;
-		grid-row: 2;
 		margin-top: 0;
+		.short & {
+			grid-column: span 2;
+			grid-row: 2;
+		}
+		.full & {
+			margin-bottom: 0;
+		}
 	}
 	@media (max-width: $media-form2+px) {
-		grid-column: 1;
-		grid-row: 3;
+		.short & {
+			grid-column: 1;
+			grid-row: 3;
+		}
 	}
 	@media (max-width: $media-ml+px) {
 		margin: 0 13px;
@@ -101,10 +144,19 @@
 		grid-column: 3;
 		justify-self: end;
 		height: 60px;
+		.full &:not(.submitBtn_bottom) {
+			display: none;
+		}
 	}
 	@media (max-width: $media-form2+px) {
-		grid-column: 2;
-		grid-row: 3;
+		.short & {
+			grid-column: 2;
+			grid-row: 3;
+		}
+		.full & {
+			grid-row: 10;
+			grid-column: 1;
+		}
 		font-size: 20px;
 	}
 	@media (max-width: $media-ml+px) {
@@ -115,5 +167,78 @@
 		width: auto;
 		height: 50px;
 		font-size: 16px;
+		.short & {
+			grid-column: 1;
+			grid-row: 6;
+		}
 	}
+	&_bottom {
+		margin: 0 auto;
+		grid-column: span 4;
+		// align-self: center;
+		// margin-top: 20px;
+	}
+}
+
+.carSelect {
+	grid-column: span 3;
+	max-width: 820px;
+	justify-self: end;
+	@media (max-width: $media-form+px) and (min-width: $media-form2+1+px) {
+		max-width: resize-multiplier(820, $media-form, 1)
+	}
+	@media (max-width: $media-form2+px) {
+		grid-row: 5;
+		grid-column: 1;
+		margin-top: 20px;
+	}
+}
+.totals {
+	width: 100%;
+	@media (max-width: $media-form2+px) {
+		grid-row: 8;
+		margin-top: 20px;
+	}
+}
+
+.formMessage {
+	grid-column: span 4;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	min-height: 24px;
+	font-size: 20px;
+	text-align: center;
+	color: var(--color07);
+	@media (max-width: $media-form+px) {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+	@media (max-width: $media-form2+px) {
+		grid-column: 1;
+		grid-row: 9;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+}
+
+.confirmContent {
+	width: 100vw;
+	max-width: 500px;
+	min-height: 300px;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	p {
+		font-size: 18px;
+		text-align: center;
+	}
+}
+.confirmTitle {
+	font-size: 24px;
+}
+.confirmButton {
+	margin-top: 30px;
+	min-width: 100px;
 }
