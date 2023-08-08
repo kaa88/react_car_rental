@@ -1,13 +1,13 @@
 import {getDefaultControllers} from './defaultController.js'
 import user from './userController.js'
-import feedback from './feedbackController.js'
+import reservation from './reservationController.js'
 
 const defaultControllerNames = [
 	'cars',
 	'carParams',
 	'carOptions',
-	'reservation',
 	'currency',
+	'feedback'
 ]
 const defaultControllers = getDefaultControllers(defaultControllerNames)
 
@@ -15,7 +15,7 @@ const mainController = Object.assign(
 	{},
 	defaultControllers,
 	{user},
-	{feedback},
+	{reservation},
 )
 
 export default mainController

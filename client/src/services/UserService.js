@@ -65,15 +65,16 @@ const UserService = {
 	},
 
 	async changeImage(file) {
-		let formData = new FormData()
-		formData.append('file', file)
-		return api.post('/user/uploadimage', formData, {
-			headers: {
-				"Content-Type": "multipart/form-data"
-			}
-		})
-			.then(response => ({ok: true}))
-			.catch(error => handleError(error))
+		let connection = await api.get('/connect') // I use test connection to avoid image double uploading if token has expired
+		if (connection.data?.ok) {
+			let formData = new FormData()
+			formData.append('file', file)
+			return api.post('/user/uploadimage', formData, {
+				headers: { "Content-Type": "multipart/form-data" }
+			})
+				.then(response => ({ok: true}))
+				.catch(error => handleError(error))
+		}
 	},
 
 	async sendFeedback(username, rating, message) {
@@ -89,6 +90,7 @@ const UserService = {
 	
 }
 export default UserService
+
 
 const TOKEN = 'token'
 
@@ -131,4 +133,3 @@ function clearStorage() {
 	const dispatch = UserService.dispatch
 	if (dispatch) dispatch(changeUserData(null))
 }
-

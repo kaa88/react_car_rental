@@ -4,6 +4,15 @@ import { handleError } from "../services/ErrorService"
 
 const ReservationService = {
 
+	async getReservation() {
+		return api.get('/reservation')
+			.then(response => ({
+				ok: true,
+				data: response.data || []
+			}))
+			.catch(error => handleError(error))
+	},
+
 	async createReservation(formData) {
 		if (!formData) return console.error('Creating reservation is failed: formData is missing')
 		return api.post('/reservation', new ReservationDTO(formData))
@@ -26,15 +35,6 @@ const ReservationService = {
 	async deleteReservation(id) {
 		return api.delete(`/reservation?id=${Number(id)}`)
 			.then(response => ({ok: true}))
-			.catch(error => handleError(error))
-	},
-
-	async getReservation() {
-		return api.get('/reservation')
-			.then(response => ({
-				ok: true,
-				data: response.data || []
-			}))
 			.catch(error => handleError(error))
 	},
 

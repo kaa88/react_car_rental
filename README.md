@@ -1,5 +1,5 @@
 # TO DO:
-- tweak server to avoid DB editing
+- test all server commands
 - user role 'GUEST' with 'frozen' settings
 - minify (webpack)
 - print.scss - move specific styles inside the component

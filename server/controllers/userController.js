@@ -6,7 +6,18 @@ import {validationResult} from 'express-validator'
 import TokenService from '../services/TokenService.js'
 import FileService from '../services/FileService.js'
 
+const TOKEN_ERROR = ApiError.internal('Token middleware malfunction')
+
+
 const userController = {
+	async getUserData(req, res, next) {
+		if (!req.tokenData?.id) return next(TOKEN_ERROR)
+		let candidate = await user.findOne({where: {id: req.tokenData.id}})
+		if (!candidate) return next(ApiError.badRequest('User not found'))
+		let userData = new UserDTO(candidate.dataValues)
+		return res.json({userData})
+	},
+
 	async add(req, res, next) {
 		let errors = validationResult(req)
 		if (!errors.isEmpty()) return next(ApiError.badRequest('Validation failed', errors))
@@ -19,6 +30,7 @@ const userController = {
 		let hashPassword = await bcrypt.hash(password, 5)
 		req.body.password = hashPassword
 		req.body.role = 'USER'
+		req.body.isActivated = false
 
 		let newUser = await defaultController.add( req, res, next, user, true )
 		let userData = new UserDTO(newUser)
@@ -28,20 +40,17 @@ const userController = {
 	},
 
 	async edit(req, res, next) {
-		const id = req.tokenData ? req.tokenData.id : null
-		req.body.id = id
+		if (!req.tokenData?.id) return next(TOKEN_ERROR)
+		const {id} = req.tokenData
 		req.body = new EditableFields(req.body)
+		req.body.id = id
 		let response = await defaultController.edit( req, res, next, user, true )
-		if (response) {
-			let candidate = await user.findOne({where: {id}})
-			if (!candidate) return next(ApiError.badRequest('User not found'))
-			let userData = new UserDTO(candidate.dataValues)
-			return res.json({userData})
-		}
+		if (response === true) return await userController.getUserData(req, res, next)
 	},
 
 	async delete(req, res, next) {
-		req.body.id = req.tokenData ? req.tokenData.id : null
+		if (!req.tokenData?.id) return next(TOKEN_ERROR)
+		req.query.id = req.tokenData.id
 		return await defaultController.delete( req, res, next, user )
 	},
 
@@ -50,7 +59,6 @@ const userController = {
 	},
 
 	async login(req, res, next) {
-		console.log(req.body);
 		let {email, password} = req.body
 		if (!email || !password) return next(ApiError.badRequest('Email and password are required'))
 
@@ -74,16 +82,7 @@ const userController = {
 		return res.json({ok: true})
 	},
 
-	async getUserData(req, res, next) {
-		let {id} = req.tokenData
-		let candidate = await user.findOne({where: {id}})
-		if (!candidate) return next(ApiError.badRequest('User not found'))
-		let userData = new UserDTO(candidate.dataValues)
-		return res.json({userData})
-	},
-
 	async refresh(req, res, next) {
-		console.log('REFRESH');
 		try {
 			let token = req.cookies.refreshToken
 			if (!token) throw 'er'
@@ -106,20 +105,19 @@ const userController = {
 	},
 
 	async changePassword(req, res, next) {
+		if (!req.tokenData?.id) return next(TOKEN_ERROR)
 		let errors = validationResult(req)
 		if (!errors.isEmpty()) return next(ApiError.badRequest('Password is too weak', errors))
 
-		req.body.id = req.tokenData ? req.tokenData.id : null
+		req.body.id = req.tokenData.id
 		let {id, currentPassword, newPassword} = req.body
 		if (!id || !currentPassword || !newPassword) return next(ApiError.badRequest('Missing arguments'))
 
-		try {
-			let candidate = await user.findOne({where: {id}})
-			let comparePassword = bcrypt.compareSync(currentPassword, candidate.password)
-			if (!comparePassword) throw 'er'
-		} catch(er) {
-			return next(ApiError.badRequest('Current password is invalid'))
-		}
+		let candidate = await user.findOne({where: {id}})
+		if (!candidate) return next(ApiError.badRequest('User not found'))
+		let comparePassword = bcrypt.compareSync(currentPassword, candidate.password)
+		if (!comparePassword) return next(ApiError.badRequest('Current password is invalid'))
+
 		let hashPassword = await bcrypt.hash(newPassword, 5)
 		req.body.password = hashPassword
 		return await defaultController.edit( req, res, next, user )
@@ -139,10 +137,10 @@ const userController = {
 	},
 
 	async addPhoto(req, res, next) {
-		const id = req.tokenData ? req.tokenData.id : null
-		req.body.id = id
+		if (!req.tokenData?.id) return next(TOKEN_ERROR)
+		const {id} = req.tokenData
 
-		if (!req.files || !req.files.file) return next(ApiError.internal('No file uploaded'))
+		if (!req.files?.file) return next(ApiError.badRequest('No file uploaded'))
 		let {file} = req.files
 		let fileName = FileService.uploadUserPhoto(file)
 		if (fileName instanceof Error) return next(ApiError.internal('File upload error'))
@@ -152,6 +150,7 @@ const userController = {
 		let prevImage = userData ? userData.dataValues.image : ''
 
 		req.body = new EditableFields(req.body)
+		req.body.id = id
 		let response = await defaultController.edit( req, res, next, user, true )
 		if (response) {
 			if (prevImage) FileService.deleteUserPhoto(prevImage)
@@ -159,13 +158,15 @@ const userController = {
 		}
 	}
 }
+export default userController
+
 
 function getCookieSettings(token = 'null') {
 	return [
 		'refreshToken',
 		token,
 		{
-			maxAge: 15*24*60*60*1000,
+			maxAge: 15*24*60*60*1000, // 15d
 			httpOnly: true,
 			// secure: true,
 		}
@@ -188,7 +189,6 @@ class UserDTO {
 
 class EditableFields {
 	constructor(body) {
-		this.id = body.id // not editable, but needed to find user... may be I'll find better place for it later
 		if (body.name) this.name = body.name
 		if (body.image) this.image = body.image
 		if (body.language) this.language = body.language
@@ -196,5 +196,3 @@ class EditableFields {
 		if (body.cookieAccepted) this.cookieAccepted = body.cookieAccepted
 	}
 }
-
-export default userController

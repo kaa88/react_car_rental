@@ -71,7 +71,7 @@ export default Router
 function defaultLoader() {
 	window.scrollTo({top: 0})
 	window.dispatchEvent(new Event('click')) // Closes opened popups if routes through history like using 'return' button. See events in 'initScripts.js'
-	if (scriptManager?.components?.modal?.close) scriptManager.components.modal.close()
-	if (scriptManager?.components?.header?.closeMenu) scriptManager.components.header.closeMenu()
+	if (scriptManager.components?.modal?.close) scriptManager.components.modal.close()
+	if (scriptManager.components?.header?.closeMenu) scriptManager.components.header.closeMenu()
 	return null
 }

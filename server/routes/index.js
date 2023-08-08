@@ -1,5 +1,6 @@
 import express from 'express'
 import getDefaultRouters from './defaultRouter.js'
+import connectionRouter from './connectionRouter.js'
 import userRouter from './userRouter.js'
 import reservationRouter from './reservationRouter.js'
 
@@ -17,6 +18,7 @@ defaultRouterNames.forEach((route) =>
 	mainRouter.use('/' + route.toLowerCase(), defaultRouters[route])
 )
 // specific:
+mainRouter.use('/connect', connectionRouter)
 mainRouter.use('/user', userRouter)
 mainRouter.use('/reservation', reservationRouter)
 

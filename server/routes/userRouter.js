@@ -5,6 +5,7 @@ import tokenMiddleware from '../middleware/tokenMiddleware.js'
 
 const router = express.Router()
 
+router.get('/', tokenMiddleware, userController.getUserData)
 router.post(
 	'/add',
 	body('email').isEmail(),
@@ -24,10 +25,9 @@ router.put(
 router.post('/activate/:code', userController.activate)
 router.post('/restorepassword', userController.restorePassword)
 router.post('/login', userController.login)
-router.post('/logout', tokenMiddleware, userController.logout)
-router.post('/uploadimage', tokenMiddleware, userController.addPhoto)
+router.post('/logout', userController.logout)
 router.get('/refresh', userController.refresh)
-router.get('/', tokenMiddleware, userController.getUserData)
+router.post('/uploadimage', tokenMiddleware, userController.addPhoto)
 
 export default router
 

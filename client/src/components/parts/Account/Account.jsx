@@ -48,6 +48,7 @@ const Account = memo(function Account() {
 
 	async function getReservations() {
 		let response = await ReservationService.getReservation()
+		console.log(response.data);
 		if (response.ok) setReservations(response.data)
 	}
 	async function cancelActiveBooking(e) {
@@ -146,7 +147,7 @@ const Account = memo(function Account() {
 							<div className={`${classes.content} ${classes.spoilerContent} ${activeSpoilers.history ? classes.spoilerActive : ''}`}>
 								{dataIsLoading && <Loader className={classes.loader} />}
 								{historyItems}
-								<Button className={classes.historyMoreBtn} modif='negative'>?_Load more</Button>
+								{/* <Button className={classes.historyMoreBtn} modif='negative'>?_Load more</Button> */}
 							</div>
 						</div>
 						<div className={classes.settings}>
