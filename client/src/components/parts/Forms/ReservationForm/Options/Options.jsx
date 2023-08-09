@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setOptions } from '../../../../../store/slices/reservationFormSlice';
+import { setReservation } from '../../../../../store/slices/reservationFormSlice';
 import classes from './Options.module.scss';
 import TranslateHandler from '../../../../TranslateHandler';
 import InputCheckbox from '../../../../ui/InputCheckbox/InputCheckbox';
@@ -9,17 +9,24 @@ import InputCheckbox from '../../../../ui/InputCheckbox/InputCheckbox';
 const DRIVER_AGE = 'driverAgeIsOk'
 const DIFFERENT_LOCATION_RETURN = 'isDifferentReturnLocation'
 
-export const defaultOptions = {}
-defaultOptions[DRIVER_AGE] = false
-defaultOptions[DIFFERENT_LOCATION_RETURN] = false
+// export const defaultOptions = {}
+// defaultOptions[DRIVER_AGE] = false
+// defaultOptions[DIFFERENT_LOCATION_RETURN] = false
 
 const Options = memo(function Options({modif = 'light', className = '', ...props}) {
 
 	const dispatch = useDispatch()
-	const formDataOptions = useSelector(state => state.reservationForm.options)
+	const formData = useSelector(state => state.reservationForm)
+	const formDataOptions = {
+		[DRIVER_AGE]: formData[DRIVER_AGE],
+		[DIFFERENT_LOCATION_RETURN]: formData[DRIVER_AGE]
+	}
 
 	function setFormDataOptions(value) {
-		dispatch(setOptions(value))
+		dispatch(setReservation({
+			[DRIVER_AGE]: value[DRIVER_AGE],
+			[DIFFERENT_LOCATION_RETURN]: value[DRIVER_AGE]
+		}))
 	}
 
 	function handleCheckboxChange(name, value) {

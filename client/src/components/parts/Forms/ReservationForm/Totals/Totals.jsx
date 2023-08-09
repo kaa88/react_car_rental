@@ -4,7 +4,7 @@ import classes from './Totals.module.scss';
 import TranslateHandler from '../../../../TranslateHandler';
 import Icon from '../../../../ui/Icon/Icon';
 import PeriodScript from '../Period/Period.script'
-import { setTotalPrice } from '../../../../../store/slices/reservationFormSlice';
+import { setReservation } from '../../../../../store/slices/reservationFormSlice';
 
 
 const Totals = memo(function Totals({className = '', ...props}) {
@@ -16,27 +16,26 @@ const Totals = memo(function Totals({className = '', ...props}) {
 	const returnDate = formData.return
 	const numOfDays = Math.ceil((returnDate - pickupDate) / 60 / 60 / 24 / 1000)
 	const location = formData.location
-	const isDifferentReturnLocation = formData.options.isDifferentReturnLocation
+	const isDifferentReturnLocation = formData.isDifferentReturnLocation
 	const differentLocationTax = isDifferentReturnLocation ? 50 : 0
 
 	const currency = useSelector(state => state.currency)
-	console.log(currency);
 	const currencyName = currency.current
 	const currencyRate = currency.rates[currencyName]
 
 	let totalPrice = 0
 	if (selectedCar?.price && numOfDays) totalPrice = selectedCar.price * numOfDays + differentLocationTax
-	totalPrice = Math.floor(totalPrice * currencyRate)
+	let selectedCurrencyTotalPrice = Math.floor(totalPrice * currencyRate)
 
 	useEffect(() => {
-		dispatch(setTotalPrice(totalPrice))
+		dispatch(setReservation({totalPrice}))
 	}, [totalPrice])
 
 
 	const fields = [
 		{
 			title: 'Car',
-			text: selectedCar?.name || '',
+			text: selectedCar ? selectedCar.name : '',
 			className: '',
 			icon: 'icon-star',
 		},
@@ -66,7 +65,7 @@ const Totals = memo(function Totals({className = '', ...props}) {
 		},
 		{
 			title: 'Car price per day',
-			text: selectedCar?.price || '',
+			text: selectedCar ? Math.round(selectedCar.price * currencyRate) : 0,
 			className: 'carPrice',
 			icon: `icon-${currencyName}`,
 			rightSideIcon: true
@@ -86,7 +85,7 @@ const Totals = memo(function Totals({className = '', ...props}) {
 		},
 		{
 			title: 'Total price',
-			text: totalPrice,
+			text: selectedCurrencyTotalPrice,
 			className: 'totalPrice',
 			icon: `icon-${currencyName}`,
 			rightSideIcon: true

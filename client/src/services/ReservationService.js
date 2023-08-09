@@ -20,8 +20,9 @@ const ReservationService = {
 			.catch(error => handleError(error))
 	},
 
-	async editReservation(id) {
-		return api.put('/reservation', {id: Number(id)})
+	async editReservation(formData) {
+		if (!formData) return console.error('Editing reservation is failed: formData is missing')
+		return api.put('/reservation', JSON.stringify(new ReservationDTO(formData)))
 			.then(response => ({ok: true}))
 			.catch(error => handleError(error))
 	},
@@ -44,11 +45,12 @@ export default ReservationService
 
 class ReservationDTO {
 	constructor(formData = {}) {
+		if (formData.id) this.id = formData.id
 		if (formData.pickup) this.pickupDate = formData.pickup
 		if (formData.return) this.returnDate = formData.return
 		if (formData.location) this.location = formData.location
 		if (formData.totalPrice) this.price = formData.totalPrice
-		if (formData.options?.isDifferentReturnLocation) this.sameLocationReturn = formData.options.isDifferentReturnLocation
+		if (formData.isDifferentReturnLocation) this.sameLocationReturn = !formData.isDifferentReturnLocation
 		if (formData.car?.id) this.carId = formData.car.id
 	}
 }

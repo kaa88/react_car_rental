@@ -51,7 +51,6 @@ const CallForm = memo(function CallForm() {
 			{name: 'phone', type: 'phone', required: true},
 		]
 	})
-	console.log(form);
 
 	function getMessage() {
 		if (form.fields.phone.message) return form.fields.phone.message

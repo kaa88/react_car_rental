@@ -14,19 +14,21 @@
 	color: var(--color01);
 }
 .link {
-	display: inline-block;
+	// display: inline-block;
+	display: inline-flex;
 	height: 2em;
 	overflow: hidden;
 	white-space: nowrap;
 }
 .icon {
 	display: inline-block;
-	margin-left: em(2);
+	// margin-left: em(2);
 	margin-right: em(2);
 	width: 1.5em;
 	height: 1.5em;
 	position: relative;
-	bottom: 0.2em;
+	// bottom: 0.2em;
+	bottom: 0;
 	transform: rotate(24deg);
 	fill: var(--color03);
 }

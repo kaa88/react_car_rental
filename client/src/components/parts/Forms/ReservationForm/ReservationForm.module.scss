@@ -235,10 +235,12 @@
 		text-align: center;
 	}
 }
-.confirmTitle {
+p.confirmTitle {
+	margin: 20px 0;
 	font-size: 24px;
 }
 .confirmButton {
-	margin-top: 30px;
+	margin-top: 14px;
+	margin-bottom: 20px;
 	min-width: 100px;
 }

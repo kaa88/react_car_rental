@@ -1,7 +1,9 @@
 @import "../../../../../scss/variables.scss";
 
 .wrapper {
+	position: relative;
 	display: flex;
+	min-height: 200px;
 	@media (max-width: $media-form2+px) {
 		width: 100%;
 		justify-content: space-around;
@@ -72,4 +74,11 @@ body .infoBtn {
 		fill: var(--color04);
 		pointer-events: none;
 	}
+}
+.loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9;
+	background-color: rgba(255,255,255,0.3);
 }

@@ -1,5 +1,5 @@
 import { memo, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFetching } from '../../../hooks/useFetching';
 import classes from './Cars.module.scss';
 import Container from '../../ui/Container/Container';
@@ -17,10 +17,15 @@ import CarModalContent from './CarModalContent/CarModalContent';
 import CarParams from './CarParams/CarParams';
 import CarPrice from './CarPrice/CarPrice';
 import CarName from './CarName/CarName';
+import { useNavigate } from 'react-router-dom';
+import { setReservation } from '../../../store/slices/reservationFormSlice';
 
 // Note: хотел сделать разбивку на компоненты, но swiper отказывается работать с множественной вложенностью (а может другая причина), перестают инициализироваться кнопки навигации и пагинация... Пришлось напихать всё сюда
 
 const Cars = memo(function Cars() {
+
+	const navigate = useNavigate()
+	const dispatch = useDispatch()
 
 	// carData
 	const defaultCarData = {
@@ -43,27 +48,15 @@ const Cars = memo(function Cars() {
 	//end carData
 
 
-
-	// function getCarImage(car) {
-	// 	return <CarImage car={car} />
-	// }
-
-	// function getCarParams(car) {
-	// 	return <CarParams car={car} carParams={carData.params} />
-	// }
-
-	// function getCarOptions(car) {
-	// 	return <CarOptions car={car} options={carData.options} />
-	// }
-
-	// function getCarPrice(car) {
-	// 	return <CarPrice car={car} currency={currency} />
-	// }
-
 	const modalName = 'cars'
 
 	function getModalContent(index) {
 		return <CarModalContent carIndex={index} carData={carData} />
+	}
+
+	function createReservation(e) {
+		dispatch(setReservation({car: carData.cars.find(item => item.id === Number(e.currentTarget.dataset.carId))}))
+		navigate('/reservation')
 	}
 
 	function getSlides() {
@@ -75,7 +68,7 @@ const Cars = memo(function Cars() {
 					<CarParams className={classes.carParams} car={car} carParams={carData.params} />
 					<CarPrice className={classes.carPrice} car={car} />
 					<div className={classes.actionButtons}>
-						<Button className={classes.actionBtn} data-car-id={car.shortName}>?_Book now</Button>
+						<Button className={classes.actionBtn} data-car-id={car.id} onClick={createReservation}>?_Book now</Button>
 						<ModalLink name={modalName} content={getModalContent.bind(null, index)}>
 							<Button className={classes.infoBtn} data-car-id={car.shortName} modif='negative'>?_View details</Button>
 						</ModalLink>

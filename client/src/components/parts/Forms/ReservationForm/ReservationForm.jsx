@@ -15,11 +15,15 @@ import Totals from './Totals/Totals';
 import ReservationService from '../../../../services/ReservationService';
 import { setActiveModal } from '../../../../store/slices/modalSlice';
 import ModalLink from '../../../ui/Modal/ModalLink';
+import { setReservation } from '../../../../store/slices/reservationFormSlice';
+import cities from '../ReservationForm/Location/cities.json'
 
+// const RESERVATION = 'reservation'
 const MODIF_FULL = 'full'
-const MODIF_SHORT = 'short'
+// const MODIF_SHORT = 'short'
 
-const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, className = '', ...props}) {
+
+const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, className = '', edit, ...props}) {
 
 	const isFullForm = modif === MODIF_FULL ? true : false
 
@@ -29,8 +33,19 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 	const formData = useSelector(state => state.reservationForm)
 
 
+	// useEffect(() => {
+	// 	let sessionData = sessionStorage.getItem(RESERVATION)
+	// 	if (sessionData) dispatch(setReservation(sessionData))
+	// 	return () => sessionStorage.removeItem(RESERVATION)
+	// }, [])
+
+	// useEffect(() => {
+	// 	if (isFullForm) sessionStorage.setItem(RESERVATION, formData)
+	// }, [formData])
+
+
 	function setActiveDataType(event, value) {
-		console.log('setActiveDataType');
+		// console.log('setActiveDataType');
 		let active = value
 		if (event) {
 			event.stopPropagation()
@@ -52,19 +67,21 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 	function showConfirmation() {
 		const confirmContent =
 			<div className={classes.confirmContent}>
-				<p className={classes.confirmTitle}>Thanks for your reservation</p>
+				<p className={classes.confirmTitle}>Your reservation has been saved</p>
 				<p>You can manage your reservations at</p>
-				<Button className={classes.confirmButton} modif='negative' onClick={()=>{navigate('/account')}}>Account page</Button>
+				<Button className={classes.confirmButton} onClick={()=>{navigate('/account')}}>Account page</Button>
 				<p>or continue at</p>
 				<ModalLink name=''>
-					<Button className={classes.confirmButton} onClick={()=>{navigate('/')}}>Home page</Button>
+					<Button className={classes.confirmButton} modif='negative' onClick={()=>{navigate('/')}}>Home page</Button>
 				</ModalLink>
 			</div>;
 		dispatch(setActiveModal({name: 'reservation_confirm', content: confirmContent}))
 	}
 
 	async function submit() {
-		let response = await ReservationService.createReservation(formData)
+		let response
+		if (edit) response = await ReservationService.editReservation(formData)
+		else response = await ReservationService.createReservation(formData)
 		if (response.ok) showConfirmation()
 		else throw new Error(response.error)
 	}
@@ -72,12 +89,13 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 	function customValidation() {
 		const defaultErrorMessage = 'Fill in required fields'
 		const ageErrorMessage = 'Driver must be 21+ years old'
+		const locationErrorMessage = 'Incorrect location, please use filter'
 		if (
-			!formData.location ||
 			!formData.pickup ||
 			!formData.return ||
 			!formData.car
 		) return {message: defaultErrorMessage}
+		else if (!formData.location || !cities.includes(formData.location)) return {message: locationErrorMessage}
 		else if (!formData.options.driverAgeIsOk) return {message: ageErrorMessage}
 		else return {ok: true}
 	}
@@ -97,7 +115,9 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 	})
 	// console.log(form);
 
-	const elemModif = modif === MODIF_FULL ? 'dark' : 'light'
+
+
+	const elemModif = isFullForm ? 'dark' : 'light'
 
 	return (
 		<TranslateHandler>
@@ -125,8 +145,8 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 				{isFullForm && <>
 					<Totals className={classes.totals} />
 					<CarSelect className={classes.carSelect} />
-					<p className={classes.formMessage}>?_{form.message}fsdfwef</p>
-					<Button className={`${classes.submitBtn} ${classes.submitBtn_bottom}`}>?_Reserve</Button>
+					<p className={classes.formMessage}>?_{form.message}</p>
+					<Button className={`${classes.submitBtn} ${classes.submitBtn_bottom}`}>?_{edit ? 'Save changes' : 'Reserve'}</Button>
 				</>}
 			</form>
 		</TranslateHandler>

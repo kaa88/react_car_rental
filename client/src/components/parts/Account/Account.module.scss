@@ -79,7 +79,8 @@
 	flex: 1 1 auto;
 	min-height: 150px;
 	display: grid;
-	grid-template-columns: repeat(4, auto);
+	grid-template-columns: repeat(4, 1fr);
+	grid-column-gap: 48px; // 
 	grid-row-gap: 24px;
 	.booking & {
 		padding-top: 6px;
@@ -105,6 +106,9 @@
 		grid-template-columns: repeat(2, auto);
 		grid-row-gap: 20px;
 	}
+	@media (max-width: $media-ml+px) {
+		grid-column-gap: 30px; // 
+	}
 	@media (max-width: $media-m+px) {
 		grid-template-columns: 100%;
 	}
@@ -125,47 +129,48 @@
 .bookingItem, .historyItem {
 	width: 100%;
 	position: relative;
-	padding-left: 24px;
+	// padding-left: 24px;
 	&:before {
 		content: '';
 		position: absolute;
 		top: 0;
-		left: 0;
+		left: -24px;
 		display: inline-block;
 		width: 1px;
 		height: 50%;
 		background-color: var(--color02);
 	}
 	&:nth-child(4n-3) {
-		padding-left: 0;
+		// padding-left: 0;
 		&:before {display: none;}
 	}
-	&:not(:nth-child(4n)) {
-		padding-right: 24px;
-	}
+	// &:not(:nth-child(4n)) {
+		// padding-right: 24px;
+	// }
 	@media (max-width: $media-t+px) {
 		&:nth-child(odd) {
-			padding-left: 0;
+			// padding-left: 0;
 			&:before {display: none;}
 		}
-		&:nth-child(even) {
-			padding-right: 0;
-		}
+		// &:nth-child(even) {
+		// 	padding-right: 0;
+		// }
 	}
 	@media (max-width: $media-ml+px) {
-		&:nth-child(odd) {
-			padding-right: 15px;
+		&:before {
+			left: -15px;
 		}
-		&:nth-child(even) {
-			padding-left: 15px;
-		}
+		// 	&:nth-child(odd) {
+	// 		padding-right: 15px;
+	// 	}
+	// 	&:nth-child(even) {
+	// 		padding-left: 15px;
+	// 	}
 	}
 	@media (max-width: $media-m+px) {
 		&:nth-child(n+1) {
 			padding: 0;
-			&:before {
-				display: none;
-			}
+			&:before {display: none;}
 		}
 		&:not(:first-child) {
 			padding-top: 20px;
@@ -197,7 +202,7 @@ body .bookingItemBtn {
 	}
 }
 .bookingInfoBox {
-	background-color: orange;
+	// background-color: orange;
 	color: var(--color02);
 	fill: var(--color02);
 	.historyItem & {
@@ -215,8 +220,9 @@ body .bookingItemBtn {
 }
 .bookingIcon {
 	margin-right: 6px;
-	width: 22px;
-	height: 22px;
+	margin-bottom: 3px;
+	width: 20px;
+	height: 20px;
 }
 .historyItemDeleteBtn {
 	margin-top: 15px;

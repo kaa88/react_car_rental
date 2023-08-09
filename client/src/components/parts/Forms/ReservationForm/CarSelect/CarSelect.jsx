@@ -8,16 +8,17 @@ import CarName from '../../../Cars/CarName/CarName';
 import CarImage from '../../../Cars/CarImage/CarImage';
 import CarParams from '../../../Cars/CarParams/CarParams';
 import CarPrice from '../../../Cars/CarPrice/CarPrice';
-import { setCar } from '../../../../../store/slices/reservationFormSlice';
+import { setReservation } from '../../../../../store/slices/reservationFormSlice';
 import Button from '../../../../ui/Button/Button';
 import Icon from '../../../../ui/Icon/Icon';
 import ModalLink from '../../../../ui/Modal/ModalLink';
+import Loader from '../../../../ui/Loader/Loader';
 
 
 const CarSelect = memo(function CarSelect({className = '', ...props}) {
 
 	const dispatch = useDispatch()
-	const formDataOptions = useSelector(state => state.reservationForm.options)
+	// const formDataOptions = useSelector(state => state.reservationForm.options)
 	const selectedCar = useSelector(state => state.reservationForm.car)
 
 
@@ -37,7 +38,7 @@ const CarSelect = memo(function CarSelect({className = '', ...props}) {
 			options: await FetchService.getCarOptions(),
 		}
 		setCarData(data)
-		if (!selectedCar) dispatch(setCar(data.cars[0]))
+		if (!selectedCar) dispatch(setReservation({car: data.cars[0]}))
 	}
 	useEffect(() => { fetchData() }, [])
 	//end carData
@@ -45,7 +46,7 @@ const CarSelect = memo(function CarSelect({className = '', ...props}) {
 
 	function selectItem(e) {
 		let car = carData.cars.find(item => item.id === Number(e.currentTarget.dataset.index))
-		dispatch(setCar(car))
+		dispatch(setReservation({car}))
 	}
 
 	function getCarList() {
@@ -65,6 +66,7 @@ const CarSelect = memo(function CarSelect({className = '', ...props}) {
 	return (
 		<TranslateHandler>
 			<div className={`${className} ${classes.wrapper}`} {...props}>
+				{dataIsLoading && <Loader className={classes.loader} />}
 				<div className={classes.info}>
 					<CarImage className={classes.carImage} car={selectedCar} />
 					<CarParams className={classes.carParams} car={selectedCar} carParams={carData.params} />

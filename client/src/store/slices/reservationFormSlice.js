@@ -1,39 +1,53 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { defaultOptions } from "../../components/parts/Forms/ReservationForm/Options/Options"
+
+const name = 'reservationForm'
+const defaultState = {
+	id: null,
+	location: '',
+	pickup: 0,
+	return: 0,
+	selectorCurrentMonth: Date.now(),
+	driverAgeIsOk: false,
+	isDifferentReturnLocation: false,
+	car: null,
+	totalPrice: 0,
+}
+const savedData = sessionStorage.getItem(name)
+
 
 export const reservationFormSlice = createSlice({
-	name: 'reservationForm',
-	initialState: {
-		location: '',
-		pickup: '',
-		return: '',
-		selectorCurrentMonth: Date.now(),
-		options: defaultOptions,
-		car: null,
-		totalPrice: 0,
-	},
+	name,
+	initialState: savedData ? JSON.parse(savedData) : defaultState,
 	reducers: {
-		setLocation(state, action) {
-			state.location = action.payload
+		setReservation(state, action) {
+			let values = action.payload
+			if (typeof values !== 'object' || Array.isArray(values))
+				return console.error(`'${name}' action payload must be an 'object'`)
+			console.log(values);
+
+			Object.entries(defaultState).forEach(([key, defaultValue]) => {
+				if (values[key] !== undefined) {
+					if (key.match(/pickup|return|selectorCurrentMonth/)) values[key] = normalizeDate(values[key])
+					state[key] = values[key] || defaultValue
+				}
+			})
+			sessionStorage.setItem(name, JSON.stringify(state))
 		},
-		setPeriod(state, action) {
-			state.pickup = action.payload.pickup
-			state.return = action.payload.return
-		},
-		setOptions(state, action) {
-			state.options = action.payload
-		},
-		setSelectorCurrentMonth(state, action) {
-			state.selectorCurrentMonth = action.payload
-		},
-		setCar(state, action) {
-			state.car = action.payload
-		},
-		setTotalPrice(state, action) {
-			state.totalPrice = action.payload
+		resetReservation(state) {
+			Object.entries(defaultState).forEach(([key, defaultValue]) => {
+				state[key] = defaultValue
+			})
+			sessionStorage.setItem(name, JSON.stringify(defaultState))
 		},
 	}
 })
 
-export const {setLocation, setPeriod, setOptions, setSelectorCurrentMonth, setCar, setTotalPrice} = reservationFormSlice.actions
+export const { setReservation, resetReservation } = reservationFormSlice.actions
 export default reservationFormSlice.reducer
+
+
+function normalizeDate(date) {
+	if (date instanceof Date) return date.getTime()
+	if (typeof date === 'string') return new Date(date).getTime()
+	return null
+}

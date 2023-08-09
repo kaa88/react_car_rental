@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setLocation } from '../../../../../store/slices/reservationFormSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setReservation } from '../../../../../store/slices/reservationFormSlice';
 import {getCssVariable} from '../../../../../utilities/utilities';
 import script from './Location.script';
 import classes from './Location.module.scss';
@@ -19,21 +19,27 @@ const Location = memo(function Location({
 	setActiveDataType = function(event, value){},
 	...props
 }) {
-
+	const dataType = 'location'
 	const dispatch = useDispatch()
-	function setFormData(value) {
-		dispatch(setLocation(value))
+
+	const defaultInputValue = script.getSearchList()[0]
+	const inputValue = useSelector(state => state.reservationForm.location)
+
+	function setInputValue(location) {
+		dispatch(setReservation({location}))
 	}
 
-	const dataType = 'location'
+	// function setFormData(location) {
+	// 	dispatch(setReservation({location}))
+	// }
 
 	useEffect(() => {
 		script.init({setInputValue})
-		setFormData(defaultInputValue)
+		// setFormData(defaultInputValue)
+		if (inputValue === null) setInputValue(defaultInputValue)
 	}, [])
 
-	const defaultInputValue = script.getSearchList()[0]
-	let [inputValue, setInputValue] = useState(defaultInputValue)
+	// let [inputValue, setInputValue] = useState(defaultInputValue)
 	let [searchList, setSearchList] = useState(script.getSearchList())
 
 
@@ -45,13 +51,13 @@ const Location = memo(function Location({
 		if (!activeDataType) setActiveDataType(e, dataType)
 		setInputValue(e.target.value)
 		setSearchList(script.filterSearchList(e.target.value))
-		setFormData('')
+		// setFormData('')
 	}
 
 	const handleSearchSelect = function(e){
 		let value = e.target.textContent
 		setInputValue(value)
-		setFormData(value)
+		// setFormData(value)
 		setActiveDataType(e, '')
 
 		const transitionDelay = getCssVariable('timer-popup')*1000

@@ -39,6 +39,7 @@
 	border-radius: 16px;
 	overflow: hidden;
 	@media (max-width: $media-ml+px) {
+		width: 100%;
 		max-width: 100%;
 		border-radius: 0;
 	}
@@ -48,6 +49,10 @@
 	max-height: 100vh;
 	overflow-y: auto;
 	overflow-x: hidden;
+	@media (max-width: $media-ml+px) {
+		display: flex;
+		justify-content: center;
+	}
 }
 .closeButton {
 	position: absolute;

@@ -12,14 +12,19 @@ import InputText from '../../ui/InputText/InputText';
 import { useCustomElement } from '../../../hooks/useCustomElement';
 import { jsMediaQueries } from '../../../utilities/jsMediaQueries';
 import UserPhoto from '../../ui/UserPhoto/UserPhoto';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SettingsForm from '../Forms/AccountForm/SettingsForm';
 import ReservationService from '../../../services/ReservationService';
 import PeriodScript from '../Forms/ReservationForm/Period/Period.script'
 import { useFetching } from '../../../hooks/useFetching';
+import { useNavigate } from 'react-router-dom';
+import { setReservation } from '../../../store/slices/reservationFormSlice';
 
 
 const Account = memo(function Account() {
+
+	const navigate = useNavigate()
+	const dispatch = useDispatch()
 
 	// Spoilers
 	const activeSpoilersDefault = {
@@ -36,33 +41,59 @@ const Account = memo(function Account() {
 	}
 	//end Spoilers
 
+	// currency
+	const currency = useSelector(state => state.currency)
+	const currencyName = currency.current
+	const currencyRate = currency.rates[currencyName]
+	// end currency
+
+	// carData
+	let [cars, setCars] = useState([])
+	async function fetchCars() {
+		setCars(await FetchService.getCars())
+	}
+	//end carData
 
 	let [reservations, setReservations] = useState([])
-	let [fetchData, dataIsLoading, loadingError] = useFetching(getReservations)
+	let [fetchReservations, dataIsLoading, reservationsLoadingError] = useFetching(getReservations)
 
 	useEffect(() => {
 		jsMediaQueries.registerActions(480, [() => {toggleSpoiler(false, true)}])
-		fetchData()
+		fetchReservations()
+		fetchCars()
 	}, [])
 
 
 	async function getReservations() {
 		let response = await ReservationService.getReservation()
-		console.log(response.data);
 		if (response.ok) setReservations(response.data)
+	}
+	function editActiveBooking(e) {
+		let r = reservations.find(item => item.id === Number(e.currentTarget.dataset.id))
+		if (r) {
+			dispatch(setReservation({
+				...r,
+				pickup: r.pickupDate,
+				return: r.returnDate,
+				car: cars.find(item => item.id === r.carId),
+				driverAgeIsOk: true,
+				isDifferentReturnLocation: !r.sameLocationReturn
+			}))
+			navigate('/reservation', {state: 'edit'})
+		}
 	}
 	async function cancelActiveBooking(e) {
 		let isConfirmed = window.confirm('Are you sure you want to cancel reservation?')
 		if (isConfirmed) {
 			await ReservationService.setReservationInactive(e.currentTarget.dataset.id)
-			fetchData()
+			fetchReservations()
 		}
 	}
 	async function deleteHistoryItem(e) {
 		let isConfirmed = window.confirm('Are you sure you want to delete reservation?')
 		if (isConfirmed) {
 			await ReservationService.deleteReservation(e.currentTarget.dataset.id)
-			fetchData()
+			fetchReservations()
 		}
 	}
 	const getBookingItem = function(reservation) {
@@ -70,7 +101,11 @@ const Account = memo(function Account() {
 			<div className={classes.bookingItem} key={reservation.id}>
 				{getReservationItem(reservation)}
 				<div className={classes.bookingItemButtons}>
-					<Button className={classes.bookingItemBtn}>?_Edit</Button>
+					<Button
+						className={classes.bookingItemBtn}
+						data-id={reservation.id}
+						onClick={editActiveBooking}
+					>?_Edit</Button>
 					<Button
 						className={classes.bookingItemBtn}
 						modif='negative'
@@ -93,9 +128,10 @@ const Account = memo(function Account() {
 		)
 	}
 	const getReservationItem = function(data) {
+		let car = cars.find(item => item.id === data.carId)
 		return (
 			<div className={classes.bookingInfoBox}>
-				<div className={classes.bookingTitle}>{'carName'}</div>
+				<div className={classes.bookingTitle}>{car ? car.name : ''}</div>
 				<div className={classes.bookingText}>
 					<Icon className={classes.bookingIcon} name='icon-calendar' />
 					<span>{`${PeriodScript.getStringifiedDate(data.pickupDate)} - ${PeriodScript.getStringifiedDate(data.returnDate)}`}</span>
@@ -109,8 +145,8 @@ const Account = memo(function Account() {
 					<span>{PeriodScript.getStringifiedTime(data.pickupDate)}</span>
 				</div>
 				<div className={classes.bookingText}>
-					<Icon className={classes.bookingIcon} name='icon-usd' />
-					<span>{data.price}</span>
+					<Icon className={classes.bookingIcon} name={`icon-${currencyName}`} />
+					<span>{Math.round(data.price * currencyRate)}</span>
 				</div>
 			</div>
 		)

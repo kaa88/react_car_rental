@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPeriod } from '../../../../../store/slices/reservationFormSlice';
+import { setReservation } from '../../../../../store/slices/reservationFormSlice';
 import script from './Period.script';
 import classes from './Period.module.scss';
 import TranslateHandler from '../../../../TranslateHandler';
@@ -26,11 +26,10 @@ const Period = memo(function Period({
 		return: formData.return ? new Date(formData.return) : ''
 	}
 	function setReservationPeriod(value) {
-		let newValue = {
-			pickup: value.pickup ? value.pickup.getTime() : '',
-			return: value.return ? value.return.getTime() : ''
-		}
-		dispatch(setPeriod(newValue))
+		dispatch(setReservation({
+			pickup: value.pickup,
+			return: value.return
+		}))
 	}
 	if (!formData.pickup) {
 		reservationPeriod = script.getDefaultReservationPeriod()

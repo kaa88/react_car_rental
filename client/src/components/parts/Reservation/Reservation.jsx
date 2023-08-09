@@ -5,15 +5,20 @@ import TranslateHandler from '../../TranslateHandler';
 import ReservationForm from '../Forms/ReservationForm/ReservationForm';
 
 
-const Reservation = memo(function Reservation() {
+const Reservation = memo(function Reservation({edit}) {
 
 	return (
 		<TranslateHandler>
 			<section className={classes.wrapper}>
 				<Container className={classes.container}>
-					<h3 className='fz36 color02 tac'>?_Last step to complete a reservation</h3>
+					<h3 className='fz36 color02 tac'>
+						?_{edit
+							? 'Edit reservation'
+							: 'Create reservation'
+						}
+					</h3>
 
-					<ReservationForm className={classes.form} modif='full' />
+					<ReservationForm className={classes.form} modif='full' edit={edit} />
 
 				</Container>
 			</section>

@@ -19,9 +19,11 @@ const reservationController = {
 	},
 
 	async add(req, res, next) {
+		console.log(req.body);
 		let {ok, error} = prepare(req, res, next, 'create')
 		if (!ok) return error
 
+		delete req.body.id
 		req.body.userId = req.tokenData.id
 		return await defaultController.add( req, res, next, reservation )
 	},
