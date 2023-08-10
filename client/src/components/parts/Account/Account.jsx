@@ -180,10 +180,12 @@ const Account = memo(function Account() {
 									<Icon className={classes.spoilerIcon} name='icon-arrow-short' />
 								</div>
 							</div>
-							<div className={`${classes.content} ${classes.spoilerContent} ${activeSpoilers.history ? classes.spoilerActive : ''}`}>
-								{dataIsLoading && <Loader className={classes.loader} />}
-								{historyItems}
-								{/* <Button className={classes.historyMoreBtn} modif='negative'>?_Load more</Button> */}
+							<div className={`${classes.spoilerContent} ${activeSpoilers.history ? classes.spoilerActive : ''}`}>
+								<div className={classes.content}>
+									{dataIsLoading && <Loader className={classes.loader} />}
+									{historyItems}
+									{/* <Button className={classes.historyMoreBtn} modif='negative'>?_Load more</Button> */}
+								</div>
 							</div>
 						</div>
 						<div className={classes.settings}>
@@ -193,8 +195,10 @@ const Account = memo(function Account() {
 									<Icon className={classes.spoilerIcon} name='icon-arrow-short' />
 								</div>
 							</div>
-							<div className={`${classes.content} ${classes.spoilerContent} ${activeSpoilers.settings ? classes.spoilerActive : ''}`}>
-								<SettingsForm />
+							<div className={`${classes.spoilerContent} ${activeSpoilers.settings ? classes.spoilerActive : ''}`}>
+								<div className={classes.content}>
+									<SettingsForm />
+								</div>
 							</div>
 						</div>
 					</div>

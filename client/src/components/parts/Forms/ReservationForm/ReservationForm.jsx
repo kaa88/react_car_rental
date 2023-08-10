@@ -17,6 +17,7 @@ import { setActiveModal } from '../../../../store/slices/modalSlice';
 import ModalLink from '../../../ui/Modal/ModalLink';
 import { setReservation } from '../../../../store/slices/reservationFormSlice';
 import cities from '../ReservationForm/Location/cities.json'
+import Loader from '../../../ui/Loader/Loader';
 
 // const RESERVATION = 'reservation'
 const MODIF_FULL = 'full'
@@ -29,6 +30,7 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
+	const userID = useSelector(state => state.user.id)
 	const activeDataType = useSelector(state => state.popup.active)
 	const formData = useSelector(state => state.reservationForm)
 
@@ -61,7 +63,7 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 
 	function redirectToFullForm(e) {
 		e.preventDefault()
-		navigate('/reservation')
+		if (userID) navigate('/reservation')
 	}
 
 	function showConfirmation() {
@@ -96,7 +98,7 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 			!formData.car
 		) return {message: defaultErrorMessage}
 		else if (!formData.location || !cities.includes(formData.location)) return {message: locationErrorMessage}
-		else if (!formData.options.driverAgeIsOk) return {message: ageErrorMessage}
+		else if (!formData.driverAgeIsOk) return {message: ageErrorMessage}
 		else return {ok: true}
 	}
 
@@ -126,6 +128,7 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 				onSubmit={isFullForm ? form.submit : redirectToFullForm}
 				{...props}
 			>
+				{form.isPending && <Loader className={classes.loader} />}
 				<Location
 					className={classes.location}
 					activeDataType={activeDataType}
@@ -138,7 +141,9 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 					setActiveDataType={setActiveDataType}
 					modif={elemModif}
 				/>
-				<Button className={classes.submitBtn}>?_Reserve</Button>
+				<ModalLink name={userID ? '' : 'login'}>
+					<Button className={classes.submitBtn}>?_Reserve</Button>
+				</ModalLink>
 
 				<Options className={classes.options} modif={elemModif} />
 

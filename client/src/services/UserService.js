@@ -41,6 +41,15 @@ const UserService = {
 			.catch(error => handleError(error))
 	},
 
+	async registerGuest(username, password, currency = null, language = null, cookieAccepted = false, name) {
+		return api.post('/user/addguest', {email: username, password, currency, language, cookieAccepted, name})
+			.then(response => {
+				updateStorage(response.data)
+				return {ok: true}
+			})
+			.catch(error => handleError(error))
+	},
+
 	async edit(key, value) {
 		return api.put('/user/edit', { [key]: value })
 			.then(response => {
@@ -104,8 +113,8 @@ async function init() {
 }
 
 function updateStorage(data) {
-	console.log('updateStorage');
-	console.log(data);
+	// console.log('updateStorage');
+	// console.log(data);
 	let token = data.accessToken
 	if (token) localStorage.setItem(TOKEN, token)
 

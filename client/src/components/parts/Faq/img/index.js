@@ -1,10 +1,8 @@
-import { getPictureSet } from '../../../../utilities/utilities'
-import bg from './bg.jpg'
 import bg2 from './bg2.jpg'
+import bg2_2x from './bg2@2x.jpg'
 
 const images = {
-	bg: getPictureSet(bg),
-	bg2: getPictureSet(bg2)
+	bg2: [bg2, bg2_2x]
 }
 
 export default images

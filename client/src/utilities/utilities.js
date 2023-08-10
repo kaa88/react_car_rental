@@ -34,12 +34,3 @@ export function getRandomId(length = 10) {
 	}
 	return result
 }
-
-export function getPictureSet(path) {
-	let split = path.split('/')
-	let [name] = split[split.length - 1].split('.')
-	return [
-		path,
-		path.replace(name, name + '@2x')
-	]
-}

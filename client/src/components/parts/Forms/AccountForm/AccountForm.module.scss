@@ -16,10 +16,6 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 5;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(255,255,255,0.5);
 }
 .title {
 	font-size: 24px;
@@ -92,10 +88,11 @@ body .checkbox {
 	}
 }
 .formMessage {
-	margin-left: 20px;
+	// margin-left: 20px;
 	font-size: 20px;
 	min-height: 24px;
 	color: var(--color08);
+	text-align: center;
 	&.error {
 		color: var(--color07);
 	}
@@ -182,4 +179,11 @@ body .checkbox {
 
 .inputFile {
 	margin-top: 16px;
+}
+
+.guestButton {
+	margin-top: 20px;
+	padding: 5px 15px;
+	font-size: 20px;
+	background-color: var(--color05);
 }

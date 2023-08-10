@@ -1,18 +1,16 @@
-// Snippets: cc (var), c (color:var), bgc (bg-color:var), bc (border-color:var)
-
 // Colors //
-// place the new theme above the basic theme
-// body.theme-dark {
-// 	--color01: #000;
-// 	--color02: #fff;
-// }
+
 body {
 // I use css-variables because it's easy to add new color themes.
 // Do not set color transition here, it doesn't work with ccs-var that way.
 	--color01: #ffffff; // primary
-	--color02: #290202; // secondary
-	--color02a:#29020299; // secondary alpha
-	--color03: #FE0000; // accent
+	--color01a: #ffffff99; // primary alpha
+	// --color02: #290202; // secondary
+	// --color02a: #29020299; // secondary alpha
+	--color02: #201d29; // secondary
+	--color02a: #201d2999; // secondary alpha
+	// --color03: #FE0000; // accent
+	--color03: #e30f1f; // accent
 	--color04: #E0CC19; // additional
 	--color05: #ddd; // ui elements (scrollbar, etc.)
 	--color06: #333; // decoration (shadows, etc.)

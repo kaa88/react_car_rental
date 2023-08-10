@@ -18,7 +18,7 @@ const userController = {
 		return res.json({userData})
 	},
 
-	async add(req, res, next) {
+	async add(req, res, next, role = 'USER') {
 		let errors = validationResult(req)
 		if (!errors.isEmpty()) return next(ApiError.badRequest('Validation failed', errors))
 
@@ -29,7 +29,7 @@ const userController = {
 
 		let hashPassword = await bcrypt.hash(password, 5)
 		req.body.password = hashPassword
-		req.body.role = 'USER'
+		req.body.role = role
 		req.body.isActivated = false
 
 		let newUser = await defaultController.add( req, res, next, user, true )
@@ -37,6 +37,10 @@ const userController = {
 		let {accessToken, refreshToken} = TokenService.generateToken({id: newUser.id, email, role: req.body.role})
 		res.cookie(...getCookieSettings(refreshToken))
 		return res.json({userData, accessToken})
+	},
+
+	async addGuest(req, res, next) {
+		return await userController.add(req, res, next, 'GUEST')
 	},
 
 	async edit(req, res, next) {
@@ -189,10 +193,10 @@ class UserDTO {
 
 class EditableFields {
 	constructor(body) {
-		if (body.name) this.name = body.name
-		if (body.image) this.image = body.image
-		if (body.language) this.language = body.language
-		if (body.currency) this.currency = body.currency
-		if (body.cookieAccepted) this.cookieAccepted = body.cookieAccepted
+		this.name = body.name
+		this.image = body.image
+		this.language = body.language
+		this.currency = body.currency
+		this.cookieAccepted = body.cookieAccepted
 	}
 }

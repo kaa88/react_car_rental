@@ -17,6 +17,9 @@
 	border: solid 1px var(--color03);
 	user-select: none;
 	transition: background-color $timer-hover, color $timer-hover, fill $timer-hover;
+	@media print {
+		display: none;
+	}
 }
 .default, .negative:hover {
 	background-color: var(--color03);

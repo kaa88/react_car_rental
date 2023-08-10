@@ -5,7 +5,7 @@ import RestorePasswordForm from '../../parts/Forms/AccountForm/RestorePasswordFo
 import UserLoggedInAlert from '../../parts/Alerts/UserLoggedInAlert/UserLoggedInAlert';
 import FeedbackForm from '../../parts/Forms/FeedbackForm/FeedbackForm';
 
-export const names = {
+export const staticNames = {
 	login: 'login',
 	register: 'register',
 	restore_password: 'restore_password',

@@ -13,6 +13,13 @@ router.post(
 	// body('password').isStrongPassword(passwordValidationSettings),
 	userController.add
 )
+router.post(
+	'/addguest',
+	body('email').isEmail(),
+	body('password').isLength({min: 4}), // temp
+	// body('password').isStrongPassword(passwordValidationSettings),
+	userController.addGuest
+)
 router.delete('/delete', tokenMiddleware, userController.delete)
 router.put('/edit', tokenMiddleware, userController.edit)
 router.put(

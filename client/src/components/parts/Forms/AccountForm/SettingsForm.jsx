@@ -20,6 +20,7 @@ const SettingsForm = memo(function SettingsForm() {
 	const userData = useSelector(state => state.user)
 	const userName = userData ? userData.name : ''
 	const userPhoto = userData ? userData.image : ''
+	const userRole = userData ? userData.role : ''
 
 	const submit = async function() {
 		const defaultMessage = {
@@ -172,10 +173,15 @@ const SettingsForm = memo(function SettingsForm() {
 						</Button>
 					</InputFile>
 				</div>
-				<div className={classes.settingsSubmit}>
-					<Button className={`${classes.button} ${classes.settingsSubmitBtn}`}>?_Save changes</Button>
-					<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>?_{form.message}</p>
-				</div>
+				{userRole === 'GUEST'
+					?<div className={classes.settingsSubmit}>
+						<p className={`${classes.formMessage} ${classes.error}`}>?_Guests can not edit settings. If you want to customize your account, please register a new one as "User"</p>
+					</div>
+					:<div className={classes.settingsSubmit}>
+						<Button className={`${classes.button} ${classes.settingsSubmitBtn}`}>?_Save changes</Button>
+						<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>?_{form.message}</p>
+					</div>
+				}
 			</form>
 		</TranslateHandler>
 	)

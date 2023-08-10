@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const name = 'reservationForm'
 const defaultState = {
 	id: null,
-	location: '',
+	location: null,
 	pickup: 0,
 	return: 0,
 	selectorCurrentMonth: Date.now(),
@@ -34,9 +34,10 @@ export const reservationFormSlice = createSlice({
 			sessionStorage.setItem(name, JSON.stringify(state))
 		},
 		resetReservation(state) {
-			Object.entries(defaultState).forEach(([key, defaultValue]) => {
-				state[key] = defaultValue
-			})
+			// Object.entries(defaultState).forEach(([key, defaultValue]) => {
+			// 	state[key] = defaultValue
+			// })
+			state = defaultState
 			sessionStorage.setItem(name, JSON.stringify(defaultState))
 		},
 	}

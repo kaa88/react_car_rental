@@ -1,14 +1,12 @@
 # TO DO:
-- user role 'GUEST' with 'frozen' settings
 - minify (webpack)
-- print.scss - move specific styles inside the component
 - cookie popup
 - forms spam-bot check (invisible field)
 - rotation alert
-- change colors
 - detect unnecessary renders
 - check sizes on 100% scale view (use 'em')
-- set server .env variables: (allow_feedback_edit, allow_user_add...)
+- loader styles in components
+- loader errors
 
 ========
 
@@ -20,4 +18,3 @@
 ===================
 
 Continue:
-check form options

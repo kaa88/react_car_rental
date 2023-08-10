@@ -39,7 +39,6 @@ const LoginForm = memo(function LoginForm({modif = DEFAULT_MOD}) {
 			{name: 'password', type: 'password', required: true},
 		]
 	})
-	console.log(form);
 
 	return (
 		<TranslateHandler>
@@ -81,7 +80,7 @@ const LoginForm = memo(function LoginForm({modif = DEFAULT_MOD}) {
 					>
 						?_Don't have account
 					</OptionalLink>
-
+					
 				</Container>
 			</form>
 		</TranslateHandler>

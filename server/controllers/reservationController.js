@@ -89,13 +89,13 @@ class ReservationDTO {
 
 class EditableFields {
 	constructor(body) {
-		this.id = body.id // not editable, but needed to find user
-		if (body.pickupDate) this.pickupDate = body.pickupDate
-		if (body.returnDate) this.returnDate = body.returnDate
-		if (body.location) this.location = body.location
-		if (body.price) this.price = body.price
-		if (body.carId) this.carId = body.carId
-		if (body.isInactive) this.isInactive = body.isInactive
-		if (body.sameLocationReturn) this.sameLocationReturn = body.sameLocationReturn
+		this.id = body.id // not editable, but is needed to find user
+		this.pickupDate = body.pickupDate
+		this.returnDate = body.returnDate
+		this.location = body.location
+		this.price = body.price
+		this.carId = body.carId
+		this.isInactive = body.isInactive
+		this.sameLocationReturn = body.sameLocationReturn
 	}
 }

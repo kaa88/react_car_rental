@@ -20,7 +20,7 @@ const Faq = memo(function Faq() {
 					<Image src={images.bg2} />
 				</div>
 				<Container>
-					<h3 className={classes.title}>F.A.Q</h3>
+					<h3 className={classes.title}>?_F.A.Q</h3>
 
 					<div className={classes.faqItems}>
 						{faqData.map((item, index) =>

@@ -19,13 +19,13 @@ const Options = memo(function Options({modif = 'light', className = '', ...props
 	const formData = useSelector(state => state.reservationForm)
 	const formDataOptions = {
 		[DRIVER_AGE]: formData[DRIVER_AGE],
-		[DIFFERENT_LOCATION_RETURN]: formData[DRIVER_AGE]
+		[DIFFERENT_LOCATION_RETURN]: formData[DIFFERENT_LOCATION_RETURN]
 	}
 
 	function setFormDataOptions(value) {
 		dispatch(setReservation({
 			[DRIVER_AGE]: value[DRIVER_AGE],
-			[DIFFERENT_LOCATION_RETURN]: value[DRIVER_AGE]
+			[DIFFERENT_LOCATION_RETURN]: value[DIFFERENT_LOCATION_RETURN]
 		}))
 	}
 

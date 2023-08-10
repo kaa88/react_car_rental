@@ -20,10 +20,10 @@ const Contacts = memo(function Contacts({className = '', ...props}) {
 					<Link className={classes.contactsItemLink} href='mailto:mail@example.com'>mail@example.com</Link>
 				</div>
 				<div className={classes.socials}>
-					<Button className={classes.socialBtn}>
+					<Button className={classes.socialBtn} title='Instagram'>
 						<Icon className={classes.instagram} name='icon-instagram' size='20px' />
 					</Button>
-					<Button className={classes.socialBtn}>
+					<Button className={classes.socialBtn} title='Telegram'>
 						<Icon className={classes.telegram} name='icon-telegram' size='20px' />
 					</Button>
 				</div>

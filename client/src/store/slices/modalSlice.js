@@ -8,13 +8,16 @@ export const modalSlice = createSlice({
 	},
 	reducers: {
 		setActiveModal(state, action) {
-			if (!action.payload) state.active = ''
-			if (typeof action.payload === 'string') state.active = action.payload
+			if (!action.payload) state.active = state.content = ''
+			if (typeof action.payload === 'string') {
+				state.active = action.payload
+				state.content = ''
+			}
 			if (typeof action.payload === 'object' && !Array.isArray(action.payload)) {
 				state.active = action.payload.name || ''
-				if (action.payload.content) state.content = action.payload.content
+				state.content = action.payload.content || ''
 			}
-		},
+		}
 	}
 })
 

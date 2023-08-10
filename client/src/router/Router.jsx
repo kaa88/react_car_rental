@@ -5,6 +5,7 @@ import ErrorPage from "./pages/ErrorPage";
 import TermsPage from "./pages/TermsPage";
 import PolicyPage from "./pages/PolicyPage";
 import RequireAuth from "./RequireAuth";
+import RequireNoAuth from "./RequireNoAuth";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import RestorePasswordPage from "./pages/RestorePasswordPage";
@@ -42,15 +43,27 @@ function Router() {
 		},
 		{
 			path: '/login',
-			element: <LoginPage />,
+			loader: defaultLoader,
+			element:
+				<RequireNoAuth>
+					<LoginPage />
+				</RequireNoAuth>,
 		},
 		{
 			path: '/register',
-			element: <RegisterPage />,
+			loader: defaultLoader,
+			element:
+				<RequireNoAuth>
+					<RegisterPage />
+				</RequireNoAuth>,
 		},
 		{
 			path: '/restore_password',
-			element: <RestorePasswordPage />,
+			loader: defaultLoader,
+			element:
+				<RequireNoAuth>
+					<RestorePasswordPage />
+				</RequireNoAuth>,
 		},
 		{
 			path: '/terms',

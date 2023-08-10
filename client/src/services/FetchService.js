@@ -12,25 +12,37 @@ const FetchService = {
 			})
 	},
 	async getCars() {
+		if (cache.cars) return cache.cars
 		return api.get('/cars')
-			.then(response => response.data || [])
+			.then(response => {
+				let data = response.data || []
+				return cache.cars = data
+			})
 			.catch(error => {
 				console.log(error)
 				return []
 			})
 	},
 	async getCarParams() {
+		if (cache.carParams) return cache.carParams
 		return api.get('/carparams')
-			.then(response => response.data || [])
-			.catch(error => {
+		.then(response => {
+			let data = response.data || []
+			return cache.carParams = data
+		})
+		.catch(error => {
 				console.log(error)
 				return []
 			})
 	},
 	async getCarOptions() {
+		if (cache.carOptions) return cache.carOptions
 		return api.get('/caroptions')
-			.then(response => response.data || [])
-			.catch(error => {
+		.then(response => {
+			let data = response.data || []
+			return cache.carOptions = data
+		})
+		.catch(error => {
 				console.log(error)
 				return []
 			})
@@ -46,3 +58,10 @@ const FetchService = {
 }
 
 export default FetchService
+
+
+const cache = {
+	cars: null,
+	carParams: null,
+	carOptions: null,
+}

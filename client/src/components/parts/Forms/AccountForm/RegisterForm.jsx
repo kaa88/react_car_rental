@@ -13,6 +13,7 @@ import Loader from '../../../ui/Loader/Loader';
 import UserService from '../../../../services/UserService';
 import OptionalLink from './OptionalLink';
 import { useNavigate } from 'react-router-dom';
+import { getRandomId } from '../../../../utilities/utilities';
 
 const DEFAULT_MOD = 'default'
 const MODAL_MOD = 'modal'
@@ -38,6 +39,16 @@ const RegisterForm = memo(function RegisterForm({modif = DEFAULT_MOD}) {
 		else navigate('/')
 	}
 
+	async function createGuest() {
+		let email = `${getRandomId(10)}@guest.user`
+		let password = `0Gu-${getRandomId(4)}`
+		let userName = `Guest-${getRandomId(5)}`
+		let {error} = await UserService.registerGuest(email, password, currency, language, cookieAccepted, userName)
+		if (error) return console.error(error)
+		if (modif === MODAL_MOD) dispatch(setActiveModal('user_logged_in'))
+		else navigate('/')
+	}
+
 	const form = useForm({
 		action: handleRegister,
 		fields: [
@@ -47,7 +58,6 @@ const RegisterForm = memo(function RegisterForm({modif = DEFAULT_MOD}) {
 			{name: 'agreement', type: 'checkbox', required: true},
 		]
 	})
-	console.log(form);
 
 	return (
 		<TranslateHandler>
@@ -82,9 +92,9 @@ const RegisterForm = memo(function RegisterForm({modif = DEFAULT_MOD}) {
 					>
 						<span className={classes.checkboxText}>
 							<span>?_I have read and agreed with</span>
-							<a className={classes.link} href="#" target='_blank'>?_terms</a>
+							<a className={classes.link} href="/terms" target='_blank'>?_terms</a>
 							<span>?_&</span>
-							<a className={classes.link} href="#" target='_blank'>?_conditions</a>
+							<a className={classes.link} href="/policy" target='_blank'>?_conditions</a>
 						</span>
 					</InputCheckbox>
 
@@ -99,6 +109,10 @@ const RegisterForm = memo(function RegisterForm({modif = DEFAULT_MOD}) {
 					>
 						?_Already have account
 					</OptionalLink>
+
+					<button className={classes.guestButton} type='button' onClick={createGuest}>
+						?_Create new Guest account
+					</button>
 
 				</Container>
 			</form>

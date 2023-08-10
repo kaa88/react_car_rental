@@ -3,7 +3,7 @@ import Icon from '../../../ui/Icon/Icon';
 import TranslateHandler from '../../../TranslateHandler';
 
 const CarParams = function({car, carParams, className = ''}) {
-
+	
 	return (
 		<TranslateHandler>
 			<div className={`${className} ${classes.wrapper}`}>

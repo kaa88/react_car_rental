@@ -50,9 +50,6 @@ const Header = memo(function Header() {
 						<Logo className={classes.logo} />
 						<HeaderMenu className={classes.menu} />
 						<HeaderAccount />
-						{/* <!-- script will add current page href if print-address tag is empty --> */}
-						<div className={classes.printAddress}></div>
-						<div className={classes.printAddressQr}></div>
 					</Container>
 				</div>
 

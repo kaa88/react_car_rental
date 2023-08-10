@@ -26,6 +26,8 @@ const Cars = memo(function Cars() {
 
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
+	const userID = useSelector(state => state.user.id)
+
 
 	// carData
 	const defaultCarData = {
@@ -51,10 +53,13 @@ const Cars = memo(function Cars() {
 	const modalName = 'cars'
 
 	function getModalContent(index) {
-		return <CarModalContent carIndex={index} carData={carData} />
+		return <CarModalContent carId={index} carData={carData} />
 	}
 
 	function createReservation(e) {
+		console.log('createReservation');
+
+		if (!userID) return;
 		dispatch(setReservation({car: carData.cars.find(item => item.id === Number(e.currentTarget.dataset.carId))}))
 		navigate('/reservation')
 	}
@@ -68,8 +73,10 @@ const Cars = memo(function Cars() {
 					<CarParams className={classes.carParams} car={car} carParams={carData.params} />
 					<CarPrice className={classes.carPrice} car={car} />
 					<div className={classes.actionButtons}>
-						<Button className={classes.actionBtn} data-car-id={car.id} onClick={createReservation}>?_Book now</Button>
-						<ModalLink name={modalName} content={getModalContent.bind(null, index)}>
+						<ModalLink name={userID ? '' : 'login'}>
+							<Button className={classes.actionBtn} data-car-id={car.id} onClick={createReservation}>?_Book now</Button>
+						</ModalLink>
+						<ModalLink name={modalName} content={getModalContent.bind(null, car.id)}>
 							<Button className={classes.infoBtn} data-car-id={car.shortName} modif='negative'>?_View details</Button>
 						</ModalLink>
 					</div>

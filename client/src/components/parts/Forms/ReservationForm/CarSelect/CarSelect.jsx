@@ -13,6 +13,7 @@ import Button from '../../../../ui/Button/Button';
 import Icon from '../../../../ui/Icon/Icon';
 import ModalLink from '../../../../ui/Modal/ModalLink';
 import Loader from '../../../../ui/Loader/Loader';
+import CarModalContent from '../../../Cars/CarModalContent/CarModalContent';
 
 
 const CarSelect = memo(function CarSelect({className = '', ...props}) {
@@ -63,6 +64,11 @@ const CarSelect = memo(function CarSelect({className = '', ...props}) {
 		)
 	}
 
+	function getModalContent(id) {
+		console.log(carData);
+		return <CarModalContent carId={id} carData={carData} modif='reservation' />
+	}
+
 	return (
 		<TranslateHandler>
 			<div className={`${className} ${classes.wrapper}`} {...props}>
@@ -70,7 +76,7 @@ const CarSelect = memo(function CarSelect({className = '', ...props}) {
 				<div className={classes.info}>
 					<CarImage className={classes.carImage} car={selectedCar} />
 					<CarParams className={classes.carParams} car={selectedCar} carParams={carData.params} />
-					<ModalLink name=''>
+					<ModalLink name='carSelect' content={() => getModalContent(selectedCar.id)}>
 						<Button className={classes.infoBtn} type='button' modif='negative'>?_View details</Button>
 					</ModalLink>
 				</div>

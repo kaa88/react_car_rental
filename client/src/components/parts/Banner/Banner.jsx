@@ -38,7 +38,7 @@ const Banner = memo(function Banner() {
 
 				<div className={classes.form}>
 					<div className={classes.bg}>
-						<Image src={images.bg} />
+						<Image src={images.bg1} />
 					</div>
 					<Container className={classes.container}>
 						<h3 className={`${classes.formTitle} color01 fz36 tac`}>

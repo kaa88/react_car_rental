@@ -7,7 +7,7 @@ import { transitionIsLocked } from '../../../utilities/transitionLock';
 
 const timeout = getCssVariable('timer-modal')*1000
 
-const ModalLink = memo(function ModalLink({ name = '', content = '', children, onClick = function(){} }) {
+const ModalLink = memo(function ModalLink({ name = '', content = '', children }) {
 	
 	const dispatch = useDispatch()
 
@@ -22,10 +22,10 @@ const ModalLink = memo(function ModalLink({ name = '', content = '', children, o
 		else return ''
 	}
 
-	function showModal() {
+	function showModal(e) {
 		if (transitionIsLocked(timeout)) return;
 		dispatch(setActiveModal({name, content: getContent()}))
-		onClick()
+		if (children.props.onClick) children.props.onClick(e)
 	}
 
 	const newProps = {...children.props, onClick: showModal}

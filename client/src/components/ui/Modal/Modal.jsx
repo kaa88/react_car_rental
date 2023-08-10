@@ -7,50 +7,57 @@ import { transitionIsLocked } from '../../../utilities/transitionLock';
 import TranslateHandler from '../../TranslateHandler';
 import classes from './Modal.module.scss';
 import Icon from '../Icon/Icon';
-import ModalStaticContent, { names } from './ModalStaticContent';
+import ModalStaticContent, { staticNames } from './ModalStaticContent';
 import { scriptManager } from '../../../utilities/scriptManager';
 
 // TODO: multi-window modal
 
-const timeout = getCssVariable('timer-modal')*1000
+const timeout = getCssVariable('timer-modal') * 1000
 
 
 const Modal = memo(function Modal({ className = '' }) {
 
 	const dispatch = useDispatch()
-	const {active: activeModal, content} = useSelector(state => state.modal)
-	let [activeClass, setActiveClass] = useState('')
-	let [activeModalForCss, setActiveModalForCss] = useState('')
+	const modalStore = useSelector(state => state.modal)
 
-	let modalContent = ''
-	if (activeModal && Object.keys(names).includes(activeModal))
-		modalContent = <ModalStaticContent name={activeModal} />
-	else modalContent = content
+	const defaultModal = {
+		isActive: false,
+		name: '',
+		content: '',
+	}
+	let [modal, setModal] = useState(defaultModal)
+
 
 	useEffect(() => {
-		if (activeModal && content) openModal()
-		else {
-			closeModal(true)
-			setTimeout(() => {
-				setActiveModalForCss(activeModal) // this one is set with timeout to prevent style changes during the animation
-			}, timeout)
-		}
-	}, [activeModal, content])
+		if (modalStore.active) openModal()
+		else closeModal(true)
+	}, [modalStore])
 
 	const contentRef = useRef()
 
 	function openModal() {
 		lockScroll()
-		setActiveClass(classes.active)
-		setActiveModalForCss(activeModal)
+		setModal({
+			isActive: true,
+			name: modalStore.active,
+			content: modalStore.content || getStaticContent()
+		})
 		contentRef.current.scrollTo({top: 0})
 	}
 	function closeModal(linkEvent) {
-		if (activeModal === null) return;
 		if (!linkEvent && transitionIsLocked(timeout)) return;
 		unlockScroll(timeout)
-		setActiveClass('')
 		dispatch(setActiveModal(''))
+		setModal({...modal, isActive: false})
+		setTimeout(() => {
+			setModal(defaultModal)
+		}, timeout)
+	}
+
+	function getStaticContent() {
+		if (modalStore.content) return modalStore.content
+		if (Object.keys(staticNames).includes(modalStore.active))
+			return <ModalStaticContent name={modalStore.active}/>
 	}
 
 	useEffect(() => {
@@ -59,14 +66,14 @@ const Modal = memo(function Modal({ className = '' }) {
 	
 	return (
 		<TranslateHandler>
-			<div className={`${className} ${classes.default} ${activeClass}`} name={activeModalForCss}>
+			<div className={`${className} ${classes.default} ${modal.isActive ? classes.active : ''}`} name={modal.name}>
 				<div className={classes.closeArea} onClick={closeModal}></div>
 				<div className={classes.wrapper}>
 					<div className={classes.closeButton} onClick={closeModal}>
 						<Icon name='icon-cross' />
 					</div>
 					<div className={classes.content} ref={contentRef}>
-						{modalContent}
+						{modal.content}
 					</div>
 				</div>
 			</div>

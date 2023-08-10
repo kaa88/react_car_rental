@@ -4,13 +4,13 @@ import TranslateHandler from '../../../TranslateHandler';
 import ModalLink from '../../../ui/Modal/ModalLink';
 import Button from '../../../ui/Button/Button';
 
-const UserLoggedInAlert = function({className = '', ...praps}) {
+const UserLoggedInAlert = function({className = '', ...props}) {
 
 	const username = useSelector(state => state.user.name)
 
 	return (
 		<TranslateHandler>
-			<div className={`${className} ${classes.alert}`} {...praps}>
+			<div className={`${className} ${classes.alert}`} {...props}>
 				<p className={classes.title}>
 					?_Greetings
 				</p>

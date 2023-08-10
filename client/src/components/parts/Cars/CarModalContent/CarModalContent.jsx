@@ -8,18 +8,30 @@ import CarName from '../CarName/CarName';
 import CarOptions from '../CarOptions/CarOptions';
 import CarParams from '../CarParams/CarParams';
 import TranslateHandler from '../../../TranslateHandler';
+import { useNavigate } from 'react-router-dom';
+import { setReservation } from '../../../../store/slices/reservationFormSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
-const CarModalContent = function({carIndex = 0, carData = {}, className = ''}) {
+const CarModalContent = function({carId, carData = {}, modif = ''}) {
 
+	const navigate = useNavigate()
+	const dispatch = useDispatch()
+	const userID = useSelector(state => state.user.id)
 	const modalName = 'cars'
 
-	const car = carData.cars[carIndex] || {}
+	const car = carData.cars.find(item => item.id === carId)
 	const currentSlideModalContent = {
-		carId: car.shortName || '',
+		carId: car ? car.shortName : '',
 		carName: <CarName className={classes.carName} car={car} />,
 		carImage: <CarImage className={classes.carImage} car={car} />,
 		carParams: <CarParams className={classes.carParams} car={car} carParams={carData.params} />,
 		carOptions: <CarOptions className={classes.carOptions} car={car} optionNames={carData.options} />,
+	}
+
+	function createReservation(e) {
+		if (!userID) return;
+		dispatch(setReservation({car}))
+		navigate('/reservation')
 	}
 
 	function getModalContent() {
@@ -37,7 +49,11 @@ const CarModalContent = function({carIndex = 0, carData = {}, className = ''}) {
 							<Icon className={classes.readMoreBtnIcon} name='icon-arrow-short' />
 						</div>
 					</ModalLink>
-					<Button className={classes.actionBtn} data-car-id={content.carId}>?_Book now</Button>
+					{modif !== 'reservation' &&
+						<ModalLink name={userID ? '' : 'login'}>
+							<Button className={classes.actionBtn} data-car-id={content.carId} onClick={createReservation}>?_Book now</Button>
+						</ModalLink>
+					}
 					<ModalLink name=''>
 						<div className={classes.returnButton}>?_Return</div>
 					</ModalLink>

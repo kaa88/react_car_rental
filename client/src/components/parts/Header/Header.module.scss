@@ -26,6 +26,9 @@
 	&.sharing-z {
 		z-index: 501;
 	}
+	@media print {
+		display: none;
+	}
 }
 
 .level {
@@ -76,5 +79,3 @@ body .menu {
 		justify-content: flex-start;
 	}
 }
-
-.printAddress, .printAddressQr {display: none;} //REQ!
