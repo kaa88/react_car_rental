@@ -1,4 +1,5 @@
 # TO DO:
+- translate
 - minify (webpack)
 - cookie popup
 - forms spam-bot check (invisible field)
