@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../../../hooks/useForm';
 import { setActiveModal } from '../../../../store/slices/modalSlice';
@@ -22,8 +22,7 @@ const RegisterForm = memo(function RegisterForm({modif = DEFAULT_MOD}) {
 
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
-	const userData = useSelector(state => state.user)
-	const cookieAccepted = userData.cookieAccepted || false
+	const cookieAccepted = useSelector(state => state.user.cookieAccepted)
 	const language = useSelector(state => state.language.current)
 	const currency = useSelector(state => state.currency.current)
 
@@ -39,12 +38,15 @@ const RegisterForm = memo(function RegisterForm({modif = DEFAULT_MOD}) {
 		else navigate('/')
 	}
 
+	let [guestIsPending, setGuestIsPending] = useState(false)
 	async function createGuest() {
+		setGuestIsPending(true)
 		let email = `${getRandomId(10)}@guest.user`
 		let password = `0Gu-${getRandomId(4)}`
 		let userName = `Guest-${getRandomId(5)}`
 		let {error} = await UserService.registerGuest(email, password, currency, language, cookieAccepted, userName)
 		if (error) return console.error(error)
+		setGuestIsPending(false)
 		if (modif === MODAL_MOD) dispatch(setActiveModal('user_logged_in'))
 		else navigate('/')
 	}
@@ -79,7 +81,7 @@ const RegisterForm = memo(function RegisterForm({modif = DEFAULT_MOD}) {
 		<TranslateHandler>
 			<form className={classes.form} action="#" onSubmit={form.submit}>
 				<Container className={classes.container}>
-					{form.isPending && <Loader className={classes.loader} />}
+					{(form.isPending || guestIsPending) && <Loader className={classes.loader} />}
 					<div className={classes.title}>?_Registration</div>
 
 					<InputText

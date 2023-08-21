@@ -35,7 +35,7 @@ export function getRandomId(length = 10) {
 	return result
 }
 
-export async function _wait_(seconds = 5) {
+export async function _wait_(seconds = 3) {
 	return new Promise((resolve) => {
 		setTimeout(() => resolve(), seconds * 1000)
 	})

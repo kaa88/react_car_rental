@@ -58,8 +58,6 @@ const Cars = memo(function Cars() {
 	}
 
 	function createReservation(e) {
-		console.log('createReservation');
-
 		if (!userID) return;
 		dispatch(setReservation({car: carData.cars.find(item => item.id === Number(e.currentTarget.dataset.carId))}))
 		navigate('/reservation')

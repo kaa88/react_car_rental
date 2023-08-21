@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from '../../../../hooks/useForm';
 import classes from './AccountForm.module.scss';
@@ -17,10 +17,9 @@ const IMAGE_DIR = process.env.REACT_APP_USER_PHOTOS_DIR
 
 const SettingsForm = memo(function SettingsForm() {
 
-	const userData = useSelector(state => state.user)
-	const userName = userData ? userData.name : ''
-	const userPhoto = userData ? userData.image : ''
-	const userRole = userData ? userData.role : ''
+	const userName = useSelector(state => state.user.name)
+	const userPhoto = useSelector(state => state.user.image)
+	const userRole = useSelector(state => state.user.role)
 
 	const submit = async function() {
 		const defaultMessage = {

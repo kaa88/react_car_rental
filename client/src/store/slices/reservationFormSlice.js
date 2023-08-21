@@ -23,7 +23,6 @@ export const reservationFormSlice = createSlice({
 			let values = action.payload
 			if (typeof values !== 'object' || Array.isArray(values))
 				return console.error(`'${name}' action payload must be an 'object'`)
-			console.log(values);
 
 			Object.entries(defaultState).forEach(([key, defaultValue]) => {
 				if (values[key] !== undefined) {

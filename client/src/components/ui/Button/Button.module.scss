@@ -2,10 +2,6 @@
 
 .default, .negative {
 	@include text-max-lines(2);
-	// display: inline-flex;
-	// justify-content: center;
-	// align-items: center;
-	// width: 100%;
 	max-width: 250px;
 	height: 43px;
 	padding: 0 10px;

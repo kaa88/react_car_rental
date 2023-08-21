@@ -1,4 +1,3 @@
-import React from 'react';
 import classes from './Button.module.scss';
 
 
@@ -8,8 +7,6 @@ function Button({
 	children = 'Button',
 	...props
 }) {
-
-	// console.log(className);
 
 	return (
 		<button className={`${className} ${classes[modif]}`} {...props}>

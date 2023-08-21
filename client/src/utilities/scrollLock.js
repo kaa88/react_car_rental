@@ -1,16 +1,6 @@
 /* 
 	Module prevents window scrolling with menu, modals, etc. and
 	prevents content jumps when scrollbar fades out.
-	
-	Add classes to components which you want to prevent jumping:
-	- 'scroll-lock-item-p' class - for static elems ('padding-right' prop.)
-	- 'scroll-lock-item-m' class - for fixed elems ('margin-right' prop.)
-	- 'scroll-lock-item-pm' class - for static elems that will be hidden in menu
-		(they will get a 'padding-right' prop. only on desktop width)
-
-	Usable functions:
-		scrollLock.lock()
-		scrollLock.unlock( *timeout* )
 */
 const lockedClassName = 'scroll-is-locked'
 const cssVarName = '--scrollbar-width'

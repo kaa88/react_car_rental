@@ -56,7 +56,6 @@ const TimeSelect = memo(function TimeSelect({
 
 	const timeList = useMemo(() => script.getTimeList(), [])
 
-	// console.log('render TimeSelect');
 	return (
 		<TranslateHandler>
 			<Popup className={classes.popup} name={dataType} modif='noCloseButton' {...props}>

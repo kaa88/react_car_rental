@@ -2,65 +2,44 @@ import api from "../api/api";
 
 
 const FetchService = {
-	async getCurrency() {
-		return api.get('/currency')
-			.then(response => response.data || [])
-			.catch(error => {
-				console.log(error)
-				return []
-			})
-	},
 	async getCars() {
-		if (cache.cars) return cache.cars
-		return api.get('/cars')
-			.then(response => {
-				let data = response.data || []
-				return cache.cars = data
-			})
-			.catch(error => {
-				console.log(error)
-				return []
-			})
+		return await defaultGet('cars')
 	},
 	async getCarParams() {
-		if (cache.carParams) return cache.carParams
-		return api.get('/carparams')
-		.then(response => {
-			let data = response.data || []
-			return cache.carParams = data
-		})
-		.catch(error => {
-				console.log(error)
-				return []
-			})
+		return await defaultGet('carparams')
 	},
 	async getCarOptions() {
-		if (cache.carOptions) return cache.carOptions
-		return api.get('/caroptions')
-		.then(response => {
-			let data = response.data || []
-			return cache.carOptions = data
-		})
-		.catch(error => {
-				console.log(error)
-				return []
-			})
+		return await defaultGet('caroptions')
+	},
+	async getCurrency() {
+		return await defaultGet('currency')
 	},
 	async getFeedback() {
-		return api.get('/feedback?max=5&order=desc')
-			.then(response => response.data || [])
-			.catch(error => {
-				console.log(error)
-				return []
-			})
+		return await defaultGet('feedback', 'feedback?max=5&order=desc')
 	},
 }
-
 export default FetchService
 
 
+async function defaultGet(name, endpoint) {
+	if (!name) return;
+	if (!endpoint) endpoint = name
+	if (cache[name]) return cache[name]
+	return api.get(`/${endpoint}`)
+		.then(response => {
+			let data = response.data || []
+			return cache[name] = data
+		})
+		.catch(error => {
+			console.log(error)
+			return []
+		})
+}
+
 const cache = {
 	cars: null,
-	carParams: null,
-	carOptions: null,
+	carparams: null,
+	caroptions: null,
+	currency: null,
+	feedback: null,
 }

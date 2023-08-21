@@ -19,7 +19,7 @@
 	height: 100vh; //REQ!
 	background-color: rgba(0, 0, 0, 0.5);
 	backdrop-filter: blur(2px);
-	cursor: pointer; // for customer test
+	cursor: pointer;
 	opacity: 0; //REQ!
 	visibility: hidden; //REQ!
 	transition: opacity $timer-menu, visibility $timer-menu;

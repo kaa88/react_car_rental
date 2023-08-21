@@ -136,7 +136,6 @@
 .bookingItem, .historyItem {
 	width: 100%;
 	position: relative;
-	// padding-left: 24px;
 	&:before {
 		content: '';
 		position: absolute;
@@ -148,31 +147,17 @@
 		background-color: var(--color02);
 	}
 	&:nth-child(4n-3) {
-		// padding-left: 0;
 		&:before {display: none;}
 	}
-	// &:not(:nth-child(4n)) {
-		// padding-right: 24px;
-	// }
 	@media (max-width: $media-t+px) {
 		&:nth-child(odd) {
-			// padding-left: 0;
 			&:before {display: none;}
 		}
-		// &:nth-child(even) {
-		// 	padding-right: 0;
-		// }
 	}
 	@media (max-width: $media-ml+px) {
 		&:before {
 			left: -15px;
 		}
-		// 	&:nth-child(odd) {
-	// 		padding-right: 15px;
-	// 	}
-	// 	&:nth-child(even) {
-	// 		padding-left: 15px;
-	// 	}
 	}
 	@media (max-width: $media-m+px) {
 		&:nth-child(n+1) {

@@ -74,8 +74,8 @@ const Menu = {
 		lockScroll()
 		this.dispatch(setMenuActive(true))
 		exportActiveStateToMetrics(true)
-		// this.closeOtherModules() 						// script manager will do it
-		// this.headerScript.scrollIntoView() 			// header will do it
+		// this.closeOtherModules()
+		// this.headerScript.scrollIntoView()
 		// this.onMenuOpen()
 	},
 	closeMenu() {

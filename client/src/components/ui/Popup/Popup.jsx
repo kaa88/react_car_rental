@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './Popup.module.scss';
 import TranslateHandler from '../../TranslateHandler';

@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './Totals.module.scss';
 import TranslateHandler from '../../../../TranslateHandler';
@@ -24,9 +24,9 @@ const Totals = memo(function Totals({className = '', ...props}) {
 	const currencyRate = currency.rates[currencyName]
 
 	let totalPrice = 0
-	let selectedCurrencyCarPrice = Math.round((selectedCar.price || 0) * currencyRate)
+	let selectedCurrencyCarPrice = Math.round((selectedCar?.price || 0) * currencyRate)
 	let selectedCurrencyLocationTax = Math.round(differentLocationTax * currencyRate)
-	if (selectedCar.price && numOfDays) totalPrice = selectedCurrencyCarPrice * numOfDays + selectedCurrencyLocationTax
+	if (selectedCar?.price && numOfDays) totalPrice = selectedCurrencyCarPrice * numOfDays + selectedCurrencyLocationTax
 	let selectedCurrencyTotalPrice = totalPrice
 
 	useEffect(() => {

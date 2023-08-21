@@ -9,9 +9,6 @@ import InputCheckbox from '../../../../ui/InputCheckbox/InputCheckbox';
 const DRIVER_AGE = 'driverAgeIsOk'
 const DIFFERENT_LOCATION_RETURN = 'isDifferentReturnLocation'
 
-// export const defaultOptions = {}
-// defaultOptions[DRIVER_AGE] = false
-// defaultOptions[DIFFERENT_LOCATION_RETURN] = false
 
 const Options = memo(function Options({modif = 'light', className = '', ...props}) {
 
@@ -35,7 +32,6 @@ const Options = memo(function Options({modif = 'light', className = '', ...props
 		setFormDataOptions(newOptions)
 	}
 
-	// console.log('render Options');
 	return (
 		<TranslateHandler>
 			<div className={`${className} ${classes.options}`} {...props}>

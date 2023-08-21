@@ -4,10 +4,8 @@ import classes from './CarSelect.module.scss';
 import TranslateHandler from '../../../../TranslateHandler';
 import FetchService from '../../../../../services/FetchService';
 import { useFetching } from '../../../../../hooks/useFetching';
-import CarName from '../../../Cars/CarName/CarName';
 import CarImage from '../../../Cars/CarImage/CarImage';
 import CarParams from '../../../Cars/CarParams/CarParams';
-import CarPrice from '../../../Cars/CarPrice/CarPrice';
 import { setReservation } from '../../../../../store/slices/reservationFormSlice';
 import Button from '../../../../ui/Button/Button';
 import Icon from '../../../../ui/Icon/Icon';
@@ -19,7 +17,6 @@ import CarModalContent from '../../../Cars/CarModalContent/CarModalContent';
 const CarSelect = memo(function CarSelect({className = '', ...props}) {
 
 	const dispatch = useDispatch()
-	// const formDataOptions = useSelector(state => state.reservationForm.options)
 	const selectedCar = useSelector(state => state.reservationForm.car)
 
 
@@ -65,7 +62,6 @@ const CarSelect = memo(function CarSelect({className = '', ...props}) {
 	}
 
 	function getModalContent(id) {
-		console.log(carData);
 		return <CarModalContent carId={id} carData={carData} modif='reservation' />
 	}
 

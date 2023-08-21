@@ -8,16 +8,14 @@ import TranslateHandler from '../../../../TranslateHandler';
 import Popup from '../../../../ui/Popup/Popup';
 import Icon from '../../../../ui/Icon/Icon';
 
-/* TODO:
-	translate
-*/
+// TODO: translate
+
 
 const Location = memo(function Location({
 	modif = 'light',
 	className = '',
 	activeDataType = '',
-	setActiveDataType = function(event, value){},
-	...props
+	setActiveDataType = function(event, value){}
 }) {
 	const dataType = 'location'
 	const dispatch = useDispatch()
@@ -29,17 +27,11 @@ const Location = memo(function Location({
 		dispatch(setReservation({location}))
 	}
 
-	// function setFormData(location) {
-	// 	dispatch(setReservation({location}))
-	// }
-
 	useEffect(() => {
 		script.init({setInputValue})
-		// setFormData(defaultInputValue)
 		if (inputValue === null) setInputValue(defaultInputValue)
 	}, [])
 
-	// let [inputValue, setInputValue] = useState(defaultInputValue)
 	let [searchList, setSearchList] = useState(script.getSearchList())
 
 
@@ -51,13 +43,11 @@ const Location = memo(function Location({
 		if (!activeDataType) setActiveDataType(e, dataType)
 		setInputValue(e.target.value)
 		setSearchList(script.filterSearchList(e.target.value))
-		// setFormData('')
 	}
 
 	const handleSearchSelect = function(e){
 		let value = e.target.textContent
 		setInputValue(value)
-		// setFormData(value)
 		setActiveDataType(e, '')
 
 		const transitionDelay = getCssVariable('timer-popup')*1000
@@ -74,7 +64,6 @@ const Location = memo(function Location({
 		))
 	}
 
-	// console.log('render Location');
 	return (
 		<TranslateHandler>
 			<div className={`${className} ${classes[modif]}`}>

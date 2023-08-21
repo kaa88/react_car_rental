@@ -54,7 +54,6 @@ const FeedbackForm = memo(function FeedbackForm() {
 			{name: 'rating', type: 'rating', required: true},
 		]
 	})
-	console.log(form);
 
 	return (
 		<TranslateHandler>

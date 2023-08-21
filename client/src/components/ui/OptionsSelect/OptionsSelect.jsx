@@ -8,10 +8,10 @@ import Icon from '../Icon/Icon';
 import Select from '../Select/Select';
 import UserService from '../../../services/UserService';
 
-const transitionDelay = getCssVariable('timer-select')*1000
+const transitionDelay = getCssVariable('timer-select') * 1000
 
 
-const OptionsSelect = memo(function OptionsSelect({type, className = '', children, ...props}) {
+const OptionsSelect = memo(function OptionsSelect({type}) {
 
 	const dispatch = useDispatch()
 	const Language = useSelector(state => state.language)

@@ -19,15 +19,6 @@
 		height: 1px;
 		background-color: var(--color06);
 	}
-	// @media (min-width: $media-ts+1+px) {
-	// 	.modalReadMoreContent & {
-	// 		margin-top: 40px;
-	// 		margin-bottom: 20px;
-	// 		&:before {
-	// 			display: none;
-	// 		}
-	// 	}
-	// }
 	@media (max-width: $media-ts+px) {
 		margin: 20px auto 0;
 		max-width: 500px;
@@ -36,9 +27,6 @@
 		grid-column-gap: 20px;
 		align-items: center;
 		opacity: 0.5;
-		// .modalContent & > *:nth-child(n+9) {
-		// 	display: none;
-		// }
 		&:before {
 			display: none;
 		}

@@ -3,7 +3,7 @@ import classes from './CarPrice.module.scss';
 import Icon from '../../../ui/Icon/Icon';
 import TranslateHandler from '../../../TranslateHandler';
 
-const CarPrice = function({car, className = '', ...props}) {
+const CarPrice = function({car, className = ''}) {
 
 	const currencyStore = useSelector(state => state.currency)
 	let currency = {

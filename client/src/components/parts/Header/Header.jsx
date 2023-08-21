@@ -1,4 +1,4 @@
-import React, { memo, useRef, useEffect } from 'react';
+import { memo, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import script from './Header.script';
 import classes from './Header.module.scss';

@@ -8,14 +8,11 @@
 	grid-template-columns: 1fr repeat(3, auto);
 	grid-column-gap: 17px; // 8 * 2 + 1(divider-line)
 	@media (max-width: $media-form+px) {
-		// grid-template-columns: 1fr auto;
 		@media (min-width: $media-form2+1+px) {
 			grid-row-gap: 26px;
 		}
 	}
 	@media (max-width: $media-form2+px) {
-		// grid-template-columns: auto auto;
-		// width: min-content;
 		max-width: 660px;
 		margin: 0 auto;
 	}
@@ -36,10 +33,7 @@
 		grid-template-columns: 1fr auto;
 	}
 	@media (max-width: $media-form2+px) {
-		grid-template-columns: auto auto;
-		// width: min-content;
-		// max-width: 660px;
-		// margin: 0 auto;
+		grid-template-columns: auto;
 	}
 }
 .location, .period {
@@ -80,9 +74,6 @@
 }
 .period {
 	grid-column: span 2;
-	// @media (max-width: $media-form+px) {
-	// 	margin-bottom: 26px;
-	// }
 	@media (max-width: $media-form2+px) {
 		grid-column: span 2;
 		grid-row: 2;
@@ -175,8 +166,6 @@
 	&_bottom {
 		margin: 0 auto;
 		grid-column: span 4;
-		// align-self: center;
-		// margin-top: 20px;
 	}
 }
 

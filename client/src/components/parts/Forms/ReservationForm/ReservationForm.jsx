@@ -1,7 +1,6 @@
 import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActivePopup } from '../../../../store/slices/popupSlice';
-// import script from './ReservationForm.script';
 import classes from './ReservationForm.module.scss';
 import Location from './Location/Location';
 import Period from './Period/Period';
@@ -15,7 +14,6 @@ import Totals from './Totals/Totals';
 import ReservationService from '../../../../services/ReservationService';
 import { setActiveModal } from '../../../../store/slices/modalSlice';
 import ModalLink from '../../../ui/Modal/ModalLink';
-import { setReservation } from '../../../../store/slices/reservationFormSlice';
 import cities from '../ReservationForm/Location/cities.json'
 import Loader from '../../../ui/Loader/Loader';
 
@@ -35,19 +33,7 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 	const formData = useSelector(state => state.reservationForm)
 
 
-	// useEffect(() => {
-	// 	let sessionData = sessionStorage.getItem(RESERVATION)
-	// 	if (sessionData) dispatch(setReservation(sessionData))
-	// 	return () => sessionStorage.removeItem(RESERVATION)
-	// }, [])
-
-	// useEffect(() => {
-	// 	if (isFullForm) sessionStorage.setItem(RESERVATION, formData)
-	// }, [formData])
-
-
 	function setActiveDataType(event, value) {
-		// console.log('setActiveDataType');
 		let active = value
 		if (event) {
 			event.stopPropagation()
@@ -69,12 +55,12 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 	function showConfirmation() {
 		const confirmContent =
 			<div className={classes.confirmContent}>
-				<p className={classes.confirmTitle}>Your reservation has been saved</p>
-				<p>You can manage your reservations at</p>
-				<Button className={classes.confirmButton} onClick={()=>{navigate('/account')}}>Account page</Button>
-				<p>or continue at</p>
+				<p className={classes.confirmTitle}>?_Your reservation has been saved</p>
+				<p>?_You can manage your reservations at</p>
+				<Button className={classes.confirmButton} onClick={()=>{navigate('/account')}}>?_Account page</Button>
+				<p>?_or continue at</p>
 				<ModalLink name=''>
-					<Button className={classes.confirmButton} modif='negative' onClick={()=>{navigate('/')}}>Home page</Button>
+					<Button className={classes.confirmButton} modif='negative' onClick={()=>{navigate('/')}}>?_Home page</Button>
 				</ModalLink>
 			</div>;
 		dispatch(setActiveModal({name: 'reservation_confirm', content: confirmContent}))
@@ -89,7 +75,7 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 	}
 
 	function customValidation() {
-		const defaultErrorMessage = 'Fill in required fields'
+		const defaultErrorMessage = 'Please fill in required fields'
 		const ageErrorMessage = 'Driver must be 21+ years old'
 		const locationErrorMessage = 'Incorrect location, please use filter'
 		if (
@@ -105,18 +91,7 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 	const form = useForm({
 		customValidation,
 		action: submit,
-		// fields: [
-		// 	{name: 'location', validate: false},
-		// 	{name: 'pickupDate', validate: false},
-		// 	{name: 'pickupTime', validate: false},
-		// 	{name: 'returnDate', validate: false},
-		// 	{name: 'returnTime', validate: false},
-		// 	{name: 'driverAge', type: 'checkbox', validate: false},
-		// 	{name: 'differentLocation', type: 'checkbox', validate: false},
-		// ]
 	})
-	// console.log(form);
-
 
 
 	const elemModif = isFullForm ? 'dark' : 'light'
@@ -150,7 +125,7 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 				{isFullForm && <>
 					<Totals className={classes.totals} />
 					<CarSelect className={classes.carSelect} />
-					<p className={classes.formMessage}>?_{form.message}</p>
+					<p className={classes.formMessage}>{`?_${form.message}`}</p>
 					<Button className={`${classes.submitBtn} ${classes.submitBtn_bottom}`}>{`?_${edit ? 'Save changes' : 'Reserve'}`}</Button>
 				</>}
 			</form>

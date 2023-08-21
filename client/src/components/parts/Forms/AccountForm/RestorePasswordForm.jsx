@@ -19,6 +19,7 @@ const RestorePasswordForm = memo(function RestorePasswordForm({modif = DEFAULT_M
 
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
+	
 	async function handleRestorePassword() {
 		let {error} = await UserService.restorePassword(form.fields.email.value)
 		if (error) {
@@ -36,7 +37,6 @@ const RestorePasswordForm = memo(function RestorePasswordForm({modif = DEFAULT_M
 			{name: 'email', type: 'email', required: true},
 		]
 	})
-	console.log(form);
 
 	return (
 		<TranslateHandler>

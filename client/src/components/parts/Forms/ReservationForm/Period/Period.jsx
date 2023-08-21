@@ -7,8 +7,6 @@ import TranslateHandler from '../../../../TranslateHandler';
 import DateSelect from '../DateSelect/DateSelect';
 import TimeSelect from '../TimeSelect/TimeSelect';
 
-/* TODO:
-*/
 
 const Period = memo(function Period({
 	modif = 'light',
@@ -80,12 +78,10 @@ const Period = memo(function Period({
 	const handleSelect = function(selectedItemValue, dataType){
 		let newPeriod = script.getNewReservationPeriod(selectedItemValue, dataType, reservationPeriod)
 		setReservationPeriod(newPeriod)
-		// setFormData(newPeriod)
 		goToNextInput(dataType)
 	}
 	// end POPUPS
 
-	// console.log('render Period');
 	return (
 		<TranslateHandler>
 			<div className={`${className} ${classes[modif]}`} {...props}>

@@ -14,12 +14,14 @@ import PeriodScript from '../Forms/ReservationForm/Period/Period.script'
 import { useFetching } from '../../../hooks/useFetching';
 import { useNavigate } from 'react-router-dom';
 import { setReservation } from '../../../store/slices/reservationFormSlice';
+import { translate } from '../../TranslateHandler';
 
 
 const Account = memo(function Account() {
 
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
+	const language = useSelector(state => state.language)
 
 	// Spoilers
 	const activeSpoilersDefault = {
@@ -78,14 +80,14 @@ const Account = memo(function Account() {
 		}
 	}
 	async function cancelActiveBooking(e) {
-		let isConfirmed = window.confirm('Are you sure you want to cancel reservation?')
+		let isConfirmed = window.confirm(translate('?_Are you sure you want to CANCEL reservation?', language))
 		if (isConfirmed) {
 			await ReservationService.setReservationInactive(e.currentTarget.dataset.id)
 			fetchReservations()
 		}
 	}
 	async function deleteHistoryItem(e) {
-		let isConfirmed = window.confirm('Are you sure you want to delete reservation?')
+		let isConfirmed = window.confirm(translate('?_Are you sure you want to DELETE reservation?', language))
 		if (isConfirmed) {
 			await ReservationService.deleteReservation(e.currentTarget.dataset.id)
 			fetchReservations()

@@ -112,8 +112,6 @@ async function init() {
 }
 
 function updateStorage(data) {
-	// console.log('updateStorage');
-	// console.log(data);
 	let token = data.accessToken
 	if (token) localStorage.setItem(TOKEN, token)
 

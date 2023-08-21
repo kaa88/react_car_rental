@@ -184,6 +184,17 @@
 	"222": "User not found",
 	"223": "Check your e-mail for password restoration instructions",
 	"224": "Passwords are not equal",
-	"225": "Data load error"
+	"225": "Data load error",
+	"226": "Your reservation has been saved",
+	"227": "You can manage your reservations at",
+	"228": "or continue at",
+	"229": "Account page",
+	"230": "Home page",
+	"231": "Driver must be 21+ years old",
+	"232": "Incorrect location, please use filter",
+	"233": "Are you sure you want to CANCEL reservation?",
+	"234": "Are you sure you want to DELETE reservation?",
+	"235": "Page Not Found",
+	"236": "Go to Homepage"
 
 }

@@ -1,31 +1,15 @@
 @import "../../../../scss/variables.scss";
 
 .wrapper {
-	// margin-bottom: 10px;
 	padding-right: 20px;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
 	font-size: 20px;
-	// position: absolute;
-	// right: $slider-elems-default-offset+px;
-	// bottom: 85px;
-	// @media (max-width: $media-tl+px) {
-	// 	right: resize-multiplier($slider-elems-default-offset, $media-tl, $offset-resize-multiplier);
-	// }
 	@media (max-width: $media-ts+px) {
-		// position: static;
-		// grid-row: 3;
-		// grid-column: 2;
-		// margin: 0;
 		padding: 0;
 		font-weight: 500;
-		// align-self: start;
 	}
-	// @media (max-width: $media-ml+px) {
-	// 	grid-row: 2;
-	// 	grid-column: 2;
-	// }
 }
 
 .currencyIcon {
