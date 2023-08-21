@@ -69,7 +69,7 @@ const LoginForm = memo(function LoginForm({modif = DEFAULT_MOD}) {
 						?_Forgot password
 					</OptionalLink>
 
-					<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>?_{form.message}</p>
+					<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>{`?_${form.message}`}</p>
 					<Button className={classes.button}>?_Sign in</Button>
 
 					<OptionalLink

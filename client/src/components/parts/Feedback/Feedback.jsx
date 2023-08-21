@@ -27,6 +27,7 @@ const Feedback = memo(function Feedback() {
 
 	async function getFeedbacks() {
 		let data = await FetchService.getFeedback()
+		if (!data.length) throw new Error()
 		setFeedbackData(data)
 	}
 
@@ -88,7 +89,7 @@ const Feedback = memo(function Feedback() {
 
 					<div className={classes.sliderBox}>
 						{dataIsLoading && <Loader className={classes.loader} />}
-						{loadingError && <LoadError className={classes.loadError} />}
+						{!!loadingError && <LoadError className={classes.loadError} />}
 						{!!feedbackData.length &&
 							<Slider className={classes.slider} swiperParams={swiperParams}>{slides}</Slider>
 						}

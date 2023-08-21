@@ -65,8 +65,6 @@ body .carImage {
 	}
 }
 body .carName {
-// 	font-size: 20px;
-// 	font-weight: 500;
 	position: absolute;
 	top: 0;
 	left: $slider-elems-default-offset+px;
@@ -89,11 +87,6 @@ body .carName {
 		grid-column: 1;
 		text-align: left;
 	}
-// 	.modalContent & {
-// 		position: static;
-// 		font-size: 24px;
-// 		text-align: left;
-// 	}
 }
 body .carParams {
 	position: absolute;
@@ -109,25 +102,9 @@ body .carParams {
 	@media (max-width: $media-ml+px) {
 		grid-column: span 2;
 	}
-// 	.modalContent & {
-// 		top: 60px;
-// 		left: 16px;
-// 		@media (max-width: $media-ts+px) {
-// 			margin: 0 auto;
-// 			max-width: 500px;
-// 			display: grid;
-// 			grid-template-columns: repeat(2, 1fr);
-// 			grid-column-gap: 20px;
-// 		}
-// 	}
 }
 body .carPrice {
 	margin-bottom: 10px;
-// 	padding-right: 20px;
-// 	display: flex;
-// 	justify-content: flex-end;
-// 	align-items: center;
-// 	font-size: 20px;
 	position: absolute;
 	right: $slider-elems-default-offset+px;
 	bottom: 85px;
@@ -139,8 +116,6 @@ body .carPrice {
 		grid-row: 3;
 		grid-column: 2;
 		margin: 0;
-		// padding: 0;
-// 		font-weight: 500;
 		align-self: start;
 	}
 	@media (max-width: $media-ml+px) {
@@ -178,4 +153,3 @@ body .carPrice {
 		height: 43px;
 	}
 }
-

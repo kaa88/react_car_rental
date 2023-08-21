@@ -26,7 +26,7 @@ const RestorePasswordForm = memo(function RestorePasswordForm({modif = DEFAULT_M
 			throw new Error(error)
 		}
 		form.clear()
-		if (modif === MODAL_MOD) dispatch(setActiveModal('user_logged_in'))
+		if (modif === MODAL_MOD) dispatch(setActiveModal('restore_password_alert'))
 		else navigate('/')
 	}
 
@@ -52,7 +52,7 @@ const RestorePasswordForm = memo(function RestorePasswordForm({modif = DEFAULT_M
 						onChange={form.fields.email.change}
 					/>
 
-					<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>?_{form.message}</p>
+					<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>{`?_${form.message}`}</p>
 					<Button className={classes.button}>?_Restore</Button>
 
 					<OptionalLink

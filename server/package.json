@@ -5,20 +5,22 @@
 	"main": "index.js",
 	"private": true,
 	"scripts": {
-		"dev": "nodemon index.js"
+		"dev": "nodemon index.js",
+		"cleandb": "cleanDB.js"
 	},
 	"dependencies": {
 		"bcrypt": "^5.1.0",
 		"cookie-parser": "^1.4.6",
 		"cors": "^2.8.5",
 		"dotenv": "^16.1.4",
-		"express-validator": "^7.0.1",
+		"express": "^4.18.2",
 		"express-fileupload": "^1.4.0",
 		"express-form-data": "^2.0.22",
+		"express-validator": "^7.0.1",
 		"jsonwebtoken": "^9.0.0",
 		"jwt-decode": "^3.1.2",
-		"nodemailer": "^6.9.3",
 		"mysql2": "^3.3.2",
+		"nodemailer": "^6.9.3",
 		"sequelize": "^6.31.1"
 	},
 	"type": "module"

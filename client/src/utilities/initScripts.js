@@ -17,6 +17,7 @@ export function initInstantScripts(dispatch) {
 	jsMediaQueries.init({
 		// testMode: true
 	})
+	turnOffLoader()
 }
 
 export function initOnloadScripts(dispatch) {
@@ -42,4 +43,9 @@ function initWindowEvents(dispatch) {
 
 function initUserService(dispatch) {
 	UserService.dispatch = dispatch
+}
+
+function turnOffLoader() {
+	let loader = document.getElementById('loader')
+	if (loader) loader.style.display = 'none'
 }

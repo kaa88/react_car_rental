@@ -151,7 +151,7 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 					<Totals className={classes.totals} />
 					<CarSelect className={classes.carSelect} />
 					<p className={classes.formMessage}>?_{form.message}</p>
-					<Button className={`${classes.submitBtn} ${classes.submitBtn_bottom}`}>?_{edit ? 'Save changes' : 'Reserve'}</Button>
+					<Button className={`${classes.submitBtn} ${classes.submitBtn_bottom}`}>{`?_${edit ? 'Save changes' : 'Reserve'}`}</Button>
 				</>}
 			</form>
 		</TranslateHandler>

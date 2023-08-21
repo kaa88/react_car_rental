@@ -24,8 +24,10 @@ const Totals = memo(function Totals({className = '', ...props}) {
 	const currencyRate = currency.rates[currencyName]
 
 	let totalPrice = 0
-	if (selectedCar?.price && numOfDays) totalPrice = selectedCar.price * numOfDays + differentLocationTax
-	let selectedCurrencyTotalPrice = Math.floor(totalPrice * currencyRate)
+	let selectedCurrencyCarPrice = Math.round((selectedCar.price || 0) * currencyRate)
+	let selectedCurrencyLocationTax = Math.round(differentLocationTax * currencyRate)
+	if (selectedCar.price && numOfDays) totalPrice = selectedCurrencyCarPrice * numOfDays + selectedCurrencyLocationTax
+	let selectedCurrencyTotalPrice = totalPrice
 
 	useEffect(() => {
 		dispatch(setReservation({totalPrice}))
@@ -59,7 +61,7 @@ const Totals = memo(function Totals({className = '', ...props}) {
 		},
 		{
 			title: 'Return to different location',
-			text: isDifferentReturnLocation ? 'yes' : 'no',
+			text: isDifferentReturnLocation ? '?_yes' : '?_no',
 			className: '',
 			icon: 'icon-globe',
 		},
@@ -78,7 +80,7 @@ const Totals = memo(function Totals({className = '', ...props}) {
 		},
 		{
 			title: 'Return location tax',
-			text: differentLocationTax,
+			text: selectedCurrencyLocationTax,
 			className: 'returnTax',
 			icon: `icon-${currencyName}`,
 			rightSideIcon: true
@@ -101,7 +103,7 @@ const Totals = memo(function Totals({className = '', ...props}) {
 							<Icon className={classes.icon} name={item.icon} />
 						}
 						<span className={classes.title}>
-							<span>?_{item.title}</span>
+							<span>{`?_${item.title}`}</span>
 							<span>:</span>
 						</span>
 						<span className={classes.text}>{item.text}</span>

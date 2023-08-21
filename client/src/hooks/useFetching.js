@@ -2,7 +2,7 @@ import { useState } from "react"
 
 export function useFetching(callback) {
 	let [isLoading, setIsLoading] = useState(false)
-	let [error, setError] = useState('')
+	let [error, setError] = useState(false)
 
 	async function fetchData() {
 		try {
@@ -10,7 +10,7 @@ export function useFetching(callback) {
 			await callback()
 		}
 		catch(err) {
-			setError(err.message)
+			setError(true)
 		}
 		finally {
 			setIsLoading(false)

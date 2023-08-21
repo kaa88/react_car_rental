@@ -21,6 +21,7 @@ const CallForm = memo(function CallForm() {
 	}, [])
 
 	const submit = async function() {
+		form.removeError('...')
 		const defaultMessage = {
 			success: "Thank you. We'll call you soon",
 			error: 'Error'
@@ -74,7 +75,7 @@ const CallForm = memo(function CallForm() {
 
 				{!!getMessage() &&
 					<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>
-						?_{getMessage()}
+						{`?_${getMessage()}`}
 					</p>
 				}
 

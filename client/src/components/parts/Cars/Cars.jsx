@@ -20,7 +20,7 @@ import CarName from './CarName/CarName';
 import { useNavigate } from 'react-router-dom';
 import { setReservation } from '../../../store/slices/reservationFormSlice';
 
-// Note: хотел сделать разбивку на компоненты, но swiper отказывается работать с множественной вложенностью (а может другая причина), перестают инициализироваться кнопки навигации и пагинация... Пришлось напихать всё сюда
+// Note: хотел перенести swiper в компонент, но он отказывается работать в подпапках, перестают инициализироваться кнопки навигации и пагинация... Пришлось напихать всё сюда
 
 const Cars = memo(function Cars() {
 
@@ -44,6 +44,7 @@ const Cars = memo(function Cars() {
 			params: await FetchService.getCarParams(),
 			options: await FetchService.getCarOptions(),
 		}
+		if (!data.cars.length) throw new Error()
 		setCarData(data)
 	}
 	useEffect(() => { fetchData() }, [])
@@ -109,13 +110,12 @@ const Cars = memo(function Cars() {
 					<h3 className='fz36 tac color02'>?_Our cars</h3>
 					<div className={classes.sliderBox}>
 						{dataIsLoading && <Loader className={classes.loader} />}
-						{loadingError && <LoadError className={classes.loadError} />}
+						{!!loadingError && <LoadError className={classes.loadError} />}
 						{!!carData.cars.length &&
 							<Slider
 								modif='paginationTop'
 								className={classes.slider}
 								swiperParams={swiperParams}
-								// onSlideChange={updateModalContent}
 							>
 								{getSlides()}
 							</Slider>

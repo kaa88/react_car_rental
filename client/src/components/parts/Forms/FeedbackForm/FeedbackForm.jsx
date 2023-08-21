@@ -88,7 +88,7 @@ const FeedbackForm = memo(function FeedbackForm() {
 						placeholder='?_Your feedback'
 					></textarea>
 
-					<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>?_{form.message}</p>
+					<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>{`?_${form.message}`}</p>
 					<Button className={classes.button}>?_Send</Button>
 				</Container>
 			</form>

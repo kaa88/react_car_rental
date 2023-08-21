@@ -1,0 +1,1 @@
+console.log('scheduled db cleaning script...')

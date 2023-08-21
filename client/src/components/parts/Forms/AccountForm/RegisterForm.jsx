@@ -49,8 +49,24 @@ const RegisterForm = memo(function RegisterForm({modif = DEFAULT_MOD}) {
 		else navigate('/')
 	}
 
+	const preValidatePasswords = function() {
+		const ERROR_INCORRECT = 'incorrect'
+		let message = ''
+		if (form.fields.password && form.fields.repeatPassword) {
+			if (form.fields.password.value !== form.fields.repeatPassword.value) {
+				form.fields.password.setError(ERROR_INCORRECT)
+				form.fields.repeatPassword.setError(ERROR_INCORRECT)
+				message = 'Passwords are not equal'
+			}
+		}
+		if (message) {
+			return {message}
+		} else return {ok: true}
+	}
+
 	const form = useForm({
 		action: handleRegister,
+		customValidation: preValidatePasswords,
 		fields: [
 			{name: 'email', type: 'email', required: true},
 			{name: 'password', type: 'password', required: true},
@@ -98,7 +114,7 @@ const RegisterForm = memo(function RegisterForm({modif = DEFAULT_MOD}) {
 						</span>
 					</InputCheckbox>
 
-					<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>?_{form.message}</p>
+					<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>{`?_${form.message}`}</p>
 					<Button className={classes.button}>?_Register</Button>
 
 					<OptionalLink

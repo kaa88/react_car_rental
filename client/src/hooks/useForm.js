@@ -57,9 +57,9 @@ export function useForm(params = {}) {
 			setIsError(true)
 			if (message) setMessage(message)
 		},
-		removeError() {
+		removeError(message = '') {
 			setIsError(false)
-			setMessage('')
+			setMessage(message)
 		},
 		clear() {
 			Object.values(fields).forEach(field => field.clear())

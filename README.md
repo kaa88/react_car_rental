@@ -1,5 +1,5 @@
 # TO DO:
-- translate
+- deploy
 - minify (webpack)
 - cookie popup
 - forms spam-bot check (invisible field)
@@ -8,13 +8,7 @@
 - check sizes on 100% scale view (use 'em')
 - loader styles in components
 - loader errors
-
-========
-
-### User creation
-- 'create guest account' button
-	- use 'random' fn to fill email & pw
-	- create server scheduller to delete guest accounts & reservations every 3 days
+- guest uset creation loader
 
 ===================
 

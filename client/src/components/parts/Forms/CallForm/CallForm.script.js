@@ -37,7 +37,6 @@ export default CallFormScript
 const editPhoneByMask = function(e) {
 	// To provide better UX I decided to pay attention to cursor controlling in different situations, so here is the code to get proper cursor position
 	if (!e) return;
-	console.log('edit phone');
 	// next 2 funcs search for next digit position and check if cursor goes across the border
 	// param 'posOffset' is for cursor arrow-moving, because in this case I need to scan 2 symbols
 	function getCursorNextPosToRight(value, posOffset = 0) {
@@ -79,6 +78,7 @@ const editPhoneByMask = function(e) {
 		}
 		return newValue
 	}
+	
 	let
 		input = e.target,
 		alwaysShowMask = this.isShowPhoneMask || false,

@@ -166,9 +166,9 @@ const SettingsForm = memo(function SettingsForm() {
 						isTemporary={!!form.fields.image.value.file}
 					>
 						<Button type='button' className={`${classes.button} ${classes.settingsPhotoBtn}`} modif='negative'>
-							<span>+ </span>
+							{!userPhoto && <span>+ </span>}
 							<span>
-								?_{userPhoto ? 'Change photo' : 'Add photo'}
+								{`?_${userPhoto ? 'Change photo' : 'Add photo'}`}
 							</span>
 						</Button>
 					</InputFile>
@@ -179,7 +179,7 @@ const SettingsForm = memo(function SettingsForm() {
 					</div>
 					:<div className={classes.settingsSubmit}>
 						<Button className={`${classes.button} ${classes.settingsSubmitBtn}`}>?_Save changes</Button>
-						<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>?_{form.message}</p>
+						<p className={`${classes.formMessage} ${form.isError ? classes.error : ''}`}>{`?_${form.message}`}</p>
 					</div>
 				}
 			</form>

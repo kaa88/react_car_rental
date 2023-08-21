@@ -3,6 +3,7 @@ import { handleError } from "../services/ErrorService"
 import { changeCurrency } from "../store/slices/currencySlice"
 import { changeLanguage } from "../store/slices/languageSlice"
 import { changeUserData } from "../store/slices/userSlice"
+import { _wait_ } from "../utilities/utilities"
 
 
 const UserService = {
@@ -92,9 +93,7 @@ const UserService = {
 		console.log('username:', username)
 		console.log('rating:', rating)
 		console.log('message:', message)
-		return new Promise((resolve) => {
-			setTimeout(() => resolve(), 1000)
-		})
+		return await _wait_(1)
 	},
 	
 }

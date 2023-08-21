@@ -12,9 +12,9 @@ const Reservation = memo(function Reservation({edit}) {
 			<section className={classes.wrapper}>
 				<Container className={classes.container}>
 					<h3 className='fz36 color02 tac'>
-						?_{edit
-							? 'Edit reservation'
-							: 'Create reservation'
+						{edit
+							? '?_Edit reservation'
+							: '?_Create reservation'
 						}
 					</h3>
 

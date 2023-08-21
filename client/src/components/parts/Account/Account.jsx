@@ -1,17 +1,12 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import classes from './Account.module.scss';
 import Container from '../../ui/Container/Container';
-import Image from '../../ui/Image/Image';
 import Icon from '../../ui/Icon/Icon';
 import Button from '../../ui/Button/Button';
 import TranslateHandler from '../../TranslateHandler';
 import FetchService from '../../../services/FetchService';
 import Loader from '../../ui/Loader/Loader';
-import LoadError from '../../ui/Loader/LoadError';
-import InputText from '../../ui/InputText/InputText';
-import { useCustomElement } from '../../../hooks/useCustomElement';
 import { jsMediaQueries } from '../../../utilities/jsMediaQueries';
-import UserPhoto from '../../ui/UserPhoto/UserPhoto';
 import { useDispatch, useSelector } from 'react-redux';
 import SettingsForm from '../Forms/AccountForm/SettingsForm';
 import ReservationService from '../../../services/ReservationService';
@@ -55,7 +50,7 @@ const Account = memo(function Account() {
 	//end carData
 
 	let [reservations, setReservations] = useState([])
-	let [fetchReservations, dataIsLoading, reservationsLoadingError] = useFetching(getReservations)
+	let [fetchReservations, dataIsLoading] = useFetching(getReservations)
 
 	useEffect(() => {
 		jsMediaQueries.registerActions(480, [() => {toggleSpoiler(false, true)}])

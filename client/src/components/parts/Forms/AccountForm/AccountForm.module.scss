@@ -101,6 +101,9 @@ body .checkbox {
 		font-size: 16px;
 		min-height: 20px;
 	}
+	.settingsForm & {
+		margin-left: 15px;
+	}
 }
 .sectionTitle {
 	font-size: 18px;

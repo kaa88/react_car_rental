@@ -12,7 +12,8 @@
 }
 .sliderBox {
 	position: relative;
-	// height: 660px;
+	// height: 660px; //
+	min-height: 350px;
 }
 .loader, .loadError {
 	position: absolute;

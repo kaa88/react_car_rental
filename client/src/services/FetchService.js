@@ -1,6 +1,5 @@
 import api from "../api/api";
 
-// TODO: add fake data
 
 const FetchService = {
 	async getCurrency() {
