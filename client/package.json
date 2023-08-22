@@ -2,7 +2,7 @@
   "name": "car_rental_frontend",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://kaa88.github.io/react_car_rental/docs",
+  "homepage": "https://kaa88.github.io/react_car_rental",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.17.0",
