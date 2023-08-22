@@ -10,7 +10,7 @@ function TextLink({
 	return (
 		<a
 			className={`${className} ${classes[modif]}`}
-			href='#'
+			// href='#'
 			{...props}
 		>
 			<span>

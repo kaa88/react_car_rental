@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setReservation } from '../../../../../store/slices/reservationFormSlice';
 import classes from './DateSelect.module.scss';
@@ -23,7 +23,8 @@ const DateSelect = memo(function DateSelect({
 	let reservationForm = useSelector(state => state.reservationForm)
 	let selectorCurrentMonth = new Date(reservationForm.selectorCurrentMonth)
 
-	const monthSelectData = useMemo(() => script.getMonthSelectData(selectorCurrentMonth), [selectorCurrentMonth])
+	const monthSelectData = script.getMonthSelectData(selectorCurrentMonth)
+	// const monthSelectData = useMemo(() => script.getMonthSelectData(selectorCurrentMonth), [selectorCurrentMonth]) 
 
 	const handleMonthSelect = function(value){
 		let date = new Date(today.year, script.getMonthIndex(value))

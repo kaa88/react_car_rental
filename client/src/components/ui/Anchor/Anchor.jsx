@@ -34,7 +34,7 @@ const Anchor = memo(function Anchor({name = ''}) {
 			window.removeEventListener('resize', calcPosition)
 			window.removeEventListener('scroll', setCurrentAnchor)
 		}
-	}, [])
+	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<div className={classes.anchor} ref={ref}>{name}</div>

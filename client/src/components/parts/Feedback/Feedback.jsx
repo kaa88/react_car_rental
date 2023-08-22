@@ -33,7 +33,7 @@ const Feedback = memo(function Feedback() {
 
 	useEffect(() => {
 		fetchData()
-	}, [])
+	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	function fillRating(rating) {
 		rating = Number(rating)

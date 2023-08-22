@@ -31,7 +31,7 @@ const Totals = memo(function Totals({className = '', ...props}) {
 
 	useEffect(() => {
 		dispatch(setReservation({totalPrice}))
-	}, [totalPrice])
+	}, [totalPrice]) // eslint-disable-line react-hooks/exhaustive-deps
 
 
 	const fields = [

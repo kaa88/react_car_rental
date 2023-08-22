@@ -8,7 +8,9 @@ import Router from './router/Router';
 function App() {
 	const dispatch = useDispatch()
 	initInstantScripts(dispatch)
-	useEffect(() => initOnloadScripts(dispatch), [])
+	useEffect(() => {
+		initOnloadScripts(dispatch)
+	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<Router />

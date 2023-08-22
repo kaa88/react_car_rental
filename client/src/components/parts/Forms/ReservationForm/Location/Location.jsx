@@ -30,7 +30,7 @@ const Location = memo(function Location({
 	useEffect(() => {
 		script.init({setInputValue})
 		if (inputValue === null) setInputValue(defaultInputValue)
-	}, [])
+	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	let [searchList, setSearchList] = useState(script.getSearchList())
 

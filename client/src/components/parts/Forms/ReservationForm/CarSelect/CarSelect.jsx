@@ -27,7 +27,7 @@ const CarSelect = memo(function CarSelect({className = '', ...props}) {
 		options: []
 	}
 	let [carData, setCarData] = useState(defaultCarData)
-	let [fetchData, dataIsLoading, loadingError] = useFetching(getCarData)
+	let [fetchData, dataIsLoading] = useFetching(getCarData)
 
 	async function getCarData() {
 		let data = {
@@ -38,7 +38,7 @@ const CarSelect = memo(function CarSelect({className = '', ...props}) {
 		setCarData(data)
 		if (!selectedCar) dispatch(setReservation({car: data.cars[0]}))
 	}
-	useEffect(() => { fetchData() }, [])
+	useEffect(() => { fetchData() }, []) // eslint-disable-line react-hooks/exhaustive-deps
 	//end carData
 
 

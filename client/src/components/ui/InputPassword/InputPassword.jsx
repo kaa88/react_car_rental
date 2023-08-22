@@ -36,7 +36,7 @@ function InputPassword({
 	useEffect(() => {
 		resetType()
 		return () => resetType()
-	}, [])
+	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<div className={`${className} ${classes.inputBox}`}>

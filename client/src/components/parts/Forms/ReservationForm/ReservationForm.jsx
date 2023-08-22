@@ -45,7 +45,7 @@ const ReservationForm = memo(function ReservationForm({modif = MODIF_FULL, class
 	useEffect(() => {
 		window.addEventListener('click', setActiveDataType)
 		return () => window.removeEventListener('click', setActiveDataType)
-	}, [])
+	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	function redirectToFullForm(e) {
 		e.preventDefault()

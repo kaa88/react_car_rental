@@ -31,7 +31,7 @@ const Modal = memo(function Modal({ className = '' }) {
 	useEffect(() => {
 		if (modalStore.active) openModal()
 		else closeModal(true)
-	}, [modalStore])
+	}, [modalStore]) // eslint-disable-line react-hooks/exhaustive-deps
 
 	const contentRef = useRef()
 
@@ -62,7 +62,7 @@ const Modal = memo(function Modal({ className = '' }) {
 
 	useEffect(() => {
 		scriptManager.registerFunctions('modal', {close: closeModal.bind(null, true)})
-	}, [])
+	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 	
 	return (
 		<TranslateHandler>

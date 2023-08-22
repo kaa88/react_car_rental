@@ -35,7 +35,7 @@ const Header = memo(function Header() {
 	useEffect(() => {
 		script.init({headerParams, classes, headerEl: headerRef.current, breakpoints, dispatch})
 		return () => script.destroy()
-	}, [])
+	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		if (menuIsActive) script.scrollIntoView()

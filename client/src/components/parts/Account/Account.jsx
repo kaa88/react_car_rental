@@ -58,7 +58,7 @@ const Account = memo(function Account() {
 		jsMediaQueries.registerActions(480, [() => {toggleSpoiler(false, true)}])
 		fetchReservations()
 		fetchCars()
-	}, [])
+	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 
 	async function getReservations() {

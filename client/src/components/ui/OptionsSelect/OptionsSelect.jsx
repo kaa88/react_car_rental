@@ -49,7 +49,7 @@ const OptionsSelect = memo(function OptionsSelect({type}) {
 		setTimeout(() => {
 			setSelectData(createSelectData())
 		}, transitionDelay)
-	}, [Language, Currency])
+	}, [Language, Currency]) // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<div className={classes.default}>

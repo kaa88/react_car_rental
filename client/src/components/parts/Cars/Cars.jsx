@@ -47,7 +47,9 @@ const Cars = memo(function Cars() {
 		if (!data.cars.length) throw new Error()
 		setCarData(data)
 	}
-	useEffect(() => { fetchData() }, [])
+	useEffect(() => {
+		fetchData()
+	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 	//end carData
 
 

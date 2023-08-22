@@ -21,7 +21,7 @@ function Slider({
 		// 	onSlideChange(e.detail[0].realIndex)
 		// 	console.log(e.detail[0].realIndex);
 		// })
-	}, [])
+	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	const prevButtonClassName = `swiper-button-prev ${swiperParams.navigation.prevEl.substring(1)}`
 	const nextButtonClassName = `swiper-button-next ${swiperParams.navigation.nextEl.substring(1)}`

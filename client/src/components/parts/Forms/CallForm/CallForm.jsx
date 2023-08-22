@@ -18,7 +18,7 @@ const CallForm = memo(function CallForm() {
 			showPhoneMask: true,
 		})
 		return () => script.destroy()
-	}, [])
+	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	const submit = async function() {
 		form.removeError('...')
