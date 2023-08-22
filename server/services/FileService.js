@@ -3,7 +3,6 @@ import fs from 'fs'
 const FileService = {
 	uploadUserPhoto(file) {
 		if (!file || !file.name) return ''
-		console.log(file);
 		let fileNameParts = file.name.split('.')
 		let ext = fileNameParts[fileNameParts.length - 1]
 		let newFileName = `userphoto_${getRandomId(20)}.${ext}`

@@ -13,7 +13,7 @@ const userController = {
 	async getUserData(req, res, next) {
 		if (!req.tokenData?.id) return next(TOKEN_ERROR)
 		let candidate = await user.findOne({where: {id: req.tokenData.id}})
-		if (!candidate) return next(ApiError.badRequest('User not found'))
+		if (!candidate) return next(ApiError.notFound('User not found'))
 		let userData = new UserDTO(candidate.dataValues)
 		return res.json({userData})
 	},
@@ -30,6 +30,7 @@ const userController = {
 		let hashPassword = await bcrypt.hash(password, 5)
 		req.body.password = hashPassword
 		req.body.role = role
+		req.body.lastLoggedIn = new Date()
 		req.body.isActivated = false
 
 		let newUser = await defaultController.add( req, res, next, user, true )
@@ -75,9 +76,15 @@ const userController = {
 		} catch(er) {
 			return next(ApiError.badRequest('Wrong email or password'))
 		}
+
 		let userData = new UserDTO(candidate.dataValues)
 		let {accessToken, refreshToken} = TokenService.generateToken({id: candidate.dataValues.id, email, role: candidate.dataValues.role})
 		res.cookie(...getCookieSettings(refreshToken))
+
+		await user.update(
+			{lastLoggedIn: new Date()},
+			{where: {email}}
+		)
 		return res.json({userData, accessToken})
 	},
 
@@ -96,11 +103,15 @@ const userController = {
 	
 			let {id, email, role} = tokenData
 			let candidate = await user.findOne({where: {id, email}})
-			if (!candidate) return next(ApiError.badRequest('User not found'))
+			if (!candidate) return next(ApiError.notFound('User not found'))
 	
 			let {accessToken, refreshToken} = TokenService.generateToken({id, email, role})
-	
 			res.cookie(...getCookieSettings(refreshToken))
+
+			await user.update(
+				{lastLoggedIn: new Date()},
+				{where: {id}}
+			)
 			res.send(accessToken)
 		}
 		catch(er) {
@@ -118,7 +129,7 @@ const userController = {
 		if (!id || !currentPassword || !newPassword) return next(ApiError.badRequest('Missing arguments'))
 
 		let candidate = await user.findOne({where: {id}})
-		if (!candidate) return next(ApiError.badRequest('User not found'))
+		if (!candidate) return next(ApiError.notFound('User not found'))
 		let comparePassword = bcrypt.compareSync(currentPassword, candidate.password)
 		if (!comparePassword) return next(ApiError.badRequest('Current password is invalid'))
 
@@ -136,7 +147,7 @@ const userController = {
 			// send email
 			res.json({ok: true})
 		} catch(er) {
-			return next(ApiError.badRequest('User not found'))
+			return next(ApiError.notFound('User not found'))
 		}
 	},
 

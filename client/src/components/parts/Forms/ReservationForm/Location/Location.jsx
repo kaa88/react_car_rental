@@ -65,9 +65,10 @@ const Location = memo(function Location({
 	}
 
 	return (
-		<TranslateHandler>
 			<div className={`${className} ${classes[modif]}`}>
-				<p className={classes.title}>?_Location</p>
+				<TranslateHandler>
+					<p className={classes.title}>?_Location</p>
+				</TranslateHandler>
 				<div className={classes.inputBox}>
 					<input
 						className={`${classes.input} ${dataType === activeDataType ? classes.active : ''}`}
@@ -89,7 +90,6 @@ const Location = memo(function Location({
 					</div>
 				</Popup>
 			</div>
-		</TranslateHandler>
 	)
 })
 

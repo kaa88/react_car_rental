@@ -1,10 +1,13 @@
 import axios from "axios";
 
-const api = axios.create({
+const settings = {
 	baseURL: process.env.REACT_APP_API_URL,
 	withCredentials: true,
 	timeout: 3000,
-})
+}
+
+const api = axios.create(settings)
+const apiTokenRefresh = axios.create(settings)
 
 api.interceptors.request.use((config) => {
 	config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
@@ -14,23 +17,19 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
 	(response) => response,
 	async (error) => {
-		if (isRefreshing) return Promise.reject()
-		if (error.response && error.response.status === 401) {
-			isRefreshing = true
-			let token = await refreshToken()
-			if (token instanceof Error) return Promise.reject(token)
-			isRefreshing = false
-			let response = await repeatRequest(error.config.method, error.config.url)
+		if (error.response?.status === 401) {
+			let response = await refreshToken()
+			if (response instanceof Error) return Promise.reject(response)
+			response = await repeatRequest(error.config.method, error.config.url)
 			return response
 		}
 		else return Promise.reject(error)
 	}
 )
 
-let isRefreshing = false
 
 async function refreshToken() {
-	return api.get('/user/refresh')
+	return apiTokenRefresh.get('/user/refresh')
 		.then(response => {
 			localStorage.setItem('token', response.data)
 		})

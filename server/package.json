@@ -6,7 +6,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "nodemon index.js",
-		"cleandb": "cleanDB.js"
+		"cleandb": "node cleanDB.js"
 	},
 	"dependencies": {
 		"bcrypt": "^5.1.0",

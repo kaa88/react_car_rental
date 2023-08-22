@@ -12,6 +12,7 @@ export const user = sequelize.define('user', {
 	currency: {type: DataTypes.STRING},
 	cookieAccepted: {type: DataTypes.BOOLEAN, defaultValue: false},
 	isActivated: {type: DataTypes.BOOLEAN, defaultValue: false},
+	lastLoggedIn: {type: DataTypes.DATE},
 })
 
 export const cars = sequelize.define('car', {

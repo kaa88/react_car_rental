@@ -19,7 +19,6 @@ const reservationController = {
 	},
 
 	async add(req, res, next) {
-		console.log(req.body);
 		let {ok, error} = prepare(req, res, next, 'create')
 		if (!ok) return error
 
