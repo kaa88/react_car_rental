@@ -1,5 +1,4 @@
 # TO DO:
-- deploy
 - cookie popup
 - forms spam-bot check (invisible field)
 - rotation alert
