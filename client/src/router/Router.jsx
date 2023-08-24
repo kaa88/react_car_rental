@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, createHashRouter } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import AccountPage from "./pages/AccountPage";
 import ErrorPage from "./pages/ErrorPage";
@@ -15,7 +15,8 @@ import { scriptManager } from "../utilities/scriptManager";
 
 function Router() {
 
-	const router = createBrowserRouter(
+	// const router = createBrowserRouter(
+	const router = createHashRouter( // Hash Router for GitHub Pages
 		[
 			{
 				path: '*',
