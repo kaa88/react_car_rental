@@ -18,7 +18,7 @@
     "main.8c46725d.js.map": "/react_car_rental/static/js/main.8c46725d.js.map"
   },
   "entrypoints": [
-    "react_car_rentalstatic/css/main.59a2eb84.css",
-    "react_car_rentalstatic/js/main.8c46725d.js"
+    "react_car_rental/static/css/main.59a2eb84.css",
+    "react_car_rental/static/js/main.8c46725d.js"
   ]
 }
