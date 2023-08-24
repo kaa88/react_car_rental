@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "https://kaa88.github.io/react_car_rental/static/css/main.59a2eb84.css",
-    "main.js": "https://kaa88.github.io/react_car_rental/static/js/main.137bb3d2.js",
+    "main.js": "https://kaa88.github.io/react_car_rental/static/js/main.b054fe9e.js",
     "static/media/bg2@2x.jpg": "https://kaa88.github.io/react_car_rental/static/media/bg2@2x.fcdd07147fc33cf88362.jpg",
     "static/media/bg1@2x.jpg": "https://kaa88.github.io/react_car_rental/static/media/bg1@2x.fb73ea825edd4ca8ca9a.jpg",
     "static/media/bg2.jpg": "https://kaa88.github.io/react_car_rental/static/media/bg2.92fe04b7fa5d40d8fe57.jpg",
@@ -15,10 +15,10 @@
     "static/media/sprite.svg": "https://kaa88.github.io/react_car_rental/static/media/sprite.93ea23b2bad1b2cfaf50b0f86a221008.svg",
     "index.html": "https://kaa88.github.io/react_car_rental/index.html",
     "main.59a2eb84.css.map": "https://kaa88.github.io/react_car_rental/static/css/main.59a2eb84.css.map",
-    "main.137bb3d2.js.map": "https://kaa88.github.io/react_car_rental/static/js/main.137bb3d2.js.map"
+    "main.b054fe9e.js.map": "https://kaa88.github.io/react_car_rental/static/js/main.b054fe9e.js.map"
   },
   "entrypoints": [
     "static/css/main.59a2eb84.css",
-    "static/js/main.137bb3d2.js"
+    "static/js/main.b054fe9e.js"
   ]
 }
