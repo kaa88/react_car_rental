@@ -7,3 +7,4 @@
 ===================
 
 Continue:
+удалить нахер github actions
