@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/static/css/main.59a2eb84.css",
-    "main.js": "/static/js/main.8c46725d.js",
-    "static/media/bg2@2x.jpg": "/static/media/bg2@2x.fcdd07147fc33cf88362.jpg",
-    "static/media/bg1@2x.jpg": "/static/media/bg1@2x.fb73ea825edd4ca8ca9a.jpg",
-    "static/media/bg2.jpg": "/static/media/bg2.92fe04b7fa5d40d8fe57.jpg",
-    "static/media/bg1.jpg": "/static/media/bg1.f42c05f29217156cb762.jpg",
-    "static/media/car2.jpg": "/static/media/car2.c410cec674b5709c18c4.jpg",
-    "static/media/car1.jpg": "/static/media/car1.8eeeab2f86b2903d4857.jpg",
-    "static/media/car4.jpg": "/static/media/car4.3619a072218dae6b2a42.jpg",
-    "static/media/car3.jpg": "/static/media/car3.13627a430947a4c482e5.jpg",
-    "static/media/map.jpg": "/static/media/map.151d47457c9aa7c443dc.jpg",
-    "static/media/map_s.jpg": "/static/media/map_s.da0d6384e8629dce0708.jpg",
-    "static/media/sprite.svg": "/static/media/sprite.93ea23b2bad1b2cfaf50b0f86a221008.svg",
+    "main.css": "/react_car_rental/static/css/main.59a2eb84.css",
+    "main.js": "/react_car_rental/static/js/main.8c46725d.js",
+    "static/media/bg2@2x.jpg": "/react_car_rental/static/media/bg2@2x.fcdd07147fc33cf88362.jpg",
+    "static/media/bg1@2x.jpg": "/react_car_rental/static/media/bg1@2x.fb73ea825edd4ca8ca9a.jpg",
+    "static/media/bg2.jpg": "/react_car_rental/static/media/bg2.92fe04b7fa5d40d8fe57.jpg",
+    "static/media/bg1.jpg": "/react_car_rental/static/media/bg1.f42c05f29217156cb762.jpg",
+    "static/media/car2.jpg": "/react_car_rental/static/media/car2.c410cec674b5709c18c4.jpg",
+    "static/media/car1.jpg": "/react_car_rental/static/media/car1.8eeeab2f86b2903d4857.jpg",
+    "static/media/car4.jpg": "/react_car_rental/static/media/car4.3619a072218dae6b2a42.jpg",
+    "static/media/car3.jpg": "/react_car_rental/static/media/car3.13627a430947a4c482e5.jpg",
+    "static/media/map.jpg": "/react_car_rental/static/media/map.151d47457c9aa7c443dc.jpg",
+    "static/media/map_s.jpg": "/react_car_rental/static/media/map_s.da0d6384e8629dce0708.jpg",
+    "static/media/sprite.svg": "/react_car_rental/static/media/sprite.93ea23b2bad1b2cfaf50b0f86a221008.svg",
     "index.html": "/index.html",
-    "main.59a2eb84.css.map": "/static/css/main.59a2eb84.css.map",
-    "main.8c46725d.js.map": "/static/js/main.8c46725d.js.map"
+    "main.59a2eb84.css.map": "/react_car_rental/static/css/main.59a2eb84.css.map",
+    "main.8c46725d.js.map": "/react_car_rental/static/js/main.8c46725d.js.map"
   },
   "entrypoints": [
-    "static/css/main.59a2eb84.css",
-    "static/js/main.8c46725d.js"
+    "react_car_rentalstatic/css/main.59a2eb84.css",
+    "react_car_rentalstatic/js/main.8c46725d.js"
   ]
 }
