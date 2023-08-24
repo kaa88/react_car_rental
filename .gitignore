@@ -1,5 +1,6 @@
 node_modules
 .env
+!docs/.env
 *copy.*
 *[а-яА-ЯёЁ]*
 /temp
