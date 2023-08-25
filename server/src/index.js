@@ -16,7 +16,7 @@ const app = express()
 app.use(express.json())
 app.use(cookieParser())
 app.use(fileUpload())
-app.use('/static', express.static(path.resolve(__dirname, process.env.UPLOADS_PATH || '')))
+app.use('/static', express.static(path.resolve(__dirname, process.env.STATIC_PATH || '')))
 app.use(cors({
 	origin: process.env.CLIENT_URL,
 	credentials: true

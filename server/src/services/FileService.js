@@ -1,5 +1,9 @@
 import fs from 'fs'
 
+let PATH = process.env.UPLOADS_PATH || ''
+if (PATH.match(/\\/)) PATH += '\\'
+else PATH += '/'
+
 const FileService = {
 	uploadUserPhoto(file) {
 		if (!file || !file.name) return ''
@@ -7,9 +11,8 @@ const FileService = {
 		let ext = fileNameParts[fileNameParts.length - 1]
 		let newFileName = `userphoto_${getRandomId(20)}.${ext}`
 
-		let PATH = process.env.UPLOADS_PATH + '\\' + newFileName
 		try {
-			file.mv(PATH)
+			file.mv(PATH + newFileName)
 		}
 		catch (err) {
 			return new Error()
@@ -18,8 +21,12 @@ const FileService = {
 	},
 	deleteUserPhoto(fileName) {
 		if (!fileName) return;
-		let PATH = process.env.UPLOADS_PATH + '\\' + fileName
-		fs.rm(PATH, {force: true}, ()=>{})
+		try {
+			fs.rm(PATH + fileName, {force: true}, ()=>{})
+		}
+		catch (err) {
+			return new Error()
+		}
 	}
 }
 export default FileService

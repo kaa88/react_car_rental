@@ -17,21 +17,25 @@ const Totals = memo(function Totals({className = '', ...props}) {
 	const numOfDays = Math.ceil((returnDate - pickupDate) / 60 / 60 / 24 / 1000)
 	const location = formData.location
 	const isDifferentReturnLocation = formData.isDifferentReturnLocation
-	const differentLocationTax = isDifferentReturnLocation ? 50 : 0
 
 	const currency = useSelector(state => state.currency)
 	const currencyName = currency.current
 	const currencyRate = currency.rates[currencyName]
 
-	let totalPrice = 0
-	let selectedCurrencyCarPrice = Math.round((selectedCar?.price || 0) * currencyRate)
-	let selectedCurrencyLocationTax = Math.round(differentLocationTax * currencyRate)
-	if (selectedCar?.price && numOfDays) totalPrice = selectedCurrencyCarPrice * numOfDays + selectedCurrencyLocationTax
-	let selectedCurrencyTotalPrice = totalPrice
+	let prices = {
+		total: 0,
+		car: (selectedCar && selectedCar.price) ? selectedCar.price : 0,
+		locationTax: isDifferentReturnLocation ? 50 : 0
+	}
+	let selectedCurrencyPrices = {}
+	for (const key in prices) {
+		selectedCurrencyPrices[key] = Math.round(prices[key] * currencyRate)
+	}
+	if (numOfDays) selectedCurrencyPrices.total = selectedCurrencyPrices.car * numOfDays + selectedCurrencyPrices.locationTax
 
 	useEffect(() => {
-		dispatch(setReservation({totalPrice}))
-	}, [totalPrice]) // eslint-disable-line react-hooks/exhaustive-deps
+		dispatch(setReservation({totalPrice: Math.round(selectedCurrencyPrices.total / currencyRate)}))
+	}, [prices.total]) // eslint-disable-line react-hooks/exhaustive-deps
 
 
 	const fields = [
@@ -67,7 +71,7 @@ const Totals = memo(function Totals({className = '', ...props}) {
 		},
 		{
 			title: 'Car price per day',
-			text: selectedCar ? Math.round(selectedCar.price * currencyRate) : 0,
+			text: selectedCurrencyPrices.car,
 			className: 'carPrice',
 			icon: `icon-${currencyName}`,
 			rightSideIcon: true
@@ -80,14 +84,14 @@ const Totals = memo(function Totals({className = '', ...props}) {
 		},
 		{
 			title: 'Return location tax',
-			text: selectedCurrencyLocationTax,
+			text: selectedCurrencyPrices.locationTax,
 			className: 'returnTax',
 			icon: `icon-${currencyName}`,
 			rightSideIcon: true
 		},
 		{
 			title: 'Total price',
-			text: selectedCurrencyTotalPrice,
+			text: selectedCurrencyPrices.total,
 			className: 'totalPrice',
 			icon: `icon-${currencyName}`,
 			rightSideIcon: true

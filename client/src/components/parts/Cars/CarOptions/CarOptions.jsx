@@ -3,7 +3,7 @@ import TranslateHandler from '../../../TranslateHandler';
 
 const CarOptions = function({car, optionNames = [], className = ''}) {
 
-	if (!car?.options || !optionNames.length) return null
+	if (!car || !car.options || !optionNames.length) return null
 
 	return (
 		<TranslateHandler>
