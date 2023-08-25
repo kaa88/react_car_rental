@@ -1,10 +1,7 @@
+*[а-яА-ЯёЁ]*
 node_modules
 .env*
+.htaccess
 *copy.*
-*[а-яА-ЯёЁ]*
+build
 /temp
-
-
-# Gulp Project:
-?temp
-?design
