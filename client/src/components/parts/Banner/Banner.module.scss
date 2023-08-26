@@ -3,18 +3,18 @@
 .banner {
 	position: relative;
 	margin-top: calc(-1 * var(--compact-mode-offset));
-	padding-top: calc(80px + var(--compact-mode-offset));
-	padding-bottom: 90px;
+	padding-top: calc(rem(80) + var(--compact-mode-offset));
+	padding-bottom: rem(90);
 	@media (max-width: $media-form+px) {
-		padding-bottom: 70px;
+		padding-bottom: rem(70);
 	}
 	@media (max-width: $media-form2+px) {
-		padding-top: calc(50px + var(--compact-mode-offset));
-		padding-bottom: 50px;
+		padding-top: calc(rem(50) + var(--compact-mode-offset));
+		padding-bottom: rem(50);
 	}
 	@media (max-width: $media-ml+px) {
 		padding-top: 0;
-		padding-bottom: 20px;
+		padding-bottom: rem(20);
 	}
 }
 .bg {
@@ -27,36 +27,35 @@
 }
 
 .form {
-	// background-color: orange;
 	@media (max-width: $media-ml+px) {
-		padding-top: calc(15px + var(--compact-mode-offset));
+		padding-top: calc(rem(15) + var(--compact-mode-offset));
 		position: relative;
-		padding: 15px 0 18px;
+		padding: rem(15) 0 rem(18);
 	}
 }
 .formTitle {
-	margin-bottom: 57px;
+	margin-bottom: rem(57);
 	@media (max-width: $media-form2+px) {
-		margin-bottom: 30px;
+		margin-bottom: rem(30);
 	}
 	@media (max-width: $media-ml+px) {
-		margin-bottom: 15px;
+		margin-bottom: rem(15);
 		position: relative;
 	}
 }
 .blur {
 	background-color: rgba(255, 255, 255, 0.2);
-	border-top: 3px solid rgba(255, 255, 255, 0.2);
-	border-radius: 16px;
+	border-top: rem(3) solid rgba(255, 255, 255, 0.2);
+	border-radius: rem(16);
 	backdrop-filter: blur(4.5px);
 }
 .features {
-	margin-top: 149px;
+	margin-top: rem(149);
 	@media (max-width: $media-form+px) {
-		margin-top: 110px;
+		margin-top: rem(110);
 	}
 	@media (max-width: $media-form2+px) {
-		margin-top: 70px;
+		margin-top: rem(70);
 	}
 	@media (max-width: $media-ml+px) {
 		margin-top: 0;
@@ -64,13 +63,13 @@
 	.container {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		grid-column-gap: 30px;
-		min-height: 187px;
+		grid-column-gap: rem(30);
+		min-height: rem(187);
 		color: var(--color01);
 		fill: var(--color01);
 		text-align: center;
 		@media (max-width: $media-ts+px) {
-			grid-column-gap: 10px;
+			grid-column-gap: rem(10);
 		}
 		@media (max-width: $media-mxl+px) {
 			padding-left: 0;
@@ -88,11 +87,10 @@
 .featuresItem {
 	display: flex;
 	flex-direction: column;
-	// justify-content: space-between;
 	align-items: center;
-	padding: 27px 10px;
+	padding: rem(27) rem(10);
 	& > *:last-child {
-		margin-top: 8px;
+		margin-top: rem(8);
 	}
 	@media (max-width: $media-mxl+px) {
 		border-radius: 0;
@@ -103,31 +101,36 @@
 			top: calc(50% - 35%);
 			left: 0;
 			display: inline-block;
-			width: 1px;
+			width: rem(1);
 			height: 70%;
 			background-color: var(--color01);
 			opacity: 0.5;
 		}
 	}
 	@media (max-width: $media-ml+px) {
-		padding: 16px 10px;
+		padding: rem(16) rem(10);
 		background-color: var(--color01);
 		backdrop-filter: none;
 		border: none;
-		border-bottom: solid 1px var(--color02);
+		border-bottom: solid rem(1) var(--color02);
 	}
 }
 .featuresIcon {
-	// margin-top: 27px;
+	width: rem(42);
+	height: rem(42);
+	&[name='icon-lorry'] {
+		width: rem(47);
+		height: rem(47);
+	}
 }
 .featuresContent {
 	flex-grow: 1;
-	margin-top: 15px;
+	margin-top: rem(15);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
 .featuresTitle {
-	font-size: 20px;
-	margin-bottom: 8px;
+	font-size: rem(20);
+	margin-bottom: rem(8);
 }

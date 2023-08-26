@@ -12,7 +12,7 @@ import Container from '../../../ui/Container/Container';
 import Loader from '../../../ui/Loader/Loader';
 import UserService from '../../../../services/UserService';
 import OptionalLink from './OptionalLink';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getRandomId } from '../../../../utilities/utilities';
 
 const DEFAULT_MOD = 'default'
@@ -110,9 +110,9 @@ const RegisterForm = memo(function RegisterForm({modif = DEFAULT_MOD}) {
 					>
 						<span className={classes.checkboxText}>
 							<span>?_I have read and agreed with</span>
-							<a className={classes.link} href="/terms" target='_blank'>?_terms</a>
+							<Link className={classes.link} to='/terms' target='_blank'>?_terms</Link>
 							<span>?_&</span>
-							<a className={classes.link} href="/policy" target='_blank'>?_conditions</a>
+							<Link className={classes.link} to='/policy' target='_blank'>?_conditions</Link>
 						</span>
 					</InputCheckbox>
 

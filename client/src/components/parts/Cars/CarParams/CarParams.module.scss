@@ -5,19 +5,19 @@
 }
 
 .item {
-	margin-top: 12px;
+	margin-top: rem(12);
 	display: flex;
 	align-items: center;
-	font-size: 20px;
+	font-size: rem(20);
 	word-break: break-word;
 	@media (max-width: $media-ts+px) {
-		font-size: 16px;
+		font-size: rem(16);
 	}
 }
 .icon {
-	margin-right: 10px;
-	width: 16px;
-	height: 16px;
+	margin-right: rem(10);
+	width: rem(16);
+	height: rem(16);
 	fill: var(--color02);
 	stroke: var(--color02);
 }

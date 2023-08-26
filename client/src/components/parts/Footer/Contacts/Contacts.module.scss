@@ -2,7 +2,7 @@
 
 .contacts {
 	& > *:not(:last-child) {
-		margin-bottom: 19px;
+		margin-bottom: rem(19);
 	}
 }
 .contactsItem {
@@ -11,15 +11,17 @@
 	justify-content: flex-start;
 	align-items: center;
 	& > *:not(:last-child) {
-		margin-right: 9px;
+		margin-right: rem(9);
 	}
 }
 body .contactsItemLink {
 	flex-grow: 0;
 	transition: opacity $timer-hover;
 	&:hover {
-		color: var(--color01);
-		opacity: 0.5;
+		@media (min-width: $media-tl+1+px) {
+			color: var(--color01);
+			opacity: 0.5;
+		}
 	}
 }
 .socials {
@@ -32,23 +34,28 @@ body {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		width: 40px;
-		height: 40px;
+		width: rem(40);
+		height: rem(40);
 		background-color: transparent;
 		fill: var(--color01);
 		border-color: var(--color01);
 		transition: opacity $timer-hover;
 		&:not(:last-child) {
-			margin-right: 16px;
+			margin-right: rem(16);
 		}
 		&:hover {
-			fill: var(--color01);
-			background-color: transparent;
-			opacity: 0.5;
+			@media (min-width: $media-tl+1+px) {
+				fill: var(--color01);
+				background-color: transparent;
+				opacity: 0.5;
+			}
 		}
 	}
-	.instagram {}
+	.instagram, .telegram {
+		width: rem(20);
+		height: rem(20);
+	}
 	.telegram {
-		margin-left: -2px;
+		margin-left: rem(-2);
 	}
 }

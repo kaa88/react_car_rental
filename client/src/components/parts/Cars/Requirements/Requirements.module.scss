@@ -4,32 +4,30 @@
 	position: relative;
 }
 .title {
-	margin-top: 60px;
-	font-size: 36px;
+	margin-top: rem(60);
 	text-align: center;
 	@media (max-width: $media-ml+px) {
-		margin-top: 30px;
-		font-size: 24px;
+		margin-top: rem(30);
 	}
 }
 .items {
-	margin-top: 30px;
+	margin-top: rem(30);
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	grid-column-gap: 30px;
+	grid-column-gap: rem(30);
 	@media (max-width: $media-tl+px) and (min-width: $media-mxl+1+px) {
 		grid-column-gap: resize-multiplier(30, $media-tl, 2);
 	}
 	@media (max-width: $media-mxl+px) {
 		grid-template-columns: 100%;
-		grid-row-gap: 10px;
+		grid-row-gap: rem(10);
 		justify-content: center;
-		max-width: 592px;
+		max-width: rem(592);
 		margin-left: auto;
 		margin-right: auto;
 	}
 	@media (max-width: $media-ml+px) {
-		margin-top: 10px;
+		margin-top: rem(10);
 	}
 }
 .item {
@@ -37,15 +35,15 @@
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	padding: 10px;
-	min-height: 179px;
-	font-size: 20px;
-	line-height: 23px;
+	padding: rem(10);
+	min-height: rem(179);
+	font-size: rem(20);
+	line-height: rem(23);
 	background-color: var(--color01);
-	border: 1px solid var(--color02);
-	border-top-width: 3px;
-	border-radius: 16px;
+	border: rem(1) solid var(--color02);
+	border-top-width: rem(3);
+	border-radius: rem(16);
 	@media (max-width: $media-mxl+px) {
-		min-height: 100px;
+		min-height: rem(100);
 	}
 }

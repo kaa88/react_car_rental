@@ -2,29 +2,29 @@
 
 .wrapper {
 	position: relative;
-	columns: auto 162px;
-	column-rule: solid 1px var(--color06);
-	column-gap: 32px;
+	columns: auto rem(162);
+	column-rule: solid rem(1) var(--color06);
+	column-gap: rem(32);
 	& > * {
-		margin-bottom: 6px;
+		margin-bottom: rem(8);
 		word-break: break-word;
 	}
 	&:before {
 		content: '';
 		position: absolute;
-		top: -22px;
+		top: rem(-22);
 		left: calc(50% - 40%);
 		display: inline-block;
 		width: 80%;
-		height: 1px;
+		height: rem(1);
 		background-color: var(--color06);
 	}
-	@media (max-width: $media-ts+px) {
-		margin: 20px auto 0;
-		max-width: 500px;
+	@media (max-width: $media-mxl+px) { //ts
+		margin: rem(20) auto 0;
+		max-width: rem(500);
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		grid-column-gap: 20px;
+		grid-column-gap: rem(20);
 		align-items: center;
 		opacity: 0.5;
 		&:before {

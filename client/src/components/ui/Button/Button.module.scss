@@ -2,28 +2,42 @@
 
 .default, .negative {
 	@include text-max-lines(2);
-	max-width: 250px;
-	height: 43px;
-	padding: 0 10px;
-	border-radius: 45px;
+	max-width: rem(250);
+	height: rem(43);
+	padding: 0 rem(10);
+	border-radius: rem(45);
 	font-family: var(--font01);
-	font-size: 16px;
+	font-size: rem(16);
 	// white-space: nowrap;
 	word-break: break-word;
-	border: solid 1px var(--color03);
+	border: solid rem(1) var(--color03);
 	user-select: none;
 	transition: background-color $timer-hover, color $timer-hover, fill $timer-hover;
 	@media print {
 		display: none;
 	}
 }
-.default, .negative:hover {
+.default {
 	background-color: var(--color03);
 	color: var(--color01);
 	fill: var(--color01);
 }
-.default:hover, .negative {
+.negative:hover {
+	@media (min-width: $media-tl+1+px) {
+		background-color: var(--color03);
+		color: var(--color01);
+		fill: var(--color01);
+	}
+}
+.negative {
 	background-color: var(--color01);
 	color: var(--color02);
 	fill: var(--color02);
+}
+.default:hover {
+	@media (min-width: $media-tl+1+px) {
+		background-color: var(--color01);
+		color: var(--color02);
+		fill: var(--color02);
+	}
 }

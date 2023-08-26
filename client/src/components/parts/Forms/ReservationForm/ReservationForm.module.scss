@@ -3,27 +3,27 @@
 .full, .short {
 	position: relative;
 	z-index: 9;
-	padding: 30px 24px;
+	padding: rem(30) rem(24);
 	display: grid;
 	grid-template-columns: 1fr repeat(3, auto);
-	grid-column-gap: 17px; // 8 * 2 + 1(divider-line)
+	grid-column-gap: rem(17); // 8 * 2 + 1(divider-line)
 	@media (max-width: $media-form+px) {
 		@media (min-width: $media-form2+1+px) {
-			grid-row-gap: 26px;
+			grid-row-gap: rem(26);
 		}
 	}
 	@media (max-width: $media-form2+px) {
-		max-width: 660px;
+		max-width: rem(660);
 		margin: 0 auto;
 	}
 	@media (max-width: $media-ml+px) {
-		padding: 36px 8px 16px;
+		padding: rem(36) rem(8) rem(16);
 		width: 100%;
-		max-width: 400px;
+		max-width: rem(400);
 	}
 }
 .full {
-	padding: 30px 0;
+	padding: rem(30) 0;
 	@media (max-width: $media-form2+px) {
 		grid-template-columns: 100%;
 	}
@@ -41,11 +41,11 @@
 	&:after {
 		content: '';
 		position: absolute;
-		top: calc(50% - 20px + 12px);
-		right: -8px;
+		top: calc(50% - rem(20) + rem(12));
+		right: rem(-8);
 		display: inline-block;
-		width: 1px;
-		height: 40px;
+		width: rem(1);
+		height: rem(40);
 		background-color: var(--color01);
 		opacity: 0.5;
 		.full & {
@@ -77,7 +77,7 @@
 	@media (max-width: $media-form2+px) {
 		grid-column: span 2;
 		grid-row: 2;
-		margin-bottom: 33px;
+		margin-bottom: rem(33);
 		.full & {
 			grid-column: 1;
 		}
@@ -91,19 +91,19 @@
 		}
 		@media (max-width: $media-form2+px) {
 			display: block;
-			top: calc(100% + 12px);
+			top: calc(100% + rem(12));
 			right: calc(50% - 35%);
 			width: 70%;
-			height: 1px;
+			height: rem(1);
 		}
 	}
 }
 .options {
 	grid-column: 1/-1;
-	margin-top: 14px;
+	margin-top: rem(14);
 	align-self: center;
 	.full & {
-		margin-bottom: 30px;
+		margin-bottom: rem(30);
 	}
 	@media (max-width: $media-form+px) {
 		margin-top: 0;
@@ -122,31 +122,31 @@
 		}
 	}
 	@media (max-width: $media-ml+px) {
-		margin: 0 13px;
+		margin: 0 rem(13);
 	}
 }
 body .submitBtn {
-	width: 221px;
-	height: 80px;
-	border-radius: 70px;
-	font-size: 24px;
+	width: rem(221);
+	height: rem(80);
+	border-radius: rem(70);
+	font-size: rem(24);
 	align-self: end;
 	@media (max-width: $media-form+px) {
 		grid-column: 3;
 		justify-self: end;
-		height: 60px;
+		height: rem(60);
 	}
 	@media (max-width: $media-form2+px) {
-		font-size: 20px;
+		font-size: rem(20);
 	}
 	@media (max-width: $media-ml+px) {
 		grid-column: 1;
 		grid-row: 6;
-		margin: 18px auto 0;
-		padding: 0 32px;
+		margin: rem(18) auto 0;
+		padding: 0 rem(32);
 		width: auto;
-		height: 50px;
-		font-size: 16px;
+		height: rem(50);
+		font-size: rem(16);
 	}
 	&_bottom {
 		margin: 0 auto;
@@ -181,31 +181,28 @@ body .submitBtn {
 
 .carSelect {
 	grid-column: span 3;
-	max-width: 820px;
+	max-width: rem(820);
 	justify-self: end;
-	@media (max-width: $media-form+px) and (min-width: $media-form2+1+px) {
-		max-width: resize-multiplier(820, $media-form, 1)
-	}
 	@media (max-width: $media-form2+px) {
 		grid-row: 5;
 		grid-column: 1;
-		margin-top: 20px;
+		margin-top: rem(20);
 	}
 }
 .totals {
 	width: 100%;
 	@media (max-width: $media-form2+px) {
 		grid-row: 8;
-		margin-top: 20px;
+		margin-top: rem(20);
 	}
 }
 
 .formMessage {
 	grid-column: span 4;
-	margin-top: 30px;
-	margin-bottom: 30px;
-	min-height: 24px;
-	font-size: 20px;
+	margin-top: rem(30);
+	margin-bottom: rem(30);
+	min-height: rem(24);
+	font-size: rem(20);
 	text-align: center;
 	color: var(--color07);
 	@media (max-width: $media-form+px) {
@@ -215,33 +212,33 @@ body .submitBtn {
 	@media (max-width: $media-form2+px) {
 		grid-column: 1;
 		grid-row: 9;
-		margin-top: 10px;
-		margin-bottom: 10px;
+		margin-top: rem(10);
+		margin-bottom: rem(10);
 	}
 }
 
 .confirmContent {
 	width: 100vw;
-	max-width: 500px;
-	min-height: 300px;
-	padding: 10px;
+	max-width: rem(500);
+	min-height: rem(300);
+	padding: rem(10);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	p {
-		font-size: 18px;
+		font-size: rem(18);
 		text-align: center;
 	}
 }
 p.confirmTitle {
-	margin: 20px 0;
-	font-size: 24px;
+	margin: rem(20) 0;
+	font-size: rem(24);
 }
 .confirmButton {
-	margin-top: 14px;
-	margin-bottom: 20px;
-	min-width: 100px;
+	margin-top: rem(14);
+	margin-bottom: rem(20);
+	min-width: rem(100);
 }
 .loader {
 	position: absolute;

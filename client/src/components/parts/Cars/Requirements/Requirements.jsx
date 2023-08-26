@@ -14,7 +14,7 @@ const Requirements = memo(function Requirements({className = '', ...props}) {
 	return (
 		<TranslateHandler>
 			<div className={`${className} ${classes.reqs}`} {...props}>
-				<h3 className={classes.title}>?_Requirements</h3>
+				<h3 className={`fz36 tac color02 ${classes.title}`}>?_Requirements</h3>
 				<div className={classes.items}>
 					{reqs.map((item, index) =>
 						<p className={classes.item} key={index}>{`?_${item}`}</p>

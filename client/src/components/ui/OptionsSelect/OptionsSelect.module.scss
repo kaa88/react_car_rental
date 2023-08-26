@@ -6,11 +6,11 @@
 }
 
 .icon {
-	margin-right: 6px;
+	margin-right: rem(6);
 	cursor: default;
 	svg {
-		width: 16px;
-		height: 16px;
+		width: rem(16);
+		height: rem(16);
 		fill: var(--color02);
 	}
 }

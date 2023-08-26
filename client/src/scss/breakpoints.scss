@@ -15,13 +15,12 @@ $media-ts: 960 - $media-offset; // mobile
 
 // mobile
 $media-mxl: 782 - $media-offset;
-$media-ml: 630 - $media-offset; // header menu
+$media-ml: 600 - $media-offset; // header menu // 630
 $media-m: 480 - $media-offset;
 $media-ms: 360 - $media-offset;
 
-$media-form: 1350 - $media-offset;
-$media-form2: 1120 - $media-offset;
-$media-date-select: 400 - $media-offset;
+$media-form: 1150 - $media-offset; // 1350
+$media-form2: $media-ts; // 1120
 
 
 // aspect ratio

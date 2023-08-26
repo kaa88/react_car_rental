@@ -1,8 +1,8 @@
 @import "../../../../../scss/variables.scss";
 
 body .popup {
-	left: calc(50% - 153px);
-	top: calc(100% + 6px);
+	left: calc(50% - rem(153));
+	top: calc(100% + rem(6));
 	@media (max-width: $media-ml+px) {
 		left: 0;
 		width: 100%;
@@ -10,69 +10,69 @@ body .popup {
 }
 .popupContent {
 	position: relative;
-	height: 380px;
+	height: rem(380);
 	background-color: var(--color01);
 	color: var(--color02);
-	border-radius: 16px;
+	border-radius: rem(16);
 	user-select: none;
-	box-shadow: 0 0 5px 0 var(--color06);
+	box-shadow: 0 0 rem(5) 0 var(--color06);
 	.divider {
 		position: absolute;
-		left: 140px;
+		left: rem(140);
 		top: 14%;
 		height: 72%;
 	}
 }
 
 .listWrapper {
-	margin-right: 10px;
-	padding: 16px 10px;
+	margin-right: rem(10);
+	padding: rem(16) rem(10);
 	height: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
 	&::-webkit-scrollbar {
-		width: 16px;
+		width: rem(16);
 	}
 	&::-webkit-scrollbar-thumb {
 		background: var(--color01);
-		border-radius: 10px;
-		border: solid 1px var(--color02);
+		border-radius: rem(10);
+		border: solid rem(1) var(--color02);
 	}
 	&::-webkit-scrollbar-track {
 		background: var(--color02);
-		border-radius: 10px;
-		margin-top: 20px;
-		margin-bottom: 20px;
+		border-radius: rem(10);
+		margin-top: rem(20);
+		margin-bottom: rem(20);
 	}
-	scrollbar-width: thin; // = 8px
+	scrollbar-width: thin; // = 8
 	scrollbar-color: var(--color01) var(--color02); // thumb track
 	overscroll-behavior: contain;
 	@media (max-width: $media-ml+px) {
 		&::-webkit-scrollbar {
-			width: 8px;
+			width: rem(8);
 		}
 	}
 }
 .list {
 	display: grid;
 	grid-template-columns: repeat(2, auto);
-	grid-column-gap: 20px;
+	grid-column-gap: rem(20);
 }
 .item {
-	width: 120px;
-	height: 50px;
-	font-size: 20px;
-	border-radius: 33px;
+	width: rem(120);
+	height: rem(50);
+	font-size: rem(20);
+	border-radius: rem(33);
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
 	transition: background-color $timer-hover, color $timer-hover;
 	@media (max-width: $media-form2+px) {
-		font-size: 18px;
+		font-size: rem(18);
 	}
 	@media (max-width: $media-ml+px) {
-		font-size: 16px;
+		font-size: rem(16);
 	}
 	&:hover, &.active {
 		background-color: var(--color02);

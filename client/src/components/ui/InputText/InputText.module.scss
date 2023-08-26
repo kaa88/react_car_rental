@@ -1,11 +1,13 @@
+@import "../../../scss/variables.scss";
+
 .default, .textCenter {
 	width: 100%;
-	// max-width: 150px;
-	height: 43px;
-	padding: 0 10px;
-	border-radius: 45px;
+	// max-width: rem(150);
+	height: rem(43);
+	padding: 0 rem(10);
+	border-radius: rem(45);
 	font-family: var(--font01);
-	font-size: 16px;
+	font-size: rem(16);
 }
 .textCenter {
 	text-align: center;

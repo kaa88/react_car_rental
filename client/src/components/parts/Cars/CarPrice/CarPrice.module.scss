@@ -1,11 +1,11 @@
 @import "../../../../scss/variables.scss";
 
 .wrapper {
-	padding-right: 20px;
+	padding-right: rem(20);
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	font-size: 20px;
+	font-size: rem(20);
 	@media (max-width: $media-ts+px) {
 		padding: 0;
 		font-weight: 500;
@@ -13,7 +13,7 @@
 }
 
 .currencyIcon {
-	width: 16px;
-	height: 16px;
+	width: rem(16);
+	height: rem(16);
 	fill: var(--color02);
 }

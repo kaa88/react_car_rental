@@ -1,11 +1,11 @@
-import Terms from '../../components/parts/Terms/Terms';
+import Document from '../../components/parts/Document/Document';
 import PageTitle from '../PageTitle';
 
 function TermsPage() {
 	return (
 		<>
 			<PageTitle value='Terms of Use' />
-			<Terms />
+			<Document type='terms' />
 		</>
 	)
 }

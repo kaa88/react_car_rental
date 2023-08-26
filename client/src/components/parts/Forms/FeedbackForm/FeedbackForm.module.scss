@@ -2,27 +2,27 @@
 
 .form {
 	width: 100vw;
-	max-width: 630px;
-	padding: 50px 0;
+	max-width: rem(630);
+	padding: rem(50) 0;
 	position: relative;
 	.container {
-		max-width: 470px; //410+20*2
+		max-width: rem(470); //410+20*2
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 	}
 }
 .title {
-	font-size: 24px;
+	font-size: rem(24);
 }
 body .inputText {
-	margin-bottom: 15px;
-	height: 60px;
-	padding: 0 24px;
-	font-size: 18px;
-	border: solid 1px var(--color02);
+	margin-bottom: rem(15);
+	height: rem(60);
+	padding: 0 rem(24);
+	font-size: rem(18);
+	border: solid rem(1) var(--color02);
 	@media (max-width: $media-ml+px) {
-		font-size: 16px;
+		font-size: rem(16);
 	}
 	&::placeholder {
 		opacity: 0.5;
@@ -33,13 +33,13 @@ body .inputText {
 }
 .textarea {
 	width: 100%;
-	height: 160px;
+	height: rem(160);
 	resize: none;
-	padding: 15px 24px;
-	border-radius: 16px;
-	border: solid 1px var(--color02);
-	font-size: 16px;
-	line-height: 20px;
+	padding: rem(15) rem(24);
+	border-radius: rem(16);
+	border: solid rem(1) var(--color02);
+	font-size: rem(16);
+	line-height: rem(20);
 	&.error {
 		border-color: var(--color07);
 	}
@@ -47,30 +47,30 @@ body .inputText {
 		opacity: 0.5;
 	}
 	&::-webkit-scrollbar {
-		width: 8px;
+		width: rem(8);
 	}
 	&::-webkit-scrollbar-thumb {
 		background: var(--color05);
-		border-radius: 5px;
+		border-radius: rem(5);
 	}
 	&::-webkit-scrollbar-track {
 		background: transparent;
-		border-radius: 5px;
-		margin-top: 10px;
-		margin-bottom: 10px;
+		border-radius: rem(5);
+		margin-top: rem(10);
+		margin-bottom: rem(10);
 	}
-	scrollbar-width: thin; // = 8px
+	scrollbar-width: thin; // = rem(8)
 	scrollbar-color: var(--color05) transparent; // thumb track
 }
 body .button {
-	min-width: 143px;
-	height: 43px;
-	font-size: 16px;
+	min-width: rem(143);
+	height: rem(43);
+	font-size: rem(16);
 }
 .formMessage {
-	margin: 14px 0;
-	font-size: 18px;
-	min-height: 20px;
+	margin: rem(14) 0;
+	font-size: rem(18);
+	min-height: rem(20);
 	color: var(--color08);
 	text-align: center;
 	&.error {
@@ -78,8 +78,8 @@ body .button {
 	}
 	@media (max-width: $media-m+px) {
 		margin-left: 0;
-		font-size: 16px;
-		min-height: 22px;
+		font-size: rem(16);
+		min-height: rem(22);
 	}
 }
 body .loader {
@@ -95,25 +95,27 @@ body .loader {
 	position: relative;
 }
 .rating {
-	margin: 14px 0;
+	margin: rem(14) 0;
 }
 .ratingMessage {
 	position: absolute;
-	top: calc(50% - 15px);
-	right: -20px;
-	font-size: 30px;
-	height: 30px;
+	top: calc(50% - rem(15));
+	right: rem(-20);
+	font-size: rem(30);
+	height: rem(30);
 	color: var(--color07);
 	user-select: none;
 }
 .userNameSetter {
-	margin-bottom: 14px;
+	margin-bottom: rem(14);
 	color: var(--color02);
 	text-decoration: underline;
 	cursor: pointer;
 	user-select: none;
 	transition: color $timer-hover;
 	&:hover {
-		color: var(--color03);
+		@media (min-width: $media-tl+1+px) {
+			color: var(--color03);
+		}
 	}
 }

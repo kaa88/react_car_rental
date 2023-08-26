@@ -5,8 +5,9 @@ body {
 // Do not set color transition here, it doesn't work with ccs-var that way.
 	--color01: #ffffff; // primary
 	--color01a: #ffffff99; // primary alpha
-	--color02: #201d29; // secondary
-	--color02a: #201d2999; // secondary alpha
+	// --color02: #201d29; // secondary
+	--color02: #262231; // secondary
+	--color02a: #26223199; // secondary alpha
 	--color03: #e30f1f; // accent
 	--color04: #E0CC19; // additional
 	--color05: #ddd; // ui elements (scrollbar, etc.)

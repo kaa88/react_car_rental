@@ -1,20 +1,20 @@
 @import "../../../scss/variables.scss";
 
 .account {
-	padding-top: 30px;
+	padding-top: rem(30);
 	.container {
-		@media (max-width: $media-t+px) {
-			max-width: 680px;
+		@media (max-width: $media-ts+px) {
+			max-width: rem(680);
 		}
 	}
 }
 .box {
 	position: relative;
 	@media (min-width: $media-tl+1+px) {
-		margin-top: 40px;
+		margin-top: rem(40);
 	}
 	& > *:not(:last-child) .content {
-		border-bottom: solid 1px var(--color02);
+		border-bottom: solid rem(1) var(--color02);
 	}
 }
 .booking, .history, .settings {
@@ -25,35 +25,35 @@
 	}
 }
 .header {
-	flex: 0 0 186px;
+	flex: 0 0 rem(186);
 	position: relative;
-	font-size: 24px;
-	border-right: solid 1px var(--color02);
+	font-size: rem(24);
+	border-right: solid rem(1) var(--color02);
 	.booking & {
-		padding-top: 6px;
+		padding-top: rem(6);
 	}
 	.history & {
-		padding-top: 48px;
+		padding-top: rem(48);
 	}
 	.settings & {
-		padding-top: 45px;
+		padding-top: rem(45);
 	}
 	@media (max-width: $media-tl+px) {
 		flex: 0 0 auto;
 		border: none;
 		.booking &, .history &, .settings & {
-			margin-top: 26px;
-			margin-bottom: 26px;
+			margin-top: rem(26);
+			margin-bottom: rem(26);
 			padding-top: 0;
-			line-height: 40px;
+			line-height: rem(40);
 			span {
 				display: inline-block;
-				line-height: 40px;
+				line-height: rem(40);
 			}
 		}
 	}
 	@media (max-width: $media-m+px) {
-		font-size: 20px;
+		font-size: rem(20);
 		font-weight: 500;
 	}
 }
@@ -72,50 +72,50 @@
 	}
 }
 .spoilerIcon {
-	width: 18px;
-	height: 18px;
+	width: rem(18);
+	height: rem(18);
 	transform: rotate(90deg);
 	fill: var(--color02);
 }
 .content {
 	position: relative;
-	margin-left: 28px;
+	margin-left: rem(28);
 	flex: 1 1 auto;
-	min-height: 150px;
+	min-height: rem(150);
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	grid-column-gap: 48px;
-	grid-row-gap: 40px;
+	grid-column-gap: rem(48);
+	grid-row-gap: rem(40);
 	.booking & {
-		padding-top: 6px;
-		padding-bottom: 40px;
+		padding-top: rem(6);
+		padding-bottom: rem(40);
 	}
 	.history & {
-		padding-top: 48px;
-		padding-bottom: 16px;
+		padding-top: rem(48);
+		padding-bottom: rem(16);
 	}
 	.settings & {
-		padding-top: 45px;
-		padding-bottom: 70px;
+		padding-top: rem(45);
+		padding-bottom: rem(70);
 		display: flex;
 	}
 	@media (max-width: $media-tl+px) {
 		margin-left: 0;
 		.booking &, .history &, .settings & {
-			padding-top: 0;// 20px;
-			padding-bottom: 30px;
+			padding-top: 0;
+			padding-bottom: rem(30);
 		}
 	}
-	@media (max-width: $media-t+px) {
+	@media (max-width: $media-ts+px) {
 		grid-template-columns: repeat(2, auto);
-		grid-row-gap: 36px;
+		grid-row-gap: rem(36);
 	}
 	@media (max-width: $media-ml+px) {
-		grid-column-gap: 30px;
+		grid-column-gap: rem(30);
 	}
 	@media (max-width: $media-m+px) {
 		grid-template-columns: 100%;
-		grid-row-gap: 20px;
+		grid-row-gap: rem(20);
 	}
 }
 .spoilerContent {
@@ -140,23 +140,23 @@
 		content: '';
 		position: absolute;
 		top: 0;
-		left: -24px;
+		left: rem(-24);
 		display: inline-block;
-		width: 1px;
+		width: rem(1);
 		height: 50%;
 		background-color: var(--color02);
 	}
 	&:nth-child(4n-3) {
 		&:before {display: none;}
 	}
-	@media (max-width: $media-t+px) {
+	@media (max-width: $media-ts+px) {
 		&:nth-child(odd) {
 			&:before {display: none;}
 		}
 	}
 	@media (max-width: $media-ml+px) {
 		&:before {
-			left: -15px;
+			left: rem(-15);
 		}
 	}
 	@media (max-width: $media-m+px) {
@@ -165,32 +165,32 @@
 			&:before {display: none;}
 		}
 		&:not(:first-child) {
-			padding-top: 20px;
+			padding-top: rem(20);
 			&:before {
 				display: inline-block;
 				left: 25%;
 				width: 50%;
-				height: 1px;
+				height: rem(1);
 			}
 		}
 	}
 }
 .bookingItemButtons {
-	margin-top: 15px;
+	margin-top: rem(15);
 	display: flex;
 	flex-wrap: wrap;
-	gap: 12px;
+	gap: rem(12);
 	@media (max-width: $media-m+px) {
 		justify-content: space-between;
 		column-gap: 0;
 	}
 }
 body .bookingItemBtn {
-	height: 35px;
-	padding: 0 24px;
-	font-size: 16px;
+	height: rem(35);
+	padding: 0 rem(24);
+	font-size: rem(16);
 	@media (max-width: $media-m+px) {
-		flex: 0 1 calc(50% - 6px);
+		flex: 0 1 calc(50% - rem(6));
 	}
 }
 .bookingInfoBox {
@@ -202,31 +202,34 @@ body .bookingItemBtn {
 	}
 }
 .bookingTitle {
-	font-size: 20px;
+	font-size: rem(20);
 }
 .bookingText {
-	margin-top: 15px;
+	margin-top: rem(15);
 	display: flex;
 	align-items: center;
-	font-size: 16px;
+	font-size: rem(16);
 }
 .bookingIcon {
-	margin-right: 6px;
-	margin-bottom: 3px;
-	width: 20px;
-	height: 20px;
+	margin-right: rem(6);
+	margin-bottom: rem(3);
+	width: rem(20);
+	height: rem(20);
 }
 .historyItemDeleteBtn {
-	margin-top: 15px;
+	margin-top: rem(15);
 	color: var(--color03);
 	fill: var(--color03);
 	background-color: transparent;
+	font-size: rem(16);
 	display: flex;
 	align-items: center;
 	opacity: 1;
 	transition: opacity $timer-hover;
 	&:hover {
-		opacity: 0.7;
+		@media (min-width: $media-tl+1+px) {
+			opacity: 0.7;
+		}
 	}
 	@media (max-width: $media-m+px) {
 		margin-left: auto;
@@ -235,10 +238,10 @@ body .bookingItemBtn {
 }
 .historyMoreBtn {
 	grid-column: span 4;
-	padding: 0 24px;
+	padding: 0 rem(24);
 	justify-self: end;
-	height: 35px;
-	@media (max-width: $media-t+px) {
+	height: rem(35);
+	@media (max-width: $media-ts+px) {
 		grid-column: span 2;
 	}
 	@media (max-width: $media-m+px) {

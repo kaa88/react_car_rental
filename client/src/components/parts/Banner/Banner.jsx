@@ -13,19 +13,16 @@ const Banner = memo(function Banner() {
 	const features = [
 		{
 			icon: "icon-lorry",
-			iconSize: "47px",
 			title: "Delivery to other town is possible",
 			text: "Rent no matter where you are",
 		},
 		{
 			icon: "icon-apostile",
-			iconSize: "42px",
 			title: "Fine cars",
 			text: "All cars in perfect condition",
 		},
 		{
 			icon: "icon-medal",
-			iconSize: "42px",
 			title: "Best price",
 			text: "Don't even try to find better",
 		},
@@ -52,7 +49,7 @@ const Banner = memo(function Banner() {
 					<Container className={classes.container}>
 						{features.map((item, index) =>
 							<div className={`${classes.featuresItem} ${classes.blur}`} key={index}>
-								<Icon className={classes.featuresIcon} name={item.icon} size={item.iconSize} />
+								<Icon className={classes.featuresIcon} name={item.icon} />
 								<div className={classes.featuresContent}>
 									<p className={classes.featuresTitle}>{`?_${item.title}`}</p>
 									<p className={classes.featuresText}>{`?_${item.text}`}</p>

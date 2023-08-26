@@ -20,11 +20,11 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 16px;
-	height: 16px;
+	width: rem(16);
+	height: rem(16);
 	background-color: transparent;
-	border: 1px solid var(--color02);
-	border-radius: 2px;
+	border: rem(1) solid var(--color02);
+	border-radius: rem(2);
 	cursor: pointer;
 	transition: background-color $timer-hover;
 	.light & {
@@ -32,14 +32,14 @@
 	}
 }
 .boxIcon {
-	width: 8px;
-	height: 8px;
+	width: rem(8);
+	height: rem(8);
 	fill: var(--color02);
 	opacity: 0;
 	transition: opacity $timer-hover;
 }
 .text {
-	margin-left: 8px;
+	margin-left: rem(8);
 	color: var(--color02);
 	user-select: none;
 	.light & {

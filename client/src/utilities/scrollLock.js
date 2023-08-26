@@ -1,27 +1,31 @@
+import { scriptManager } from "./scriptManager"
+
 /* 
 	Module prevents window scrolling with menu, modals, etc. and
 	prevents content jumps when scrollbar fades out.
 */
 const lockedClassName = 'scroll-is-locked'
 const cssVarName = '--scrollbar-width'
+const calcDelay = 800
+let timeoutID = null
+let prevScrollbarWidth = null
 
 export const scrollLock = {
 	init() {
-		window.addEventListener('resize', this.calcScrollbarWidth.bind(this))
 		this.calcScrollbarWidth()
-		// sometimes calculation = -1, so let's run one more time
-		const secondTryDelay = 1000
-		if (this.scrollbarWidth <= 0) setTimeout(function() {
-			this.calcScrollbarWidth()
-		}.bind(this), secondTryDelay)
+		window.addEventListener('resize', this.calcScrollbarWidth.bind(this))
+		scriptManager.registerFunctions('scrollLock', {calcScrollbarWidth: this.calcScrollbarWidth})
 	},
 	calcScrollbarWidth() {
-		if (document.body.classList.contains(lockedClassName)) return;
-		let scrollbarWidth = window.innerWidth - document.body.offsetWidth
-		if (scrollbarWidth !== this.scrollbarWidth) {
-			document.body.style.setProperty(cssVarName, scrollbarWidth + 'px')
-			this.scrollbarWidth = scrollbarWidth
-		}
+		if (timeoutID !== null) clearTimeout(timeoutID)
+		timeoutID = setTimeout(function() {
+			if (document.body.classList.contains(lockedClassName)) return;
+			let scrollbarWidth = window.innerWidth - document.body.offsetWidth
+			if (scrollbarWidth !== prevScrollbarWidth) {
+				document.body.style.setProperty(cssVarName, scrollbarWidth + 'px')
+				prevScrollbarWidth = scrollbarWidth
+			}
+		}, calcDelay)
 	},
 }
 export function lockScroll() {

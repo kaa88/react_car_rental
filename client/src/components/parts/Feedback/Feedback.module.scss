@@ -2,9 +2,9 @@
 
 .feedback {
 	position: relative;
-	padding: 50px 0;
+	padding: rem(50) 0;
 	@media (max-width: $media-ml+px) {
-		padding: 20px 0;
+		padding: rem(20) 0;
 	}
 }
 .container {
@@ -12,8 +12,8 @@
 }
 .sliderBox {
 	position: relative;
-	// height: 660px; //
-	min-height: 350px;
+	// height: rem(660); //
+	min-height: rem(350);
 }
 .loader, .loadError {
 	position: absolute;
@@ -28,34 +28,34 @@
 	z-index: 2;
 }
 .slider {
-	margin-top: 30px;
+	margin-top: rem(30);
 	position: relative;
 	@media (max-width: $media-ml+px) {
-		margin-top: 15px;
+		margin-top: rem(15);
 	}
 }
 .slide {
 	margin: 0 auto;
 	width: 100%;
-	max-width: 855px;
-	height: 500px;
+	max-width: rem(855);
+	height: rem(500);
 	display: grid;
-	grid-template-columns: 410px 1fr;
-	// grid-template-rows: 32px auto auto auto;
-	grid-template-rows: 32px auto 1fr auto;
-	grid-column-gap: 30px;
+	grid-template-columns: rem(410) 1fr;
+	grid-template-rows: rem(32) auto 1fr auto;
+	grid-column-gap: rem(30);
 	justify-content: space-between;
 	background-color: var(--color01);
 	@media (max-width: $media-t+px) {
-		grid-template-columns: 8fr 10fr;
-		max-width: 2000px;
-		height: resize-multiplier(500, $media-t, 1);
+		grid-template-columns: 2fr 5fr;
+		// grid-template-columns: 8fr 10fr;
+		max-width: rem(2000);
+		height: resize-multiplier(334, $media-t, 1);
 	}
 	@media (max-width: $media-ml+px) {
 		grid-template-columns: auto 1fr;
 		grid-template-rows: auto auto 1fr;
-		grid-column-gap: 14px;
-		height: 300px;
+		grid-column-gap: rem(14);
+		height: rem(300);
 	}
 }
 .image {
@@ -65,15 +65,15 @@
 	@media (max-width: $media-ml+px) {
 		grid-row: 1/3;
 		grid-column: 1;
-		width: 80px;
-		height: 80px;
+		width: rem(80);
+		height: rem(80);
 	}
 }
 .imgWrapper {
 	position: relative;
 	width: 100%;
 	height: 100%;
-	border-radius: 16px;
+	border-radius: rem(16);
 	overflow: hidden;
 	background-color: #ddd;
 	@media (max-width: $media-t+px) and (min-width: $media-ml+1+px) {
@@ -92,7 +92,7 @@
 }
 .textBox {
 	position: relative;
-	margin-top: 26px;
+	margin-top: rem(26);
 	overflow: hidden;
 	&:before, &:after {
 		content: '';
@@ -101,7 +101,7 @@
 		left: 0;
 		display: inline-block;
 		width: 100%;
-		height: 16px;
+		height: rem(16);
 		background: linear-gradient(to top, transparent, var(--color01));
 	}
 	&:after {
@@ -116,30 +116,30 @@
 	}
 }
 .text {
-	padding: 16px 5px 16px 0;
+	padding: rem(16) rem(5) rem(16) 0;
 	height: 100%;
-	font-size: 20px;
-	line-height: 23.4px;
+	font-size: rem(20);
+	line-height: rem(23.4);
 	overflow: auto;
 	scrollbar-width: thin;
 	scrollbar-color: var(--color05) transparent;
 	&::-webkit-scrollbar {
-		width: 5px;
+		width: rem(5);
 	}
 	&::-webkit-scrollbar-thumb {
 		background: var(--color05);
-		border-radius: 5px;
+		border-radius: rem(5);
 	}
 	&::-webkit-scrollbar-track {
 		background: transparent;
-		border-radius: 5px;
-		margin: 16px 0;
+		border-radius: rem(5);
+		margin: rem(16) 0;
 	}
 }
 .name {
-	margin-top: 10px;
-	margin-bottom: 30px;
-	font-size: 16px;
+	margin-top: rem(10);
+	margin-bottom: rem(30);
+	font-size: rem(16);
 	@media (max-width: $media-ml+px) {
 		grid-row: 2;
 		grid-column: 2;
@@ -155,11 +155,11 @@
 		grid-column: 2;
 	}
 	& > * {
-		width: 32px;
-		height: 32px;
+		width: rem(32);
+		height: rem(32);
 		fill: var(--color04);
 		&:not(:last-child) {
-			margin-right: 8px;
+			margin-right: rem(8);
 		}
 	}
 }
@@ -169,7 +169,7 @@
 	user-select: none;
 }
 .feedback .pagination {
-	left: calc(50% + 15px - 4px);
+	left: calc(50% + rem(15) - rem(4));
 	width: min-content;
 	display: inline-flex;
 	@media (max-width: $media-t+px) {
@@ -178,13 +178,13 @@
 }
 
 .addBtn {
-	margin-top: 30px;
-	min-width: 250px;
+	margin-top: rem(30);
+	min-width: rem(250);
 	justify-self: center;
-	height: 55px;
-	font-size: 20px;
-	border-radius: 45px;
+	height: rem(55);
+	font-size: rem(20);
+	border-radius: rem(45);
 	@media (max-width: $media-ml+px) {
-		margin-top: 15px;
+		margin-top: rem(15);
 	}
 }

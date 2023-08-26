@@ -3,7 +3,7 @@
 .wrapper {
 	position: relative;
 	display: flex;
-	min-height: 200px;
+	min-height: rem(200);
 	@media (max-width: $media-form2+px) {
 		width: 100%;
 		justify-content: space-around;
@@ -14,59 +14,59 @@
 }
 .info {
 	position: relative;
-	// background-color: orange;
 }
 body .carImage {
-	height: 290px;
+	height: rem(290);
+	@media (max-width: $media-form+px) {
+		height: rem(200);
+	}
 	@media (max-width: $media-form2+px) {
-		height: 130px;
+		height: rem(130);
 	}
 }
 .carParams {
 
 }
 body .infoBtn {
-	margin: 10px auto 0 auto;
-	min-width: 150px;
+	margin: rem(10) auto 0 auto;
+	min-width: rem(150);
 }
 
 .list {
 	position: relative;
-	// background-color: limegreen;
 }
 .listTitle {
-	margin-bottom: 15px;
-	font-size: 24px;
+	margin-bottom: rem(15);
+	font-size: rem(24);
 	text-align: center;
 }
 .listItem {
-	min-width: 300px;
-	height: 46px;
-	padding: 0 15px;
+	min-width: rem(300);
+	height: rem(46);
+	padding: 0 rem(15);
 	display: flex;
 	align-items: center;
-	border-radius: 46px;
+	border-radius: rem(46);
 	cursor: pointer;
-	// background-color: var(--color05);
-	border: solid 1px var(--color03);
-	box-shadow: inset 0 0 0 1px transparent;
+	border: solid rem(1) var(--color03);
+	box-shadow: inset 0 0 0 rem(1) transparent;
 	transition: box-shadow $timer-hover;
 	&:not(:last-child) {
-		margin-bottom: 10px;
+		margin-bottom: rem(10);
 	}
 	&:hover, &.active {
-		box-shadow: inset 0 0 0 1px var(--color03);
+		box-shadow: inset 0 0 0 rem(1) var(--color03);
 	}
 	span {
-		max-height: 40px;
+		max-height: rem(40);
 		overflow: hidden;
 	}
 }
 .listIcon {
 	flex: 0 0 auto;
-	margin-right: 15px;
-	width: 30px;
-	height: 30px;
+	margin-right: rem(15);
+	width: rem(30);
+	height: rem(30);
 	border-radius: 50%;
 	fill: transparent;
 	transition: fill $timer-hover;

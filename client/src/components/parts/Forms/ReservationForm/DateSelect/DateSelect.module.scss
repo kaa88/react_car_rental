@@ -1,40 +1,45 @@
 @import "../../../../../scss/variables.scss";
 
 body .popup {
-	left: calc(50% - 352px);
-	top: calc(100% + 6px);
+	left: calc(50% - rem(352));
+	top: calc(100% + rem(6));
 	@media (max-width: $media-form+px) and (min-width: $media-form2+1+px) {
 		left: auto;
 		right: 0;
 	}
-	@media (max-width: $media-mxl+px) {
-		left: calc(50% - 206px);
+	@media (max-width: $media-ml+px) { //mxl
+		left: calc(50% - rem(206));
 	}
 	@media (max-width: $media-ml+px) {
 		left: 0;
 		width: 100%;
 	}
-	@media (max-width: $media-date-select+px) { //400
-		margin-left: -18px;
+	@media (max-width: $media-ms+px) {
+		margin-left: rem(-18);
 		width: calc(100vw - var(--scrollbar-width));
 	}
 }
+main[page="reservation"] .popup {
+	@media (max-width: $media-ms+px) {
+		margin-left: rem(-9);
+	}
+}
 .popupContent {
-	height: 414px;
+	height: rem(414);
 	display: flex;
 	background-color: var(--color01);
 	color: var(--color02);
-	border-radius: 16px;
-	box-shadow: 0 0 5px 0 var(--color06);
+	border-radius: rem(16);
+	box-shadow: 0 0 rem(5) 0 var(--color06);
 	user-select: none;
-	@media (max-width: $media-mxl+px) {
+	@media (max-width: $media-ml+px) { // mxl
 		& > *:not(:first-child) {
 			display: none;
 		}
 	}
 	@media (max-width: $media-ml+px) {
 		width: 100%;
-		height: 398px;
+		height: rem(398);
 		justify-content: center;
 	}
 	.divider {
@@ -45,27 +50,27 @@ body .popup {
 }
 
 .month {
-	padding: 24px 8px;
+	padding: rem(24) rem(8);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	@media (max-width: $media-ml+px) {
-		padding: 16px 0;
+		padding: rem(16) 0;
 	}
 }
 .title {
-	font-size: 20px;
-	line-height: 30px;
+	font-size: rem(20);
+	line-height: rem(30);
 	text-align: center;
 	cursor: default;
 }
 .days {
-	height: 48px; //?
+	height: rem(48); //?
 	display: grid;
-	grid-template-columns: repeat(7, 48px);
+	grid-template-columns: repeat(7, rem(48));
 	cursor: default;
 	@media (max-width: $media-ms+px) {
-		grid-template-columns: repeat(7, 41px);
+		grid-template-columns: repeat(7, rem(41));
 	}
 	& > * {
 		display: flex;
@@ -77,17 +82,14 @@ body .popup {
 .dates {
 	display: grid;
 	grid-template-columns: repeat(7, auto);
-	@media (max-width: $media-ms+px) {
-		grid-template-columns: repeat(7, 41px);
-	}
 }
 .dateItem {
-	width: 48px;
-	height: 48px;
+	width: rem(48);
+	height: rem(48);
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: 20px;
+	font-size: rem(20);
 	border-radius: 50%;
 	cursor: pointer;
 	transition: background-color $timer-hover, color $timer-hover;

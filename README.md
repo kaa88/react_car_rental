@@ -26,7 +26,7 @@ You can test it [HERE](https://kaa88.alwaysdata.net/react_car_rental)
 ---
 
 #### TO DO:
-- check scale
 - cookie popup
 - rotation alert
 - forms spam-bot check
+- mailer

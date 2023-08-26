@@ -16,6 +16,7 @@ function Icon({
 	return (
 		<svg
 			className={`${className} ${classes.svg}`}
+			name={name}
 			style={style}
 			{...props}
 		>

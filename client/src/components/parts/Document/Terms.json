@@ -1,12 +1,6 @@
-import { memo } from 'react';
-import classes from './Terms.module.scss';
-import Container from '../../ui/Container/Container';
-import TranslateHandler from '../../TranslateHandler';
-
-
-const Terms = memo(function Terms() {
-
-	const document = [
+{
+	"title": "Terms of Use",
+	"content": [
 		"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur at quibusdam eos temporibus tempora voluptatum eligendi accusamus exercitationem repellendus sit.",
 
 		"Placeat ratione similique, animi rerum quis fugiat aperiam perferendis pariatur molestiae odio saepe laborum quae quaerat hic rem architecto, modi temporibus libero vitae? Temporibus voluptatibus at in ad, inventore quia velit similique voluptate molestias asperiores totam repudiandae libero, doloribus est!",
@@ -35,25 +29,6 @@ const Terms = memo(function Terms() {
 
 		"Exercitationem accusamus necessitatibus quis, animi corporis, soluta magni odit excepturi ut nobis aliquid odio vitae tenetur, iste veniam magnam quibusdam officia possimus sequi maiores optio quaerat.",
 
-		"Molestiae, veniam ea. Modi, pariatur eum maiores ratione corrupti doloribus delectus molestias possimus, laboriosam error repellat. In, quos fugiat quod dolorum ut non, esse molestiae assumenda quaerat similique iste qui ipsum. Quia laudantium voluptates voluptas nisi.",
+		"Molestiae, veniam ea. Modi, pariatur eum maiores ratione corrupti doloribus delectus molestias possimus, laboriosam error repellat. In, quos fugiat quod dolorum ut non, esse molestiae assumenda quaerat similique iste qui ipsum. Quia laudantium voluptates voluptas nisi."
 	]
-
-	const content = document.map((item, index) =>
-		<p className={classes.paragraph} key={index}>
-			<span className={classes.id}>{index+1}.</span>
-			<span className={classes.text}>{item}</span>
-		</p>
-	)
-
-	return (
-		<TranslateHandler>
-			<Container className={classes.container}>
-				<div className={classes.header}>?_Terms of Use</div>
-				{content}
-				<p className={classes.copyright}>&copy; 2023 Somecompany, Inc.</p>
-			</Container>
-		</TranslateHandler>
-	)
-})
-
-export default Terms
+}

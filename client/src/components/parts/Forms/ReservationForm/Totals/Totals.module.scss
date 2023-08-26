@@ -1,9 +1,9 @@
 @import "../../../../../scss/variables.scss";
 
 .wrapper {
-	padding: 20px;
-	border-radius: 25px;
-	border: solid 1px var(--color02);
+	padding: rem(20);
+	border-radius: rem(25);
+	border: solid rem(1) var(--color02);
 	color: var(--color02);
 	fill: var(--color02);
 }
@@ -12,63 +12,63 @@
 	flex-wrap: wrap;
 	align-items: center;
 	&:not(:last-child) {
-		margin-bottom: 15px;
+		margin-bottom: rem(15);
 	}
 }
 .icon, .currencyIcon {
-	margin-bottom: 2px;
-	margin-right: 5px;
+	margin-bottom: rem(2);
+	margin-right: rem(5);
 	flex-shrink: 0;
-	width: 20px;
-	height: 20px;
+	width: rem(20);
+	height: rem(20);
 }
 .currencyIcon {
 	margin-right: 0;
-	margin-left: 3px;
-	width: 16px;
-	height: 16px;
+	margin-left: rem(3);
+	width: rem(16);
+	height: rem(16);
 }
 .title {
-	font-size: 18px;
+	font-size: rem(18);
 	font-weight: 500;
 }
 .text {
-	margin-left: 10px;
-	font-size: 18px;
+	margin-left: rem(10);
+	font-size: rem(18);
 }
 .carPrice, .totalPrice, .days, .returnTax {
 	.text {
 		font-weight: 500;
-		font-size: 18px;
+		font-size: rem(18);
 	}
 }
 .totalPrice {
 	.title {
-		font-size: 26px;
+		font-size: rem(26);
 		font-weight: 500;
 	}
 	.text {
-		font-size: 26px;
+		font-size: rem(26);
 		font-weight: 500;
 		color: var(--color08);
 	}
 	.currencyIcon {
-		width: 20px;
-		height: 20px;
+		width: rem(20);
+		height: rem(20);
 		fill: var(--color08);
 	}
 }
 .carPrice, .totalPrice {
 	position: relative;
-	padding-top: 20px;
+	padding-top: rem(20);
 	&:before {
 		content: '';
 		position: absolute;
-		top: 2px;
+		top: rem(2);
 		left: 0;
 		display: inline-block;
 		width: 100%;
-		height: 1px;
+		height: rem(1);
 		background-color: var(--color02);
 	}
 }

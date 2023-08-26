@@ -1,0 +1,25 @@
+@import "../../../scss/variables.scss";
+
+.container {
+	padding-top: rem(50);
+	padding-bottom: rem(50);
+}
+.header {
+	font-size: rem(34);
+	margin-bottom: rem(40);
+}
+.paragraph {
+	margin-top: rem(20);
+	text-align: justify;
+	text-indent: rem(26);
+}
+.id {
+	font-weight: 500;
+	margin-right: rem(10);
+}
+.text {
+	font-size: rem(15);
+}
+.copyright {
+	margin-top: rem(50);
+}

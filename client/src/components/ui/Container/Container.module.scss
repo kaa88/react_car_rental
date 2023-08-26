@@ -7,8 +7,7 @@
 	margin: 0 auto; //REQ!
 	padding: 0 $container-padding+px;
 	@media (max-width: $media-m+px) {
-		// max-width: $container-padding * 2 + $container-mobile-width + px; //REQ!
-		padding: 0 10px;
+		padding: 0 rem(10);
 	}
 }
 .flex {

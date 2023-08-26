@@ -1,7 +1,9 @@
+@import "../../../scss/variables.scss";
+
 .light, .dark {
 	display: inline-block;
-	width: 1px;
-	height: 40px;
+	width: rem(1);
+	height: rem(40);
 }
 .light {
 	background-color: var(--color01);

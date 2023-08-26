@@ -5,14 +5,14 @@ $offset-resize-multiplier: 3.3;
 
 .cars {
 	position: relative;
-	padding: 40px 0 50px;
+	padding: rem(40) 0 rem(50);
 	@media (max-width: $media-ts+px) {
-		padding: 30px 0;
+		padding: rem(30) 0;
 	}
 }
 .sliderBox {
 	position: relative;
-	height: 660px;
+	height: rem(660);
 }
 .loader, .loadError {
 	position: absolute;
@@ -27,12 +27,12 @@ $offset-resize-multiplier: 3.3;
 	z-index: 2;
 }
 .slider {
-	margin-top: 30px;
+	margin-top: rem(30);
 	position: relative;
 	height: 100%;
 	@media (max-width: $media-ts+px) {
-		margin-top: 10px;
-		max-width: 638px;
+		margin-top: rem(10);
+		max-width: rem(638);
 	}
 }
 .buttonPrev, .buttonNext, .pagination {
@@ -42,16 +42,14 @@ $offset-resize-multiplier: 3.3;
 .slide {
 	position: relative;
 	background-color: var(--color01);
-	height: 660px;
+	height: rem(660);
 	margin: 0 auto;
-	width: calc(100% - 120px);
+	width: calc(100% - rem(120));
 	@media (max-width: $media-t+px) {
 		margin: 0;
-		padding: 40px 0;
+		padding: rem(40) 0;
 		width: 100%;
 		height: 100%;
-		display: grid;
-		grid-template-columns: repeat(2, auto);
 	}
 	@media (max-width: $media-ts+px) {
 		padding: 0;
@@ -62,6 +60,16 @@ body .carImage {
 	@media (max-width: $media-ts+px) {
 		grid-row: 1;
 		grid-column: span 2;
+		height: 0;
+		padding-bottom: 56.25%;
+		position: relative;
+		img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
 	}
 }
 body .carName {
@@ -73,7 +81,7 @@ body .carName {
 	}
 	@media (min-width: $media-ts+1+px) {
 		.modalReadMoreContent & {
-			margin-top: 10px;
+			margin-top: rem(10);
 		}
 	}
 	@media (max-width: $media-ts+px) {
@@ -90,7 +98,7 @@ body .carName {
 }
 body .carParams {
 	position: absolute;
-	top: 25px;
+	top: rem(25);
 	left: $slider-elems-default-offset+px;
 	@media (max-width: $media-tl+px) {
 		left: resize-multiplier($slider-elems-default-offset, $media-tl, $offset-resize-multiplier);
@@ -104,10 +112,10 @@ body .carParams {
 	}
 }
 body .carPrice {
-	margin-bottom: 10px;
+	margin-bottom: rem(10);
 	position: absolute;
 	right: $slider-elems-default-offset+px;
-	bottom: 85px;
+	bottom: rem(85);
 	@media (max-width: $media-tl+px) {
 		right: resize-multiplier($slider-elems-default-offset, $media-tl, $offset-resize-multiplier);
 	}
@@ -128,7 +136,7 @@ body .carPrice {
 	display: flex;
 	position: absolute;
 	right: $slider-elems-default-offset+px;
-	bottom: 30px;
+	bottom: rem(30);
 	@media (max-width: $media-tl+px) {
 		right: resize-multiplier($slider-elems-default-offset, $media-tl, $offset-resize-multiplier);
 	}
@@ -141,15 +149,15 @@ body .carPrice {
 	}
 }
 .actionBtn, .infoBtn {
-	padding: 0 20px;
-	min-width: 184px;
-	height: 55px;
-	border-radius: 45px;
-	font-size: 20px;
-	margin-left: 4px;
-	margin-right: 4px;
+	padding: 0 rem(20);
+	min-width: rem(184);
+	height: rem(55);
+	border-radius: rem(45);
+	font-size: rem(20);
+	margin-left: rem(4);
+	margin-right: rem(4);
 	@media (max-width: $media-ts+px) {
-		margin-top: 10px;
-		height: 43px;
+		margin-top: rem(10);
+		height: rem(43);
 	}
 }

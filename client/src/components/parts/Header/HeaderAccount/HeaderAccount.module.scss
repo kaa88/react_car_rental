@@ -1,11 +1,11 @@
 @import "../../../../scss/variables.scss";
 
 .account {
-	margin-top: 5px;
+	margin-top: rem(5);
 	display: flex;
 	align-items: center;
 	& > * {
-		margin-left: 28px;
+		margin-left: rem(28);
 		@media (max-width: $media-ts+px) {
 			margin-left: resize-multiplier(28, $media-ts, 1.2);
 		}
@@ -20,9 +20,9 @@
 	}
 }
 .account .divider {
-	margin-left: 19px;
+	margin-left: rem(19);
 	@media (max-width: $media-ts+px) {
-		margin-left: 10px;
+		margin-left: rem(10);
 	}
 	@media (max-width: $media-ml+px) {
 		display: none;
@@ -32,55 +32,55 @@
 	position: relative;
 }
 body .signinButton {
-	min-width: 112px;
-	height: 39px;
-	border-radius: 28px;
+	min-width: rem(112);
+	height: rem(39);
+	border-radius: rem(28);
 	@media (max-width: $media-ml+px) {
-		line-height: 14px;
-		min-width: 85px;
-		max-width: 100px;
-		height: 35px;
+		line-height: rem(14);
+		min-width: rem(85);
+		max-width: rem(100);
+		height: rem(35);
 	}
 }
 .profileButton {
-	width: 39px;
-	height: 39px;
-	border-radius: 5px;
+	width: rem(39);
+	height: rem(39);
+	border-radius: rem(5);
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	background-color: var(--color05);
 	fill: var(--color06);
-	border-radius: 6px;
+	border-radius: rem(6);
 	overflow: hidden;
 }
 body .userPhoto {
 	padding-bottom: 100%;
 }
 body .popup {
-	top: calc(100% + 6px);
+	top: calc(100% + rem(6));
 	left: auto;
-	right: -8px;
+	right: rem(-8);
 }
 .popupContent {
-	padding: 20px;
-	border-radius: 16px;
+	padding: rem(20);
+	border-radius: rem(16);
 	background-color: var(--color01);
-	box-shadow: 0 0 5px 0 var(--color06);
+	box-shadow: 0 0 rem(5) 0 var(--color06);
 }
 
 body .popupButton {
-	min-width: 112px;
-	height: 35px;
-	border-radius: 28px;
+	min-width: rem(112);
+	height: rem(35);
+	border-radius: rem(28);
 	&:not(:first-child) {
-		margin-top: 10px;
+		margin-top: rem(10);
 	}
 	@media (max-width: $media-ml+px) {
-		line-height: 14px;
-		min-width: 85px;
-		max-width: 100px;
-		height: 35px;
+		line-height: rem(14);
+		min-width: rem(85);
+		max-width: rem(100);
+		height: rem(35);
 	}
 }
 

@@ -23,12 +23,12 @@ function Router() {
 			},
 			{
 				path: '/',
-				loader: defaultLoader,
+				loader: customLoader,
 				element: <HomePage />,
 			},
 			{
 				path: '/account',
-				loader: defaultLoader,
+				loader: customLoader,
 				element:
 					<RequireAuth>
 						<AccountPage />
@@ -36,7 +36,7 @@ function Router() {
 			},
 			{
 				path: '/reservation',
-				loader: defaultLoader,
+				loader: customLoader,
 				element:
 					<RequireAuth>
 						<ReservationPage />
@@ -44,7 +44,7 @@ function Router() {
 			},
 			{
 				path: '/login',
-				loader: defaultLoader,
+				loader: customLoader,
 				element:
 					<RequireNoAuth>
 						<LoginPage />
@@ -52,7 +52,7 @@ function Router() {
 			},
 			{
 				path: '/register',
-				loader: defaultLoader,
+				loader: customLoader,
 				element:
 					<RequireNoAuth>
 						<RegisterPage />
@@ -60,7 +60,7 @@ function Router() {
 			},
 			{
 				path: '/restore_password',
-				loader: defaultLoader,
+				loader: customLoader,
 				element:
 					<RequireNoAuth>
 						<RestorePasswordPage />
@@ -86,9 +86,10 @@ function Router() {
 export default Router
 
 
-function defaultLoader() {
+function customLoader() {
 	window.scrollTo({top: 0})
 	window.dispatchEvent(new Event('click')) // Closes opened popups if routes through history like using 'return' button. See events in 'initScripts.js'
+	if (scriptManager.components?.scrollLock?.calcScrollbarWidth) scriptManager.components.scrollLock.calcScrollbarWidth()
 	if (scriptManager.components?.modal?.close) scriptManager.components.modal.close()
 	if (scriptManager.components?.header?.closeMenu) scriptManager.components.header.closeMenu()
 	return null

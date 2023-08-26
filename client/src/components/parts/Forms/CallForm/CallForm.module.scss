@@ -3,11 +3,11 @@
 .form {
 	position: relative;
 	width: 100%;
-	max-width: 560px;
+	max-width: rem(560);
 	display: grid;
 	grid-template-columns: 1fr auto;
-	grid-column-gap: 18px;
-	grid-row-gap: 14px;
+	grid-column-gap: rem(18);
+	grid-row-gap: rem(14);
 	justify-content: center;
 	align-items: center;
 	@media (max-width: $media-m+px) {
@@ -15,32 +15,32 @@
 	}
 }
 .inputText {
-	max-width: 434px;
-	padding: 0 20px;
-	height: 51px;
-	border-radius: 53px;
-	border: solid 1px var(--color01);
+	max-width: rem(434);
+	padding: 0 rem(20);
+	height: rem(51);
+	border-radius: rem(53);
+	border: solid rem(1) var(--color01);
 	background-color: var(--color02);
 	color: var(--color01);
 	font-family: var(--font01);
-	font-size: 16px;
-	letter-spacing: 1px;
-	box-shadow: inset 0 1000px 0 0 var(--color02);
+	font-size: rem(16);
+	letter-spacing: rem(1);
+	box-shadow: inset 0 rem(1000) 0 0 var(--color02);
 	-webkit-text-fill-color: var(--color01);
 	&::placeholder {
 		opacity: 0.5;
 	}
 	@media (max-width: $media-m+px) {
 		width: 100%;
-		max-width: 300px;
+		max-width: rem(300);
 		margin: 0 auto;
 	}
 }
 body .button {
 	flex: 0 0 auto;
-	padding: 0 24px;
-	height: 51px;
-	border-radius: 53px;
+	padding: 0 rem(24);
+	height: rem(51);
+	border-radius: rem(53);
 	@media (max-width: $media-m+px) {
 		margin-left: auto;
 		margin-right: auto;

@@ -1,3 +1,5 @@
+@import "../../../scss/variables.scss";
+
 .Rating__wrapper {
 	input {
 		display: none;
@@ -14,8 +16,8 @@
 		fill: var(--color06) !important;
 	}
 	svg {
-		width: 30px;
-		height: 30px;
+		width: rem(30);
+		height: rem(30);
 	}
 }
 .Rating__labels:hover label,

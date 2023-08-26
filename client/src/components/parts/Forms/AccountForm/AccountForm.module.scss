@@ -2,11 +2,11 @@
 
 .form {
 	width: 100vw;
-	max-width: 630px;
-	padding: 50px 0;
+	max-width: rem(630);
+	padding: rem(50) 0;
 	position: relative;
 	.container {
-		max-width: 470px; //410+20*2
+		max-width: rem(470); //410+20*2
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -18,17 +18,17 @@
 	left: 0;
 }
 .title {
-	font-size: 24px;
-	margin-bottom: 30px;
+	font-size: rem(24);
+	margin-bottom: rem(30);
 }
 body .inputText, body .inputPassword {
-	margin-bottom: 15px;
-	height: 60px;
-	padding: 0 24px;
-	font-size: 20px;
-	border: solid 1px var(--color02);
+	margin-bottom: rem(15);
+	height: rem(60);
+	padding: 0 rem(24);
+	font-size: rem(20);
+	border: solid rem(1) var(--color02);
 	@media (max-width: $media-ml+px) {
-		font-size: 16px;
+		font-size: rem(16);
 	}
 	&::placeholder {
 		opacity: 0.5;
@@ -38,41 +38,43 @@ body .inputText, body .inputPassword {
 	}
 }
 .InputPassword {
-	margin-top: 16px;
-	padding: 0 0 0 24px;
+	margin-top: rem(16);
+	padding: 0 0 0 rem(24);
 }
 .button {
-	margin-top: 30px;
-	min-width: 143px;
-	height: 43px;
-	font-size: 16px;
+	margin-top: rem(30);
+	min-width: rem(143);
+	height: rem(43);
+	font-size: rem(16);
 	&.settingsPhotoBtn {
 		margin-top: 0; //16
 	}
 	&.settingsSubmitBtn {
 		margin-top: 0;
 		@media (max-width: $media-m+px) {
-			margin-top: 10px;
+			margin-top: rem(10);
 		}
 	}
 }
 .link {
 	align-self: flex-start;
-	margin-top: 14px;
+	margin-top: rem(14);
 	color: var(--color02);
 	text-decoration: underline;
 	cursor: pointer;
 	user-select: none;
 	transition: color $timer-hover;
 	&:hover {
-		color: var(--color03);
+		@media (min-width: $media-tl+1+px) {
+			color: var(--color03);
+		}
 	}
 	&.centered {
 		align-self: center;
 	}
 }
 body .checkbox {
-	margin-top: 14px;
+	margin-top: rem(14);
 	align-self: flex-start;
 	color: var(--color02);
 	&.error {
@@ -82,15 +84,14 @@ body .checkbox {
 	}
 }
 .checkboxText {
-	font-size: 16px;
+	font-size: rem(16);
 	& > * {
 		margin-right: em(4);
 	}
 }
 .formMessage {
-	// margin-left: 20px;
-	font-size: 20px;
-	min-height: 24px;
+	font-size: rem(20);
+	min-height: rem(24);
 	color: var(--color08);
 	text-align: center;
 	&.error {
@@ -98,47 +99,47 @@ body .checkbox {
 	}
 	@media (max-width: $media-m+px) {
 		margin-left: 0;
-		font-size: 16px;
-		min-height: 20px;
+		font-size: rem(16);
+		min-height: rem(20);
 	}
 	.settingsForm & {
-		margin-left: 15px;
+		margin-left: rem(15);
 	}
 }
 .sectionTitle {
-	font-size: 18px;
+	font-size: rem(18);
 	&:not(:first-child) {
-		margin-top: 10px;
+		margin-top: rem(10);
 	}
 }
 
 .settingsForm {
 	position: relative;
 	display: grid;
-	grid-template-columns: 410px auto;
-	grid-column-gap: 28px;
-	grid-row-gap: 20px;
+	grid-template-columns: rem(410) auto;
+	grid-column-gap: rem(28);
+	grid-row-gap: rem(20);
 	width: 100%;
-	@media (max-width: $media-t+px) {
+	@media (max-width: $media-ts+px) {
 		grid-template-columns: 2fr 1fr;
 		justify-content: space-between;
 	}
 	@media (max-width: $media-ml+px) {
-		grid-column-gap: 10px;
+		grid-column-gap: rem(10);
 	}
 	@media (max-width: $media-m+px) {
 		grid-template-columns: 100%;
-		grid-row-gap: 10px;
+		grid-row-gap: rem(10);
 	}
 }
 .settingsInputs {
-	max-width: 410px;
+	max-width: rem(410);
 	& > * {
-		margin-bottom: 10px;
+		margin-bottom: rem(10);
 	}
 }
 .settingsPhoto {
-	max-width: 200px;
+	max-width: rem(200);
 	display: inline-flex;
 	flex-direction: column;
 	align-items: center;
@@ -149,7 +150,6 @@ body .checkbox {
 .settingsPhotoBox {
 	position: relative;
 	width: 100%;
-	// height: 100%;
 }
 .settingsPhotoClearBtn {
 	position: absolute;
@@ -157,8 +157,8 @@ body .checkbox {
 	right: 0;
 	z-index: 5;
 	background-color: var(--color01);
-	width: 30px;
-	height: 30px;
+	width: rem(30);
+	height: rem(30);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -181,12 +181,12 @@ body .checkbox {
 
 
 .inputFile {
-	margin-top: 16px;
+	margin-top: rem(16);
 }
 
 .guestButton {
-	margin-top: 20px;
-	padding: 5px 15px;
-	font-size: 20px;
+	margin-top: rem(20);
+	padding: rem(5) rem(15);
+	font-size: rem(20);
 	background-color: var(--color05);
 }

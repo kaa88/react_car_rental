@@ -7,10 +7,10 @@
 		flex-direction: column;
 	}
 	& > * {
-		margin-right: 20px;
+		margin-right: rem(20);
 		@media (max-width: $media-form2+px) {
 			&:not(:first-child) {
-				margin-top: 16px;
+				margin-top: rem(16);
 			}
 		}
 		@media (max-width: $media-ml+px) {

@@ -1,4 +1,13 @@
 // Global elements //
+html {
+	font-size: $font-size-default;
+	@media (max-width: $media-d+px) {
+		font-size: resize-multiplier(16, $media-d, 1.1);
+	}
+	@media (max-width: $media-ds+px) {
+		font-size: 13px;
+	}
+}
 body {
 	// Variables for JS manipulations:
 	--header-position: 0px; //REQ!
@@ -18,7 +27,7 @@ body {
 		--compact-mode-offset: 0px;
 	}
 	font-family: var(--font01);
-	font-size: $font-size-default;
+	font-size: inherit;
 	color: var(--color02);
 	background-color: var(--color01);
 	&.scroll-is-locked, &.loadscreen--locked {
@@ -79,15 +88,15 @@ body {
 	font-weight: 500;
 }
 .fz16 {
-	font-size: 16px;
+	font-size: rem(16);
 }
 .fz20 {
-	font-size: 20px;
+	font-size: rem(20);
 }
 .fz36 {
-	font-size: 36px;
+	font-size: rem(36);
 	@media (max-width: $media-ml+px) {
-		font-size: 24px;
+		font-size: rem(24);
 	}
 }
 .color01 {
