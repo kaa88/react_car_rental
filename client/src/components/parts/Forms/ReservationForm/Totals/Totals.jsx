@@ -35,7 +35,7 @@ const Totals = memo(function Totals({className = '', ...props}) {
 
 	useEffect(() => {
 		dispatch(setReservation({totalPrice: Math.round(selectedCurrencyPrices.total / currencyRate)}))
-	}, [prices.total]) // eslint-disable-line react-hooks/exhaustive-deps
+	})
 
 
 	const fields = [
