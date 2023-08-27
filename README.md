@@ -8,11 +8,10 @@ Server:
 `Node.js, Express, Seqielize, MySQL, JWT`
 
 ### Features:
-- React SPA with routing
+- Car booking service
+- Authorization via JWT
+- Account page
 - Localization (3 languages & 3 currencies)
-- Authorization
-- Account customization (including file upload)
-- Car booking service (creating and editing)
 - Feedbacks
 - Adaptive CSS
 - Uploads compressing
