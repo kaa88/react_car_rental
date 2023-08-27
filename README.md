@@ -22,11 +22,3 @@ Server:
 You can test it [HERE](https://kaa88.alwaysdata.net/react_car_rental)
 
 ### Thanks for visiting
-
----
-
-#### TO DO:
-- cookie popup
-- rotation alert
-- forms spam-bot check
-- mailer
