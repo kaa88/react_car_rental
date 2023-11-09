@@ -11,6 +11,7 @@ import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const PORT = process.env.SERVER_PORT || 5000
+const DOMAIN_BASENAME = process.env.DOMAIN_BASENAME || ''
 
 const app = express()
 app.use(express.json())
@@ -21,7 +22,7 @@ app.use(cors({
 	origin: process.env.CLIENT_URL,
 	credentials: true
 }))
-app.use('/api', router)
+app.use(DOMAIN_BASENAME + '/api', router)
 
 app.use(errorMiddleware)
 
