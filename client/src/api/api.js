@@ -3,7 +3,7 @@ import axios from "axios";
 const settings = {
 	baseURL: process.env.REACT_APP_API_URL,
 	withCredentials: true,
-	timeout: 3000,
+	timeout: 10000,
 }
 
 const api = axios.create(settings)
